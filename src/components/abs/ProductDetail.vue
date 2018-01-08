@@ -12,12 +12,15 @@
 </style>
 
 <script>
+import BusUtil from './BusUtil';
+
 export default {
   name: 'productDetail',
   created() {
+    const busUtil = BusUtil.getInstance();
     this.id = this.$route.params.id;
-    // console.log(this.$route.params.id);
     this.fetchProductDetail(this.id);
+    busUtil.bus.$emit('showHeader', true);
   },
   data() {
     return {
