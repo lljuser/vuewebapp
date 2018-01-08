@@ -9,7 +9,7 @@
 import { Toast } from 'mint-ui';
 
 export default {
-  name: 'Form',
+  name: 'ProductItem',
   props: ['id'],
   created() {
   },

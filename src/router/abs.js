@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import Product from '@/components/abs/Product';
 import Market from '@/components/abs/Market';
 import Trade from '@/components/abs/Trade';
-import Form from '@/components/abs/Form';
+import TradeItem from '@/components/abs/TradeItem';
 import ProductItem from '@/components/abs/ProductItem';
 
 Vue.use(Router);
@@ -12,17 +12,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Product',
+      name: 'market',
       component: Market,
     },
     {
       path: '/product',
-      name: 'Product',
+      name: 'product',
       component: Product,
     },
     {
       path: '/market',
-      name: 'Market',
+      name: 'market',
       component: Market,
     },
     {
@@ -31,9 +31,9 @@ export default new Router({
       component: Trade,
     },
     {
-      path: '/form/:id',
-      name: 'form',
-      component: Form,
+      path: '/tradeitem/:id',
+      name: 'tradeitem',
+      component: TradeItem,
     },
     {
       path: '/productItem/:id',

@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'Form',
+  name: 'TradeItem',
   props: ['id'],
   data() {
     return {
