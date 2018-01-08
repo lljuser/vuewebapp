@@ -1,5 +1,5 @@
 <template>
-  <div id="app"> 
+  <div id="app" class="cnabs-bg"> 
     <router-link to="/market">
       <a href="javascript:;">市场</a>
     </router-link>
@@ -14,7 +14,9 @@
   </div>
 </template>
 
-<script>
+<script> 
+import '@/public/css/theme.css';
+
 export default {
   name: 'abs',
 };
