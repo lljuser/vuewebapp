@@ -13,7 +13,7 @@
 import ProductItem from './ProductItem';
 
 export default {
-  name: 'Product',
+  name: 'product',
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',

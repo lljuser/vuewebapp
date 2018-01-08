@@ -13,14 +13,9 @@
 <script>
 import { Toast } from 'mint-ui';
 
-export default {
-<<<<<<< HEAD
-  name: 'ProductItem',
-  props: ['id'],
-=======
-  name: 'productItem',
-  props: ['id', 'item'],
->>>>>>> 41827f48178cad8a0c9e295b3a2a709d6a8f5fe4
+export default { 
+  name: 'productItem', 
+  props: ['id', 'item'], 
   created() {
   },
   data() {

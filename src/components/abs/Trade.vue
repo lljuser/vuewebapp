@@ -17,7 +17,7 @@
 import TradeItem from './TradeItem';
 
 export default {
-  name: 'Product',
+  name: 'trade',
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
