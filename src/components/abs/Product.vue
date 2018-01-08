@@ -3,13 +3,9 @@
     <h1>产品页</h1>
     <a href="javascript:;"></a>
 
-    <div v-for="user in list" :key="user.index">
-      <router-link :to="{ name: 'productItem', params: { id: user.index, user, }}">
-        Go to Product {{ user.index }} 
-        <br/>
-      </router-link>
+    <div v-for="item in list" :key="item.index">
+      <ProductItem :item="item" />
     </div>
-    
   </div>
 </template>
 
@@ -21,13 +17,26 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      list: [
-        { name: 'zhangsan', index: 1 },
-        { name: 'lisi', index: 2 },
-        { name: 'wangwu', index: 3 },
-        { name: 'zhangliu', index: 4 },
-      ],
+      // list: [
+      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '5%~6%', index: 1 },
+      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '6.00%', index: 2 },
+      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '7.50%', index: 3 },
+      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '3%~4%', index: 4 },
+      // ],
+      list: [],
     };
+  },
+  created() {
+    this.fetchProducts();
+  },
+  methods: {
+    fetchProducts() {
+      fetch('http://10.1.1.35/Demo/DemoProduct/getlist')
+      .then(response => response.json())
+      .then((json) => {
+        this.list = json.data;
+      });
+    },
   },
   components: {
     ProductItem,

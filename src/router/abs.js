@@ -5,6 +5,7 @@ import Market from '@/components/abs/Market';
 import Trade from '@/components/abs/Trade';
 import TradeItem from '@/components/abs/TradeItem';
 import ProductItem from '@/components/abs/ProductItem';
+import ProductDetail from '@/components/abs/ProductDetail';
 
 Vue.use(Router);
 
@@ -39,6 +40,11 @@ export default new Router({
       path: '/productItem/:id',
       name: 'productItem',
       component: ProductItem,
+    },
+    {
+      path: '/productDetail/:id',
+      name: 'productDetail',
+      component: ProductDetail,
     },
   ],
 });
