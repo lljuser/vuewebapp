@@ -10,6 +10,8 @@ const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+// webpack-bundle-analyzer
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -46,10 +48,35 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
+      filename: 'abs.html',
+      template: 'abs.html',
+      chunks:['abs'],
+      inject: true,
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'expert.html',
+      template: 'expert.html',
+      chunks:['expert'],
       inject: true
     }),
+    new BundleAnalyzerPlugin(
+      { 
+        analyzerMode: 'static', 
+        // analyzerHost: '127.0.0.1', 
+        // analyzerPort: 3334, 
+        reportFilename: 'report.html', 
+        defaultSizes: 'parsed',
+        // Automatically open report in default browser
+        openAnalyzer: false,
+        // If `true`, Webpack Stats JSON file will be generated in bundles output directory
+        generateStatsFile: true,
+        // Name of Webpack Stats JSON file that will be generated if `generateStatsFile` is `true`.         
+        statsFilename: 'stats.json', 
+        statsOptions: null,
+        // Log level. Can be 'info', 'warn', 'error' or 'silent'.
+        logLevel: 'info'
+      }
+    ),
   ]
 })
 
