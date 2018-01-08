@@ -1,8 +1,8 @@
 <template>
   <div class="item">
     <p class="name">
-      <router-link :to="`ProductDetail/${item.index}`">
-        {{ item.title }}
+      <router-link :to="`productDetail/${id}`">
+        {{ item.Title }}
       </router-link>
     </p>
     <p class="raking">{{ item.Content }}</p>
