@@ -7,12 +7,15 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const cnabsConfig = require('./cnabs')
+console.log(cnabsConfig);
+console.log("----------------------------------");
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 // webpack-bundle-analyzer
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
+ 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -48,35 +51,35 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'abs.html',
-      template: 'abs.html',
-      chunks:['abs'],
+      filename: cnabsConfig.abs.output,
+      template: cnabsConfig.abs.tmpl,
+      chunks:[ cnabsConfig.abs.name], 
       inject: true,
     }),
     new HtmlWebpackPlugin({
-      filename: 'expert.html',
-      template: 'expert.html',
-      chunks:['expert'],
+      filename: cnabsConfig.expert.output,
+      template: cnabsConfig.expert.tmpl,
+      chunks:[ cnabsConfig.expert.name], 
       inject: true
     }),
-    new BundleAnalyzerPlugin(
-      { 
-        analyzerMode: 'static', 
-        // analyzerHost: '127.0.0.1', 
-        // analyzerPort: 3334, 
-        reportFilename: 'report.html', 
-        defaultSizes: 'parsed',
-        // Automatically open report in default browser
-        openAnalyzer: false,
-        // If `true`, Webpack Stats JSON file will be generated in bundles output directory
-        generateStatsFile: true,
-        // Name of Webpack Stats JSON file that will be generated if `generateStatsFile` is `true`.         
-        statsFilename: 'stats.json', 
-        statsOptions: null,
-        // Log level. Can be 'info', 'warn', 'error' or 'silent'.
-        logLevel: 'info'
-      }
-    ),
+    // new BundleAnalyzerPlugin(
+    //   { 
+    //     analyzerMode: 'static', 
+    //     // analyzerHost: '127.0.0.1', 
+    //     // analyzerPort: 3334, 
+    //     reportFilename: 'report.html', 
+    //     defaultSizes: 'parsed',
+    //     // Automatically open report in default browser
+    //     openAnalyzer: false,
+    //     // If `true`, Webpack Stats JSON file will be generated in bundles output directory
+    //     generateStatsFile: true,
+    //     // Name of Webpack Stats JSON file that will be generated if `generateStatsFile` is `true`.         
+    //     statsFilename: 'stats.json', 
+    //     statsOptions: null,
+    //     // Log level. Can be 'info', 'warn', 'error' or 'silent'.
+    //     logLevel: 'info'
+    //   }
+    // ),
   ]
 })
 

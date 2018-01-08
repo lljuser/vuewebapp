@@ -9,9 +9,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin') 
 const env = require('../config/prod.env')
+const cnabsConfig = require('./cnabs')
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -60,9 +60,25 @@ const webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
+    // new HtmlWebpackPlugin({
+    //   filename: config.build.index,
+    //   template: 'index.html',
+    //   inject: true,
+    //   minify: {
+    //     removeComments: true,
+    //     collapseWhitespace: true,
+    //     removeAttributeQuotes: true
+    //     // more options:
+    //     // https://github.com/kangax/html-minifier#options-quick-reference
+    //   },
+    //   // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+    //   chunksSortMode: 'dependency'
+    // }),
     new HtmlWebpackPlugin({
-      filename: config.build.index,
-      template: 'index.html',
+      filename: cnabsConfig.abs.output,
+      template: cnabsConfig.abs.tmpl,
+      chunks: [ 'vendor','manifest','cnabs', cnabsConfig.abs.name ],
+      chunksSortMode: 'dependency',
       inject: true,
       minify: {
         removeComments: true,
@@ -71,8 +87,20 @@ const webpackConfig = merge(baseWebpackConfig, {
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
+    }),
+    new HtmlWebpackPlugin({
+      filename: cnabsConfig.expert.output,
+      template: cnabsConfig.expert.tmpl,
+      chunks: [ 'vendor','manifest','cnabs', cnabsConfig.expert.name ],
+      chunksSortMode: 'dependency',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
     }),
     // keep module.id stable when vender modules does not change
     new webpack.HashedModuleIdsPlugin(),
@@ -102,7 +130,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // in a separate chunk, similar to the vendor chunk
     // see: https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'app',
+      name: 'cnabs',
       async: 'vendor-async',
       children: true,
       minChunks: 3
