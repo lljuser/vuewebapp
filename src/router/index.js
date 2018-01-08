@@ -3,6 +3,8 @@ import Router from 'vue-router';
 import Product from '@/components/Product';
 import Market from '@/components/Market';
 import Trade from '@/components/Trade';
+import Form from '@/components/Form';
+import ProductItem from '@/components/ProductItem';
 
 Vue.use(Router);
 
@@ -27,6 +29,16 @@ export default new Router({
       path: '/trade',
       name: 'trade',
       component: Trade,
+    },
+    {
+      path: '/form/:id',
+      name: 'form',
+      component: Form,
+    },
+    {
+      path: '/productItem/:id',
+      name: 'productItem',
+      component: ProductItem,
     },
   ],
 });

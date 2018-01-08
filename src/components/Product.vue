@@ -1,20 +1,36 @@
 <template>
   <div class="hello">
     <h1>产品页</h1>
-    <p>这是一个产品页</p>
-    <p>这是一个产品页</p>
-    <p>这是一个产品页</p>
-    <p>这是一个产品页2</p>
+    <a href="javascript:;"></a>
+
+    <div v-for="user in list" :key="user.index">
+      <router-link :to="{ name: 'productItem', params: { id: user.index, user, }}">
+        Go to Product {{ user.index }} 
+        <br/>
+      </router-link>
+    </div>
+    
   </div>
 </template>
 
 <script>
+import ProductItem from './ProductItem';
+
 export default {
   name: 'Product',
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
+      list: [
+        { name: 'zhangsan', index: 1 },
+        { name: 'lisi', index: 2 },
+        { name: 'wangwu', index: 3 },
+        { name: 'zhangliu', index: 4 },
+      ],
     };
+  },
+  components: {
+    ProductItem,
   },
 };
 </script>
