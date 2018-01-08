@@ -3,8 +3,8 @@
 import Vue from 'vue';
 import MintUI from 'mint-ui';
 import 'mint-ui/lib/style.css';
-import router from './router';
-import App from './App';
+import router from './router/abs';
+import App from './components/Abs';
 
 Vue.use(MintUI);
 Vue.config.productionTip = false;

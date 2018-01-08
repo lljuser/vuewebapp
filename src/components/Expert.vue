@@ -1,24 +1,18 @@
 <template>
-  <div id="app">
-    <router-link to="/product">
-      <a href="javascript:;">产品</a>
+  <div id="app"> 
+    <router-link to="/user">
+      <a href="javascript:;">用户</a>
     </router-link>
-
-    <router-link to="/market">
-      <a href="javascript:;">市场</a>
-    </router-link>
-
-    <router-link to="/trade">
-      <a href="javascript:;">交易</a>
-    </router-link>
-
+    <router-link to="/edit">
+      <a href="javascript:;">修改</a>
+    </router-link> 
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
+  name: 'expert',
 };
 </script>
 

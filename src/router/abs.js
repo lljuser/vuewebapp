@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Product from '@/components/Product';
-import Market from '@/components/Market';
-import Trade from '@/components/Trade';
-import Form from '@/components/Form';
-import ProductItem from '@/components/ProductItem';
+import Product from '@/components/abs/Product';
+import Market from '@/components/abs/Market';
+import Trade from '@/components/abs/Trade';
+import Form from '@/components/abs/Form';
+import ProductItem from '@/components/abs/ProductItem';
 
 Vue.use(Router);
 
@@ -13,7 +13,7 @@ export default new Router({
     {
       path: '/',
       name: 'Product',
-      component: Product,
+      component: Market,
     },
     {
       path: '/product',
