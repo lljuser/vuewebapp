@@ -1,7 +1,12 @@
 <template>
-  <div class="form">
-    <p @click.stop="onClick">ID: {{ $route.params.id }}</p>
-    <input :value="$route.params.user && $route.params.user.name"/>
+  <div class="item">
+    <p class="name">
+      <router-link :to="`ProductDetail/${item.index}`">
+        {{ item.title }}
+      </router-link>
+    </p>
+    <p class="raking">{{ item.Content }}</p>
+    <p class="year">{{ item.Time }}</p>
   </div>
 </template>
 
@@ -9,8 +14,8 @@
 import { Toast } from 'mint-ui';
 
 export default {
-  name: 'Form',
-  props: ['id'],
+  name: 'productItem',
+  props: ['id', 'item'],
   created() {
   },
   data() {
@@ -31,5 +36,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.item {
+  display: flex;
+  flex-direction: 'row';
+  justify-content: center;
+}
+.item p {
+  margin-right: 38px;
+}
 </style>
