@@ -1,17 +1,108 @@
 <template>
   <div class="hello">
+    <highcharts :options="options"></highcharts>
+    <hr />
     <h1>市场页</h1>
     <p v-for="row in list" :key="row.id" v-html="row.content"></p>
   </div>
 </template>
 
 <script>
+import Vue from "vue";
+import VueHighcharts from "vue-highcharts";
+import Highcharts from "highcharts";
+
+// load these modules as your need
+import loadStock from "highcharts/modules/stock";
+import loadMap from "highcharts/modules/map";
+import loadDrilldown from "highcharts/modules/drilldown";
+// some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
+import loadHighchartsMore from "highcharts/highcharts-more";
+import loadSolidGauge from "highcharts/modules/solid-gauge";
+import * as chartTheme  from "@/public/js/chartTheme";
+
+loadStock(Highcharts);
+loadMap(Highcharts);
+loadDrilldown(Highcharts);
+loadHighchartsMore(Highcharts);
+loadSolidGauge(Highcharts);
+
+Vue.use(VueHighcharts, { Highcharts });
+
+
+Highcharts.setOptions(chartTheme);
+
+
 export default {
-  name: 'market',
+  name: "market",
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: "Welcome to Your Vue.js App",
       list: [],
+      options: {
+        title: {
+          text: "2010 ~ 2016 年太阳能行业就业人员发展情况"
+        },
+        subtitle: {
+          text: "数据来源：thesolarfoundation.com"
+        },
+        yAxis: {
+          title: {
+            text: "就业人数"
+          }
+        },
+        legend: {
+          layout: "vertical",
+          align: "right",
+          verticalAlign: "middle"
+        },
+        plotOptions: {
+          series: {
+            label: {
+              connectorAllowed: false
+            },
+            pointStart: 2010
+          }
+        },
+        series: [
+          {
+            name: "安装，实施人员",
+            data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+          },
+          {
+            name: "工人",
+            data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+          },
+          {
+            name: "销售",
+            data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+          },
+          {
+            name: "项目开发",
+            data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+          },
+          {
+            name: "其他",
+            data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
+          }
+        ],
+        responsive: {
+          rules: [
+            {
+              condition: {
+                maxWidth: 500
+              },
+              chartOptions: {
+                legend: {
+                  layout: "horizontal",
+                  align: "center",
+                  verticalAlign: "bottom"
+                }
+              }
+            }
+          ]
+        }
+      }
     };
   },
   created() {
@@ -19,17 +110,20 @@ export default {
   },
   methods: {
     fetchPost() {
-      fetch('http://cnodejs.org/api/v1/topics').then(response => response.json()).then((json) => {
-        this.list = json.data;
-      });
-    },
-  },
+      fetch("http://cnodejs.org/api/v1/topics")
+        .then(response => response.json())
+        .then(json => {
+          this.list = json.data;
+        });
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 ul {
