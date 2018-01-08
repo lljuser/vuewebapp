@@ -19,8 +19,7 @@ export default {
   },
   methods: {
     fetchPost() {
-      fetch('http://cnodejs.org/api/v1/topics').then(response => response.json())
-      .then((json) => {
+      fetch('http://cnodejs.org/api/v1/topics').then(response => response.json()).then((json) => {
         this.list = json.data;
       });
     },
