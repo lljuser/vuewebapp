@@ -2,9 +2,8 @@
   <div class="hello">
     <h1>产品页</h1>
     <a href="javascript:;"></a>
-
-    <div v-for="item in list" :key="item.index">
-      <ProductItem :item="item" />
+    <div v-for="(item, index) in list" :key="index">
+      <ProductItem :item="item" :id="index" />
     </div>
   </div>
 </template>
