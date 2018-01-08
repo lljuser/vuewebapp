@@ -112,11 +112,11 @@ export default {
     fetchPost() {
       fetch("http://cnodejs.org/api/v1/topics")
         .then(response => response.json())
-        .then(json => {
+        .then((json) => {
           this.list = json.data;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

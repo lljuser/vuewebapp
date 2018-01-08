@@ -2,7 +2,13 @@
   <div class="hello">
     <h1>产品页</h1>
     <a href="javascript:;"></a>
-    <div v-for="(item, index) in list" :key="index">
+    <div 
+      v-for="(item, index) in list" 
+      :key="index" 
+      v-infinite-scroll="loadMore"
+      infinite-scroll-disabled="loading"
+      infinite-scroll-immediate-check="true"
+      infinite-scroll-distance="55">
       <ProductItem :item="item" :id="index" />
     </div>
   </div>
@@ -16,24 +22,35 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      // list: [
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '5%~6%', index: 1 },
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '6.00%', index: 2 },
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '7.50%', index: 3 },
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '3%~4%', index: 4 },
-      // ],
       list: [],
+      page: 0,
+      loading: false,
     };
   },
   created() {
     this.fetchProducts();
   },
   methods: {
+    loadMore() {
+      this.loading = true;
+      setTimeout(() => {
+        this.fetchProducts();
+      }, 1000);
+    },
     fetchProducts() {
-      fetch('http://10.1.1.35/Demo/DemoProduct/getlist')
+      fetch(`http://10.1.1.35/Demo/DemoProduct/getlist/${this.page}`)
       .then(response => response.json())
       .then((json) => {
-        this.list = json.data;
+        const data = json.data;
+        if (data && data.length > 0) {
+          if (this.list.length > 0) {
+            this.list = this.list.concat(json.data);
+          } else {
+            this.list = json.data;
+          }
+          this.page = this.page + 1;
+          this.loading = false;
+        }
       });
     },
   },
