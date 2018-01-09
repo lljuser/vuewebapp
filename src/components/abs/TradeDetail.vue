@@ -1,7 +1,7 @@
 <template>
 <div class="appH5_body">
   <div class="appH5_content">
-    <table border="0" cellspacing="0" cellpadding="0">
+    <table class="appH5_panel" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td colspan="4" class="pdrSpecial">
           <span class="fl appH5_color_green">产品名称</span>  
@@ -108,6 +108,7 @@ export default {
 <style scoped>
 .appH5_content{
   margin-bottom: 1.6rem; 
+  width: 100%;
 }
 .fl{
   float: left;
@@ -146,10 +147,6 @@ export default {
   -webkit-border-radius:50%;
   background-color: #fff;
 }
-.appH5_content table{
-  padding: .32rem;
-  width: 100%;
-}
 .appH5_content table .touxiang,.phoneImg{
   width: .8rem;
   height: .8rem;
@@ -176,15 +173,16 @@ export default {
   position: fixed;
   left: 0;
   bottom: 0;
+  width: 100%;
 }
 .fixedLeft{
-  width: 6.533rem;
+  width: 65%;
   height: 1.6rem;
   background-color: #47423c;
   color: #fff;
 }
 .fixedRight{
-  width: 3.467rem;
+  width: 35%;
   height: 1.6rem;
   background-color: #ff7271;
   align-items:center;
@@ -201,7 +199,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: .2933rem;
+  font-size: .3rem;
 }
 @media only screen and (min-width: 320px) and (max-width: 374px){
   .appH5_content table tr td:nth-child(2){
