@@ -1,53 +1,55 @@
 <template>
-  <div>
- <div class="appH5_panel">
-   <table class="select_div">
-     <tr>
-       <td class="text-left">
-         <select v-model="marketType">
-        <option value="">市场分类</option>
-        <option>A</option>
-        <option>B</option>
-        <option>C</option>
-        </select>
-        </td>
-       <td>
-         <select v-model="productType">
-          <option  value="">产品分类</option>
-          <option>A</option>
-          <option>B</option>
-          <option>C</option>
-        </select>
-        </td>
-       <td class="text-right"> 
-         <select v-model="issueState">
-          <option  value="">发行状态</option>
-          <option>A</option>
-          <option>B</option>
-          <option>C</option>
+  <div class="appH5_panel">
+    <table class="select_div">
+      <tr>
+        <td class="text-left">
+          <select v-model="marketType">
+            <option value="">市场分类</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
           </select>
         </td>
-    </tr>
-   </table>
-     
-    <mt-loadmore :top-method="loadTop" ref="loadmore" :topDistance="70">
-        <table class="appH5_table"  >
-            <tr>
-                <th>产品名称</th>
-                <th class="text-right">总额(亿)</th>
-                <th>产品分类</th>
-                <th class="text-right">发行日期</th>
-            </tr>
-          <ProductItem :item="item" :id="index"  v-for="(item, index) in list" 
-                      :key="index" 
-                      v-infinite-scroll="loadMore"
-                      infinite-scroll-disabled="loading"
-                      infinite-scroll-immediate-check="true"
-                      infinite-scroll-distance="55"/>
-          </table>
+        <td>
+          <select v-model="productType">
+            <option  value="">产品分类</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+          </select>
+        </td>
+        <td class="text-right"> 
+          <select v-model="issueState">
+            <option  value="">发行状态</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            </select>
+        </td>
+      </tr>
+    </table>
+    
+    <mt-loadmore :top-method="loadTop" ref="loadmore" :topDistance="70" topPullText="">
+      <table class="appH5_table"  >
+        <tr>
+          <th>产品名称</th>
+          <th class="text-right">总额(亿)</th>
+          <th>产品分类</th>
+          <th class="text-right">发行日期</th>
+        </tr>
+
+        <ProductItem 
+          v-for="(item, index) in list" 
+          :item="item"
+          :id="index"
+          :key="index"
+          v-infinite-scroll="loadMore"
+          infinite-scroll-disabled="loading"
+          infinite-scroll-immediate-check="true"
+          infinite-scroll-distance="55"/>
+      </table>
     </mt-loadmore>
-  
-  </div>
+    
   </div>
 </template>
 
