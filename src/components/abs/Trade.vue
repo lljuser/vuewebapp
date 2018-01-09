@@ -170,6 +170,7 @@ a {
 }
 #tradeTableId tr td:nth-of-type(1){
   color: #ffc446;
+  padding: 0.333333rem 0!important;
 }
 #tradeTableId tr th:nth-of-type(2){
   text-align: right;
