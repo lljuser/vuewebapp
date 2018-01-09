@@ -5,6 +5,13 @@ body{
 	background-color: #383431;
 	padding-top: 0.32rem;
 }
+.mint-header {
+	background-color: #2c2a29;
+}
+.mint-header-title {
+	font-size: 19px;
+	margin: 0;
+}
 .appH5_body{
 	color:#fff;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
@@ -27,7 +34,11 @@ body{
 	background-color: #2c2a29;
 	margin-bottom: 0.32rem;
 }
-.router-link-active {
+.appH5_navbar_bg {
+	background-color: #2c2a29;
+	margin-bottom: 0.32rem;
+}
+.appH5_navbar .router-link-active {
 	border-color: #ffc445;
 	border-bottom-width: 3px;
 	border-bottom-style: solid;
