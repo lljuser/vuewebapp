@@ -12,25 +12,25 @@
           <th>累计总额(亿)</th>
         </tr>
         <tr>
-          <td>信贷ABS</td>
+          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">信贷ABS</a></router-link></td>
           <td class="text-right">1</td>
           <td class="text-right">5</td>
           <td class="text-right">442</td>
         </tr>
         <tr>
-          <td>企业ABS</td>
+          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">企业ABS</a></router-link></td>
           <td class="text-right">0</td>
           <td class="text-right">0</td>
           <td class="text-right">1183</td>
         </tr>
         <tr>
-          <td>ABN</td>
+          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">ABN</a></router-link></td>
           <td class="text-right">1</td>
           <td class="text-right">10</td>
           <td class="text-right">67</td>
         </tr>
         <tr>
-          <td>保险ABS</td>
+          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">保险ABS</a></router-link></td>
           <td class="text-right">1</td>
           <td class="text-right">2</td>
           <td class="text-right">3</td>
