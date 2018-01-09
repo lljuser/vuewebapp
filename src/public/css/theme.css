@@ -95,6 +95,7 @@ select{
 	border:none;
 	border-radius: 0.053333rem;
 	background-color: #fff;
+	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
 }
 /*button CSS*/
 .appH5_btn_larger_blue{
@@ -176,6 +177,7 @@ select{
 }
 .appH5_color_link{
 	color:#ffc446;
+	text-decoration: none;
 }
 .appH5_border_bottom{
 	border-bottom: 0.013333rem solid #3B3A39;

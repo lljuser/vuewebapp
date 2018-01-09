@@ -1,35 +1,73 @@
 <template>
-  <div class="hello">
-    <h1>产品页</h1>
-    <a href="javascript:;"></a>
+  <div>
+ <div class="appH5_panel">
+   <table class="select_div">
+     <tr>
+       <td class="text-left">
+         <select v-model="marketType">
+        <option value="">市场分类</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+        </select>
+        </td>
+       <td>
+         <select v-model="productType">
+          <option  value="">产品分类</option>
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+        </select>
+        </td>
+       <td class="text-right"> 
+         <select v-model="issueState">
+          <option  value="">发行状态</option>
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+          </select>
+        </td>
+    </tr>
+   </table>
+     
     <mt-loadmore :top-method="loadTop" ref="loadmore" :topDistance="70">
-      <div 
-        v-for="(item, index) in list" 
-        :key="index" 
-        v-infinite-scroll="loadMore"
-        infinite-scroll-disabled="loading"
-        infinite-scroll-immediate-check="true"
-        infinite-scroll-distance="55">
-        <ProductItem :item="item" :id="index" />
-      </div>
+        <table class="appH5_table"  >
+            <tr>
+                <th>产品名称</th>
+                <th class="text-right">总额(亿)</th>
+                <th>产品分类</th>
+                <th class="text-right">发行日期</th>
+            </tr>
+          <ProductItem :item="item" :id="index"  v-for="(item, index) in list" 
+                      :key="index" 
+                      v-infinite-scroll="loadMore"
+                      infinite-scroll-disabled="loading"
+                      infinite-scroll-immediate-check="true"
+                      infinite-scroll-distance="55"/>
+          </table>
     </mt-loadmore>
+  
+  </div>
   </div>
 </template>
 
 <script>
-import ProductItem from './ProductItem';
+import ProductItem from "./ProductItem";
 
 export default {
-  name: 'product',
+  name: "product",
   data() {
     return {
       list: [],
       page: 1,
       loading: false,
+      marketType: "",
+      productType: "",
+      issueState: ""
     };
   },
   created() {
-    this.fetchProducts(1, (data) => {
+    this.fetchProducts(1, data => {
       this.list = data;
       this.page = this.page + 1;
     });
@@ -37,7 +75,7 @@ export default {
   methods: {
     loadTop() {
       setTimeout(() => {
-        this.fetchProducts(1, (data) => {
+        this.fetchProducts(1, data => {
           this.list = data;
           this.page = 2;
           this.loading = false;
@@ -48,7 +86,7 @@ export default {
     loadMore() {
       this.loading = true;
       setTimeout(() => {
-        this.fetchProducts(this.page, (data) => {
+        this.fetchProducts(this.page, data => {
           if (this.page > 1) {
             this.list = this.list.concat(data);
           } else {
@@ -61,24 +99,33 @@ export default {
     },
     fetchProducts(page, callback) {
       fetch(`http://10.1.1.35/Demo/DemoProduct/getlist/${page}`)
-      .then(response => response.json())
-      .then((json) => {
-        const data = json.data;
-        if (data && data.length > 0) {
-          callback(data);
-        }
-      });
-    },
+        .then(response => response.json())
+        .then(json => {
+          const data = json.data;
+          if (data && data.length > 0) {
+            callback(data);
+          }
+        });
+    }
   },
   components: {
-    ProductItem,
-  },
+    ProductItem
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+.select_div {
+  display: table;
+  width: 100%;
+  height: 1.227rem;
+}
+.select_div td {
+  vertical-align: top;
+}
+h1,
+h2 {
   font-weight: normal;
 }
 ul {
@@ -88,8 +135,5 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
-}
-a {
-  color: #42b983;
 }
 </style>

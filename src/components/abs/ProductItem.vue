@@ -1,13 +1,14 @@
 <template>
-  <div class="item">
-    <p class="name">
-      <router-link :to="`productDetail/${id}`">
+  <tr>
+    <td class="text-left">
+      <router-link :to="`productDetail/${id}`" class="appH5_color_link" style=""  >
         {{ item.Title }}
       </router-link>
-    </p>
-    <p class="raking">{{ item.Content }}</p>
-    <p class="year">{{ item.Time }}</p>
-  </div>
+    </td>
+    <td class="text-right appH5_color_red">22.00</td>
+    <td style="color:white">{{ item.Content }}</td>
+    <td style="color:white" class="text-right">{{ item.Time | moment("YYYY-MM-DD") }}</td>
+  </tr>
 </template>
 
 <script>
@@ -36,12 +37,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.item {
-  display: flex;
-  flex-direction: 'row';
-  justify-content: center;
-}
-.item p {
-  margin-right: 38px;
-}
+ 
 </style>
