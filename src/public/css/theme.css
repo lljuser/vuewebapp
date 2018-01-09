@@ -23,6 +23,7 @@ body{
 	margin: 0; 
 	background-color: #373430;
 	text-align:left;
+	padding-top: 1.35266rem;
 }
 .appH5_content{
 	margin: 0 auto;
@@ -37,10 +38,14 @@ body{
 	justify-content: space-around;
 	background-color: #2c2a29;
 	margin-bottom: 0.2899rem;
+	position: fixed;
+	width: 100%;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
 	margin-bottom: 0.2899rem;
+	position: fixed;
+	width: 100%;
 }
 .appH5_navbar .router-link-active {
 	border-color: #ffc445;
