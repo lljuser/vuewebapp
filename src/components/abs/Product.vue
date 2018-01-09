@@ -2,6 +2,9 @@
   <div class="hello">
     <h1>产品页</h1>
     <a href="javascript:;"></a>
+    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+
+    </mt-loadmore>
     <div 
       v-for="(item, index) in list" 
       :key="index" 
@@ -31,6 +34,12 @@ export default {
     this.fetchProducts();
   },
   methods: {
+    loadTop() {
+      this.page = 1;
+      this.fetchProducts();
+      // 加载更多数据
+      this.$refs.loadmore.onTopLoaded();
+    },
     loadMore() {
       this.loading = true;
       setTimeout(() => {
