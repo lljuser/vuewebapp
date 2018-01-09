@@ -83,7 +83,7 @@ a:hover{
 	font-size: 19px;
 }
 .appH5_font_largest{
-	font-size: 0.8rem;
+	font-size: 0.8rem !important;
 }
 /*文字颜色*/
 .appH5_color_disabled{
