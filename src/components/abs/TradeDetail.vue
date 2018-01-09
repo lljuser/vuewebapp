@@ -11,7 +11,7 @@
       </tr>
       <tr>
         <td class="appH5_color_green">金额&nbsp;(亿)</td>
-        <td class="appH5_color_red font19">66.00</td>
+        <td class="appH5_color_red appH5_font_larger">66.00</td>
         <td class="appH5_color_green">产品类型</td>
         <td class="appH5_color_link">企业资产证券化</td>
       </tr>
@@ -96,9 +96,14 @@
 </template>
 
 <script> 
+import BusUtil from './BusUtil';
 export default {
   name: 'tradeDetail',
   props: ['id'],
+   created() {
+    const busUtil = BusUtil.getInstance();
+    busUtil.bus.$emit('showHeader', true);
+  },
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -111,9 +116,6 @@ export default {
 <style scoped>
 .appH5_content{
   width: 100%;
-}
-.font19{
-    font-size: 19px;
 }
 .fl{
   float: left;

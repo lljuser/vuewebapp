@@ -76,7 +76,7 @@
 <script>
 import $ from 'jquery';
 //import jQuery from 'jquery';
-import '@/public/modules/expert/flexible';
+//import '@/public/modules/expert/flexible';
 import util from '@/public/modules/expert/utils';
 // import '@/scripts/expert/api.min.js';
 // import '@/scripts/expert/search.min.js';

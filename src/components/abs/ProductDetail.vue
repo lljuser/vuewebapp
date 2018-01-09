@@ -150,6 +150,7 @@ import BusUtil from './BusUtil';
 import Vue from 'vue';
 import VueHighcharts from 'vue-highcharts';
 import Highcharts from 'highcharts';
+import getParams from '../../public/js/getParams';
 
 // some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
 import * as chartTheme from '@/public/js/chartTheme';
@@ -160,10 +161,19 @@ export default {
   name: 'productDetail',
   created() {
     const busUtil = BusUtil.getInstance();
+    
     this.id = this.$route.params.id;
-    this.fetchProductDetail(this.id);
+    if (this.id) {
+      this.fetchProductDetail(this.id);
+    }
     this.fetchProductPaymentChart(440,28203);//(this.dealId, this.resultId);
     busUtil.bus.$emit('showHeader', true);
+
+    // url 传来的id
+    const productId = getParams("id");
+    if (productId) {
+      this.fetchProductDetail(productId);
+    }
   },
   data() {
     return {
