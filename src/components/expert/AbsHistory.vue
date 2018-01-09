@@ -49,7 +49,12 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveProjectHistoryABS">保存</span>
-                <span v-if="queryString.id === undefined" class="ep_cancelBtn fr"><a href="/expert/expertuser/editProfile#projectHistoryABS" class="ep_color_orange">取消</a></span>
+                <span v-if="queryString.id === undefined" class="ep_cancelBtn fr">
+                    <router-link to="/">
+                        取消
+                    </router-link>
+                    <!-- <a href="/expert/expertuser/editProfile#projectHistoryABS" class="ep_color_orange">取消</a> -->
+                </span>
                 <span v-else class="ep_removeBtn fr" v-on:click="removePopupVisible=true">删除本条</span>
             </div>
             <div class="ep_paddingLeft30 ep_color_grey ep_font24">

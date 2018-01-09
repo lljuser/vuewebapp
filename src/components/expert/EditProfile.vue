@@ -2,10 +2,10 @@
     <div class="editProfileContent" id="editProfileContent" v-cloak>
         <section class="ep_part" id="basicInformation">
             <header class="ep_part_title ep_part_item_border">
-                <img class="ep_icon fl" src="../../images/person.png" />
+                <img class="ep_icon fl" src="../../public/images/person.png" />
                 <span class='fl'>基本信息</span>
                 <router-link to="BasicInfomation">
-                    <img class="fr editPencils" src="../../images/pencils.png" alt="">
+                    <img class="fr editPencils" src="../../public/images/pencils.png" alt="">
                 </router-link>
             </header>
             <div class="ep_part_item ep_part_item_border">
@@ -33,7 +33,7 @@
         </section>
         <section class="ep_part" id="projectHistoryABS">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.ABSProjects)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../images/projectHistory.png" />
+                <img class="ep_icon fl" src="../../public/images/projectHistory.png" />
                 <span class='fl'>ABS项目经历</span>
                 <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
                     <span class="ep_color_grey2 fl">(共</span>
@@ -43,7 +43,7 @@
                     <span class="ep_color_grey2 fl">亿)</span>
                 </span>  
                 <a class="fr" href="/expert/expertuser/projectHistoryABS">
-                    <img class="addBtn" src="../../images/add.png" />
+                    <img class="addBtn" src="../../public/images/add.png" />
                 </a>
             </header>
             <div v-if="!isArrayEmpty(userInfo.ABSProjects)" v-cloak>
@@ -75,7 +75,7 @@
         </section>
         <section class="ep_part" id="projectHistoryOther">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.OtherProjects)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../images/projectHistory.png" />
+                <img class="ep_icon fl" src="../../public/images/projectHistory.png" />
                 <span class='fl'>其它项目经历</span>
                 <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.OtherProjects)">
                     <span class="ep_color_grey2 fl">(共</span>
@@ -85,7 +85,7 @@
                     <span class="ep_color_grey2 fl">亿)</span>
                 </span> 
                 <a class="fr" href="/expert/expertuser/projectHistoryOther">
-                    <img class="addBtn" src="../../images/add.png" />
+                    <img class="addBtn" src="../../public/images/add.png" />
                 </a>
             </header>
             <div v-if="!isArrayEmpty(userInfo.OtherProjects)" v-cloak>
@@ -115,10 +115,10 @@
         </section>
         <section class="ep_part" id="workHistory">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.WorkHistories)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../images/workHistory.png" />
+                <img class="ep_icon fl" src="../../public/images/workHistory.png" />
                 <span class='fl'>工作经历</span>
                 <a class="fr" href="/expert/expertuser/workHistory">
-                    <img class="addBtn" src="../../images/add.png" />
+                    <img class="addBtn" src="../../public/images/add.png" />
                 </a>
             </header>
             <div v-if="!isArrayEmpty(userInfo.WorkHistories)" v-cloak>
@@ -142,10 +142,10 @@
         </section>
         <section class="ep_part" id="otherPosition">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.OtherPosts)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../images/position.png" />
+                <img class="ep_icon fl" src="../../public/images/position.png" />
                 <span class='fl'>其它职务</span>
                 <a class="fr" href="/expert/expertuser/otherPosition">
-                    <img class="addBtn" src="../../images/add.png" />
+                    <img class="addBtn" src="../../public/images/add.png" />
                 </a>
             </header>
             <div v-if="!isArrayEmpty(userInfo.OtherPosts)" v-cloak>
@@ -160,10 +160,10 @@
         </section>
         <section class="ep_part" id="awardsAndHonors">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.HonorAwards)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../images/honor.png" />
+                <img class="ep_icon fl" src="../../public/images/honor.png" />
                 <span class='fl'>奖项与荣誉</span>
                 <a class="fr" href="/expert/expertuser/awardsAndHonors">
-                    <img class="addBtn" src="../../images/add.png" />
+                    <img class="addBtn" src="../../public/images/add.png" />
                 </a>
             </header>
             <div v-if="!isArrayEmpty(userInfo.HonorAwards)" v-cloak>
@@ -180,10 +180,10 @@
         </section>
         <section class="ep_part" id="activity">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.RecentActivities)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../images/activity.png" />
+                <img class="ep_icon fl" src="../../public/images/activity.png" />
                 <span class='fl'>近期活动</span>
                 <a class="fr" href="/expert/expertuser/activity">
-                    <img class="addBtn" src="../../images/add.png" />
+                    <img class="addBtn" src="../../public/images/add.png" />
                 </a>
             </header>
             <div v-if="!isArrayEmpty(userInfo.RecentActivities)" v-cloak>
@@ -203,10 +203,10 @@
         </section>
         <section class="ep_part" id="article">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.Publishs)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../images/article.png" />
+                <img class="ep_icon fl" src="../../public/images/article.png" />
                 <span class='fl'>著作与文章</span>
                 <a class="fr" href="/expert/expertuser/article">
-                    <img class="addBtn" src="../../images/add.png" />
+                    <img class="addBtn" src="../../public/images/add.png" />
                 </a>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
@@ -260,10 +260,10 @@
         </section>
         <section class="ep_part" id="educationHistory">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.Educations)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../images/education.png" />
+                <img class="ep_icon fl" src="../../public/images/education.png" />
                 <span class='fl'>教育经历</span>
                 <a class="fr" href="/expert/expertuser/educationHistory">
-                    <img class="addBtn" src="../../images/add.png" />
+                    <img class="addBtn" src="../../public/images/add.png" />
                 </a>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Educations)" v-cloak>
@@ -292,10 +292,10 @@
         </section>
         <section class="ep_part" id="personalProfile" v-if="isValidElement(userInfo.User)">
             <header class="ep_part_title" v-bind:class="[isValidElement(userInfo.User.Introduction)?'ep_part_item_border':'']">
-                <img class="ep_icon fl" src="../../images/person.png" />
+                <img class="ep_icon fl" src="../../public/images/person.png" />
                 <span class='fl'>个人简介</span>
                 <a href="/expert/expertuser/personalProfile">
-                    <img class="fr editPencils" src="../../images/pencils.png" alt="">
+                    <img class="fr editPencils" src="../../public/images/pencils.png" alt="">
                 </a>
             </header>
             <pre v-if="isValidElement(userInfo.User.Introduction)" class="ep_part_description" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
@@ -305,12 +305,11 @@
 </template>
 
 <script>
-import '@/scripts/expert/flexible';
+import '@/public/modules/expert/flexible';
 import _ from 'lodash';
-import $ from 'jquery';
 
-import '@/styles/expert/reset.css';
-import '@/styles/expert/editProfile.css';
+import '@/public/css/expert/reset.css';
+import '@/public/css/expert/editProfile.css';
  
 export default {
   name: 'EditProfile',
@@ -356,9 +355,9 @@ export default {
 
             var projectTotalOffering = 0;
 
-            $.each(this.userInfo.ABSProjects, function (index, value) {
-                projectTotalOffering += Number(value.TotalOffering);
-            });
+            for (let item of this.userInfo.ABSProjects) {
+                projectTotalOffering += Number(item.TotalOffering);
+            }
 
             return { totalCount: this.userInfo.ABSProjects.length, totalOffering: projectTotalOffering };
       },
@@ -367,9 +366,9 @@ export default {
 
             var projectTotalOffering = 0;
 
-            $.each(this.userInfo.OtherProjects, function (index, value) {
-                projectTotalOffering += Number(value.TotalOffering);
-            });
+            for (let item of this.userInfo.OtherProjects) {
+                projectTotalOffering += Number(item.TotalOffering);
+            }
 
             return { totalCount: this.userInfo.OtherProjects.length, totalOffering: projectTotalOffering };
         },
