@@ -1,26 +1,32 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import User from '@/components/expert/User';
-import Edit from '@/components/expert/Edit';
+import MintUI from 'mint-ui';
+import 'mint-ui/lib/style.css';
+
+import EditProfile from '@/components/expert/EditProfile';
+import BasicInfomation from '@/components/expert/BasicInfomation';
+import AbsHistory from '@/components/expert/AbsHistory';
+
 
 Vue.use(Router);
+Vue.use(MintUI);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'User',
-      component: User,
+      name: 'EditProfile',
+      component: EditProfile,
     },
     {
-      path: '/user',
-      name: 'User',
-      component: User,
+      path: '/BasicInfomation',
+      name: 'BasicInfomation',
+      component: BasicInfomation,
     },
     {
-      path: '/edit',
-      name: 'edit',
-      component: Edit,
+      path: '/AbsHistory',
+      name: 'AbsHistory',
+      component: AbsHistory,
     },
   ],
 });
