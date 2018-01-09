@@ -12,12 +12,11 @@
       </router-link>
     </div>
     
-    <div v-else>
+    <div v-else class="appH5_navbar_bg">
       <mt-header title="产品信息">
         <router-link to="/" slot="left">
-          <mt-button icon="back" @click.stop="goBack">返回</mt-button>
+          <mt-button icon="back" @click.stop="goBack"></mt-button>
         </router-link>
-        <mt-button icon="more" slot="right"></mt-button>
       </mt-header>
     </div>
 
@@ -26,6 +25,7 @@
 </template>
 
 <script> 
+import 'mint-ui/lib/style.css'
 import '@/public/css/theme.css';
 import BusUtil from './abs/BusUtil';
 
