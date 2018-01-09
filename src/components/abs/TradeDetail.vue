@@ -11,7 +11,7 @@
       </tr>
       <tr>
         <td class="appH5_color_green">金额&nbsp;(亿)</td>
-        <td class="appH5_color_red">9888.00</td>
+        <td class="appH5_color_red font19">9888.00</td>
         <td class="appH5_color_green">产品类型</td>
         <td class="appH5_color_link">企业资产证券化</td>
       </tr>
@@ -109,6 +109,9 @@ export default {
 .appH5_content{
   margin-bottom: 1.6rem; 
   width: 100%;
+}
+.font19{
+    font-size: 19px;
 }
 .fl{
   float: left;
