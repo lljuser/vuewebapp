@@ -7,7 +7,7 @@ body{
 }
 .mint-header {
 	background-color: #2c2a29;
-	height: 1.26rem;
+	height: 1.304rem;
 }
 .mint-header-title {
 	font-size: 19px;
@@ -341,11 +341,9 @@ select{
 .appH5_tab{
 	color:#fff;
 	font-size:19px;
-	border-bottom: 0.08rem solid transparent;
-	padding-left:0.16rem;
-	padding-right:0.16rem;
-	padding-top: 0.346667rem;
-	padding-bottom:0.266667rem;
+	font-size: 19px;
+	padding-top: 0.302rem;
+	padding-bottom: 0.302rem;
 	float:left;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
 }
