@@ -6,6 +6,8 @@ import Trade from '@/components/abs/Trade';
 import TradeItem from '@/components/abs/TradeItem';
 import ProductDetail from '@/components/abs/ProductDetail';
 import FlexDemo from '@/components/abs/FlexDemo';
+import TradeDetail from '@/components/abs/TradeDetail';
+
 
 Vue.use(Router);
 
@@ -45,6 +47,11 @@ export default new Router({
       path: '/flex',
       name: 'flex',
       component: FlexDemo,
+    },
+    {
+      path: '/tradedetail',
+      name: 'tradedetail',
+      component: TradeDetail,
     },
   ],
 });

@@ -94,7 +94,7 @@
 
 <script> 
 export default {
-  name: 'tradeItem',
+  name: 'tradeDetail',
   props: ['id'],
   data() {
     return {
