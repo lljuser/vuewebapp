@@ -168,9 +168,6 @@ li {
 a {
   color: #ffc446;
 }
-#tradeTableId{
-  margin-top: 0.25rem;
-}
 #tradeTableId tr td:nth-of-type(1){
   color: #ffc446;
 }
@@ -178,8 +175,8 @@ a {
   text-align: right;
 }
 #tradeTableId tr td:nth-of-type(2){
-  color: #ff7271;
-  font-size: 19px;
+  color: #ee7a76;
+  font-size: 17px;
   text-align: right;
 }
 #tradeTableId tr th:nth-of-type(3){
