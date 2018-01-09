@@ -60,6 +60,18 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       chunks:[ cnabsConfig.expert.name], 
       inject: true
     }),
+    new HtmlWebpackPlugin({
+      filename: cnabsConfig.product.output,
+      template: cnabsConfig.product.tmpl,
+      chunks:[ cnabsConfig.product.name], 
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: cnabsConfig.trade.output,
+      template: cnabsConfig.trade.tmpl,
+      chunks:[ cnabsConfig.trade.name], 
+      inject: true
+    }),
     // new BundleAnalyzerPlugin(
     //   { 
     //     analyzerMode: 'static', 

@@ -5,7 +5,10 @@ import Market from '@/components/abs/Market';
 import Trade from '@/components/abs/Trade';
 import TradeItem from '@/components/abs/TradeItem';
 import ProductDetail from '@/components/abs/ProductDetail';
+import ProductDetailWithoutBack from '@/components/abs/ProductDetailWithoutBack';
 import FlexDemo from '@/components/abs/FlexDemo';
+import TradeDetail from '@/components/abs/TradeDetail';
+
 
 Vue.use(Router);
 
@@ -42,9 +45,19 @@ export default new Router({
       component: ProductDetail,
     },
     {
+      path: '/productDetailBack/:id',
+      name: 'productDetailBack',
+      component: ProductDetailWithoutBack,
+    },
+    {
       path: '/flex',
       name: 'flex',
       component: FlexDemo,
+    },
+    {
+      path: '/tradedetail',
+      name: 'tradedetail',
+      component: TradeDetail,
     },
   ],
 });
