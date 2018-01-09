@@ -5,7 +5,7 @@
         {{ item.Title }}
       </router-link>
     </td>
-    <td class="text-right appH5_color_red">22.00</td>
+    <td class="text-right appH5_color_red fontBold appH5_font_large">22.00</td>
     <td style="color:white">{{ item.Content }}</td>
     <td style="color:white" class="text-right">{{ item.Time | moment("YY-MM-DD") }}</td>
   </tr>
@@ -37,5 +37,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
- 
+ .table_td_number{
+   font-size: 17px;
+ }
 </style>

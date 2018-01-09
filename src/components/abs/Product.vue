@@ -122,7 +122,8 @@ export default {
 .select_div {
   display: table;
   width: 100%;
-  height: 1.227rem;
+  margin-top:-12px;
+  margin-bottom: 12px;
 }
 .select_div td {
   vertical-align: top;
