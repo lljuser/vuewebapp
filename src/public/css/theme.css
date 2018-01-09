@@ -5,6 +5,9 @@ body{
 #app {
 	background-color: #383431;
 }
+.mintui {
+	font-size: 19px;
+}
 .mint-header {
 	background-color: #2c2a29;
 	height: 1.0628rem;
