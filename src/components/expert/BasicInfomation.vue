@@ -70,7 +70,6 @@
 </template>
 
 <script>
-import '@/public/modules/expert/flexible';
 import $ from 'jquery';
 
 import '@/public/css/expert/reset.css';
