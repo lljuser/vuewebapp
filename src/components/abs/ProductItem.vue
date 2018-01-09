@@ -7,7 +7,7 @@
     </td>
     <td class="text-right appH5_color_red">22.00</td>
     <td style="color:white">{{ item.Content }}</td>
-    <td style="color:white" class="text-right">{{ item.Time | moment("YYYY-MM-DD") }}</td>
+    <td style="color:white" class="text-right">{{ item.Time | moment("YY-MM-DD") }}</td>
   </tr>
 </template>
 

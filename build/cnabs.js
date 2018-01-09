@@ -42,7 +42,19 @@ module.exports = {
         entry: resoveEntryFile('expert').path,
         tmpl: resovePublicFile('expert').path,
         output: resovePublicFile('expert').filename
-    }
+    },
+    product:{
+        name: 'product',
+        entry: resoveEntryFile('product').path,
+        tmpl: resovePublicFile('product').path,
+        output: resovePublicFile('product').filename
+    },
+    trade:{
+        name: 'trade',
+        entry: resoveEntryFile('trade').path,
+        tmpl: resovePublicFile('trade').path,
+        output: resovePublicFile('trade').filename
+    },
 }
 
 

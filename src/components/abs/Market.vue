@@ -99,11 +99,6 @@ export default {
             text: '就业人数',
           },
         },
-        legend: {
-          layout: 'vertical',
-          align: 'right',
-          verticalAlign: 'middle',
-        },
         plotOptions: {
           series: {
             label: {

@@ -23,8 +23,7 @@ export const Trade = {
   // /{tradeId}/{noteId}/{tradeType}
   detail: `${apiAddress}//motrade/gettradedata`,
   typeList: `${apiAddress}/motrade/getsecuritytypelist`,
-  walbuckList: `${apiAddress}/moTrade/getwalbucketlist`,
-
+  walbuckList: `${apiAddress}/moTrade/getwalbucketlist`, 
 }; 
 
 export const Demo = {
