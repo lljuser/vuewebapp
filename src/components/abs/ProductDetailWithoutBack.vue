@@ -1,6 +1,13 @@
 <template>
 
   <div class="appH5_body">
+    <div class="appH5_navbar_bg">
+      <mt-header title="产品信息">
+        <router-link to="/" slot="left">
+          <mt-button icon="back" @click.stop="goBack"></mt-button>
+        </router-link>
+      </mt-header>
+    </div>
     <div>
       <mt-header title="产品信息111111">
         <router-link to="/" slot="left">
