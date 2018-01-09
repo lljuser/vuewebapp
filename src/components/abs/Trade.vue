@@ -201,9 +201,7 @@ a {
 .trade_select_div {
   display: table;
   width: 100%;
-  height: 1.227rem;
-}
-.trade_select_div td{
-  vertical-align: top;
+  margin-top:-12px;
+  margin-bottom: 12px;
 }
 </style>

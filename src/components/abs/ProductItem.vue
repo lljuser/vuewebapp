@@ -5,7 +5,7 @@
         {{ item.Title }}
       </router-link>
     </td>
-    <td class="text-right appH5_color_red fontBold appH5_font_large">22.00</td>
+    <td class="text-right appH5_color_red appH5_font_large" style="font-size:17px">22.00</td>
     <td style="color:white">{{ item.Content }}</td>
     <td style="color:white" class="text-right">{{ item.Time | moment("YY-MM-DD") }}</td>
   </tr>

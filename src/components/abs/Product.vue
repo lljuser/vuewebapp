@@ -11,7 +11,7 @@
             <option>C</option>
           </select>
         </td>
-        <td>
+        <td style="text-align:center">
           <select v-model="productType">
             <option  value="">产品分类</option>
             <option>A</option>
