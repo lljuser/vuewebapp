@@ -247,12 +247,19 @@ select{
    font-weight: bold;
    font-size: 15px;
 }
+
 .appH5_table td{
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
    padding: 0.333333rem 0.146667rem;
    border-bottom:0.013333rem solid #3B3A39;
    white-space: nowrap;
    font-size: 15px;
+}
+.appH5_table th:nth-of-type(1),.appH5_table td:nth-of-type(1){
+	padding-left: 0.32rem;
+}
+.appH5_table th:last-child,.appH5_table td:last-child{
+	padding-right: 0.32rem;
 }
 .text-right{
   text-align: right;

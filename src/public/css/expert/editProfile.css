@@ -69,13 +69,15 @@ body {
     height: 0.8rem;
     margin-top: 0.266667rem;
     width: 6.3rem;
-    background-color: #fff;
+    background-color: #2b2a29;
     border: none;
     -webkit-appearance: none;
     outline: none;
     direction: rtl;
 }
-
+.ep_select option{
+    background-color: #fff;
+}
 .ep_multipleItem {
     margin: 0 auto;
     width: 8.64rem;
@@ -501,6 +503,7 @@ pre {
     text-align: right;
     height: 0.8rem;
     font-size: 0.426667rem !important;
+    background-color: #2b2a29!important;
 }
 
 .ep_content_div .mint-searchbar {
@@ -524,10 +527,12 @@ pre {
 
 .ep_textarea {
     width: 8.6rem;
-    border: 1px solid #ccc;
+    border: 1px solid #3B3A39;
     height: 3.066667rem;
     margin: 0 0.4rem 0rem 0.4rem;
     padding: 0.266667rem;
+    background-color: #2b2a29;
+    outline: none;
 }
 
 .ep_popup {
@@ -631,6 +636,9 @@ ul.articleDetail li {
     padding-left: 0.4rem;
 }
 /*projectHistoryABS CSS*/
+.projectHistoryABSContent{
+    background-color: #2b2a29;
+}
 .projectHistoryABSContent .mint-search-list-warp {
     margin-top: 0.36rem;
 }
@@ -664,6 +672,14 @@ ul.articleDetail li {
         width: 150px;
         height: 150px;
     }
+/*otherProjectList*/
+.projectHistoryOtherContent{
+    background-color: #2b2a29;
+}
+/*otherPositionContent*/
+.projectHistoryOtherContent{
+    background-color: #2b2a29;
+}
 /*workHistory CSS*/
 .workHistoryContent .organizationName {
     width: 6.666667rem;
