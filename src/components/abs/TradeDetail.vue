@@ -96,9 +96,14 @@
 </template>
 
 <script> 
+import BusUtil from './BusUtil';
 export default {
   name: 'tradeDetail',
   props: ['id'],
+   created() {
+    const busUtil = BusUtil.getInstance();
+    busUtil.bus.$emit('showHeader', true);
+  },
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
