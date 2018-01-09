@@ -70,6 +70,9 @@
            <div class="clearfix"></div>
           </td>
         </tr>
+        <tr>
+            <td colspan="4" style="height: 2rem;"></td>
+        </tr>
     </table>
   </div>
   <div class="fixedMain appH5_font_normal">
@@ -107,7 +110,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .appH5_content{
-  margin-bottom: 1.6rem; 
   width: 100%;
 }
 .font19{
