@@ -147,7 +147,7 @@ export default {
   background-color: #fff;
 }
 .appH5_content table{
-  padding: .2667rem;
+  padding: .32rem;
   width: 100%;
 }
 .appH5_content table .touxiang,.phoneImg{
@@ -205,7 +205,7 @@ export default {
 }
 @media only screen and (min-width: 320px) and (max-width: 374px){
   .appH5_content table tr td:nth-child(2){
-    width: 24%;
+    width: 22%;
   }
   .pdrSpecial span{
     width: 2rem;
