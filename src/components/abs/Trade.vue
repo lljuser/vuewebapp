@@ -49,77 +49,99 @@
       <td>6.00-5.00</td>
     </tr>
     <tr>
-      <td>17逸锟1A1</td>
+      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link></td>
       <td>40.00</td>
       <td>AA</td>
       <td>1.41</td>
       <td>5.00</td>
     </tr>
     <tr>
-      <td>17逸锟1A1</td>
+      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link></td>
       <td>40.00</td>
       <td>AAA</td>
       <td>1.41</td>
       <td>5.00</td>
     </tr>
     <tr>
-      <td>17逸锟1A1</td>
+      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link></td>
       <td>40.00</td>
       <td>AAA</td>
       <td>1.41</td>
       <td>5.00</td>
     </tr>
     <tr>
-      <td>17逸锟1A1</td>
+      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link></td>
       <td>40.00</td>
       <td>AAA</td>
       <td>1.41</td>
       <td>5.00</td>
     </tr>
     <tr>
-      <td>17逸锟1A1</td>
+      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link></td>
       <td>40.00</td>
       <td>AAA</td>
       <td>1.41</td>
       <td>5.00</td>
     </tr>
     <tr>
-      <td>17逸锟1A1</td>
+      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link></td>
       <td>40.00</td>
       <td>AAA</td>
       <td>1.41</td>
       <td>5.00</td>
     </tr>        
     <tr>
-      <td>17逸锟1A1</td>
+      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link></td>
       <td>40.00</td>
       <td>AAA</td>
       <td>1.41</td>
       <td>5.00</td>
     </tr>
     <tr>
-      <td>17逸锟1A1</td>
+      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link></td>
       <td>40.00</td>
       <td>AAA</td>
       <td>1.41</td>
       <td>5.00</td>
     </tr>
     <tr>
-      <td>17逸锟1A1</td>
+      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link></td>
       <td>40.00</td>
       <td>AAA</td>
       <td>1.41</td>
       <td>5.00</td>
     </tr>
     <tr>
-      <td>17逸锟1A1</td>
+      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link></td>
       <td>40.00</td>
       <td>AAA</td>
       <td>1.41</td>
       <td>5.00</td>
     </tr>
     <tr>
-      <td>17逸锟1A1</td>
+      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link></td>
       <td>40.00</td>
       <td>AAA</td>
       <td>1.41</td>
@@ -201,9 +223,7 @@ a {
 .trade_select_div {
   display: table;
   width: 100%;
-  height: 1.227rem;
-}
-.trade_select_div td{
-  vertical-align: top;
+  margin-top:-6px;
+  margin-bottom: 12px;
 }
 </style>

@@ -13,8 +13,8 @@
             <tr>
               <td>产品分类</td>
               <td>
-                <div>信贷资产证券化</div>
-                <div>&nbsp;└&nbsp;汽车抵押贷款</div>
+                <div><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">信贷资产证券化</a></router-link></div>
+                <div>&nbsp;└&nbsp;<router-link to="/product"> <a href="javascript:;" style="color:#FEC447">汽车抵押贷款</a></router-link></div>
                 <div>&nbsp;&nbsp;&nbsp;└&nbsp;好一个三级分类</div>
               </td>
             </tr>
@@ -28,11 +28,11 @@
             </tr>
             <tr>
               <td>发起机构</td>
-              <td>丰田汽车金融(中国)有限公司</td>
+              <td>丰田汽车金融(中国)有限公司<br>丰田汽车金融(中国)有限公司</td>
             </tr>
             <tr>
-              <td>金额(亿)</td>
-              <td>30.00</td>
+              <td style="vertical-align: middle;">金额(亿)</td>
+              <td class="appH5_font_largest appH5_color_red">30.00</td>
             </tr>
           </table>
       </div>
@@ -41,7 +41,7 @@
               <span>证券结构</span>
           </div>
           <div style="padding-left:2.09333rem">
-<table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:171px;width:220px;background-color:#F2F2F2"><div style="height:18%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
+<table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:171px;width:220px;background-color:#B7AFA5"><div style="height:18%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
                                                                          <span title="证券: 17丰耀2A_bc
 初始本金: 2440000000
 分层占比: 81.33%
@@ -54,7 +54,7 @@
 剩余占比: 67.10%" style="width:220px;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller">A</a>
                                                                          </span>
                                                                      </div></td></tr></tbody></table>
-																	 <table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:19px;width:220px;background-color:#F2F2F2"><div style="height:0%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
+																	 <table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:19px;width:220px;background-color:#B7AFA5"><div style="height:0%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
                                                                          <span title="证券: 17丰耀2B_bc
 初始本金: 275000000
 分层占比: 9.17%
@@ -67,7 +67,7 @@
 剩余占比: 9.17%" style="width:220px;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller">B</a>
                                                                          </span>
                                                                      </div></td></tr></tbody></table>
-																	 <table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:20px;width:220px;background-color:#F2F2F2"><div style="height:0%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
+																	 <table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:20px;width:220px;background-color:#B7AFA5"><div style="height:0%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
                                                                          <span title="证券: 17丰耀2C_bc
 初始本金: 284999356.49
 分层占比: 9.50%
@@ -84,11 +84,11 @@
           <div style="margin-bottom:0.25rem;margin-left:2.1rem">
             <div style="float:left;margin: 4px 4px 4px 2px; width: 12px;height: 11px; background-image: url(&quot;/src/public/images/table_bg.png&quot;); background-repeat: repeat;"></div> 
             <div style="float:left;font-size: 11px;">已偿付</div> 
-            <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: rgb(183, 175, 165);"></div> 
+            <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div> 
             <div style="float:left;font-size: 11px;">剩余</div>
           </div>
       </div>
-      <div class="appH5_panel">
+      <div class="appH5_panel appH5_panel_mb">
         <div class="appH5_title">
               <span>证券列表</span>
           </div>
@@ -96,32 +96,36 @@
             <table class="appH5_table">
               <tr>
                 <th>证券简称</th>
-                <th style="text-align:center">发行金额(亿)<br/>还本方式</th>
-                <th style="text-align:center">发行利率<br/>评级1</th>
-                <th style="text-align:center">加权年限<br/>评级2</th>
+                <th class="text-right">金额(亿)<br/>剩余金额</th>
+                <th class="text-right">利率(%)<br/>估值</th>
+                <th class="text-right">期限<br/>还本方式</th>
+                <th class="text-right">最新评级<br/>建议评级</th>
               </tr>
               <tr>
-                <td>17康安1A</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">1.50</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.85%</span><br/><span class="appH5_color_details appH5_font_smaller">AAA</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">AAA</span></td>
+                <td class="appH5_font_larger">17康安1A</td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">1.50</span><br/><span class="appH5_color_details appH5_font_smaller">1.50</span></td>
+                <td class="text-right"><span class="appH5_font_large">4.85</span><br/><span class="appH5_color_green appH5_font_smaller">4.85</span></td>
+                <td class="text-right"><span class="appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
+                <td class="text-right"><span class="appH5_font_large">AAA/AAA</span><br/><span class="appH5_color_green appH5_font_smaller">AAA</span></td>
               </tr>
               <tr>
-                <td>17康安1B</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">2.30</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.85%</span><br/><span class="appH5_color_details appH5_font_smaller">AA</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">AA-</span></td>
+                <td class="appH5_font_larger">17康安1B</td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">2.30</span><br/><span class="appH5_color_details appH5_font_smaller">1.50</span></td>
+                <td class="text-right"><span class="appH5_font_large">4.85</span><br/><span class="appH5_color_green appH5_font_smaller">4.85</span></td>
+                <td class="text-right"><span class="appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
+                <td class="text-right"><span class="appH5_font_large">AA/A</span><br/><span class="appH5_color_green appH5_font_smaller">AA+</span></td>
               </tr>
               <tr>
-                <td>17康安1C</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">5.60</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.80%</span><br/><span class="appH5_color_details appH5_font_smaller">NR</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">NR</span></td>
+                <td class="appH5_font_larger">17康安1C</td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">5.50</span><br/><span class="appH5_color_details appH5_font_smaller">1.50</span></td>
+                <td class="text-right"><span class="appH5_font_large">4.85</span><br/><span class="appH5_color_green appH5_font_smaller">4.85</span></td>
+                <td class="text-right"><span class="appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
+                <td class="text-right"><span class="appH5_font_large">A/AA</span><br/><span class="appH5_color_green appH5_font_smaller">NR/NR</span></td>
               </tr>
             </table>
           </div>
       </div>
-      <div class="appH5_panel appH5_panel_mb">
+      <div class="appH5_panel">
         <div class="appH5_title">
               <span>证券偿付</span>
           </div>
