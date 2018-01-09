@@ -38,7 +38,11 @@
       <th>利率(%)</th>
     </tr>
     <tr>
-      <td>17逸锟1A1</td>
+      <td>
+        <router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
+        17逸锟1A1
+        </router-link>
+      </td>
       <td>40.00</td>
       <td>AAA</td>
       <td>0.65</td>
@@ -162,7 +166,7 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: #ffc446;
 }
 #tradeTableId{
   margin-top: 0.25rem;
