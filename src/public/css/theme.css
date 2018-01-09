@@ -36,7 +36,7 @@ body{
 	display: flex;
 	justify-content: space-around;
 	background-color: #2c2a29;
-	margin-bottom: 0.32rem;
+	margin-bottom: 0.2899rem;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
@@ -60,7 +60,7 @@ body{
 }
 /*panel之间的间距*/
 .appH5_panel_mb{
-	margin-bottom:0.266667rem;
+	margin-bottom:0.2899rem;
 }
 .appH5_inner_panel{
 	background-color: #444444;
