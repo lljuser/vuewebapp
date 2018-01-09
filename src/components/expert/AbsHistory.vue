@@ -76,13 +76,13 @@
 <script>
 import $ from 'jquery';
 //import jQuery from 'jquery';
-import '@/scripts/expert/flexible';
-import util from '@/scripts/expert/utils';
+import '@/public/modules/expert/flexible';
+import util from '@/public/modules/expert/utils';
 // import '@/scripts/expert/api.min.js';
 // import '@/scripts/expert/search.min.js';
-import '@/styles/expert/reset.css';
-import '@/styles/expert/editProfile.css';
-import '@/styles/expert/search.css';
+import '@/public/css/expert/reset.css';
+import '@/public/css/expert/editProfile.css';
+import '@/public/css/expert/search.css';
 
 export default {
     name: 'AbsHistory',

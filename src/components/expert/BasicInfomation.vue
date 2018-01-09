@@ -70,12 +70,12 @@
 </template>
 
 <script>
-import '@/scripts/expert/flexible';
+import '@/public/modules/expert/flexible';
 import $ from 'jquery';
 
-import '@/styles/expert/reset.css';
-import '@/styles/expert/editProfile.css';
-import '@/styles/expert/jquery.Jcrop.min.css';
+import '@/public/css/expert/reset.css';
+import '@/public/css/expert/editProfile.css';
+import '@/public/css/expert/jquery.Jcrop.min.css';
 
 export default {
     name: 'BasicInformation',
