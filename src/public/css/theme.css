@@ -8,6 +8,7 @@ body{
 }
 .mint-header {
 	background-color: #2c2a29;
+	height: 1.26rem;
 }
 .mint-header-title {
 	font-size: 19px;
