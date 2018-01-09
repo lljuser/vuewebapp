@@ -1,5 +1,21 @@
 <template>
+
   <div class="appH5_body">
+    <div class="appH5_navbar_bg">
+      <mt-header title="产品信息">
+        <router-link to="/" slot="left">
+          <mt-button icon="back" @click.stop="goBack"></mt-button>
+        </router-link>
+      </mt-header>
+    </div>
+    <div>
+      <mt-header title="产品信息111111">
+        <router-link to="/" slot="left">
+          <mt-button icon="back" @click.stop="goBack">返回</mt-button>
+        </router-link>
+        <mt-button icon="more" slot="right"></mt-button>
+      </mt-header>
+    </div>
     <div class="appH5_content">
       <div class="appH5_panel appH5_panel_mb">
           <div class="appH5_title">
@@ -88,6 +104,14 @@
             <div style="float:left;font-size: 11px;">剩余</div>
           </div>
       </div>
+      <div class="appH5_panel appH5_panel_mb">
+        <div class="appH5_title">
+              <span>证券偿付</span>
+          </div>
+          <div>
+            <highcharts :options='options'></highcharts>
+          </div>
+      </div>
       <div class="appH5_panel">
         <div class="appH5_title">
               <span>证券列表</span>
@@ -102,31 +126,23 @@
               </tr>
               <tr>
                 <td>17康安1A</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">1.50</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.85%</span><br/><span class="appH5_color_details appH5_font_smaller">AAA</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">1.5</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.850%</span><br/><span class="appH5_color_details appH5_font_smaller">AAA</span></td>
                 <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">AAA</span></td>
               </tr>
               <tr>
                 <td>17康安1B</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">2.30</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.85%</span><br/><span class="appH5_color_details appH5_font_smaller">AA</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">2.3</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.850%</span><br/><span class="appH5_color_details appH5_font_smaller">AA</span></td>
                 <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">AA-</span></td>
               </tr>
               <tr>
                 <td>17康安1C</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">5.60</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.80%</span><br/><span class="appH5_color_details appH5_font_smaller">NR</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">5.6</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.850%</span><br/><span class="appH5_color_details appH5_font_smaller">NR</span></td>
                 <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">NR</span></td>
               </tr>
             </table>
-          </div>
-      </div>
-      <div class="appH5_panel appH5_panel_mb">
-        <div class="appH5_title">
-              <span>证券偿付</span>
-          </div>
-          <div>
-            <highcharts :options='options'></highcharts>
           </div>
       </div>
     </div>
@@ -230,7 +246,7 @@ export default {
                     s = chartData.PlotLabel;
                 var l = {
                     title: {
-                        text: ''
+                        text: '证券偿付图'
                     },
                     xAxis: {
                         type: "datetime",
@@ -266,7 +282,7 @@ export default {
                     yAxis: {
                         title: {
                             enabled: !0,
-                            text: ""
+                            text: "偿付百分比"
                         },
                         labels: {
                             format: "{value:.0f}%"
@@ -286,15 +302,6 @@ export default {
                                 e = new Date(this.x);
                             return t = e.getFullYear() + "-" + (e.getMonth() + 1) + "-" + e.getDate() + "<br/>" + this.series.name + "剩余本金:<br/>" + Math.round(100 * this.y) / 100 + "%"
                         }
-                    },
-                    legend : {
-                        style: {
-                            fontSize: '10px'
-                        }
-                    },
-                    credits: {
-                      href: 'https://cn-abs.com',
-                      text: 'CNABS'
                     },
                     series: o
                 };
