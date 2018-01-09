@@ -88,14 +88,6 @@
             <div style="float:left;font-size: 11px;">剩余</div>
           </div>
       </div>
-      <div class="appH5_panel appH5_panel_mb">
-        <div class="appH5_title">
-              <span>证券偿付</span>
-          </div>
-          <div>
-            <highcharts :options='options'></highcharts>
-          </div>
-      </div>
       <div class="appH5_panel">
         <div class="appH5_title">
               <span>证券列表</span>
@@ -127,6 +119,14 @@
                 <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">NR</span></td>
               </tr>
             </table>
+          </div>
+      </div>
+      <div class="appH5_panel appH5_panel_mb">
+        <div class="appH5_title">
+              <span>证券偿付</span>
+          </div>
+          <div>
+            <highcharts :options='options'></highcharts>
           </div>
       </div>
     </div>
@@ -230,7 +230,7 @@ export default {
                     s = chartData.PlotLabel;
                 var l = {
                     title: {
-                        text: '证券偿付图'
+                        text: ''
                     },
                     xAxis: {
                         type: "datetime",
@@ -266,7 +266,7 @@ export default {
                     yAxis: {
                         title: {
                             enabled: !0,
-                            text: "偿付百分比"
+                            text: ""
                         },
                         labels: {
                             format: "{value:.0f}%"
@@ -285,6 +285,11 @@ export default {
                             var t,
                                 e = new Date(this.x);
                             return t = e.getFullYear() + "-" + (e.getMonth() + 1) + "-" + e.getDate() + "<br/>" + this.series.name + "剩余本金:<br/>" + Math.round(100 * this.y) / 100 + "%"
+                        }
+                    },
+                    legend : {
+                        style: {
+                            fontSize: '10px'
                         }
                     },
                     credits: {
