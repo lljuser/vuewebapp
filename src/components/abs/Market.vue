@@ -1,10 +1,60 @@
 <template>
-  <div class='hello'>
-    <highcharts :options='options'></highcharts>
-    <hr />
-    <h1>市场页</h1>
-    <p v-for='row in list' :key='row.Title' v-html='row.Content'></p>
+<div class="appH5_body">
+  <div id="root" class="appH5_content">
+    <div class="appH5_panel  appH5_panel_mb">
+<div class="appH5_title"><span>市场概要</span></div>
+    <div>
+      <table class="appH5_table">
+        <tr>
+          <th> </th>
+          <th>今年总数</th>
+          <th>今年总额(亿)</th>
+          <th>累计总额(亿)</th>
+        </tr>
+        <tr>
+          <td>信贷ABS</td>
+          <td class="text-right">1</td>
+          <td class="text-right">5</td>
+          <td class="text-right">442</td>
+        </tr>
+        <tr>
+          <td>企业ABS</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+          <td class="text-right">1183</td>
+        </tr>
+        <tr>
+          <td>ABN</td>
+          <td class="text-right">1</td>
+          <td class="text-right">10</td>
+          <td class="text-right">67</td>
+        </tr>
+        <tr>
+          <td>保险ABS</td>
+          <td class="text-right">1</td>
+          <td class="text-right">2</td>
+          <td class="text-right">3</td>
+        </tr>
+        <tr>
+          <td>总计</td>
+          <td class="text-right">11</td>
+          <td class="text-right">112</td>
+          <td class="text-right">1113</td>
+        </tr>
+      </table>
+    </div>
   </div>
+  <div class="appH5_panel">
+    <div class="appH5_title" style="margin-top:0.25rem"><span>发行统计</span></div>
+    <div>
+      <highcharts :options='options'></highcharts>
+    </div>
+  </div>
+      
+  </div>
+
+</div>
+
 </template>
 
 <script>
