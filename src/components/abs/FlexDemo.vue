@@ -46,19 +46,19 @@
 	        </div>
 	        <table class="appH5_list_four">
 	        	<tr>
-	        		<td>产品名称</td>
+	        		<td class='appH5_white_space'>产品名称</td>
 	        		<td colspan="3">这是一个产品名称，这是一个产品名称，这是一个产品名称</td>
 	        	</tr>
 	        	<tr>
-	        		<td>证券类型</td>
+	        		<td class='appH5_white_space'>证券类型</td>
 	        		<td>夹层级</td>
-	        		<td>评级</td>
+	        		<td class='appH5_white_space'>评级</td>
 	        		<td>AAA</td>
 	        	</tr>
 	        	<tr>
-	        		<td>证券类型</td>
+	        		<td class='appH5_white_space'>证券类型</td>
 	        		<td>夹层级</td>
-	        		<td>资产类型</td>
+	        		<td class='appH5_white_space'>资产类型</td>
 	        		<td>A应收账款</td>
 	        	</tr>
 	        	<tr>

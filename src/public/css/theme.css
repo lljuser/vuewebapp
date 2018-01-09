@@ -11,6 +11,7 @@ body{
 }
 .appH5_content{
 	margin: 0 auto;
+	width:10rem;
 	font-size: 15px;
 }
 .appH5_header{
@@ -22,6 +23,10 @@ body{
 .appH5_panel{
 	background-color: #2b2a29;
 	padding: 0.32rem;
+}
+/*panel之间的间距*/
+.appH5_panel_mb{
+	margin-bottom:0.266667rem;
 }
 .appH5_inner_panel{
 	background-color: #444444;
@@ -159,7 +164,7 @@ select{
 	background-color: #0578D0;
     border-radius: 0.053333rem;
     font-size: 19px;
-    border: 0.013333rem solid #0578D0;
+    border: 1px solid #0578D0;
 }
 .appH5_btn_cancel{
 	color:#cccccc;
@@ -169,7 +174,7 @@ select{
 	text-align: center;
     border-radius: 0.053333rem;
     font-size: 19px;
-    border:0.013333rem solid #CCCCCC;
+    border:1px solid #CCCCCC;
 }
 .appH5_color_icon{
     color:#ccc;
@@ -250,7 +255,8 @@ select{
 	width:1.333333rem;
 	vertical-align: top;
     color:#57b489;
-    padding-right: 0.2rem;
+	padding-right: 0.2rem;
+	white-space: nowrap;
 }
 .appH5_list_two td:nth-of-type(2){
 	width:5.54rem;
@@ -272,13 +278,16 @@ select{
 	width:1.333333rem;
 	vertical-align: top;
     color:#57b489;
-    padding-right: 0.2rem;
+	padding-right: 0.2rem;
 }
 .appH5_list_four td:nth-of-type(2n){
 	width:2rem;
 }
 .appH5_list_four tr:last-child td{
 	padding-bottom:0rem; 
+}
+.appH5_white_space{
+	white-space: nowrap;
 }
 .appH5_tab_div{
 	overflow: hidden;
