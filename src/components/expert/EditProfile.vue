@@ -2,8 +2,7 @@
     <div class="editProfileContent" id="editProfileContent" v-cloak>
         <section class="ep_part" id="basicInformation">
             <header class="ep_part_title ep_part_item_border">
-                <img class="ep_icon fl" src="../../public/images/person.png" />
-                <span class='fl'>基本信息</span>
+                <span class='fl appH5_title'>基本信息</span>
                 <router-link to="BasicInfomation">
                     <img class="fr editPencils" src="../../public/images/pencils.png" alt="">
                 </router-link>
@@ -32,29 +31,27 @@
             </div>
         </section>
         <section class="ep_part" id="projectHistoryABS">
-            <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.ABSProjects)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../public/images/projectHistory.png" />
-                <span class='fl'>ABS项目经历</span>
-                <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
-                    <span class="ep_color_grey2 fl">(共</span>
-                    <span class="ep_color_yellow fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
-                    <span class="ep_color_grey2 fl">单，</span>
-                    <span class="ep_color_yellow fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
-                    <span class="ep_color_grey2 fl">亿)</span>
-                </span>  
+            <header class="ep_part_title">
+                <div class='appH5_title fl' style='overflow:hidden;'>
+                    <span class='fl'>ABS项目</span>
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
+                        <span class="fl">(共</span>
+                        <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
+                        <span class="fl">单，</span>
+                        <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
+                        <span class="fl">亿)</span>
+                    </span> 
+                </div>
                 <a class="fr" href="/expert/expertuser/projectHistoryABS">
                     <img class="addBtn" src="../../public/images/add.png" />
-                </a>
+                </a> 
             </header>
             <div v-if="!isArrayEmpty(userInfo.ABSProjects)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.ABSProjects,3)">
-                    <div class="ep_overhide">
+                    <!-- <div class="ep_overhide">
                         <a class="ep_font32 ep_ellipsis fl ep_width600 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
                         <router-link to="/AbsHistory" class="ep_font24 ep_color_orange fr ep_lineHeight32">
                             编辑
                         </router-link>
-                        <!-- <a class="ep_font24 ep_color_orange fr ep_lineHeight32" v-bind:href="'/expert/expertuser/projectHistoryABS?id=' + item.Id">编辑</a> -->
-
                     </div>
                     <table class="projectHistoryABSList ep_font28 ep_marginTop10">
                         <tr>
@@ -65,31 +62,51 @@
                             <td>{{item.PersonalResponsibility.Name}}</td>
                             <td colspan="2">{{splicingOrganizationRoles(item.OrganizationRoles)}}</td>
                         </tr>
-                    </table>
-                </div>
-                <div class="ep_font30 ep_align_center ep_padding30" v-if="userInfo.ABSProjects.length > 3">
+                    </table> -->
+                    <div class='appH5_panel' style="padding-top:0px;">
+                        <table class="appH5_table">
+                            <tr>
+                                <th class='text-left'>名称</th>
+                                <th class='text-right'>金额(亿)</th>
+                                <th class='text-center'>类型</th>
+                                <th class='text-right'>操作</th>
+                            </tr>
+                            <tr v-for="item in _.take(userInfo.ABSProjects,3)">
+                                <td class='text-left'>{{item.DealName}}</td>
+                                <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
+                                <td class='text-center'>{{item.DealType}}</td>
+                                <td>
+                                    <router-link to="/AbsHistory" class="ep_font24 ep_color_orange fr ep_lineHeight32">
+                                        编辑
+                                    </router-link>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <div class="ep_font30 ep_align_center ep_padding30" style="padding-top:0;" v-if="userInfo.ABSProjects.length > 3">
                     <a href="/expert/expertuser/projectHistoryABSList">查看更多</a>
                 </div>
             </div>
             <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.ABSProjects)">暂无ABS项目经历</p>
         </section>
         <section class="ep_part" id="projectHistoryOther">
-            <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.OtherProjects)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../public/images/projectHistory.png" />
-                <span class='fl'>其它项目经历</span>
-                <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.OtherProjects)">
-                    <span class="ep_color_grey2 fl">(共</span>
-                    <span class="ep_color_yellow fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
-                    <span class="ep_color_grey2 fl">单，</span>
-                    <span class="ep_color_yellow fl">{{otherProjectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':otherProjectHistoriesSummary.totalOffering.toFixed(2)}}</span>
-                    <span class="ep_color_grey2 fl">亿)</span>
-                </span> 
+            <header class="ep_part_title">
+                <div class='appH5_title fl' style='overflow:hidden;'>
+                    <span class='fl'>其它项目</span>
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.OtherProjects)">
+                        <span class="fl">(共</span>
+                        <span class="appH5_color_green appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
+                        <span class="fl">单，</span>
+                        <span class="appH5_color_green appH5_font_larger fl">{{otherProjectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':otherProjectHistoriesSummary.totalOffering.toFixed(2)}}</span>
+                        <span class="fl">亿)</span>
+                    </span> 
+                </div>
                 <a class="fr" href="/expert/expertuser/projectHistoryOther">
                     <img class="addBtn" src="../../public/images/add.png" />
                 </a>
             </header>
             <div v-if="!isArrayEmpty(userInfo.OtherProjects)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.OtherProjects,3)">
+                <!-- <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.OtherProjects,3)">
                     <div class="ep_overhide">
                         <span class="ep_font32 fl ep_width600">{{item.ProjectName}}</span>
                         <a class="ep_font24 ep_color_orange fr ep_lineHeight32" v-bind:href="'/expert/expertuser/projectHistoryOther?id=' + item.Id">编辑</a>
@@ -106,8 +123,28 @@
                             <td colspan="3">{{splicingOrganizationRoles(item.OrganizationRoles)}}</td>
                         </tr>
                     </table>
-                </div>
-                <div class="ep_font30 ep_align_center ep_padding30" v-if="userInfo.OtherProjects.length>3">
+                </div> -->
+                <div class='appH5_panel' style="padding-top:0px;">
+                    <table class="appH5_table">
+                        <tr>
+                            <th class="text-left">简称</td>
+                            <th class="text-right">金额(亿)</td>
+                            <th class="text-center">类型</td>
+                            <th class="text-right">
+                                操作
+                            </th>
+                        </tr>
+                        <tr v-for="item in _.take(userInfo.OtherProjects,3)">
+                            <td class="ep_ellipsis text-left">{{item.ProjectShortName}}</td>
+                            <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
+                            <td class="ep_ellipsis text-center">{{item.DealType}}</td>
+                            <td class="ep_ellipsis text-right">
+                                 <a class="ep_font24 ep_color_orange fr ep_lineHeight32" v-bind:href="'/expert/expertuser/projectHistoryOther?id=' + item.Id">编辑</a>
+                            </td>
+                        </tr>
+                </table>
+               </div>
+                <div class="ep_font30 ep_align_center ep_padding30" style="padding-top:0px;" v-if="userInfo.OtherProjects.length>3">
                     <a href="/expert/expertuser/projectHistoryOtherList">查看更多</a>
                 </div>
             </div>
@@ -115,8 +152,7 @@
         </section>
         <section class="ep_part" id="workHistory">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.WorkHistories)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../public/images/workHistory.png" />
-                <span class='fl'>工作经历</span>
+                <span class='fl appH5_title'>工作经历</span>
                 <a class="fr" href="/expert/expertuser/workHistory">
                     <img class="addBtn" src="../../public/images/add.png" />
                 </a>
@@ -124,7 +160,7 @@
             <div v-if="!isArrayEmpty(userInfo.WorkHistories)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.WorkHistories">
                     <div class="ep_overhide">
-                        <span class="ep_font32 ep_ellipsis fl ep_width600">{{item.Position}}</span>
+                        <span class="ep_font32 ep_ellipsis fl ep_width600 appH5_color_green">{{item.Position}}</span>
                         <a v-bind:href="'/expert/expertuser/workHistory?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">编辑</a>
                     </div>
                     <div class="ep_font28 ep_color_grey2 ep_marginTop10 ep_overhide">
@@ -142,8 +178,7 @@
         </section>
         <section class="ep_part" id="otherPosition">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.OtherPosts)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../public/images/position.png" />
-                <span class='fl'>其它职务</span>
+                <span class='fl appH5_title'>其它职务</span>
                 <a class="fr" href="/expert/expertuser/otherPosition">
                     <img class="addBtn" src="../../public/images/add.png" />
                 </a>
@@ -160,8 +195,7 @@
         </section>
         <section class="ep_part" id="awardsAndHonors">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.HonorAwards)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../public/images/honor.png" />
-                <span class='fl'>奖项与荣誉</span>
+                <span class='fl appH5_title'>奖项与荣誉</span>
                 <a class="fr" href="/expert/expertuser/awardsAndHonors">
                     <img class="addBtn" src="../../public/images/add.png" />
                 </a>
@@ -180,8 +214,7 @@
         </section>
         <section class="ep_part" id="activity">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.RecentActivities)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../public/images/activity.png" />
-                <span class='fl'>近期活动</span>
+                <span class='fl appH5_title'>近期活动</span>
                 <a class="fr" href="/expert/expertuser/activity">
                     <img class="addBtn" src="../../public/images/add.png" />
                 </a>
@@ -203,8 +236,7 @@
         </section>
         <section class="ep_part" id="article">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.Publishs)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../public/images/article.png" />
-                <span class='fl'>著作与文章</span>
+                <span class='fl appH5_title'>著作与文章</span>
                 <a class="fr" href="/expert/expertuser/article">
                     <img class="addBtn" src="../../public/images/add.png" />
                 </a>
@@ -260,8 +292,7 @@
         </section>
         <section class="ep_part" id="educationHistory">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.Educations)?'':'ep_part_item_border']">
-                <img class="ep_icon fl" src="../../public/images/education.png" />
-                <span class='fl'>教育经历</span>
+                <span class='fl appH5_title'>教育经历</span>
                 <a class="fr" href="/expert/expertuser/educationHistory">
                     <img class="addBtn" src="../../public/images/add.png" />
                 </a>
@@ -292,8 +323,7 @@
         </section>
         <section class="ep_part" id="personalProfile" v-if="isValidElement(userInfo.User)">
             <header class="ep_part_title" v-bind:class="[isValidElement(userInfo.User.Introduction)?'ep_part_item_border':'']">
-                <img class="ep_icon fl" src="../../public/images/person.png" />
-                <span class='fl'>个人简介</span>
+                <span class='fl appH5_title'>个人简介</span>
                 <a href="/expert/expertuser/personalProfile">
                     <img class="fr editPencils" src="../../public/images/pencils.png" alt="">
                 </a>
@@ -309,6 +339,7 @@ import '@/public/modules/expert/flexible';
 import _ from 'lodash';
 
 import '@/public/css/expert/reset.css';
+import '@/public/css/theme.css';
 import '@/public/css/expert/editProfile.css';
  
 export default {
