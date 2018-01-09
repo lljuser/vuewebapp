@@ -1,3 +1,304 @@
-.cnabs-bg {
-    background-color: red;
+.appH5_body{
+	color:#fff;
+	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
+	padding:0;
+	margin: 0; 
+	background-color: #373430;
+}
+.appH5_content{
+	margin: 0 auto;
+	width: 10rem;
+	font-size: 0.4rem;
+}
+.appH5_header{
+	background-color: #535352;
+}
+.appH5_footer{
+	background-color: #535352;
+}
+.appH5_panel{
+	background-color: #2b2a29;
+	padding: 0.32rem;
+}
+.appH5_inner_panel{
+	background-color: #444444;
+}
+a{
+	color:#ffc445;
+}
+a:hover{
+	color:#ffc445;
+}
+/*文字大小4种*/
+.appH5_font_smaller{
+	font-size: 0.346667rem
+}
+.appH5_font_normal{
+	font-size:0.4rem;
+}
+.appH5_font_large{
+	font-size: 0.453333rem;
+}
+.appH5_font_larger{
+	font-size: 0.506667rem;
+}
+.appH5_font_largest{
+	font-size: 0.8rem;
+}
+/*文字颜色*/
+.appH5_color_disabled{
+	color:#666666;
+}
+.appH5_color_details{
+	color:#ccc;
+}
+.appH5_color_green{
+   color:#57b489;
+}
+.appH5_color_red{
+	color:#ee7a76;
+}
+.appH5_color_white{
+	color:#fff!important;
+}
+input{
+   padding-left:0.32rem;
+   padding-right: 0.32rem;
+   height: 0.746667rem;
+   line-height: 0.746667rem;
+   background-color: #fff;
+   outline: none;
+   color:#444;
+   border:none;
+   border-radius: 0.053333rem;
+   font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
+}
+.appH5_search_input{
+   padding-left:0.746667rem;
+   background-image:url('../../assets/searchIcon.png');
+   background-size:0.346667rem 0.346667rem;
+   background-repeat: no-repeat;
+   background-position: 0.266667rem center; 
+   width:5.413333rem;
+}
+select{
+	padding-left: 0.266667rem;
+	padding-right: 0.266667rem;
+	height: 0.746667rem;
+	line-height: 0.746667rem;
+	font-size: 0.4rem;
+	color:#444444;
+	outline: none;
+	border:none;
+	border-radius: 0.053333rem;
+	background-color: #fff;
+}
+/*button CSS*/
+.appH5_btn_larger_blue{
+	color:#fff;
+	width:7.946667rem;
+	margin: 0 auto;
+	height: 1.173333rem;
+	line-height: 1.173333rem;
+	text-align: center;
+	background-color: #0578D0;
+    border-radius: 0.053333rem;
+    font-size: 0.48rem;
+}
+.appH5_btn_unfollow{
+	width:1.333333rem;
+    text-align: center;
+    height: 0.613333rem;
+    line-height: 0.613333rem;
+    border: 0.026667rem solid #ffc446;
+    border-radius: 0.053333rem;
+    color:#ffc446;
+    font-size: 0.373333rem;
+}
+.appH5_btn_follow{
+	width:1.333333rem;
+    text-align: center;
+    height: 0.613333rem;
+    line-height: 0.613333rem;
+    border: 0.026667rem solid #cccccc;
+    border-radius: 0.053333rem;
+    color:#ccc;
+    font-size: 0.373333rem;
+}
+.appH5_btn_smaller_orange{
+	width:1.333333rem;
+    text-align: center;
+    height: 0.613333rem;
+    line-height: 0.613333rem;
+    border: 0.026667rem solid #F73B09 ;
+    border-radius: 0.053333rem;
+    color:#fff;
+    font-size: 0.373333rem;
+    background-color: #F73B09 ;
+}
+.appH5_btn_smaller_blue{
+    width:1.333333rem;
+    text-align: center;
+    height: 0.613333rem;
+    line-height: 0.613333rem;
+    border: 0.026667rem solid #0578D0;
+    border-radius: 0.053333rem;
+    color:#fff;
+    font-size: 0.373333rem;
+    background-color: #0578D0;
+}
+.appH5_btn_save{
+	color:#fff;
+	width:4.2rem;
+	height: 1.173333rem;
+	line-height: 1.173333rem;
+	text-align: center;
+	background-color: #0578D0;
+    border-radius: 0.053333rem;
+    font-size: 0.48rem;
+    border: 0.013333rem solid #0578D0;
+}
+.appH5_btn_cancel{
+	color:#cccccc;
+	width:4.2rem;
+	height: 1.173333rem;
+	line-height: 1.173333rem;
+	text-align: center;
+    border-radius: 0.053333rem;
+    font-size: 0.48rem;
+    border:0.013333rem solid #CCCCCC;
+}
+.appH5_color_icon{
+    color:#ccc;
+}
+.appH5_color_link{
+	color:#ffc446;
+}
+.appH5_border_bottom{
+	border-bottom: 0.013333rem solid #3B3A39;
+}
+.appH5_border_top{
+	border-top: 0.013333rem solid #3B3A39;
+}
+.appH5_look_more{
+	color:#ffc446;
+	font-size: 0.373333rem;
+	width:100%;
+	text-align: center;
+}
+.appH5_table{
+    border-collapse: collapse;
+    width:100%;
+}
+.appH5_table th{
+   background-color: #444444;
+   color:#fff;
+   font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
+   padding: 0.333333rem 0.146667rem;
+   font-weight: bold;
+   font-size: 0.4rem;
+}
+.appH5_table td{
+   font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
+   padding: 0.333333rem 0.146667rem;
+   border-bottom:0.013333rem solid #3B3A39;
+   white-space: nowrap;
+   font-size: 0.4rem;
+}
+.text-right{
+  text-align: right;
+}
+.text-left{
+  text-align: left;
+}
+.fontBold{
+	font-weight: bold;
+}
+.appH5_color_error{
+	color:#E54B4B;
+	font-size: 0.346667rem;
+}
+.appH5_returnIcon{
+	width:0.32rem;
+	height: 0.56rem;
+}
+.appH5_threeDot{
+	width:0.6rem;
+	height:0.106667rem;
+}
+.appH5_title{
+	height:0.533333rem;
+	line-height: 0.533333rem;
+	border-left: 0.133333rem solid #f98909;
+	font-size: 0.506667rem;
+	padding-left: 0.266667rem;
+	margin-bottom: 0.4rem;
+}
+.appH5_list_two{
+    border-collapse: collapse;
+    width:100%;
+}
+.appH5_list_two td{
+	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
+	font-size: 0.4rem;
+	padding-bottom:0.2rem; 
+}
+.appH5_list_two td:nth-of-type(1){
+	width:1.333333rem;
+	vertical-align: top;
+    color:#57b489;
+    padding-right: 0.2rem;
+}
+.appH5_list_two td:nth-of-type(2){
+	width:5.54rem;
+}
+.appH5_list_two tr:last-child td{
+	padding-bottom:0rem; 
+}
+
+.appH5_list_four{
+    border-collapse: collapse;
+    width:100%;
+}
+.appH5_list_four td{
+	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
+	font-size: 0.4rem;
+	padding-bottom:0.2rem; 
+}
+.appH5_list_four td:nth-of-type(2n+1){
+	width:1.333333rem;
+	vertical-align: top;
+    color:#57b489;
+    padding-right: 0.2rem;
+}
+.appH5_list_four td:nth-of-type(2n){
+	width:2rem;
+}
+.appH5_list_four tr:last-child td{
+	padding-bottom:0rem; 
+}
+.appH5_tab_div{
+	overflow: hidden;
+	padding-left:0.72rem;
+	padding-right: 0.72rem; 
+}
+.appH5_tab{
+	color:#fff;
+	font-size: 0.506667rem;
+	border-bottom: 0.08rem solid transparent;
+	padding-left:0.16rem;
+	padding-right:0.16rem;
+	padding-top: 0.346667rem;
+	padding-bottom:0.266667rem;
+	float:left;
+}
+.appH5_select_tab{
+	color:#ffc446;
+	font-size: 0.506667rem;
+	border-bottom: 0.08rem solid #ffc446;
+	padding-left:0.16rem;
+	padding-right:0.16rem;
+	padding-top: 0.346667rem;
+	padding-bottom:0.266667rem;
+	float:left;
 }

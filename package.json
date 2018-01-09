@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "amfe-flexible": "^2.2.1",
     "highcharts": "^6.0.4",
     "mint-ui": "^2.2.13",
     "vue": "^2.5.2",
