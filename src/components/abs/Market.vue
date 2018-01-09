@@ -7,39 +7,39 @@
       <table class="appH5_table">
         <tr>
           <th> </th>
-          <th>今年总数</th>
-          <th>今年总额(亿)</th>
-          <th>累计总额(亿)</th>
+          <th class="text-right">今年总数</th>
+          <th class="text-right">今年总额(亿)</th>
+          <th class="text-right">累计总额(亿)</th>
         </tr>
         <tr>
           <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">信贷ABS</a></router-link></td>
           <td class="text-right">1</td>
-          <td class="text-right">5</td>
-          <td class="text-right">442</td>
+          <td class="text-right appH5_color_red">5.00</td>
+          <td class="text-right">442.00</td>
         </tr>
         <tr>
           <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">企业ABS</a></router-link></td>
-          <td class="text-right">0</td>
-          <td class="text-right">0</td>
-          <td class="text-right">1183</td>
+          <td class="text-right">1</td>
+          <td class="text-right appH5_color_red">1.00</td>
+          <td class="text-right">1183.00</td>
         </tr>
         <tr>
           <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">ABN</a></router-link></td>
           <td class="text-right">1</td>
-          <td class="text-right">10</td>
-          <td class="text-right">67</td>
+          <td class="text-right appH5_color_red">10.00</td>
+          <td class="text-right">67.00</td>
         </tr>
         <tr>
           <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">保险ABS</a></router-link></td>
           <td class="text-right">1</td>
-          <td class="text-right">2</td>
-          <td class="text-right">3</td>
+          <td class="text-right appH5_color_red">2.00</td>
+          <td class="text-right">3.00</td>
         </tr>
         <tr>
-          <td>总计</td>
-          <td class="text-right">11</td>
-          <td class="text-right">112</td>
-          <td class="text-right">1113</td>
+          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447;font-weight:bold">总计</a></router-link></td>
+          <td class="text-right" style="font-weight:bold">11</td>
+          <td class="text-right appH5_color_red" style="font-weight:bold">112.00</td>
+          <td class="text-right" style="font-weight:bold">1113.00</td>
         </tr>
       </table>
     </div>

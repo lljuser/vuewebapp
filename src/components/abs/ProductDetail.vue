@@ -110,20 +110,20 @@
               </tr>
               <tr>
                 <td>17康安1A</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">1.5</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.850%</span><br/><span class="appH5_color_details appH5_font_smaller">AAA</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">1.50</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.85%</span><br/><span class="appH5_color_details appH5_font_smaller">AAA</span></td>
                 <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">AAA</span></td>
               </tr>
               <tr>
                 <td>17康安1B</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">2.3</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.850%</span><br/><span class="appH5_color_details appH5_font_smaller">AA</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">2.30</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.85%</span><br/><span class="appH5_color_details appH5_font_smaller">AA</span></td>
                 <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">AA-</span></td>
               </tr>
               <tr>
                 <td>17康安1C</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">5.6</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.850%</span><br/><span class="appH5_color_details appH5_font_smaller">NR</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">5.60</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
+                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.80%</span><br/><span class="appH5_color_details appH5_font_smaller">NR</span></td>
                 <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">NR</span></td>
               </tr>
             </table>
