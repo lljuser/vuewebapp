@@ -33,6 +33,7 @@ body{
 }
 a{
 	color:#ffc445;
+	text-decoration: none;
 }
 a:hover{
 	color:#ffc445;
@@ -180,6 +181,13 @@ select{
     color:#ccc;
 }
 .appH5_color_link{
+	color:#ffc446;
+}
+.appH5_link{
+	color:#ffc446;
+	text-decoration: none;
+}
+.appH5_link:hover{
 	color:#ffc446;
 }
 .appH5_border_bottom{
