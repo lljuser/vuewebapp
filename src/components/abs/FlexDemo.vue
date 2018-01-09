@@ -80,7 +80,7 @@
 				<option>选择2</option>
 			</select>
 		</div>
-		<h2>按钮集合</h2>
+		<h2>颜色集合</h2>
 		<div class="appH5_panel">
 			<div class="appH5_color_red">资金专用颜色</div>
 			<div class="appH5_color_disabled">不可操作颜色</div>

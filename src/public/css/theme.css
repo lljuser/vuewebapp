@@ -1,14 +1,17 @@
+body{
+ margin:0;	
+}
 .appH5_body{
 	color:#fff;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
 	padding:0;
 	margin: 0; 
 	background-color: #373430;
+	text-align:left;
 }
 .appH5_content{
 	margin: 0 auto;
-	width: 10rem;
-	font-size: 0.4rem;
+	font-size: 15px;
 }
 .appH5_header{
 	background-color: #535352;
@@ -31,16 +34,16 @@ a:hover{
 }
 /*文字大小4种*/
 .appH5_font_smaller{
-	font-size: 0.346667rem
+	font-size: 13px;
 }
 .appH5_font_normal{
-	font-size:0.4rem;
+	font-size:15px;
 }
 .appH5_font_large{
-	font-size: 0.453333rem;
+	font-size: 17px;
 }
 .appH5_font_larger{
-	font-size: 0.506667rem;
+	font-size: 19px;
 }
 .appH5_font_largest{
 	font-size: 0.8rem;
@@ -86,7 +89,7 @@ select{
 	padding-right: 0.266667rem;
 	height: 0.746667rem;
 	line-height: 0.746667rem;
-	font-size: 0.4rem;
+	font-size: 15px;
 	color:#444444;
 	outline: none;
 	border:none;
@@ -103,7 +106,7 @@ select{
 	text-align: center;
 	background-color: #0578D0;
     border-radius: 0.053333rem;
-    font-size: 0.48rem;
+    font-size: 19px;
 }
 .appH5_btn_unfollow{
 	width:1.333333rem;
@@ -113,7 +116,7 @@ select{
     border: 0.026667rem solid #ffc446;
     border-radius: 0.053333rem;
     color:#ffc446;
-    font-size: 0.373333rem;
+    font-size: 15px;
 }
 .appH5_btn_follow{
 	width:1.333333rem;
@@ -123,7 +126,7 @@ select{
     border: 0.026667rem solid #cccccc;
     border-radius: 0.053333rem;
     color:#ccc;
-    font-size: 0.373333rem;
+    font-size: 15px;
 }
 .appH5_btn_smaller_orange{
 	width:1.333333rem;
@@ -133,7 +136,7 @@ select{
     border: 0.026667rem solid #F73B09 ;
     border-radius: 0.053333rem;
     color:#fff;
-    font-size: 0.373333rem;
+    font-size: 15px;
     background-color: #F73B09 ;
 }
 .appH5_btn_smaller_blue{
@@ -144,7 +147,7 @@ select{
     border: 0.026667rem solid #0578D0;
     border-radius: 0.053333rem;
     color:#fff;
-    font-size: 0.373333rem;
+    font-size: 15px;
     background-color: #0578D0;
 }
 .appH5_btn_save{
@@ -155,7 +158,7 @@ select{
 	text-align: center;
 	background-color: #0578D0;
     border-radius: 0.053333rem;
-    font-size: 0.48rem;
+    font-size: 19px;
     border: 0.013333rem solid #0578D0;
 }
 .appH5_btn_cancel{
@@ -165,7 +168,7 @@ select{
 	line-height: 1.173333rem;
 	text-align: center;
     border-radius: 0.053333rem;
-    font-size: 0.48rem;
+    font-size: 19px;
     border:0.013333rem solid #CCCCCC;
 }
 .appH5_color_icon{
@@ -182,7 +185,7 @@ select{
 }
 .appH5_look_more{
 	color:#ffc446;
-	font-size: 0.373333rem;
+	font-size: 15px;
 	width:100%;
 	text-align: center;
 }
@@ -196,14 +199,14 @@ select{
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
    padding: 0.333333rem 0.146667rem;
    font-weight: bold;
-   font-size: 0.4rem;
+   font-size: 15px;
 }
 .appH5_table td{
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
    padding: 0.333333rem 0.146667rem;
    border-bottom:0.013333rem solid #3B3A39;
    white-space: nowrap;
-   font-size: 0.4rem;
+   font-size: 15px;
 }
 .text-right{
   text-align: right;
@@ -216,7 +219,7 @@ select{
 }
 .appH5_color_error{
 	color:#E54B4B;
-	font-size: 0.346667rem;
+	font-size: 13px;
 }
 .appH5_returnIcon{
 	width:0.32rem;
@@ -230,7 +233,7 @@ select{
 	height:0.533333rem;
 	line-height: 0.533333rem;
 	border-left: 0.133333rem solid #f98909;
-	font-size: 0.506667rem;
+	font-size: 19px;
 	padding-left: 0.266667rem;
 	margin-bottom: 0.4rem;
 }
@@ -240,7 +243,7 @@ select{
 }
 .appH5_list_two td{
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
-	font-size: 0.4rem;
+	font-size: 15px;
 	padding-bottom:0.2rem; 
 }
 .appH5_list_two td:nth-of-type(1){
@@ -262,7 +265,7 @@ select{
 }
 .appH5_list_four td{
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
-	font-size: 0.4rem;
+	font-size: 15px;
 	padding-bottom:0.2rem; 
 }
 .appH5_list_four td:nth-of-type(2n+1){
@@ -284,7 +287,7 @@ select{
 }
 .appH5_tab{
 	color:#fff;
-	font-size: 0.506667rem;
+	font-size:19px;
 	border-bottom: 0.08rem solid transparent;
 	padding-left:0.16rem;
 	padding-right:0.16rem;
@@ -294,7 +297,7 @@ select{
 }
 .appH5_select_tab{
 	color:#ffc446;
-	font-size: 0.506667rem;
+	font-size: 19px;
 	border-bottom: 0.08rem solid #ffc446;
 	padding-left:0.16rem;
 	padding-right:0.16rem;
