@@ -1,4 +1,5 @@
 <template>
+<div class="appH5_body">
   <div class="appH5_panel">
     <table class="select_div">
       <tr>
@@ -51,6 +52,7 @@
     </mt-loadmore>
     
   </div>
+</div>
 </template>
 
 <script> 
