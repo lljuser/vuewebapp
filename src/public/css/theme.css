@@ -33,6 +33,7 @@ body{
 }
 a{
 	color:#ffc445;
+	text-decoration: none;
 }
 a:hover{
 	color:#ffc445;
@@ -83,7 +84,7 @@ input{
 }
 .appH5_search_input{
    padding-left:0.746667rem;
-   background-image:url('../../assets/searchIcon.png');
+   background-image:url('../image/searchicon.png');
    background-size:0.346667rem 0.346667rem;
    background-repeat: no-repeat;
    background-position: 0.266667rem center; 
@@ -180,6 +181,13 @@ select{
     color:#ccc;
 }
 .appH5_color_link{
+	color:#ffc446;
+}
+.appH5_link{
+	color:#ffc446;
+	text-decoration: none;
+}
+.appH5_link:hover{
 	color:#ffc446;
 }
 .appH5_border_bottom{
