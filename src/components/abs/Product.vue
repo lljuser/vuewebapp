@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import ProductItem from './ProductItem';
+import * as webApi from '@/config/api';
+import ProductItem from './ProductItem'; 
 
 export default {
   name: 'product',
@@ -60,7 +61,7 @@ export default {
       }, 1000);
     },
     fetchProducts(page, callback) {
-      fetch(`http://10.1.1.35/Demo/DemoProduct/getlist/${page}`)
+      fetch(`${webApi.Demo.list}/${page}`)
       .then(response => response.json())
       .then((json) => {
         const data = json.data;

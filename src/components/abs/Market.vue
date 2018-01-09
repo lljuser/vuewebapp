@@ -20,7 +20,8 @@ import loadDrilldown from 'highcharts/modules/drilldown';
 import loadHighchartsMore from 'highcharts/highcharts-more';
 import loadSolidGauge from 'highcharts/modules/solid-gauge';
 import * as chartTheme from '@/public/js/chartTheme';
-
+import * as webApi from '@/config/api'; 
+ 
 loadStock(Highcharts);
 loadMap(Highcharts);
 loadDrilldown(Highcharts);
@@ -28,8 +29,8 @@ loadHighchartsMore(Highcharts);
 loadSolidGauge(Highcharts); 
 Vue.use(VueHighcharts, { Highcharts }); 
 
-Highcharts.setOptions(chartTheme); 
-
+Highcharts.setOptions(chartTheme);  
+ 
 export default {
   name: 'market',
   data() {
@@ -38,7 +39,7 @@ export default {
       list: [],
       options: {
         title: {
-          text: '2010 ~ 2016 年太阳能行业就业人员发展情况',
+          text: webApi.Product.list,
         },
         subtitle: {
           text: '数据来源：thesolarfoundation.com',
@@ -107,7 +108,7 @@ export default {
   },
   methods: {
     fetchPost() {
-      fetch('http://10.1.1.35/Demo/DemoProduct/getlist')
+      fetch(webApi.Demo.list)
         .then(response => response.json())
         .then((json) => {
           this.list = json.data;
