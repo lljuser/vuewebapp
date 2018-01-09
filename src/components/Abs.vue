@@ -13,7 +13,7 @@
     </div>
     
     <div v-else>
-      <mt-header title="标题过长会隐藏后面的内容啊哈哈哈哈">
+      <mt-header title="产品信息">
         <router-link to="/" slot="left">
           <mt-button icon="back" @click.stop="goBack">返回</mt-button>
         </router-link>
@@ -26,7 +26,6 @@
 </template>
 
 <script> 
-import 'mint-ui/lib/style.css'
 import '@/public/css/theme.css';
 import BusUtil from './abs/BusUtil';
 
