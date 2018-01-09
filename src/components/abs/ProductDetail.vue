@@ -157,8 +157,11 @@ export default {
   name: 'productDetail',
   created() {
     const busUtil = BusUtil.getInstance();
+    
     this.id = this.$route.params.id;
-    this.fetchProductDetail(this.id);
+    if (this.id) {
+      this.fetchProductDetail(this.id);
+    }
     this.fetchProductPaymentChart(440,28203);//(this.dealId, this.resultId);
     busUtil.bus.$emit('showHeader', true);
 
