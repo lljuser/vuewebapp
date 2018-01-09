@@ -1,31 +1,32 @@
 <template>
   <div id="app" class="cnabs-bg">
-    <template v-if="!showHeader">
+    <div v-if="!showHeader" class="appH5_navbar">
       <router-link to="/market">
-        <a href="javascript:;">市场</a>
+        <a class="appH5_font_larger" href="javascript:;">市场</a>
       </router-link>
       <router-link to="/product">
-        <a href="javascript:;">产品</a>
+        <a class="appH5_font_larger" href="javascript:;">产品</a>
       </router-link>
       <router-link to="/trade">
-        <a href="javascript:;">交易</a>
+        <a class="appH5_font_larger" href="javascript:;">交易</a>
       </router-link>
-    </template>
+    </div>
     
-    <template v-else>
+    <div v-else>
       <mt-header title="标题过长会隐藏后面的内容啊哈哈哈哈">
         <router-link to="/" slot="left">
           <mt-button icon="back" @click.stop="goBack">返回</mt-button>
         </router-link>
         <mt-button icon="more" slot="right"></mt-button>
       </mt-header>
-    </template>
+    </div>
 
     <router-view />
   </div>
 </template>
 
 <script> 
+import 'mint-ui/lib/style.css'
 import '@/public/css/theme.css';
 import BusUtil from './abs/BusUtil';
 
