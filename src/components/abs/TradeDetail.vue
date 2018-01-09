@@ -11,7 +11,7 @@
       </tr>
       <tr>
         <td class="appH5_color_green">金额&nbsp;(亿)</td>
-        <td class="appH5_color_red">9888.00</td>
+        <td class="appH5_color_red font19">66.00</td>
         <td class="appH5_color_green">产品类型</td>
         <td class="appH5_color_link">企业资产证券化</td>
       </tr>
@@ -70,6 +70,9 @@
            <div class="clearfix"></div>
           </td>
         </tr>
+        <tr>
+            <td colspan="4" style="height: 2rem;"></td>
+        </tr>
     </table>
   </div>
   <div class="fixedMain appH5_font_normal">
@@ -107,8 +110,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .appH5_content{
-  margin-bottom: 1.6rem; 
   width: 100%;
+}
+.font19{
+    font-size: 19px;
 }
 .fl{
   float: left;

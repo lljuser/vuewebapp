@@ -2,13 +2,13 @@
   <div id="app" class="cnabs-bg">
     <div v-if="!showHeader" class="appH5_navbar">
       <router-link to="/market">
-        <a class="appH5_font_larger" href="javascript:;">市场</a>
+        <a class="appH5_tab" href="javascript:;">市场</a>
       </router-link>
       <router-link to="/product">
-        <a class="appH5_font_larger" href="javascript:;">产品</a>
+        <a class="appH5_tab" href="javascript:;">产品</a>
       </router-link>
       <router-link to="/trade">
-        <a class="appH5_font_larger" href="javascript:;">交易</a>
+        <a class="appH5_tab" href="javascript:;">交易</a>
       </router-link>
     </div>
     
