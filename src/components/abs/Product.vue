@@ -30,7 +30,7 @@
       </tr>
     </table>
     
-    <mt-loadmore :top-method="loadTop" ref="loadmore" :topDistance="70" topPullText="">
+    <mt-loadmore :top-method="loadTop" ref="loadmore" :topDistance="70" topPullText="" topDropText="" topLoadingText="">
       <table class="appH5_table"  >
         <tr>
           <th>产品名称</th>
