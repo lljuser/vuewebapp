@@ -5,14 +5,19 @@
   "author": "",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
   },
   "dependencies": {
+    "amfe-flexible": "^2.2.1",
+    "highcharts": "^6.0.4",
     "mint-ui": "^2.2.13",
+    "moment": "^2.20.1",
     "vue": "^2.5.2",
+    "vue-highcharts": "^0.0.10",
+    "vue-moment": "^3.1.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

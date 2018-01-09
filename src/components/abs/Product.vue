@@ -2,10 +2,17 @@
   <div class="hello">
     <h1>产品页</h1>
     <a href="javascript:;"></a>
-
-    <div v-for="item in list" :key="item.index">
-      <ProductItem :item="item" />
-    </div>
+    <mt-loadmore :top-method="loadTop" ref="loadmore" :topDistance="70">
+      <div 
+        v-for="(item, index) in list" 
+        :key="index" 
+        v-infinite-scroll="loadMore"
+        infinite-scroll-disabled="loading"
+        infinite-scroll-immediate-check="true"
+        infinite-scroll-distance="55">
+        <ProductItem :item="item" :id="index" />
+      </div>
+    </mt-loadmore>
   </div>
 </template>
 
@@ -16,25 +23,50 @@ export default {
   name: 'product',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      // list: [
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '5%~6%', index: 1 },
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '6.00%', index: 2 },
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '7.50%', index: 3 },
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '3%~4%', index: 4 },
-      // ],
       list: [],
+      page: 1,
+      loading: false,
     };
   },
   created() {
-    this.fetchProducts();
+    this.fetchProducts(1, (data) => {
+      this.list = data;
+      this.page = this.page + 1;
+    });
   },
   methods: {
-    fetchProducts() {
-      fetch('http://10.1.1.35/Demo/DemoProduct/getlist')
+    loadTop() {
+      setTimeout(() => {
+        this.fetchProducts(1, (data) => {
+          this.list = data;
+          this.page = 2;
+          this.loading = false;
+          this.$refs.loadmore.onTopLoaded();
+        });
+      }, 1000);
+    },
+    loadMore() {
+      this.loading = true;
+      setTimeout(() => {
+        this.fetchProducts(this.page, (data) => {
+          if (this.page > 1) {
+            this.list = this.list.concat(data);
+          } else {
+            this.list = data;
+          }
+          this.page = this.page + 1;
+          this.loading = false;
+        });
+      }, 1000);
+    },
+    fetchProducts(page, callback) {
+      fetch(`http://10.1.1.35/Demo/DemoProduct/getlist/${page}`)
       .then(response => response.json())
       .then((json) => {
-        this.list = json.data;
+        const data = json.data;
+        if (data && data.length > 0) {
+          callback(data);
+        }
       });
     },
   },

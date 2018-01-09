@@ -7,6 +7,8 @@ import router from './router/abs';
 import App from './components/Abs';
 
 Vue.use(MintUI);
+Vue.use(require('vue-moment'));
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
