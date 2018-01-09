@@ -1,5 +1,5 @@
  
-const apiAddress = 'https://www.cn-abs.com';
+const apiAddress = 'http://10.1.1.35';
 export default apiAddress;
 
 export const Market = {
