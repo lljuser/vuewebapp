@@ -83,9 +83,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       minify: {
         removeComments: true,
         collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
+        removeAttributeQuotes: true 
       },
     }),
     new HtmlWebpackPlugin({
@@ -97,9 +95,31 @@ const webpackConfig = merge(baseWebpackConfig, {
       minify: {
         removeComments: true,
         collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
+        removeAttributeQuotes: true 
+      },
+    }),
+    new HtmlWebpackPlugin({
+      filename: cnabsConfig.product.output,
+      template: cnabsConfig.product.tmpl,
+      chunks: [ 'vendor','manifest','cnabs', cnabsConfig.product.name ],
+      chunksSortMode: 'dependency',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true 
+      },
+    }),
+    new HtmlWebpackPlugin({
+      filename: cnabsConfig.trade.output,
+      template: cnabsConfig.trade.tmpl,
+      chunks: [ 'vendor','manifest','cnabs', cnabsConfig.trade.name ],
+      chunksSortMode: 'dependency',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true 
       },
     }),
     // keep module.id stable when vender modules does not change
