@@ -83,7 +83,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       minify: {
         removeComments: true,
         collapseWhitespace: true,
-        removeAttributeQuotes: true 
+        removeAttributeQuotes: true, 
       },
     }),
     new HtmlWebpackPlugin({
@@ -95,7 +95,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       minify: {
         removeComments: true,
         collapseWhitespace: true,
-        removeAttributeQuotes: true 
+        removeAttributeQuotes: true, 
       },
     }),
     new HtmlWebpackPlugin({
