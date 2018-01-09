@@ -229,11 +229,6 @@ export default {
               },
               opposite: !0
             }],
-            legend: {
-              layout: 'vertical',
-              align: 'right',
-              verticalAlign: 'middle',
-            },
             plotOptions: {
               column: {
                 stacking: 'normal',
@@ -254,6 +249,10 @@ export default {
                 });
                 return s;
               },
+            },
+            credits: {
+              href: 'https://cn-abs.com',
+              text: 'CNABS'
             },
             series: seriesList,
             };

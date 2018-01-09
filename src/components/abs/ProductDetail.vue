@@ -287,6 +287,10 @@ export default {
                             return t = e.getFullYear() + "-" + (e.getMonth() + 1) + "-" + e.getDate() + "<br/>" + this.series.name + "剩余本金:<br/>" + Math.round(100 * this.y) / 100 + "%"
                         }
                     },
+                    credits: {
+                      href: 'https://cn-abs.com',
+                      text: 'CNABS'
+                    },
                     series: o
                 };
         this.options = l;
