@@ -4,7 +4,7 @@ import Vue from 'vue';
 import MintUI from 'mint-ui';
 // import 'mint-ui/lib/style.css';
 import router from './router/abs';
-import App from './components/Abs';
+import App from './components/Product';
 
 Vue.use(MintUI);
 Vue.use(require('vue-moment'));
