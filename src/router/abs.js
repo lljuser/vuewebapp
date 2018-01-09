@@ -15,9 +15,8 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'market',
-      component: Market,
+      path: '/', 
+      redirect: '/market',
     },
     {
       path: '/product',

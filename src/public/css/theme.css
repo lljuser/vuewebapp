@@ -5,9 +5,12 @@ body{
 #app {
 	background-color: #383431;
 }
+.mintui {
+	font-size: 19px;
+}
 .mint-header {
 	background-color: #2c2a29;
-	height: 1.26rem;
+	height: 1.0628rem;
 }
 .mint-header-title {
 	font-size: 19px;
@@ -33,11 +36,11 @@ body{
 	display: flex;
 	justify-content: space-around;
 	background-color: #2c2a29;
-	margin-bottom: 0.32rem;
+	margin-bottom: 0.2899rem;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
-	margin-bottom: 0.32rem;
+	margin-bottom: 0.2899rem;
 }
 .appH5_navbar .router-link-active {
 	border-color: #ffc445;
@@ -57,7 +60,7 @@ body{
 }
 /*panel之间的间距*/
 .appH5_panel_mb{
-	margin-bottom:0.266667rem;
+	margin-bottom:0.2899rem;
 }
 .appH5_inner_panel{
 	background-color: #444444;
@@ -347,12 +350,10 @@ select{
 }
 .appH5_tab{
 	color:#fff;
-	font-size:19px;
-	border-bottom: 0.08rem solid transparent;
-	padding-left:0.16rem;
-	padding-right:0.16rem;
-	padding-top: 0.346667rem;
-	padding-bottom:0.266667rem;
+	line-height: 19px;
+	font-size: 19px;
+	padding-top: 0.302rem;
+	padding-bottom: 0.2295rem;
 	float:left;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
 }
