@@ -46,19 +46,19 @@
 	        </div>
 	        <table class="appH5_list_four">
 	        	<tr>
-	        		<td>产品名称</td>
+	        		<td class='appH5_white_space'>产品名称</td>
 	        		<td colspan="3">这是一个产品名称，这是一个产品名称，这是一个产品名称</td>
 	        	</tr>
 	        	<tr>
-	        		<td>证券类型</td>
+	        		<td class='appH5_white_space'>证券类型</td>
 	        		<td>夹层级</td>
-	        		<td>评级</td>
+	        		<td class='appH5_white_space'>评级</td>
 	        		<td>AAA</td>
 	        	</tr>
 	        	<tr>
-	        		<td>证券类型</td>
+	        		<td class='appH5_white_space'>证券类型</td>
 	        		<td>夹层级</td>
-	        		<td>资产类型</td>
+	        		<td class='appH5_white_space'>资产类型</td>
 	        		<td>A应收账款</td>
 	        	</tr>
 	        	<tr>
@@ -128,15 +128,15 @@
         </div>
 		<h2>小图标</h2>
 		<div class="appH5_panel">
-            <img class="appH5_arrowDown" src="../../assets/arrowDown.png" />
-            <img class="appH5_commentIcon" src="../../assets/commentIcon.png" />
-            <img class="appH5_unfollowIcon" src="../../assets/unfollowIcon.png" />
-            <img class="appH5_followIcon" src="../../assets/followIcon.png" />
+            <img class="appH5_arrowDown" src="../../public/image/arrowdown.png" />
+            <img class="appH5_commentIcon" src="../../public/image/commenticon.png" />
+            <img class="appH5_unfollowIcon" src="../../public/image/unfollowicon.png" />
+            <img class="appH5_followIcon" src="../../public/image/followicon.png" />
 		</div>
 		<h2>顶部有返回按钮的页面图标</h2>
 		<div class="appH5_panel">
-            <img class="appH5_returnIcon" src="../../assets/returnIcon.png" />
-            <img class="appH5_threeDot" src="../../assets/threeDot.png" />
+            <img class="appH5_returnIcon" src="../../public/image/returnicon.png" />
+            <img class="appH5_threeDot" src="../../public/image/threedot.png" />
 		</div>
 		<h2>分割线</h2>
 		<div class="appH5_panel">

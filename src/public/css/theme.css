@@ -11,6 +11,7 @@ body{
 }
 .appH5_content{
 	margin: 0 auto;
+	width:10rem;
 	font-size: 15px;
 }
 .appH5_header{
@@ -23,11 +24,16 @@ body{
 	background-color: #2b2a29;
 	padding: 0.32rem;
 }
+/*panel之间的间距*/
+.appH5_panel_mb{
+	margin-bottom:0.266667rem;
+}
 .appH5_inner_panel{
 	background-color: #444444;
 }
 a{
 	color:#ffc445;
+	text-decoration: none;
 }
 a:hover{
 	color:#ffc445;
@@ -78,7 +84,7 @@ input{
 }
 .appH5_search_input{
    padding-left:0.746667rem;
-   background-image:url('../../assets/searchIcon.png');
+   background-image:url('../image/searchicon.png');
    background-size:0.346667rem 0.346667rem;
    background-repeat: no-repeat;
    background-position: 0.266667rem center; 
@@ -160,7 +166,7 @@ select{
 	background-color: #0578D0;
     border-radius: 0.053333rem;
     font-size: 19px;
-    border: 0.013333rem solid #0578D0;
+    border: 1px solid #0578D0;
 }
 .appH5_btn_cancel{
 	color:#cccccc;
@@ -170,7 +176,7 @@ select{
 	text-align: center;
     border-radius: 0.053333rem;
     font-size: 19px;
-    border:0.013333rem solid #CCCCCC;
+    border:1px solid #CCCCCC;
 }
 .appH5_color_icon{
     color:#ccc;
@@ -178,6 +184,13 @@ select{
 .appH5_color_link{
 	color:#ffc446;
 	text-decoration: none;
+}
+.appH5_link{
+	color:#ffc446;
+	text-decoration: none;
+}
+.appH5_link:hover{
+	color:#ffc446;
 }
 .appH5_border_bottom{
 	border-bottom: 0.013333rem solid #3B3A39;
@@ -232,8 +245,8 @@ select{
 	height:0.106667rem;
 }
 .appH5_title{
-	height:0.533333rem;
-	line-height: 0.533333rem;
+	height:19px;
+	line-height: 19px;
 	border-left: 0.133333rem solid #f98909;
 	font-size: 19px;
 	padding-left: 0.266667rem;
@@ -252,7 +265,8 @@ select{
 	width:1.333333rem;
 	vertical-align: top;
     color:#57b489;
-    padding-right: 0.2rem;
+	padding-right: 0.2rem;
+	white-space: nowrap;
 }
 .appH5_list_two td:nth-of-type(2){
 	width:5.54rem;
@@ -274,13 +288,16 @@ select{
 	width:1.333333rem;
 	vertical-align: top;
     color:#57b489;
-    padding-right: 0.2rem;
+	padding-right: 0.2rem;
 }
 .appH5_list_four td:nth-of-type(2n){
 	width:2rem;
 }
 .appH5_list_four tr:last-child td{
 	padding-bottom:0rem; 
+}
+.appH5_white_space{
+	white-space: nowrap;
 }
 .appH5_tab_div{
 	overflow: hidden;
