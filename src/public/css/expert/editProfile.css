@@ -6,47 +6,46 @@ body {
     font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
     margin: 0 auto;
     width: 10rem;
-    background: #f2f2f2;
-    color: #444444;
+    background: #373430;
+    color: #fff;
 }
 
 .ep_part {
-    background-color: #fff;
+    background-color: #2b2a29;
     margin: 0.32rem 0.0rem;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.14);
 }
 
 .ep_part_title {
-    height: 1.226667rem;
-    line-height: 1.226667rem;
     padding-left: 0.4rem;
     padding-right: 0.4rem;
     font-size: 0.426667rem;
     overflow: hidden;
 }
-
+.appH5_title{
+    margin-top:0.38rem;
+}
 .ep_lineHeight32 {
     line-height: 0.6rem;
 }
 
 .ep_font32 {
-    font-size: 0.426667rem;
+    font-size: 17px;
 }
 
 .ep_font28 {
-    font-size: 0.373333rem;
+    font-size: 15px;
 }
 
 .ep_font24 {
-    font-size: 0.32rem;
+    font-size:13px;
 }
 
 .ep_font30 {
-    font-size: 0.4rem;
+    font-size: 15px;
 }
 
 .ep_font36 {
-    font-size: 0.48rem;
+    font-size: 19px;
 }
 
 .enterBtn {
@@ -59,10 +58,11 @@ body {
     height: 0.8rem;
     margin-top: 0.266667rem;
     width: 6.3rem;
-    background-color: #fff;
+    background-color: #2b2a29;
     border: none;
     -webkit-appearance: none;
     outline: none;
+    color:#fff;
 }
 
 .ep_select {
@@ -92,29 +92,30 @@ body {
 }
 
 .ep_saveBtn {
+    color: #fff;
     width: 4.2rem;
     height: 1.173333rem;
     line-height: 1.173333rem;
-    background: #EA4200;
-    border-radius: 4px;
-    color: #fff;
     text-align: center;
-    font-size: 0.48rem;
-    margin-right: 0.533333rem;
+    background-color: #0578D0;
+    border-radius: 0.053333rem;
+    font-size: 19px;
+    border: 1px solid #0578D0;
 }
 
 .ep_cancelBtn, .ep_removeBtn {
+    color: #cccccc;
     width: 4.2rem;
-    height: 1.066667rem;
-    line-height: 1.066667rem;
-    border: 1px solid #EA4200;
-    background: #fff;
-    border-radius: 4px;
-    color: #EA4200;
+    height: 1.173333rem;
+    line-height: 1.173333rem;
     text-align: center;
-    font-size: 0.48rem;
+    border-radius: 0.053333rem;
+    font-size: 19px;
+    border: 1px solid #CCCCCC;
 }
-
+.ep_cancelBtn a, .ep_removeBtn a{
+    color: #cccccc!important;
+}
 .ep_editBtn {
     border: 1px solid #EA4200;
     border-radius: 4px;
@@ -219,7 +220,7 @@ a.ep_editBtn:hover {
     height: auto;
 }
 .ep_part_item_border {
-    border-bottom: 1px solid #E0E0E0;
+    border-bottom: 1px solid #3B3A39;
 }
 
 .ep_part_item {
@@ -337,9 +338,9 @@ a.ep_editBtn:hover {
     padding-bottom: 0.506667rem;
 }
 .editPencils {
-    width: 0.4rem;
-    height: 0.4rem;
-    margin-top: 0.453333rem;
+    width: 19px;
+    height:19px;
+    margin-top: 0.4rem;
 }
 
 .ep_padding30 {
@@ -394,8 +395,6 @@ pre {
 }
 
 .ep_content_div {
-    background-color: #fff;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.14);
     min-height: 16.0rem;
 }
 
@@ -408,16 +407,16 @@ pre {
 }
 
 .ep_color_grey {
-    color: #999;
+    color: #cccccc;
 }
 .ep_color_grey2 {
-    color: #7D7D7D;
+    color: #ccc;
 }
 .ep_color_orange {
-    color: #EA4200;
+    color: #ffc446;
 }
     .ep_color_orange:hover {
-        color: #EA4200;
+        color: #ffc446;
     }
 .ep_color_blue {
     color: #5c94ef;
@@ -428,11 +427,11 @@ pre {
 }
 
 .ep_color_yellow {
-    color: #DB7500;
+    color: #ffc446;
 }
 
     .ep_color_yellow:hover {
-        color: #DB7500;
+        color: #ffc446;
     }
 
 .ep_submitColor {
@@ -555,9 +554,9 @@ pre {
 }
 /*editProfile CSS*/
 .addBtn {
-    width: 0.293333rem;
-    height: 0.293333rem;
-    margin-top: 0.5rem;
+    width: 19px;
+    height: 19px;
+    margin-top: 0.4rem;
 }
 
 .divUserAvatar {
@@ -643,7 +642,7 @@ ul.articleDetail li {
 }
 /*basicInformation CSS*/
 .basicInformationContent {
-    background-color: #fff;
+    background-color: #2b2a29;
 }
 
 .avatarPopup {
