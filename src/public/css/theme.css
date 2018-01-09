@@ -344,6 +344,7 @@ select{
 	padding-top: 0.346667rem;
 	padding-bottom:0.266667rem;
 	float:left;
+	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
 }
 .appH5_select_tab{
 	color:#ffc446;

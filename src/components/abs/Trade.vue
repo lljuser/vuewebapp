@@ -223,7 +223,7 @@ a {
 .trade_select_div {
   display: table;
   width: 100%;
-  margin-top:-12px;
+  margin-top:-6px;
   margin-bottom: 12px;
 }
 </style>
