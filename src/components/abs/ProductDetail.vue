@@ -99,6 +99,14 @@
 
 <script>
 import BusUtil from './BusUtil';
+import Vue from 'vue';
+import VueHighcharts from 'vue-highcharts';
+import Highcharts from 'highcharts';
+
+// some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
+import * as chartTheme from '@/public/js/chartTheme';
+Vue.use(VueHighcharts, { Highcharts }); 
+Highcharts.setOptions(chartTheme);
 
 export default {
   name: 'productDetail',
@@ -106,7 +114,7 @@ export default {
     const busUtil = BusUtil.getInstance();
     this.id = this.$route.params.id;
     this.fetchProductDetail(this.id);
-    this.fetchProductPayment(this.dealId, this.resultId);
+    this.fetchProductPaymentChart(440,28203);//(this.dealId, this.resultId);
     busUtil.bus.$emit('showHeader', true);
   },
   data() {
@@ -123,7 +131,7 @@ export default {
         this.productDetail = json.data;
       });
     },
-    fetchProductPayment(dealId, resultId) {
+    fetchProductPaymentChart(dealId, resultId) {
       fetch(`http://10.1.1.35/Demo/DemoProduct/getitem/${id}`)//../MoDeal/GetNoteCashflowChartData/440/28203
       .then(response => response.json())
       .then((json) => {
