@@ -88,14 +88,6 @@
             <div style="float:left;font-size: 11px;">剩余</div>
           </div>
       </div>
-      <div class="appH5_panel appH5_panel_mb">
-        <div class="appH5_title">
-              <span>证券偿付</span>
-          </div>
-          <div>
-            <highcharts :options='options'></highcharts>
-          </div>
-      </div>
       <div class="appH5_panel">
         <div class="appH5_title">
               <span>证券列表</span>
@@ -129,6 +121,14 @@
             </table>
           </div>
       </div>
+      <div class="appH5_panel appH5_panel_mb">
+        <div class="appH5_title">
+              <span>证券偿付</span>
+          </div>
+          <div>
+            <highcharts :options='options'></highcharts>
+          </div>
+      </div>
     </div>
     <!-- <h2>产品详情页</h2>
     <h3>{{ productDetail && productDetail.Title }}</h3>
@@ -146,6 +146,7 @@ import BusUtil from './BusUtil';
 import Vue from 'vue';
 import VueHighcharts from 'vue-highcharts';
 import Highcharts from 'highcharts';
+import getParams from '../../public/js/getParams';
 
 // some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
 import * as chartTheme from '@/public/js/chartTheme';
@@ -156,10 +157,19 @@ export default {
   name: 'productDetail',
   created() {
     const busUtil = BusUtil.getInstance();
+    
     this.id = this.$route.params.id;
-    this.fetchProductDetail(this.id);
+    if (this.id) {
+      this.fetchProductDetail(this.id);
+    }
     this.fetchProductPaymentChart(440,28203);//(this.dealId, this.resultId);
     busUtil.bus.$emit('showHeader', true);
+
+    // url 传来的id
+    const productId = getParams("id");
+    if (productId) {
+      this.fetchProductDetail(productId);
+    }
   },
   data() {
     return {
@@ -230,7 +240,7 @@ export default {
                     s = chartData.PlotLabel;
                 var l = {
                     title: {
-                        text: '证券偿付图'
+                        text: ''
                     },
                     xAxis: {
                         type: "datetime",
@@ -266,7 +276,7 @@ export default {
                     yAxis: {
                         title: {
                             enabled: !0,
-                            text: "偿付百分比"
+                            text: ""
                         },
                         labels: {
                             format: "{value:.0f}%"
@@ -285,6 +295,11 @@ export default {
                             var t,
                                 e = new Date(this.x);
                             return t = e.getFullYear() + "-" + (e.getMonth() + 1) + "-" + e.getDate() + "<br/>" + this.series.name + "剩余本金:<br/>" + Math.round(100 * this.y) / 100 + "%"
+                        }
+                    },
+                    legend : {
+                        style: {
+                            fontSize: '10px'
                         }
                     },
                     credits: {
