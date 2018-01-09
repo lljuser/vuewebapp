@@ -24,7 +24,9 @@ module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
     abs: cnabsConfig.abs.entry,
-    expert: cnabsConfig.expert.entry
+    expert: cnabsConfig.expert.entry,
+    product: cnabsConfig.product.entry,
+    trade: cnabsConfig.trade.entry,
   },
   output: {
     path: config.build.assetsRoot,
