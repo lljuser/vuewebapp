@@ -51,6 +51,7 @@
 </div>
 </template>
 <script>
+import BusUtil from './BusUtil';
 import * as webApi from '@/config/api';
 import TradeItem from "./TradeItem";
 import axios from 'axios';  
@@ -84,6 +85,10 @@ export default {
     this.getRatingList(data=>{
       this.ratingList=data;
     })    
+  },
+   activated() {
+    const busUtil = BusUtil.getInstance();
+    busUtil.bus.$emit('showHeader', false);
   },
   mounted(){
     this.isTradeLoading = true;

@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td class="appH5_white_space">证券类型</td>
-            <td class="appH5_color_link"><router-link to="/product"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
+            <td class="appH5_color_link"><router-link to="/trade"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
             <td class="appH5_white_space">评&#12288;&#12288;级</td>
             <td>{{detailInfo.Rating}}</td>
         </tr>
