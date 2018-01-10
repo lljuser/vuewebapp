@@ -4,3 +4,4 @@ export default function getQueryString(name) {
   const param = url.searchParams.get(name);
   return param;
 }
+
