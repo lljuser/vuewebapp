@@ -16,8 +16,7 @@
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="savePersonalProfile">保存</span>
                 <span class="ep_cancelBtn fr">
-                    <!-- <a href="/expert/expertuser/editProfile#personalProfile" class="ep_color_orange">取消</a> -->
-                    <router-link to="/EditProfile">
+                    <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
                 </span>
@@ -32,6 +31,9 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
+
     export default {
         name: 'BriefIntroducation',
         data: function () {
@@ -40,14 +42,18 @@
                 isShowError: false,
                 errorMessage: '',
                 submitPopupVisible: false,
-                queryString: GetRequest(),
                 personalProfile: ''
             }
         },
         created: function () {
-            
+            this.initData();
         },
         methods: {
+            initData: function () {
+                axios.post(webApi.Expert.getPersonalProfile).then(response => {
+                        this.personalProfile = response.data.data;
+                    });
+            },
             savePersonalProfile: function () {
 
                 if (this.isValidElement(this.personalProfile) && this.personalProfile.length >= 500) {
@@ -59,20 +65,18 @@
                 var self = this;
                 this.submitPopupVisible = true;
 
-                appFrame.ajax("/expert/ExpertInfo/UpdatePersonalProfile", {
-                    data: { personalProfile: this.personalProfile },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#personalProfile';
-                        };
+                axios.post(webApi.Expert.updatePersonalProfile, { 
+                        personalProfile: this.personalProfile 
+                     }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.submitPopupVisible = false;
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
+                        }
 
-                        if (res.status === "fail") {
-                            self.submitPopupVisible = false;
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
-                    }
-                });
+                        this.$router.go(-1);
+                    });
             },
             isValidElement: function (item) {
                 return !(item === null || item === undefined || item === "");

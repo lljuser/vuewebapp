@@ -182,7 +182,7 @@
                     <div class="ep_overhide">
                         <span class="ep_font32 ep_ellipsis fl ep_width600">{{item.Name}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/otherPosition?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">编辑</a> -->
-                        <router-link to="/OtherPosition" class="ep_font24 ep_color_orange fr ep_lineHeight32">
+                        <router-link v-bind:to="'/OtherPosition/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">
                             编辑
                         </router-link>
                     </div>
@@ -196,16 +196,13 @@
                  <router-link to="/AwardAndHonor" class="fr">
                     <img class="addBtn" src="../../public/images/add.png" />
                 </router-link>
-                <!-- <a class="fr" href="/expert/expertuser/awardsAndHonors">
-                    <img class="addBtn" src="../../public/images/add.png" />
-                </a> -->
             </header>
             <div v-if="!isArrayEmpty(userInfo.HonorAwards)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.HonorAwards" v-bind:key="item.Id">
                     <div class="ep_overhide">
                         <span class="ep_font32 ep_ellipsis fl ep_width460">{{item.Name}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/awardsAndHonors?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
-                        <router-link to="/AwardAndHonor" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
+                        <router-link v-bind:to="'/AwardAndHonor/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
                         <span class="ep_font28 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.Year}}</span>
@@ -227,7 +224,7 @@
                     <div class="ep_overhide">
                         <span class="ep_font32 ep_ellipsis fl ep_width460">{{item.Name}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/activity?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
-                        <router-link to="/Activity" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
+                        <router-link v-bind:to="'/Activity/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
                         <span class="ep_font28 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.ActivityTime}}</span>
@@ -256,8 +253,7 @@
                         <span class="fl ep_font32">《</span>
                         <span class="ep_font32 ep_ellipsis fl ep_maxWidth460">{{item.Name}}</span>
                         <span class="fl ep_font32">》</span>
-                        <!-- <a v-bind:href="'/expert/expertuser/article?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
-                        <router-link to="/Article" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
+                        <router-link v-bind:to="'/Article/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
                     </div>
@@ -300,7 +296,6 @@
                     <router-link to="/ArticleList">
                         查看更多
                     </router-link>
-                    <!-- <a href="/expert/expertuser/articleList">查看更多</a> -->
                 </div>
             </div>
             <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.Publishs)">暂无著作与文章</p>
@@ -317,8 +312,7 @@
                 <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.Educations" v-bind:key="item.Id">
                     <div class="ep_overhide">
                         <span class="ep_font32 ep_ellipsis fl ep_width400">{{item.School}}</span>
-                        <!-- <a v-bind:href="'/expert/expertuser/educationHistory?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
-                        <router-link to="/Education" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
+                        <router-link v-bind:to="'/Education/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
                         <span class="ep_font28 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">
