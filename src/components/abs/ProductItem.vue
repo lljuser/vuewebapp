@@ -17,7 +17,7 @@ import { Toast } from 'mint-ui';
 export default { 
   name: 'productItem', 
   props: ['id', 'item'], 
-  created() {
+  mounted() {
   },
   data() {
     return {
