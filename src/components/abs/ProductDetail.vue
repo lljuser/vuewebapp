@@ -5,94 +5,70 @@
           <div class="appH5_title">
               <span>产品要素</span>
           </div>
-          <table class="appH5_list_two">
+          <table class="appH5_list_two" v-if="productDetail!=null">
             <tr>
               <td>产品名称</td>
-              <td>丰耀2017年第二期个人汽车抵押贷款资产支持证券</td>
+              <td>{{productDetail.Basic.DealNameChinese}}</td>
             </tr>
             <tr>
               <td>产品分类</td>
               <td>
-                <div><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">信贷资产证券化</a></router-link></div>
-                <div>&nbsp;└&nbsp;<router-link to="/product"> <a href="javascript:;" style="color:#FEC447">汽车抵押贷款</a></router-link></div>
-                <div>&nbsp;&nbsp;&nbsp;└&nbsp;好一个三级分类</div>
+                <div><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a></router-link></div>
+                <div>&nbsp;└&nbsp;<router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div>
+                <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
               </td>
             </tr>
             <tr>
               <td>产品状态</td>
-              <td>存续期</td>
+              <td>{{productDetail.Basic.CurrentStatus}}</td>
             </tr>
             <tr>
               <td>成立日期</td>
-              <td>2017年11月11日</td>
+              <td>{{publishDate.getFullYear()+"年"+publishDate.getMonth()+"月"+publishDate.getDate()+"日"}}</td>
             </tr>
             <tr>
               <td>发起机构</td>
-              <td>丰田汽车金融(中国)有限公司<br>丰田汽车金融(中国)有限公司</td>
+              <td>
+                  <div v-for="(item,index) in productDetail.Basic.DealOriginator"><span>{{item}}</span><br v-if="index!=productDetail.Basic.length-1"></div>
+              </td>
             </tr>
             <tr>
               <td style="vertical-align: middle;">金额(亿)</td>
-              <td class="appH5_font_largest appH5_color_red">30.00</td>
+              <td class="appH5_font_largest appH5_color_red">{{productDetail.Basic.TotalOffering}}</td>
             </tr>
           </table>
-      </div>
-      <div class="appH5_panel appH5_panel_mb">
+    </div>
+    <div class="appH5_panel appH5_panel_mb">
         <div class="appH5_title">
               <span>证券结构</span>
-          </div>
-          <div style="padding-left:2.09333rem">
-<table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:171px;width:220px;background-color:#B7AFA5"><div style="height:18%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
-                                                                         <span title="证券: 17丰耀2A_bc
-初始本金: 2440000000
-分层占比: 81.33%
-剩余本金: 2013000000
-剩余占比: 67.10%" style="position: absolute;top:0px;left:0px;width:220px;height:171px;line-height:171px;">
-                                                                             <a href="../Deal/SecuritySummary.aspx?dealid=2342&amp;noteId=8628" target="_blank" title="证券: 17丰耀2A_bc
-初始本金: 2440000000
-分层占比: 81.33%
-剩余本金: 2013000000
-剩余占比: 67.10%" style="width:220px;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller">A</a>
-                                                                         </span>
-                                                                     </div></td></tr></tbody></table>
-																	 <table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:19px;width:220px;background-color:#B7AFA5"><div style="height:0%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
-                                                                         <span title="证券: 17丰耀2B_bc
-初始本金: 275000000
-分层占比: 9.17%
-剩余本金: 275000000
-剩余占比: 9.17%" style="position: absolute;top:0px;left:0px;width:220px;height:19px;line-height:19px;">
-                                                                             <a href="../Deal/SecuritySummary.aspx?dealid=2342&amp;noteId=8629" target="_blank" title="证券: 17丰耀2B_bc
-初始本金: 275000000
-分层占比: 9.17%
-剩余本金: 275000000
-剩余占比: 9.17%" style="width:220px;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller">B</a>
-                                                                         </span>
-                                                                     </div></td></tr></tbody></table>
-																	 <table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:20px;width:220px;background-color:#B7AFA5"><div style="height:0%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
-                                                                         <span title="证券: 17丰耀2C_bc
-初始本金: 284999356.49
-分层占比: 9.50%
-剩余本金: 284999356.49
-剩余占比: 9.50%" style="position: absolute;top:0px;left:0px;width:220px;height:20px;line-height:20px;">
-                                                                             <a href="../Deal/SecuritySummary.aspx?dealid=2342&amp;noteId=8630" target="_blank" title="证券: 17丰耀2C_bc
-初始本金: 284999356.49
-分层占比: 9.50%
-剩余本金: 284999356.49
-剩余占比: 9.50%" style="width:220px;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller">sub</a>
-                                                                         </span>
-                                                                     </div></td></tr></tbody></table>
-          </div>
-          <div style="margin-bottom:0.25rem;margin-left:2.1rem">
+        </div>
+        <div style="padding-left:2.09333rem" v-if="productDetail!=null&&productDetail.NoteList.length!=0">
+            <table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;">
+                <tbody>
+                    <tr style="text-align:center; padding:0px;" v-if="notionalA!=null&&notionalA!=undefined">
+                        <td v-bind:style="'padding:0px; position: relative; vertical-align:top;height:171px;width:'+(item.Notional*100/notionalA)+';background-color:#B7AFA5'" v-for="(item,index) in productDetail.NoteList" v-if="item.SecurityType=='优先级'&&index<6">
+                            <div v-bind:style="'height:'+((item.Notional-item.Principal)*100/item.Notional)+'%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;'">
+                                <span v-bind:style="'position: absolute;top:0px;left:0px;width:'+(item.Notional*100/notionalA)+'%;height:171px;line-height:171px;'">
+                                    <a href="javascript:;" target="_blank" v-bind:style="'width:'+(item.Notional*100/notionalA)+'%;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller'">{{item.Name}}</a>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-bottom:0.25rem;margin-left:2.1rem" v-if="productDetail!=null&&productDetail.NoteList.length!=0">
             <div style="float:left;margin: 4px 4px 4px 2px; width: 12px;height: 11px; background-image: url(&quot;/src/public/images/table_bg.png&quot;); background-repeat: repeat;"></div> 
             <div style="float:left;font-size: 11px;">已偿付</div> 
             <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div> 
             <div style="float:left;font-size: 11px;">剩余</div>
-          </div>
-      </div>
-      <div class="appH5_panel appH5_panel_mb">
+        </div>
+    </div>
+    <div class="appH5_panel appH5_panel_mb">
         <div class="appH5_title">
               <span>证券列表</span>
           </div>
-          <div>
+          <div v-if="productDetail!=null&&productDetail.NoteList.length!=0">
             <table class="appH5_table">
               <tr>
                 <th>证券简称</th>
@@ -101,29 +77,16 @@
                 <th class="text-right">期限<br/>类型</th>
                 <th class="text-right">最新评级<br/>建议评级</th>
               </tr>
-              <tr>
-                <td class="appH5_font_larger">17康安1A</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">1.50</span><br/><span class="appH5_color_details appH5_font_smaller">1.50</span></td>
-                <td class="text-right"><span class="appH5_font_large">4.85</span><br/><span class="appH5_color_green appH5_font_smaller">4.85</span></td>
-                <td class="text-right"><span class="appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_font_large">AAA/AAA</span><br/><span class="appH5_color_green appH5_font_smaller">AAA</span></td>
-              </tr>
-              <tr>
-                <td class="appH5_font_larger">17康安1B</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">2.30</span><br/><span class="appH5_color_details appH5_font_smaller">1.50</span></td>
-                <td class="text-right"><span class="appH5_font_large">4.85</span><br/><span class="appH5_color_green appH5_font_smaller">4.85</span></td>
-                <td class="text-right"><span class="appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_font_large">AA/A</span><br/><span class="appH5_color_green appH5_font_smaller">AA+</span></td>
-              </tr>
-              <tr>
-                <td class="appH5_font_larger">17康安1C</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">5.50</span><br/><span class="appH5_color_details appH5_font_smaller">1.50</span></td>
-                <td class="text-right"><span class="appH5_font_large">4.85</span><br/><span class="appH5_color_green appH5_font_smaller">4.85</span></td>
-                <td class="text-right"><span class="appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_font_large">A/AA</span><br/><span class="appH5_color_green appH5_font_smaller">NR/NR</span></td>
+              <tr v-for="(item,index) in productDetail.NoteList">
+                <td><div class="appH5_ellipsis" style="width:2.1rem;">{{item.Description}}</div></td>
+                <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.Principal}}</span></td>
+                <td class="text-right"><span>{{item.CurrentCoupon!=null?item.CurrentCoupon.toFixed(2):"-"}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestYield!=null?item.CurrentSuggestYield:"-"}}</span></td>
+                <td class="text-right"><span>{{item.CurrentWal!=null?item.CurrentWal.toFixed(2):"-"}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.RepaymentOfPrincipal}}</span></td>
+                <td class="text-right"><span>{{item.CurrentRatingCombineString}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestRatingCombineString}}</span></td>
               </tr>
             </table>
           </div>
+          <div v-else class="appH5_color_details appH5_font_smaller"> <span style="text-align:center">暂无数据</span> </div>
       </div>
       <div class="appH5_panel">
         <div class="appH5_title">
@@ -199,6 +162,10 @@ export default {
   data() {
     return {
       productDetail: null,
+      publishDate:null,
+    //   notionalA:1.00,
+    //   notionalB:1.00,
+    //   notionalC:1.00,
       options: {
         title: {
           text: '暂无数据'
@@ -216,6 +183,22 @@ export default {
       axios(webApi.Product.detail.concat(['',id].join('/')))
       .then((response) => {
         this.productDetail = response.data.data;
+        this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
+        // this.notionalA=0.00;
+        // this.notionalB=0.00;
+        // this.notionalC=0.00;
+        // this.productDetail.NoteList.forEach(function(item,index){
+        //     if(item.SecurityType=="优先级"){
+        //         this.notionalA+=item.Notional;
+        //     }
+        //     if(item.SecurityType=="夹层级"){
+        //         this.notionalB+=item.Notional;
+        //     }
+        //     if(item.SecurityType=="次级"){
+        //         this.notionalC+=item.Notional;
+        //     }
+        // });
+        console.log(this.productDetail);
         //get chart data
         let resultId = response.data.data.ResultSetId;
         if (resultId != null && resultId > 0) {

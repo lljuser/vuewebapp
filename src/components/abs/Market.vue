@@ -45,7 +45,7 @@
     </div>
   </div>
   <div class="appH5_panel">
-    <div class="appH5_title" style="margin-top:0.25rem"><span>发行统计</span></div>
+    <div class="appH5_title"><span>发行统计</span></div>
     <div>
       <highcharts :options='options'></highcharts>
     </div>
@@ -89,7 +89,7 @@ export default {
   },
   created() {
     this.fetchMarketSummary();
-    this.fetchPost();
+    // this.fetchPost();
     this.fetchChartData();
   },
   methods: {
@@ -103,13 +103,13 @@ export default {
         //   console.log(json.data);
         // });
     },
-    fetchPost() {
-      fetch(webApi.Market.list)
-        .then(response => response.json())
-        .then((json) => {
-          this.list = json.data;
-        });
-    },
+    // fetchPost() {
+    //   fetch(webApi.Market.list)
+    //     .then(response => response.json())
+    //     .then((json) => {
+    //       this.list = json.data;
+    //     });
+    // },
     fetchChartData() {
       axios.post(webApi.Market.chart)
         .then((response) => {
