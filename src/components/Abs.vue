@@ -10,17 +10,20 @@
       <router-link to="/trade">
         <a class="appH5_tab" href="javascript:;">交易</a>
       </router-link>
-    </div>
-    
+    </div> 
+
     <div v-else class="appH5_navbar_bg">
       <mt-header title="产品信息">
-        <router-link :to="backPath" slot="left">
-          <mt-button icon="back" @click.native="goBack"></mt-button>
+        <router-link :to="path" slot="left">
+          <mt-button icon="back" @click.stop="clearPath"></mt-button>
         </router-link>
       </mt-header>
     </div>
-
-    <router-view />
+    <transition>
+      <keep-alive>
+        <router-view />
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
@@ -34,7 +37,7 @@ export default {
   data() {
     return {
       showHeader: false,
-      backPath: '/',
+      path: '',
     };
   },
   created() {
@@ -42,16 +45,14 @@ export default {
     busUtil.bus.$on('showHeader', (showHeader) => {
       this.showHeader = showHeader;
     });
-  },
-  beforeRouteEnter(to, from, next){ 
-    next(vm => {
-      vm.backPath=from;
-    }) 
+    busUtil.bus.$on('path', (path) => {
+      this.path = path;
+    });
   },
   methods: {
-    goBack() { 
+    clearPath() {
       this.showHeader = false;
-      //this.$router.go(-1);
+      this.path = '';
     },
   },
 };

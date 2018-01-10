@@ -11,35 +11,35 @@
           <th class="text-right">今年总额(亿)</th>
           <th class="text-right">累计总额(亿)</th>
         </tr>
-        <tr>
-          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">信贷ABS</a></router-link></td>
-          <td class="text-right">1</td>
-          <td class="text-right appH5_color_red">5.00</td>
-          <td class="text-right">442.00</td>
+        <tr v-if="marketSummary.length!=0">
+          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[0].SimpleProductType}}</a></router-link></td>
+          <td class="text-right">{{marketSummary[0].DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[0].BalanceCurrentYear.toFixed(2)}}</td>
+          <td class="text-right">{{marketSummary[0].BalanceCumulative.toFixed(2)}}</td>
         </tr>
-        <tr>
-          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">企业ABS</a></router-link></td>
-          <td class="text-right">1</td>
-          <td class="text-right appH5_color_red">1.00</td>
-          <td class="text-right">1183.00</td>
+        <tr v-if="marketSummary.length!=0">
+          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[1].SimpleProductType}}</a></router-link></td>
+          <td class="text-right">{{marketSummary[1].DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[1].BalanceCurrentYear.toFixed(2)}}</td>
+          <td class="text-right">{{marketSummary[1].BalanceCumulative.toFixed(2)}}</td>
         </tr>
-        <tr>
-          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">ABN</a></router-link></td>
-          <td class="text-right">1</td>
-          <td class="text-right appH5_color_red">10.00</td>
-          <td class="text-right">67.00</td>
+        <tr v-if="marketSummary.length!=0">
+          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[2].SimpleProductType}}</a></router-link></td>
+          <td class="text-right">{{marketSummary[2].DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[2].BalanceCurrentYear.toFixed(2)}}</td>
+          <td class="text-right">{{marketSummary[2].BalanceCumulative.toFixed(2)}}</td>
         </tr>
-        <tr>
-          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">保险ABS</a></router-link></td>
-          <td class="text-right">1</td>
-          <td class="text-right appH5_color_red">2.00</td>
-          <td class="text-right">3.00</td>
+        <tr v-if="marketSummary.length!=0">
+          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[3].SimpleProductType}}</a></router-link></td>
+          <td class="text-right">{{marketSummary[3].DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[3].BalanceCurrentYear.toFixed(2)}}</td>
+          <td class="text-right">{{marketSummary[3].BalanceCumulative.toFixed(2)}}</td>
         </tr>
-        <tr>
-          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447;font-weight:bold">总计</a></router-link></td>
-          <td class="text-right" style="font-weight:bold">11</td>
-          <td class="text-right appH5_color_red" style="font-weight:bold">112.00</td>
-          <td class="text-right" style="font-weight:bold">1113.00</td>
+        <tr v-if="marketSummary.length!=0">
+          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447;font-weight:bold">{{marketSummary[4].SimpleProductType}}</a></router-link></td>
+          <td class="text-right" style="font-weight:bold">{{marketSummary[4].DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red" style="font-weight:bold">{{(parseFloat(marketSummary[0].BalanceCurrentYear.toFixed(2))+parseFloat(marketSummary[1].BalanceCurrentYear.toFixed(2))+parseFloat(marketSummary[2].BalanceCurrentYear.toFixed(2))+parseFloat(marketSummary[3].BalanceCurrentYear.toFixed(2))).toFixed(2)}}</td>
+          <td class="text-right" style="font-weight:bold">{{(parseFloat(marketSummary[0].BalanceCumulative.toFixed(2))+parseFloat(marketSummary[1].BalanceCumulative.toFixed(2))+parseFloat(marketSummary[2].BalanceCumulative.toFixed(2))+parseFloat(marketSummary[3].BalanceCumulative.toFixed(2))).toFixed(2)}}</td>
         </tr>
       </table>
     </div>
@@ -60,56 +60,58 @@
 <script>
 import Vue from 'vue';
 import VueHighcharts from 'vue-highcharts';
-import Highcharts from 'highcharts';
-
-// load these modules as your need
-import loadStock from 'highcharts/modules/stock';
-import loadMap from 'highcharts/modules/map';
-import loadDrilldown from 'highcharts/modules/drilldown';
-// some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
-import loadHighchartsMore from 'highcharts/highcharts-more';
-import loadSolidGauge from 'highcharts/modules/solid-gauge';
-import * as chartTheme from '@/public/js/chartTheme';
-import * as webApi from '@/config/api'; 
+import Highcharts from 'highcharts'; 
+import axios from 'axios';
+// load these modules as your need 
+import * as chartTheme from '@/public/js/chartTheme'; 
+import * as webApi from '@/config/api';  
  
-loadStock(Highcharts);
-loadMap(Highcharts);
-loadDrilldown(Highcharts);
-loadHighchartsMore(Highcharts);
-loadSolidGauge(Highcharts); 
-Vue.use(VueHighcharts, { Highcharts }); 
-
 Highcharts.setOptions(chartTheme);  
+Vue.use(VueHighcharts, { Highcharts });    
  
 export default {
   name: 'market',
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      list: [], 
-      options: {},
+      list: [],
+      options: {
+        title: {
+          text: '暂无数据'
+        },
+      },
+      marketSummary:[],
     };
   },
   created() {
+    this.fetchMarketSummary();
     this.fetchPost();
     this.fetchChartData();
   },
   methods: {
+    fetchMarketSummary() {
+      axios.post(webApi.Market.list).then((response)=>{
+          this.marketSummary=response.data.data;
+      });
+        // .then(response => response.json())
+        // .then((json) => {
+        //   this.marketSummary = json.data;
+        //   console.log(json.data);
+        // });
+    },
     fetchPost() {
-      fetch(webApi.Demo.list)
+      fetch(webApi.Market.list)
         .then(response => response.json())
         .then((json) => {
           this.list = json.data;
         });
     },
     fetchChartData() {
-      // http://localhost:43400//MoMarket/GetIssueStatChartData
-      fetch('http://10.1.1.35/Demo/DemoProduct/getlist')
-        .then(response => response.json())
-        .then((json) => {
-          var jsons = JSON.parse('{"status":"ok","code":200,"data":[{"SeriesName":"信贷资产证券化","Points":[{"X":"2014Q1","Y":482.60241608,"Tooltip":null,"DrillDown":null},{"X":"2014Q2","Y":356.36615223999996,"Tooltip":null,"DrillDown":null},{"X":"2014Q3","Y":885.0405880674,"Tooltip":null,"DrillDown":null},{"X":"2014Q4","Y":1095.7953164309,"Tooltip":null,"DrillDown":null},{"X":"2015Q1","Y":507.87413154959995,"Tooltip":null,"DrillDown":null},{"X":"2015Q2","Y":621.9506801299999,"Tooltip":null,"DrillDown":null},{"X":"2015Q3","Y":1224.2769074813002,"Tooltip":null,"DrillDown":null},{"X":"2015Q4","Y":1702.2315084219001,"Tooltip":null,"DrillDown":null},{"X":"2016Q1","Y":454.3756205078,"Tooltip":null,"DrillDown":null},{"X":"2016Q2","Y":891.4597926638,"Tooltip":null,"DrillDown":null},{"X":"2016Q3","Y":717.7313117586999,"Tooltip":null,"DrillDown":null},{"X":"2016Q4","Y":1844.9613266395,"Tooltip":null,"DrillDown":null},{"X":"2017Q1","Y":765.4709110354,"Tooltip":null,"DrillDown":null},{"X":"2017Q2","Y":1146.3399441247998,"Tooltip":null,"DrillDown":null},{"X":"2017Q3","Y":1314.0265738090004,"Tooltip":null,"DrillDown":null},{"X":"2017Q4","Y":2746.4548185118006,"Tooltip":null,"DrillDown":null},{"X":"2018Q1","Y":5,"Tooltip":null,"DrillDown":null},{"X":"2018Q4","Y":21.221049377699998,"Tooltip":null,"DrillDown":null}]},{"SeriesName":"企业资产证券化","Points":[{"X":"2014Q1","Y":34.7,"Tooltip":null,"DrillDown":null},{"X":"2014Q2","Y":107.66000000000001,"Tooltip":null,"DrillDown":null},{"X":"2014Q3","Y":120.73915,"Tooltip":null,"DrillDown":null},{"X":"2014Q4","Y":137.73,"Tooltip":null,"DrillDown":null},{"X":"2015Q1","Y":148.8614,"Tooltip":null,"DrillDown":null},{"X":"2015Q2","Y":362.769377,"Tooltip":null,"DrillDown":null},{"X":"2015Q3","Y":582.8169737311999,"Tooltip":null,"DrillDown":null},{"X":"2015Q4","Y":950.8796843599998,"Tooltip":null,"DrillDown":null},{"X":"2016Q1","Y":522.2803804100001,"Tooltip":null,"DrillDown":null},{"X":"2016Q2","Y":1296.3292174092,"Tooltip":null,"DrillDown":null},{"X":"2016Q3","Y":1543.18914522,"Tooltip":null,"DrillDown":null},{"X":"2016Q4","Y":1632.704784123501,"Tooltip":null,"DrillDown":null},{"X":"2017Q1","Y":1539.43924128,"Tooltip":null,"DrillDown":null},{"X":"2017Q2","Y":1592.5233529999998,"Tooltip":null,"DrillDown":null},{"X":"2017Q3","Y":2415.6591944099996,"Tooltip":null,"DrillDown":null},{"X":"2017Q4","Y":2879.2837889999987,"Tooltip":null,"DrillDown":null},{"X":"2018Q1","Y":2.94,"Tooltip":null,"DrillDown":null}]},{"SeriesName":"资产支持票据","Points":[{"X":"2014Q1","Y":35,"Tooltip":null,"DrillDown":null},{"X":"2014Q2","Y":10,"Tooltip":null,"DrillDown":null},{"X":"2014Q3","Y":21.2,"Tooltip":null,"DrillDown":null},{"X":"2014Q4","Y":23,"Tooltip":null,"DrillDown":null},{"X":"2015Q1","Y":20,"Tooltip":null,"DrillDown":null},{"X":"2015Q2","Y":12,"Tooltip":null,"DrillDown":null},{"X":"2015Q4","Y":3,"Tooltip":null,"DrillDown":null},{"X":"2016Q2","Y":33.68,"Tooltip":null,"DrillDown":null},{"X":"2016Q4","Y":132.8908,"Tooltip":null,"DrillDown":null},{"X":"2017Q1","Y":29.010257,"Tooltip":null,"DrillDown":null},{"X":"2017Q2","Y":84.286139,"Tooltip":null,"DrillDown":null},{"X":"2017Q3","Y":210.19182200000003,"Tooltip":null,"DrillDown":null},{"X":"2017Q4","Y":251.465719,"Tooltip":null,"DrillDown":null},{"X":"2018Q1","Y":10,"Tooltip":null,"DrillDown":null}]},{"SeriesName":"保险资产证券化","Points":[{"X":"2016Q1","Y":23.49,"Tooltip":null,"DrillDown":null},{"X":"2016Q4","Y":10,"Tooltip":null,"DrillDown":null},{"X":"2017Q2","Y":10,"Tooltip":null,"DrillDown":null}]}]}');
-          if (jsons.status == "ok") {
-            var chartData = jsons.data;
+      axios.post(webApi.Market.chart)
+        .then((response) => {
+          const json = response.data
+          if (json.status == "ok") {
+            var chartData = json.data;
             var seriesList = [];
             var Xcategory = new Set();
             chartData.forEach(function (content,i) {
@@ -136,12 +138,6 @@ export default {
               });
               seriesList.push({ name: content.SeriesName, data: seriesData, type: "column" });
             });
-            Highcharts.setOptions({
-              lang: {
-                decimalPoint: '.',
-                thousandsSep: ','
-              }
-            });
             const data = {
             title: {
               text: '市场发行总览',
@@ -158,18 +154,10 @@ export default {
                 text: "发行总额(亿)"
               },
               labels: {
-                formatter: () => {
+                formatter: function () {
                   return Highcharts.numberFormat(this.value, 0, ".", ",") + ""
                 }
               }
-            },
-            {
-              min: 0,
-              title: {
-                enabled: !0,
-                text: "发行总数"//"发行产品数量(个)"
-              },
-              opposite: !0
             }],
             plotOptions: {
               column: {
@@ -193,7 +181,7 @@ export default {
               },
             },
             credits: {
-              href: 'https://cn-abs.com',
+              href: '',
               text: 'CNABS'
             },
             series: seriesList,

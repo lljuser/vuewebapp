@@ -100,9 +100,17 @@ import BusUtil from './BusUtil';
 export default {
   name: 'tradeDetail',
   props: ['id'],
-   created() {
+  created() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/trade');
+  },
+  activated() {
+    // 滚动到顶部
+    window.scrollTo(0,0);
+    const busUtil = BusUtil.getInstance();
+    busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/trade');
   },
   data() {
     return {

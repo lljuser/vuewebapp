@@ -13,6 +13,9 @@ body{
 .mintui {
 	font-size: 19px;
 }
+.mintui.mintui-back {
+	color: #ffc544;
+}
 .mint-header {
 	background-color: #2c2a29;
 	height: 1.0628rem;
@@ -21,6 +24,12 @@ body{
 	font-size: 19px;
 	margin: 0;
 }
+.product-spinner {
+	display: flex;
+	justify-content: center;
+	padding-top: 1rem;
+	height: 100vh;
+}
 .appH5_body{
 	color:#fff;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
@@ -28,7 +37,7 @@ body{
 	margin: 0; 
 	background-color: #373430;
 	text-align:left;
-	padding-top: 1.493333rem;
+	padding-top: 56px;
 }
 .appH5_content{
 	margin: 0 auto;
@@ -42,23 +51,19 @@ body{
 	display: flex;
 	justify-content: space-between;
 	background-color: #2c2a29;
-	margin-bottom: 0.2899rem;
+	margin-bottom: 12px;
 	position: fixed;
 	width:6rem;
 	padding-right: 2.0rem;
 	padding-left: 2.0rem; 
+	z-index: 999;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
-	margin-bottom: 0.2899rem;
+	margin-bottom: 12px;
 	position: fixed;
 	width: 100%;
-}
-.appH5_navbar .router-link-active {
-	border-color: #ffc445;
-	border-bottom-width: 3px;
-	border-bottom-style: solid;
-	color: #ffc445;
+	z-index: 999;
 }
 .appH5_navbar .router-link-active .appH5_tab {
 	color: #ffc445;
@@ -72,7 +77,7 @@ body{
 }
 /*panel之间的间距*/
 .appH5_panel_mb{
-	margin-bottom:0.32rem;
+	margin-bottom: 12px;
 }
 .appH5_inner_panel{
 	background-color: #444444;
@@ -361,19 +366,28 @@ select{
 	padding-right: 0.72rem; 
 }
 .appH5_tab{
+	width: 50px;
+	margin-left: 25px;
+	margin-right: 25px;
 	color:#fff;
 	font-size: 19px;
 	padding-left: 0.16rem;
     padding-right: 0.16rem;
 	padding-top: 0.302rem;
 	padding-bottom: 0.2295rem;
-	float:left;
+	float: left;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
+}
+.router-link-active .appH5_tab {
+	border-color: #ffc445;
+	border-bottom-width: 3px;
+	border-bottom-style: solid;
+	color: #ffc445;
 }
 .appH5_select_tab{
 	color:#ffc446;
 	font-size: 19px;
-	border-bottom: 0.08rem solid #ffc446;
+	border-bottom: 3px solid #ffc446;
 	padding-left:0.16rem;
 	padding-right:0.16rem;
 	padding-top: 0.346667rem;
