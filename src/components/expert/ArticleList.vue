@@ -5,9 +5,9 @@
             <div v-if="!isArrayEmpty(publishs)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item,index) in publishs" v-bind:key="item.Id" v-bind:class="[index===0?'ep_paddingTop46':'']">
                     <div class=" ep_overhide">
-                        <span class="fl ep_font32">《</span>
-                        <span class="ep_font32 ep_ellipsis fl ep_maxWidth460">{{item.Name}}</span>
-                        <span class="fl ep_font32">》</span>
+                        <span class="fl ep_font32 appH5_color_green">《</span>
+                        <span class="ep_font32 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
+                        <span class="fl ep_font32 appH5_color_green">》</span>
                         <a v-bind:href="'/expert/expertuser/article?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a>
                     </div>
                     <div class="divArticleDetail">

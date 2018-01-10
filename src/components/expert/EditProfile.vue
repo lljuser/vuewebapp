@@ -72,7 +72,9 @@
                                 <th class='text-right'>操作</th>
                             </tr>
                             <tr v-for="item in _.take(userInfo.ABSProjects, 3)" v-bind:key="item.DealName">
-                                <td class='text-left'>{{item.DealName}}</td>
+                                <td class='text-left'>
+                                    <a class="ep_font32 ep_ellipsis fl ep_width520 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
+                                </td>
                                 <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
                                 <td class='text-center'>{{item.DealType}}</td>
                                 <td>
@@ -208,7 +210,7 @@
                         <router-link to="/AwardAndHonor" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
-                        <span class="ep_font28 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.Year}}</span>
+                        <span class="ep_font24 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.Year}}</span>
                     </div>
                     <pre class="ep_decription ep_color_grey2 ep_font28">{{item.Description}}</pre>
                 </div>
@@ -230,7 +232,7 @@
                         <router-link to="/Activity" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
-                        <span class="ep_font28 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.ActivityTime}}</span>
+                        <span class="ep_font24 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.ActivityTime}}</span>
                     </div>
                     <pre class="ep_decription ep_color_grey2 ep_font28">{{item.Description}}</pre>
                 </div>

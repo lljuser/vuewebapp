@@ -676,6 +676,22 @@ ul.articleDetail li {
         width: 150px;
         height: 150px;
     }
+
+/*workHistory CSS*/
+.workHistoryContent .organizationName {
+    width: 6.666667rem;
+    margin-top: 0.233333rem;
+    margin-right: -0.4rem;
+}
+/*workHistoryContent*/
+.workHistoryContent{
+    background-color: #2b2a29;
+}
+.workHistoryContent .startTime,
+.workHistoryContent .endTime
+{
+    padding-right: 0.32rem;
+}
 /*otherProjectList*/
 .projectHistoryOtherContent{
     background-color: #2b2a29;
@@ -721,16 +737,12 @@ ul.articleDetail li {
 .personalProfileContent{
     background-color: #2b2a29;
 }
-/*workHistory CSS*/
-.workHistoryContent .organizationName {
-    width: 6.666667rem;
-    margin-top: 0.233333rem;
-    margin-right: -0.4rem;
-}
+
 /*readProfile CSS*/
 .basicInformationCard {
     padding: 0.533333rem 0.4rem 0.8rem 0.4rem;
-    border-bottom: 6px solid #F35B5B;
+    border-bottom: 6px solid #ffc446;
+    /* border-bottom: 6px solid #F35B5B; */
 }
 /*projectABSDetails CSS*/
 .projectABSDetailsNavbar {
@@ -842,4 +854,27 @@ ul.articleDetail li {
 :-moz-placeholder { color: #ccc;}
 ::-moz-placeholder { color: #ccc;}
 :-ms-input-placeholde { color: #ccc;}
+
+/*text_right_link*/
+.editProfileContent .text_right_link
+{
+    color: #ffc445;
+    font-size: 15px;
+    height: 19px;
+    line-height: 19px;
+    margin-top: 0.38rem;
+}
+.editProfileContent .followImg,
+.articleListContent .followImg,
+.appH5_table .followImg
+{
+    width: 15px;
+    height: 15px;
+    margin-top: 0.08rem;
+}
+
+select option:first-child
+{
+    color: #ccc;
+}
    
