@@ -6,10 +6,10 @@
     <div>
       <table class="appH5_table">
         <tr>
-          <th> </th>
-          <th class="text-right">今年总数</th>
-          <th class="text-right">今年总额(亿)</th>
-          <th class="text-right">累计总额(亿)</th>
+          <th>分类</th>
+          <th class="text-right">今年(单)</th>
+          <th class="text-right">今年(亿)</th>
+          <th class="text-right">累计(亿)</th>
         </tr>
         <tr v-if="marketSummary.length!=0">
           <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[0].SimpleProductType}}</a></router-link></td>
