@@ -79,6 +79,10 @@ export default {
         title: {
           text: '暂无数据'
         },
+        credits: {
+          href: '',
+          text: 'CNABS'
+        },
       },
       marketSummary:[],
     };
@@ -151,7 +155,7 @@ export default {
             yAxis: [{
               title: {
                 enabled: !0,
-                text: "发行总额(亿)"
+                text: ""
               },
               labels: {
                 formatter: function () {
