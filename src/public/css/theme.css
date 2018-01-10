@@ -15,6 +15,7 @@ body{
 }
 .mintui.mintui-back {
 	color: #ffc544;
+	font-size: 24px;
 }
 .mint-header {
 	background-color: #2c2a29;
@@ -57,6 +58,8 @@ body{
 	padding-right: 2.0rem;
 	padding-left: 2.0rem; 
 	z-index: 999999;
+	transform: translateZ(0);
+	perspective: 1000;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
@@ -64,9 +67,8 @@ body{
 	position: fixed;
 	width: 100%;
 	z-index: 999999;
-}
-.appH5_navbar .router-link-active .appH5_tab {
-	color: #ffc445;
+	transform: translateZ(0);
+	perspective: 1000;
 }
 .appH5_footer{
 	background-color: #535352;
@@ -299,8 +301,8 @@ select{
 	font-size: 13px;
 }
 .appH5_returnIcon{
-	width:0.32rem;
-	height: 0.56rem;
+	width: 12px;
+	height: 21px;
 }
 .appH5_threeDot{
 	width:0.6rem;
@@ -383,7 +385,7 @@ select{
 	float: left;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
 }
-.router-link-active .appH5_tab {
+.router-link-exact-active .appH5_tab {
 	border-color: #ffc445;
 	border-bottom-width: 3px;
 	border-bottom-style: solid;
