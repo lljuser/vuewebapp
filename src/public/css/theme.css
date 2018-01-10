@@ -91,7 +91,7 @@ body{
    color:#fff;
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
    padding: 0.333333rem 0.146667rem;
-   font-weight: bold;
+   font-weight: normal;
    font-size: 15px;
    white-space: nowrap;
 }
@@ -99,7 +99,7 @@ body{
 .appH5_table td{
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
    padding: 0.333333rem 0.146667rem;
-   border-bottom:1px solid #535353;
+   border-bottom:0.5px solid #535353;
    white-space: nowrap;
    font-size: 17px;
 }
@@ -127,7 +127,7 @@ a:hover{
 	font-size: 17px;
 }
 .appH5_font_larger{
-	font-size: 19px;
+	font-size: 19px!important;
 }
 .appH5_font_largest{
 	font-size: 0.8rem !important;
@@ -271,10 +271,10 @@ select{
 	color:#ffc446;
 }
 .appH5_border_bottom{
-	border-bottom: 1px solid #535353;
+	border-bottom: 0.5px solid #535353;
 }
 .appH5_border_top{
-	border-top: 1px solid #535353;
+	border-top: 0.5px solid #535353;
 }
 .appH5_look_more{
 	color:#ffc446;
