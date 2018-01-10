@@ -366,11 +366,12 @@ select{
 	padding-right: 0.72rem; 
 }
 .appH5_tab{
-	width: 50px;
 	color:#fff;
 	font-size: 19px;
 	padding-top: 12.5px;
 	padding-bottom: 9.5px;
+	padding-left:0.16rem;
+	padding-right:0.16rem;
 	float: left;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
 }
