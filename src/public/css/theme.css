@@ -372,3 +372,8 @@ select{
 	padding-bottom:0.266667rem;
 	float:left;
 }
+.appH5_ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

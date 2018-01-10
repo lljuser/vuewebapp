@@ -103,6 +103,7 @@ export default {
    created() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/trade');
   },
   data() {
     return {

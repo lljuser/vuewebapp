@@ -1,5 +1,5 @@
  
-const apiAddress = 'http://10.1.1.35';
+const apiAddress = 'http://10.1.1.35/webapp';
 export default apiAddress;
 
 export const Market = {
