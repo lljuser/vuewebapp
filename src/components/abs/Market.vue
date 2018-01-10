@@ -14,32 +14,32 @@
         <tr v-if="marketSummary.length!=0">
           <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[0].SimpleProductType}}</a></router-link></td>
           <td class="text-right">{{marketSummary[0].DealCountCurrentYear}}</td>
-          <td class="text-right appH5_color_red">{{marketSummary[0].BalanceCurrentYear.toFixed(2)}}</td>
-          <td class="text-right">{{marketSummary[0].BalanceCumulative.toFixed(2)}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[0].BalanceCurrentYear}}</td>
+          <td class="text-right">{{marketSummary[0].BalanceCumulative}}</td>
         </tr>
         <tr v-if="marketSummary.length!=0">
           <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[1].SimpleProductType}}</a></router-link></td>
           <td class="text-right">{{marketSummary[1].DealCountCurrentYear}}</td>
-          <td class="text-right appH5_color_red">{{marketSummary[1].BalanceCurrentYear.toFixed(2)}}</td>
-          <td class="text-right">{{marketSummary[1].BalanceCumulative.toFixed(2)}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[1].BalanceCurrentYear}}</td>
+          <td class="text-right">{{marketSummary[1].BalanceCumulative}}</td>
         </tr>
         <tr v-if="marketSummary.length!=0">
           <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[2].SimpleProductType}}</a></router-link></td>
           <td class="text-right">{{marketSummary[2].DealCountCurrentYear}}</td>
-          <td class="text-right appH5_color_red">{{marketSummary[2].BalanceCurrentYear.toFixed(2)}}</td>
-          <td class="text-right">{{marketSummary[2].BalanceCumulative.toFixed(2)}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[2].BalanceCurrentYear}}</td>
+          <td class="text-right">{{marketSummary[2].BalanceCumulative}}</td>
         </tr>
         <tr v-if="marketSummary.length!=0">
           <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[3].SimpleProductType}}</a></router-link></td>
           <td class="text-right">{{marketSummary[3].DealCountCurrentYear}}</td>
-          <td class="text-right appH5_color_red">{{marketSummary[3].BalanceCurrentYear.toFixed(2)}}</td>
-          <td class="text-right">{{marketSummary[3].BalanceCumulative.toFixed(2)}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[3].BalanceCurrentYear}}</td>
+          <td class="text-right">{{marketSummary[3].BalanceCumulative}}</td>
         </tr>
         <tr v-if="marketSummary.length!=0">
           <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447;font-weight:bold">{{marketSummary[4].SimpleProductType}}</a></router-link></td>
           <td class="text-right" style="font-weight:bold">{{marketSummary[4].DealCountCurrentYear}}</td>
-          <td class="text-right appH5_color_red" style="font-weight:bold">{{(parseFloat(marketSummary[0].BalanceCurrentYear.toFixed(2))+parseFloat(marketSummary[1].BalanceCurrentYear.toFixed(2))+parseFloat(marketSummary[2].BalanceCurrentYear.toFixed(2))+parseFloat(marketSummary[3].BalanceCurrentYear.toFixed(2))).toFixed(2)}}</td>
-          <td class="text-right" style="font-weight:bold">{{(parseFloat(marketSummary[0].BalanceCumulative.toFixed(2))+parseFloat(marketSummary[1].BalanceCumulative.toFixed(2))+parseFloat(marketSummary[2].BalanceCumulative.toFixed(2))+parseFloat(marketSummary[3].BalanceCumulative.toFixed(2))).toFixed(2)}}</td>
+          <td class="text-right appH5_color_red" style="font-weight:bold">{{marketSummary[4].BalanceCurrentYear}}</td>
+          <td class="text-right" style="font-weight:bold">{{marketSummary[4].BalanceCumulative}}</td>
         </tr>
       </table>
     </div>
@@ -50,7 +50,7 @@
       <highcharts :options='options'></highcharts>
     </div>
   </div>
-      
+
   </div>
 
 </div>
@@ -60,15 +60,15 @@
 <script>
 import Vue from 'vue';
 import VueHighcharts from 'vue-highcharts';
-import Highcharts from 'highcharts'; 
+import Highcharts from 'highcharts';
 import axios from 'axios';
-// load these modules as your need 
-import * as chartTheme from '@/public/js/chartTheme'; 
-import * as webApi from '@/config/api';  
- 
-Highcharts.setOptions(chartTheme);  
-Vue.use(VueHighcharts, { Highcharts });    
- 
+// load these modules as your need
+import * as chartTheme from '@/public/js/chartTheme';
+import * as webApi from '@/config/api';
+
+Highcharts.setOptions(chartTheme);
+Vue.use(VueHighcharts, { Highcharts });
+
 export default {
   name: 'market',
   data() {
@@ -86,17 +86,17 @@ export default {
       },
       marketSummary:[],
     };
-  }, 
+  },
   mounted() {
-    this.fetchMarketSummary(); 
+    this.fetchMarketSummary();
     this.fetchChartData();
   },
   methods: {
     fetchMarketSummary() {
       axios.post(webApi.Market.list).then((response)=>{
           this.marketSummary=response.data.data;
-      }); 
-    }, 
+      });
+    },
     fetchChartData() {
       axios.post(webApi.Market.chart)
         .then((response) => {
