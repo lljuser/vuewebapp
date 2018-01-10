@@ -105,7 +105,7 @@ body{
 .appH5_table td{
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
    padding: 0.26rem 0.146667rem;
-   border-bottom:0.5px solid #535353;
+   border-bottom:1px solid #535353;
    white-space: nowrap;
    font-size: 17px;
 }
@@ -277,10 +277,10 @@ select{
 	color:#ffc446;
 }
 .appH5_border_bottom{
-	border-bottom: 0.5px solid #535353;
+	border-bottom: 1px solid #535353;
 }
 .appH5_border_top{
-	border-top: 0.5px solid #535353;
+	border-top: 1px solid #535353;
 }
 .appH5_look_more{
 	color:#ffc446;
