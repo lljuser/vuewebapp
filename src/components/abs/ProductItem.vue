@@ -2,12 +2,11 @@
   <tr>
     <td class="text-left">
       <router-link :to="`productDetail/${ item.DealId}`" class="appH5_color_link" style=""  >
-        {{ item.DealName }}
+       <div class='td_elips1'> {{ item.DealName }}</div>
       </router-link>
     </td>
     <td class="text-right appH5_color_red appH5_font_large" style="font-size:17px">{{item.TotalOffering}}</td>
-    <td style="color:white">{{ item.ProductType }}</td>
-    <td style="color:white" class="text-right">{{ item.ClosingDate | moment("YY-MM-DD") }}</td>
+    <td style="color:white" class="text-right td_elips2"><div style="width:100%;float:right"><div>{{ item.DealType }}</div></div></td>
   </tr>
 </template>
 
@@ -39,5 +38,20 @@ export default {
 <style scoped>
  .table_td_number{
    font-size: 17px;
+ }
+
+ .td_elips1 {
+   width:140px;
+   text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+ }
+
+ .td_elips2 div{
+   width: 90px;
+   text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    float: right;
  }
 </style>

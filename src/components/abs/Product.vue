@@ -4,27 +4,24 @@
     <table class="select_div">
       <tr>
         <td class="text-left">
-          <select v-model="marketType">
-            <option value="">市场分类</option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
+          <select v-model="ProductTypeVal" v-on:change="productChange(ProductTypeVal)" >
+             <option v-for="option in ProductType" :value="option.Value" :key="option.Value" selected="option.Selected">
+              {{ option.Text }}
+              </option>
           </select>
         </td>
         <td style="text-align:center">
-          <select v-model="productType">
-            <option  value="">产品分类</option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
+          <select v-model="DealTypeVal">
+             <option v-for="option in DealType" :value="option.Value" :key="option.Value" selected="option.Selected">
+              {{ option.Text }}
+              </option>
           </select>
         </td>
         <td class="text-right"> 
-          <select v-model="issueState">
-            <option  value="">发行状态</option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
+          <select v-model="CurrentStatusVal">
+           <option v-for="option in CurrentStatus" :value="option.Value" :key="option.Value" selected="option.Selected">
+              {{ option.Text }}
+              </option>
             </select>
         </td>
       </tr>
@@ -35,8 +32,7 @@
         <tr>
           <th>产品名称</th>
           <th class="text-right">总额(亿)</th>
-          <th>产品分类</th>
-          <th class="text-right">发行日期</th>
+          <th class="text-right">产品分类</th>
         </tr>
 
         <ProductItem 
@@ -67,9 +63,9 @@ export default {
       list: [],
       page: 1,
       loading: false,
-      marketType: "",
-      productType: "",
-      issueState: ""
+      ProductType: "",
+      DealType: "",
+      CurrentStatus: ""
     };
   },
   created() {
@@ -87,7 +83,7 @@ export default {
           this.loading = false;
           this.$refs.loadmore.onTopLoaded();
         });
-      }, 1000);
+      }, 200);
     },
     loadMore() {
       this.loading = true;
@@ -104,10 +100,19 @@ export default {
       }, 1000);
     },
     fetchProducts(page, callback) {
+   var ss=webApi.Product.list;
+   debugger;
       axios.post(webApi.Product.list).then((response) => { 
-        const data = response.data.data.Deal;
-        if (data && data.length > 0) {
-          callback(data);
+           debugger;
+        const data = response.data.data;
+        if (data) {
+            this.ProductType=data.ProductType;
+            this.ProductTypeVal=data.ProductType.filter(x=>x.Selected==true)[0].Value;
+            this.DealTypeVal=data.DealType.filter(x=>x.Selected==true)[0].Value;
+            this.CurrentStatusVal=data.CurrentStatus.filter(x=>x.Selected==true)[0].Value;
+            this.DealType=data.DealType;
+            this.CurrentStatus=data.CurrentStatus;
+          callback(data.Deal);
         }
       });
 
@@ -121,6 +126,10 @@ export default {
       //   }
       // });
     }, 
+
+    productChange(val){
+
+    }
   },
   components: {
     ProductItem
@@ -131,11 +140,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .select_div {
-  display: table;
+  table-layout: fixed;
   width: 100%;
   margin-top: -6px;
   margin-bottom: 12px;
 }
+
+.select_div select {
+  width:100%;
+}
+
 h1,
 h2 {
   font-weight: normal;
