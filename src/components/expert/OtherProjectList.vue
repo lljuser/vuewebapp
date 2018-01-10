@@ -2,7 +2,7 @@
   <div class="projectHistoryOtherListContent ep_font32">
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div" v-if="!isArrayEmpty(projectHistories)" v-cloak>
-            <div class="ep_padding30 ep_part_item_border" v-for="(item,index) in projectHistories" v-bind:class="[index===0?'ep_paddingTop46':'']">
+            <div class="ep_padding30 ep_part_item_border" v-for="(item,index) in projectHistories" v-bind:key="item.ProjectName" v-bind:class="[index===0?'ep_paddingTop46':'']">
                 <div class="ep_overhide">
                     <span class="ep_font32 fl ep_width600">{{item.ProjectName}}</span>
                     <a class="ep_font24 ep_color_orange fr ep_lineHeight32" v-bind:href="'/expert/expertuser/projectHistoryOther?id=' + item.Id">编辑</a>

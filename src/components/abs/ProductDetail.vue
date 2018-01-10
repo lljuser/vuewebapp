@@ -170,6 +170,7 @@ export default {
     }
     this.fetchProductPaymentChart(440,28203);//(this.dealId, this.resultId);
     busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/product');
 
     // url 传来的id
     const productId = getParams("id");

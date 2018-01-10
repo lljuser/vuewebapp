@@ -102,11 +102,13 @@ export default {
         });
       }, 1000);
     },
-    fetchProducts(page, callback) { 
-      fetch(`${webApi.Demo.list}/${page}`)
+    fetchProducts(page, callback) {
+     
+      fetch(`${webApi.Product.list}`)
       .then(response => response.json())
       .then((json) => {
-        const data = json.data;
+        debugger;
+        const data = json.data.Deal;
         if (data && data.length > 0) {
           callback(data);
         }

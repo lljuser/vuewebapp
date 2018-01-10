@@ -4,7 +4,7 @@
 
 body {
     font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
-    margin: 0 auto;
+    margin: 0 auto!important;
     width: 10rem;
     background: #373430;
     color: #fff;

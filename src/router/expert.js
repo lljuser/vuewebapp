@@ -22,6 +22,7 @@ import Activity from '@/components/expert/Activity';
 import Article from '@/components/expert/Article';
 import Education from '@/components/expert/Education';
 import BriefIntroducation from '@/components/expert/BriefIntroducation';
+import WorkHistory from '@/components/expert/WorkHistory';
 
 Vue.use(Router);
 Vue.use(MintUI);
@@ -107,6 +108,11 @@ export default new Router({
       path: '/BriefIntroducation',
       name: 'BriefIntroducation',
       component: BriefIntroducation,
+    },
+    {
+      path: '/WorkHistory',
+      name: 'WorkHistory',
+      component: WorkHistory,
     },
   ],
 });
