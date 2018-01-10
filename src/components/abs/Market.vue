@@ -6,10 +6,10 @@
     <div>
       <table class="appH5_table">
         <tr>
-          <th> </th>
-          <th class="text-right">今年总数</th>
-          <th class="text-right">今年总额(亿)</th>
-          <th class="text-right">累计总额(亿)</th>
+          <th>分类</th>
+          <th class="text-right">今年(单)</th>
+          <th class="text-right">今年(亿)</th>
+          <th class="text-right">累计(亿)</th>
         </tr>
         <tr v-if="marketSummary.length!=0">
           <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[0].SimpleProductType}}</a></router-link></td>
@@ -45,7 +45,7 @@
     </div>
   </div>
   <div class="appH5_panel">
-    <div class="appH5_title" style="margin-top:0.25rem"><span>发行统计</span></div>
+    <div class="appH5_title"><span>发行统计</span></div>
     <div>
       <highcharts :options='options'></highcharts>
     </div>
@@ -86,6 +86,10 @@ export default {
       },
       marketSummary:[],
     };
+  },
+  created() {
+   // this.fetchMarketSummary();
+    // this.fetchPost();
   }, 
   mounted() {
     this.fetchMarketSummary(); 
@@ -95,8 +99,21 @@ export default {
     fetchMarketSummary() {
       axios.post(webApi.Market.list).then((response)=>{
           this.marketSummary=response.data.data;
-      }); 
-    }, 
+      });
+        // .then(response => response.json())
+        // .then((json) => {
+        //   this.marketSummary = json.data;
+        //   console.log(json.data);
+        // });
+    },
+    // fetchPost() {
+    //   fetch(webApi.Market.list)
+    //     .then(response => response.json())
+    //     .then((json) => {
+    //       this.list = json.data;
+    //     });
+    // },
+    // 
     fetchChartData() {
       axios.post(webApi.Market.chart)
         .then((response) => {

@@ -68,7 +68,7 @@ export default new Router({
       component: AbsHistory,
     },
     {
-      path: '/OtherProject',
+      path: '/OtherProject/:id?',
       name: 'OtherProject',
       component: OtherProject,
     },

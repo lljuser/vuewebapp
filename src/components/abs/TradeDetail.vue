@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td class="appH5_white_space">证券类型</td>
-            <td class="appH5_color_link"><a href="">{{detailInfo.SecurityType}}</a></td>
+            <td class="appH5_color_link"><router-link to="/product"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
             <td class="appH5_white_space">评&#12288;&#12288;级</td>
             <td>{{detailInfo.Rating}}</td>
         </tr>
@@ -27,11 +27,11 @@
             <td class="appH5_white_space">分层占比</td>
             <td>{{detailInfo.NotionalPct}}%</td>
             <td class="appH5_white_space">产品类型</td>
-            <td class="appH5_color_link"><a href="">{{detailInfo.AssetType}}</a></td>
+            <td>{{detailInfo.AssetType}}</td>
         </tr>
         <tr>
             <td class="appH5_white_space">利&#12288;&#12288;率</td>
-            <td>{{detailInfo.Coupon}}%</td>
+            <td>{{detailInfo.Coupon}}</td>
             <td class="appH5_white_space">交易场所</td>
             <td>{{detailInfo.Exchange}}</td>
         </tr>
@@ -46,7 +46,6 @@
                 {{detailInfo.Description}}
                 </div>
             </td>
-            <td colspan="3"></td>
         </tr>
         <tr>
             <td colspan="4">
@@ -57,7 +56,7 @@
                 <div class="clearfix"></div>
             </td>
             </tr>
-            <tr>
+        <tr>
             <td colspan="4">
                 <div class="fl mr5">联&nbsp;系&nbsp;人&nbsp;</div>
                 <div class="fl">
@@ -65,11 +64,11 @@
                 </div>
             <div class="clearfix"></div>
             </td>
-            </tr>
-            <tr>
-                <td colspan="4" style="height: 2rem;"></td>
-            </tr>
-        </table>
+        </tr>
+        <tr>
+           <td colspan="4" style="height: 2rem;"></td>
+        </tr>
+    </table>
     </div>
   </div>
   <div class="fixedMain appH5_font_normal" v-if="contactItem.IsPrimary" v-for="contactItem in detailInfo.Contacts">
@@ -228,6 +227,7 @@ export default {
   color:#ccc;
 }
 .appH5_list_four td:nth-of-type(2n+1){
+    width: 22%;
     padding-right: 0!important;
 }
 @media only screen and (min-width: 320px) and (max-width: 374px){
