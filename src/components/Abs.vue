@@ -25,8 +25,7 @@
       </keep-alive>
     </transition>
   </div>
-</template>
-
+</template>   
 <script> 
 import 'mint-ui/lib/style.css'
 import '@/public/css/theme.css';
