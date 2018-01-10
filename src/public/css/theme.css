@@ -15,6 +15,7 @@ body{
 }
 .mintui.mintui-back {
 	color: #ffc544;
+	font-size: 24px;
 }
 .mint-header {
 	background-color: #2c2a29;
@@ -53,20 +54,25 @@ body{
 	background-color: #2c2a29;
 	margin-bottom: 12px;
 	position: fixed;
+	top: 0;
 	width:6rem;
 	padding-right: 2.0rem;
 	padding-left: 2.0rem; 
-	z-index: 999;
+	z-index: 999999;
+	transform: translateZ(1px);
+	-webkit-transform: translateZ(1px);
+	perspective: 1000;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
 	margin-bottom: 12px;
 	position: fixed;
+	top: 0;
 	width: 100%;
-	z-index: 999;
-}
-.appH5_navbar .router-link-active .appH5_tab {
-	color: #ffc445;
+	z-index: 999999;
+	transform: translateZ(1px);
+	-webkit-transform: translateZ(1px);
+	perspective: 1000;
 }
 .appH5_footer{
 	background-color: #535352;
@@ -90,15 +96,16 @@ body{
    background-color: #444444;
    color:#fff;
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
-   padding: 0.333333rem 0.146667rem;
-   font-weight: bold;
-   font-size: 17px;
+   padding: 0.28rem 0.146667rem;
+   font-weight: normal;
+   font-size: 15px;
+   white-space: nowrap;
 }
 
 .appH5_table td{
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
-   padding: 0.333333rem 0.146667rem;
-   border-bottom:1px solid #535353;
+   padding: 0.26rem 0.146667rem;
+   border-bottom:0.5px solid #535353;
    white-space: nowrap;
    font-size: 17px;
 }
@@ -109,11 +116,11 @@ body{
 	padding-right: 0.32rem;
 }
 a{
-	color:#ffc445;
+	color:#ffc446;
 	text-decoration: none;
 }
 a:hover{
-	color:#ffc445;
+	color:#ffc446;
 }
 /*文字大小4种*/
 .appH5_font_smaller{
@@ -126,7 +133,7 @@ a:hover{
 	font-size: 17px;
 }
 .appH5_font_larger{
-	font-size: 19px;
+	font-size: 19px!important;
 }
 .appH5_font_largest{
 	font-size: 0.8rem !important;
@@ -270,10 +277,10 @@ select{
 	color:#ffc446;
 }
 .appH5_border_bottom{
-	border-bottom: 1px solid #535353;
+	border-bottom: 0.5px solid #535353;
 }
 .appH5_border_top{
-	border-top: 1px solid #535353;
+	border-top: 0.5px solid #535353;
 }
 .appH5_look_more{
 	color:#ffc446;
@@ -298,8 +305,8 @@ select{
 	font-size: 13px;
 }
 .appH5_returnIcon{
-	width:0.32rem;
-	height: 0.56rem;
+	width: 12px;
+	height: 21px;
 }
 .appH5_threeDot{
 	width:0.6rem;
@@ -368,6 +375,7 @@ select{
 .appH5_tab{
 	color:#fff;
 	font-size: 19px;
+	line-height: 19px;
 	padding-top: 12.5px;
 	padding-bottom: 9.5px;
 	padding-left:0.16rem;
@@ -375,7 +383,7 @@ select{
 	float: left;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
 }
-.router-link-active .appH5_tab {
+.router-link-exact-active .appH5_tab {
 	border-color: #ffc445;
 	border-bottom-width: 3px;
 	border-bottom-style: solid;

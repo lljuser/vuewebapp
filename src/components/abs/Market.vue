@@ -88,8 +88,11 @@ export default {
     };
   },
   created() {
-    this.fetchMarketSummary();
+   // this.fetchMarketSummary();
     // this.fetchPost();
+  }, 
+  mounted() {
+    this.fetchMarketSummary(); 
     this.fetchChartData();
   },
   methods: {
@@ -110,6 +113,7 @@ export default {
     //       this.list = json.data;
     //     });
     // },
+    // 
     fetchChartData() {
       axios.post(webApi.Market.chart)
         .then((response) => {

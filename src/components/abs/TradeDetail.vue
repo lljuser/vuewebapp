@@ -1,93 +1,93 @@
 <template>
 <div class="appH5_body">
   <div class="appH5_content">
-    <table class="appH5_panel" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td colspan="4" class="pdrSpecial">
-          <span class="fl appH5_color_green">产品名称</span>  
-          <div class="fl txt_justify">上银-逸锟春天2017年第一期应收账款债权融资计划</div>
-          <div class="clearfix"></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="appH5_color_green">金额&nbsp;(亿)</td>
-        <td class="appH5_color_red appH5_font_larger">66.00</td>
-        <td class="appH5_color_green">产品类型</td>
-        <td class="appH5_color_link">企业资产证券化</td>
-      </tr>
-      <tr>
-        <td class="appH5_color_green">期限&nbsp;(年)</td>
-        <td>3.83</td>
-        <td class="appH5_color_green">交易类型</td>
-        <td>一级市场发行</td>
-      </tr>
-      <tr>
-        <td class="appH5_color_green">证券类型</td>
-        <td class="appH5_color_link">夹层级</td>
-        <td class="appH5_color_green">评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级</td>
-        <td>AAA</td>
-      </tr>
-      <tr>
-        <td class="appH5_color_green">分层占比</td>
-        <td>13.53%</td>
-        <td class="appH5_color_green">资产类型</td>
-        <td>应收账款</td>
-      </tr>
-      <tr>
-        <td class="appH5_color_green">发行方式</td>
-        <td>私募</td>
-      </tr>
-      <tr>
-          <td colspan="4" class="txt_justify lineHight">
-            <span class="appH5_color_green">产品简介</span>
-            <div style="margin-top: .1rem;">
-              该计划基础资产为购房尾款应收账款。合同笔数2356笔，楼盘项目数为26个，风险较分散，平均帐龄较短，基础资产分布范围较广，且集中在保值性强、增长潜力高的城市，能够产生稳定的现金流。
-              该计划具有多项增信措施。优先级证券可获得10%的信用支持；初始受托以及后续循环托管的信托财产端应收账款余额与信托对价之间的比值不低于1.3，
-              现金流大于当前优先A级和优先B级信托受益权预期支付额；项目设置信托财产的置换与赎回机制；海伦堡集团（信用评级AA+）
-              作为差额补足承诺人，对信托计划提供信用支持。
-            </div>
-          </td>
+    <div class="appH5_panel">
+        <table class="appH5_list_four" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td class="pdrSpecial appH5_vertical_Top appH5_white_space">
+            <span>产品名称</span>  
+            </td>
+            <td colspan="3">
+            <div class="fl txt_justify">{{detailInfo.DealFullName}}</div>
+            </td>
         </tr>
         <tr>
-          <td colspan="4">
-            <span class="fl appH5_color_green mr5">参与专家</span>
-            <div class="fl" style="max-width: 6.9rem;">
-              <img class="touxiang" src="../../assets/logo.png"/>
-              <img class="touxiang" src="../../assets/logo.png"/>
-              <img class="touxiang" src="../../assets/logo.png"/>
-              <img class="touxiang" src="../../assets/logo.png"/>
-            </div>
+            <td class="appH5_white_space">期限(年)</td>
+            <td>{{detailInfo.WAL}}</td>
+            <td class="appH5_white_space">交易类型</td>
+            <td>{{detailInfo.TradeType}}</td>
+        </tr>
+        <tr>
+            <td class="appH5_white_space">证券类型</td>
+            <td class="appH5_color_link"><a href="">{{detailInfo.SecurityType}}</a></td>
+            <td class="appH5_white_space">评&#12288;&#12288;级</td>
+            <td>{{detailInfo.Rating}}</td>
+        </tr>
+        <tr>
+            <td class="appH5_white_space">分层占比</td>
+            <td>{{detailInfo.NotionalPct}}%</td>
+            <td class="appH5_white_space">产品类型</td>
+            <td class="appH5_color_link"><a href="">{{detailInfo.AssetType}}</a></td>
+        </tr>
+        <tr>
+            <td class="appH5_white_space">利&#12288;&#12288;率</td>
+            <td>{{detailInfo.Coupon}}</td>
+            <td class="appH5_white_space">交易场所</td>
+            <td>{{detailInfo.Exchange}}</td>
+        </tr>
+        <tr>
+            <td class="appH5_white_space" style="vertical-align: middle;">金额(亿)</td>
+            <td  colspan="3" class="appH5_color_red appH5_font_largest">{{detailInfo.TotalOffering}}</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="txt_justify lineHight">
+                <span class="appH5_white_space">产品简介</span>
+                <div class="appH5_color_white appH5_margin_top_td_div" v-html="detailInfo.Description" style="word-break: break-all;">
+                {{detailInfo.Description}}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <span class="fl mr5">参与专家</span>
+                <div class="fl" style="max-width: 6.9rem;">
+                <img class="touxiang" v-for="item in detailInfo.AbsProjectUsers" :src="item.AvatarPath"/>
+                </div>
+                <div class="clearfix"></div>
+            </td>
+            </tr>
+        <tr>
+            <td colspan="4">
+                <div class="fl mr5">联&nbsp;系&nbsp;人&nbsp;</div>
+                <div class="fl">
+                <div class="mb08 appH5_color_white" v-for="contactItem in detailInfo.Contacts">{{contactItem.Name}}&nbsp;&nbsp;{{contactItem.Telephone}}</div>
+                </div>
             <div class="clearfix"></div>
-          </td>
+            </td>
         </tr>
         <tr>
-          <td colspan="4">
-            <div class="fl appH5_color_green mr5">联&nbsp;系&nbsp;人&nbsp;</div>
-            <div class="fl">
-              <div class="mb20">吴晨&nbsp;&nbsp;15023232323</div>
-              <div>吴晨&nbsp;&nbsp;15023232323</div>
-            </div>
-           <div class="clearfix"></div>
-          </td>
-        </tr>
-        <tr>
-            <td colspan="4" style="height: 2rem;"></td>
+           <td colspan="4" style="height: 2rem;"></td>
         </tr>
     </table>
+    </div>
   </div>
-  <div class="fixedMain appH5_font_normal">
+  <div class="fixedMain appH5_font_normal" v-if="contactItem.IsPrimary" v-for="contactItem in detailInfo.Contacts">
     <div class="fl fixedLeft">
-          <div class="fl" style="margin: .2rem .15rem 0 .32rem;">
-            <img class="touxiang" src="../../assets/logo.png"/>
+          <div class="fl" style="margin: .2rem .2rem 0 .32rem;">
+            <img class="touxiang" :src="contactItem.AvatarPath"/>
           </div>
-          <div class="fl txtLeft" style="margin: .1rem 0 0 0;">
-              <div class="lxname">吴晨</div>
-              <div class="lxcompany appH5_font_smaller">上海和逸金融信息服务有限公司</div>
-              <div class="lxcont appH5_font_smaller">市场部-高级销售经理</div>
+          <div class="fl txtLeft" style="margin: .1rem 0 0 0; display: table; height: 1.3rem;">
+              <div style="display: table-cell; vertical-align: middle;">
+                <div class="lxname">{{contactItem.Name}}</div>
+                <div class="lxcompany appH5_font_smaller">{{contactItem.CompanyDisplay}}</div>
+                <div class="lxcont appH5_font_smaller" v-if="contactItem.Department!=''&&contactItem.Department!=null&&contactItem.Position!=''&&contactItem.Position!=null">{{contactItem.Department}}-{{contactItem.Position}}</div>
+                <div class="lxcont appH5_font_smaller" v-if="contactItem.Department==''||contactItem.Department==null">{{contactItem.Position}}</div>
+                <div class="lxcont appH5_font_smaller" v-if="contactItem.Position==''||contactItem.Position==null">{{contactItem.Department}}</div>
+              </div>
           </div>
           <div class="clearfix"></div>
     </div>
-    <a href="tel:17612169310" class="fl fixedRight">
+    <a :href="'tel:'+contactItem.Telephone" class="fl fixedRight">
         <img class="phoneImg" src="../../public/images/phone.png"/>
     </a>
     <div class="clearfix"></div>
@@ -96,14 +96,36 @@
 </template>
 
 <script> 
+import * as webApi from '@/config/api';
 import BusUtil from './BusUtil';
+import axios from 'axios';
 export default {
   name: 'tradeDetail',
   props: ['id'],
+  data() {
+    return {
+      msg: 'Welcome to Your Vue.js App',
+      detailInfo:[],
+      contactInfo:[],
+    };
+  },
   created() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
+    this.fetchTradeDetail(59,9461,data => {
+    this.detailInfo = data;
+    });
+  }, 
+  methods: {
+   fetchTradeDetail(tradeId,noteId,callback) { 
+    axios.post(webApi.Trade.detail.concat(['', tradeId, noteId].join('/'))).then((response) => { 
+        const data = response.data.data;
+        if(data){
+            callback(data);
+        }
+      });
+    }, 
   },
   activated() {
     // 滚动到顶部
@@ -112,13 +134,7 @@ export default {
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
   },
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-    };
-  },
 };
-
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -134,8 +150,8 @@ export default {
 .clearfix{
   clear: both;
 }
-.mb20{
-  margin-bottom: .15rem;
+.mb08{
+  margin-bottom: .08rem;
 }
 .mr5{
   margin-right: .5rem;
@@ -177,16 +193,6 @@ export default {
   display: inline-block;
   margin-right: .05rem;
 }
-.appH5_content table tr td{
-  padding-top: .31rem;
-}
-.appH5_content table tr td:nth-child(2){
-  width: 32%;
-  padding-left: .27rem;
-}
-.appH5_content table tr td:nth-child(4){
-  padding-left: .27rem;
-}
 .fixedMain{
   position: fixed;
   left: 0;
@@ -218,13 +224,22 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: .3rem;
+  color:#ccc;
+}
+.appH5_list_four td:nth-of-type(2n+1){
+    width: 22%;
+    padding-right: 0!important;
 }
 @media only screen and (min-width: 320px) and (max-width: 374px){
-  .appH5_content table tr td:nth-child(2){
-    width: 22%;
-  }
-  .pdrSpecial span{
-    width: 2rem;
-  }
+    .appH5_content table tr td:nth-child(1),.appH5_content table tr td:nth-child(3){
+        width: 19%;
+        padding-right: .2rem!important;
+    }
+    .appH5_content table tr td:nth-child(2){
+        width: 27%;
+    }
+    .appH5_content table tr td:nth-child(4){
+        width: 40%;
+    }
 }
 </style>

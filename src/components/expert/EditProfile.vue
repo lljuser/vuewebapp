@@ -123,7 +123,7 @@
                             <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
                             <td class="ep_ellipsis text-center">{{item.DealType}}</td>
                             <td class="ep_ellipsis text-right">
-                                <router-link class="ep_font24 ep_color_orange fr ep_lineHeight32" to="/OtherProject">
+                                <router-link class="ep_font24 ep_color_orange fr ep_lineHeight32" v-bind:to="'/OtherProject/' + item.Id">
                                     编辑
                                 </router-link>
                             </td>
@@ -357,78 +357,100 @@
 </template>
 
 <script>
-import _ from 'lodash';
+import axios from "axios";
+import * as webApi from "@/config/api";
+import _ from "lodash";
 
-import '@/public/css/expert/reset.css';
-import '@/public/css/theme.css';
-import '@/public/css/expert/editProfile.css';
- 
+import "@/public/css/expert/reset.css";
+import "@/public/css/theme.css";
+import "@/public/css/expert/editProfile.css";
+
 export default {
-  name: 'EditProfile',
-  data: function () {
+  name: "EditProfile",
+  data: function() {
     return {
-      '_': {},
+      _: {},
       userInfo: {}
     };
   },
-  created: function () {
-      this.initData();
+  created: function() {
+    this._ = _;
+    this.initData();
   },
   methods: {
-      initData: function () {
-        //   fetch('http://10.1.3.60:43400/expert/ExpertInfo/GetExpert').then(response => response.json()).then((json) => {
-        //         this.userInfo = json.data;
-        //   });
-        this._ = _;
-        this.userInfo = {"User":{"Name":"杨小峰177","Avatar":"http://10.1.1.35:8000/filestore/common/downloadimg/cnabs/479fc8b7-2e95-cde6-098e-08d5518e105d/s","Company":"asdasdasd","Cellphone":"17721307643","Email":"xiaofeng.yang@sail-fs.com","FollowerNum":0,"FriendNum":0,"FollowingNum":0,"Introduction":null},"ABSProjects":[{"Id":154,"DealId":2605,"DealName":"鼎程2018-1","TotalOffering":11.18,"DealType":"保理融资","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":391,"DealId":2605,"OrganizationRoleId":11,"OrganizationRole":"差额支付承诺人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":2,"Name":"项目负责人"}},{"Id":157,"DealId":1423,"DealName":"中飞租2017-1","TotalOffering":1.71,"DealType":"融资租赁","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":394,"DealId":1423,"OrganizationRoleId":11,"OrganizationRole":"差额支付承诺人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":3,"Name":"项目参与人"}},{"Id":138,"DealId":2084,"DealName":"中建材2017-2","TotalOffering":9.0,"DealType":"应收账款","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":332,"DealId":2084,"OrganizationRoleId":11,"OrganizationRole":"差额支付承诺人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":1,"Name":"部门负责人"}},{"Id":145,"DealId":2031,"DealName":"安心贷1号2017-1","TotalOffering":4.47,"DealType":"小额贷款","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":357,"DealId":2031,"OrganizationRoleId":24,"OrganizationRole":"其它","IsCustomizedOrganizationRole":true,"CustomizedOrganizationRole":"test"},{"Id":358,"DealId":2031,"OrganizationRoleId":24,"OrganizationRole":"其它","IsCustomizedOrganizationRole":true,"CustomizedOrganizationRole":"testss"}],"PersonalResponsibility":{"Id":1,"Name":"部门负责人"}},{"Id":153,"DealId":2291,"DealName":"借呗2017-43","TotalOffering":40.0,"DealType":"个人消费贷款","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":390,"DealId":2291,"OrganizationRoleId":1,"OrganizationRole":"承销商","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":1,"Name":"部门负责人"}},{"Id":137,"DealId":2277,"DealName":"借呗E2017-1","TotalOffering":4.7,"DealType":"个人消费贷款","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":331,"DealId":2277,"OrganizationRoleId":1,"OrganizationRole":"承销商","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":1,"Name":"部门负责人"}},{"Id":156,"DealId":1628,"DealName":"鄂黄2017-1","TotalOffering":5.0,"DealType":"收费收益权","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":393,"DealId":1628,"OrganizationRoleId":11,"OrganizationRole":"差额支付承诺人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":2,"Name":"项目负责人"}}],"OtherProjects":[{"Id":73,"ProjectName":"test","ProjectShortName":"test","TotalOffering":0.0,"DealType":"资产证券化","Nation":null,"Description":null,"EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":0,"DealId":73,"OrganizationRoleId":20,"OrganizationRole":"税务顾问","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null},{"Id":0,"DealId":73,"OrganizationRoleId":12,"OrganizationRole":"担保人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null},{"Id":0,"DealId":73,"OrganizationRoleId":6,"OrganizationRole":"发起机构","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":2,"Name":"项目负责人"}},{"Id":80,"ProjectName":"qwe","ProjectShortName":"qwe","TotalOffering":10.0,"DealType":"资产证券化","Nation":"qwe","Description":"","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":0,"DealId":80,"OrganizationRoleId":23,"OrganizationRole":"委托机构","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":2,"Name":"项目负责人"}},{"Id":81,"ProjectName":"rweqw","ProjectShortName":"qweqwe001","TotalOffering":20.0,"DealType":"结构性融资","Nation":"rew","Description":"","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":0,"DealId":81,"OrganizationRoleId":11,"OrganizationRole":"差额支付承诺人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":2,"Name":"项目负责人"}},{"Id":82,"ProjectName":"aaaa","ProjectShortName":"ssss","TotalOffering":20.0,"DealType":"结构性融资","Nation":"qwe","Description":"","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":0,"DealId":82,"OrganizationRoleId":1,"OrganizationRole":"承销商","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":2,"Name":"项目负责人"}},{"Id":83,"ProjectName":"eeee","ProjectShortName":"eeee","TotalOffering":10.0,"DealType":"结构性融资","Nation":"wwww","Description":"","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":0,"DealId":83,"OrganizationRoleId":19,"OrganizationRole":"财务顾问","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":1,"Name":"部门负责人"}},{"Id":84,"ProjectName":"dddd","ProjectShortName":"wwww","TotalOffering":30.0,"DealType":"结构性融资","Nation":"fffff","Description":"","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":0,"DealId":84,"OrganizationRoleId":11,"OrganizationRole":"差额支付承诺人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":1,"Name":"部门负责人"}},{"Id":85,"ProjectName":"qqqq","ProjectShortName":"aaaa","TotalOffering":30.0,"DealType":"PPP","Nation":"cccc","Description":"","EndorseNum":0,"IsEndorse":false,"OrganizationRoles":[{"Id":0,"DealId":85,"OrganizationRoleId":12,"OrganizationRole":"担保人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":3,"Name":"项目参与人"}}],"WorkHistories":[{"Id":214,"Company":"asdasdasd","OrganizationId":null,"Department":"CNABS","Position":"Dev","StartTime":"2017.08","EndTime":"至今","Description":null,"IsEndorse":false},{"Id":218,"Company":"ffff","OrganizationId":null,"Department":"ffff","Position":"fff","StartTime":"2015.01","EndTime":"至今","Description":null,"IsEndorse":false},{"Id":216,"Company":"aaaa","OrganizationId":null,"Department":"aaaa","Position":"aaaa","StartTime":"2017.03","EndTime":"2018.01","Description":null,"IsEndorse":false},{"Id":217,"Company":"ssss","OrganizationId":null,"Department":"sss","Position":"sss","StartTime":"2016.01","EndTime":"2017.03","Description":null,"IsEndorse":false}],"HonorAwards":[{"Id":76,"Name":"sdf","Year":"2018","Description":null},{"Id":79,"Name":"fffff","Year":"2018","Description":null},{"Id":80,"Name":"aaaa","Year":"2018","Description":null},{"Id":77,"Name":"111","Year":"2016","Description":null},{"Id":78,"Name":"sdfsdf","Year":"2016","Description":null}],"Publishs":[{"Id":133,"Name":"test","Publisher":"test","PublishTime":"2016","Year":null,"Author":"test","Isbn":"11241231","Pages":100,"Link":null,"EndorseNum":0,"IsEndorse":false,"AttachmentFileCode":null},{"Id":139,"Name":"12312323","Publisher":null,"PublishTime":null,"Year":null,"Author":"123123","Isbn":null,"Pages":null,"Link":null,"EndorseNum":0,"IsEndorse":false,"AttachmentFileCode":null},{"Id":140,"Name":"12312312","Publisher":null,"PublishTime":null,"Year":null,"Author":"123123","Isbn":null,"Pages":null,"Link":null,"EndorseNum":0,"IsEndorse":false,"AttachmentFileCode":null},{"Id":132,"Name":"test","Publisher":null,"PublishTime":null,"Year":null,"Author":"test","Isbn":null,"Pages":null,"Link":null,"EndorseNum":0,"IsEndorse":false,"AttachmentFileCode":null}],"RecentActivities":[{"Id":106,"Name":"fffff","ActivityTime":"2018.01","Time":"0001-01-01 00:00:00","Description":null},{"Id":107,"Name":"aaaa","ActivityTime":"2018.01","Time":"0001-01-01 00:00:00","Description":null},{"Id":108,"Name":"xcxxxx","ActivityTime":"2018.01","Time":"0001-01-01 00:00:00","Description":null},{"Id":102,"Name":"sss","ActivityTime":"2017.12","Time":"0001-01-01 00:00:00","Description":null}],"OtherPosts":[{"Id":125,"Name":"test"},{"Id":138,"Name":"1234"},{"Id":139,"Name":"ssss"},{"Id":140,"Name":"dasd"},{"Id":141,"Name":"test111"},{"Id":142,"Name":"啊啊啊"}],"Educations":[]};
-      },
-      //机构角色拼接
-      splicingOrganizationRoles: function (organizationRoles) {
-          if (this.isArrayEmpty(organizationRoles)) return "";
+    initData: function() {
+      axios.post(webApi.Expert.getExpert).then(response => {
+            this.userInfo = response.data.data;
+        });
+    },
+    //机构角色拼接
+    splicingOrganizationRoles: function(organizationRoles) {
+      if (this.isArrayEmpty(organizationRoles)) return "";
 
-          var result = [];
+      var result = [];
 
-          organizationRoles.forEach(function (item) {
-              result.push(item.IsCustomizedOrganizationRole ? item.CustomizedOrganizationRole : item.OrganizationRole);
-          });
+      organizationRoles.forEach(function(item) {
+        result.push(
+          item.IsCustomizedOrganizationRole
+            ? item.CustomizedOrganizationRole
+            : item.OrganizationRole
+        );
+      });
 
-          return result.sort().join();
-      },
-      isArrayEmpty: function (arr) {
-          return (arr === null || arr === undefined || arr.length === 0);
-      },
-      isValidElement: function (item) {
-          return !(item === null || item === undefined || item === "");
-      }
+      return result.sort().join();
+    },
+    isArrayEmpty: function(arr) {
+      return arr === null || arr === undefined || arr.length === 0;
+    },
+    isValidElement: function(item) {
+      return !(item === null || item === undefined || item === "");
+    }
   },
   computed: {
-       projectHistoriesSummary: function () {
-            if (this.userInfo.ABSProjects === null || this.userInfo.ABSProjects.length === 0) return null;
+    projectHistoriesSummary: function() {
+      if (
+        this.userInfo.ABSProjects === null ||
+        this.userInfo.ABSProjects.length === 0
+      )
+        return null;
 
-            var projectTotalOffering = 0;
+      var projectTotalOffering = 0;
 
-            for (let item of this.userInfo.ABSProjects) {
-                projectTotalOffering += Number(item.TotalOffering);
-            }
+      for (let item of this.userInfo.ABSProjects) {
+        projectTotalOffering += Number(item.TotalOffering);
+      }
 
-            return { totalCount: this.userInfo.ABSProjects.length, totalOffering: projectTotalOffering };
-      },
-      otherProjectHistoriesSummary: function () {
-            if (this.userInfo.OtherProjects === null || this.userInfo.OtherProjects.length === 0) return null;
+      return {
+        totalCount: this.userInfo.ABSProjects.length,
+        totalOffering: projectTotalOffering
+      };
+    },
+    otherProjectHistoriesSummary: function() {
+      if (
+        this.userInfo.OtherProjects === null ||
+        this.userInfo.OtherProjects.length === 0
+      )
+        return null;
 
-            var projectTotalOffering = 0;
+      var projectTotalOffering = 0;
 
-            for (let item of this.userInfo.OtherProjects) {
-                projectTotalOffering += Number(item.TotalOffering);
-            }
+      for (let item of this.userInfo.OtherProjects) {
+        projectTotalOffering += Number(item.TotalOffering);
+      }
 
-            return { totalCount: this.userInfo.OtherProjects.length, totalOffering: projectTotalOffering };
-        },
+      return {
+        totalCount: this.userInfo.OtherProjects.length,
+        totalOffering: projectTotalOffering
+      };
+    },
+    routeUrls: function() {
+      return null;
     }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
- 
+
 </style>
