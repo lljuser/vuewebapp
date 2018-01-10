@@ -180,7 +180,7 @@ export default {
   },
   activated() {
     // 滚动到顶部
-    window.scrollTo(0,0)
+    window.scrollTo(0,0);
     const busUtil = BusUtil.getInstance();
     
     this.id = this.$route.params.id;
