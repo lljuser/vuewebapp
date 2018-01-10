@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="cnabs-bg">
-    <div v-if="!showHeader" class="appH5_navbar">
+    <!-- <div v-if="!showHeader" class="appH5_navbar">
       <router-link to="/market">
         <a class="appH5_tab" href="javascript:;">市场</a>
       </router-link>
@@ -10,8 +10,25 @@
       <router-link to="/trade">
         <a class="appH5_tab" href="javascript:;">交易</a>
       </router-link>
-    </div>
-    
+    </div> -->
+    <mt-navbar v-if="!showHeader" class="appH5_navbar" v-model="selected">
+      <mt-tab-item id="1">
+        <router-link to="/market">
+          <a class="appH5_tab" href="javascript:;">市场</a>
+        </router-link>
+      </mt-tab-item>
+      <mt-tab-item id="2">
+           <router-link to="/product">
+            <a class="appH5_tab" href="javascript:;">产品</a>
+          </router-link>
+      </mt-tab-item>
+      <mt-tab-item id="3">
+          <router-link to="/trade">
+        <a class="appH5_tab" href="javascript:;">交易</a>
+      </router-link>
+      </mt-tab-item>
+    </mt-navbar> 
+
     <div v-else class="appH5_navbar_bg">
       <mt-header title="产品信息">
         <router-link :to="path" slot="left">
@@ -19,10 +36,11 @@
         </router-link>
       </mt-header>
     </div>
-
-    <keep-alive>
-      <router-view />
-    </keep-alive>
+    <transition>
+      <keep-alive>
+        <router-view />
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
