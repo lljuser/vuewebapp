@@ -96,9 +96,9 @@
             <table class="appH5_table">
               <tr>
                 <th>证券简称</th>
-                <th class="text-right">金额(亿)<br/>剩余金额</th>
-                <th class="text-right">利率(%)<br/>估值</th>
-                <th class="text-right">期限<br/>还本方式</th>
+                <th class="text-right">初始(亿)<br/>剩余(亿)</th>
+                <th class="text-right">利率<br/>估值</th>
+                <th class="text-right">期限<br/>类型</th>
                 <th class="text-right">最新评级<br/>建议评级</th>
               </tr>
               <tr>
@@ -168,6 +168,7 @@ export default {
     }
     this.fetchProductPaymentChart(440,28203);//(this.dealId, this.resultId);
     busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/product');
 
     // url 传来的id
     const productId = getParams("id");

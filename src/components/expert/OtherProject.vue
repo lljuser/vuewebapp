@@ -7,7 +7,7 @@
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
                 <select class="ep_select fr ep_font32 ep_align_right personalRoleSelect" v-model="otherDealTypeModel" v-cloak>
                     <option disabled value="">请选择</option>
-                    <option v-for="item in otherDealTypes" v-bind:value="item.Type">{{item.Type}}</option>
+                    <option v-for="item in otherDealTypes" v-bind:value="item.Type" v-bind:key="item.Type">{{item.Type}}</option>
                 </select>
             </div>
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
@@ -34,11 +34,11 @@
                     <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
                     <select class="ep_select fr ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel" v-cloak>
                         <option disabled value="">请选择</option>
-                        <option v-for="item in editingOrganizationRoles" v-bind:value="item.Id">{{item.Role}}</option>
+                        <option v-for="item in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="item.Id">{{item.Role}}</option>
                     </select>
                 </div>
                 <div v-if="!isArrayEmpty(projectHistory.OrganizationRoles)">
-                    <div class="ep_multipleItem" v-for="(item,index) in projectHistory.OrganizationRoles" v-bind:class="[index===projectHistory.OrganizationRoles-1?'ep_marginBottom30':'ep_marginBottom20']" v-cloak>
+                    <div class="ep_multipleItem" v-for="(item,index) in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole" v-bind:class="[index===projectHistory.OrganizationRoles-1?'ep_marginBottom30':'ep_marginBottom20']" v-cloak>
                         <span class="fl">{{organizationRoleDisplay(item)}}</span>
                         <span class="fr ep_font24 ep_deleteBtn" v-on:click="deleteOrganizationRole(item)">×</span>
                     </div>
@@ -49,7 +49,7 @@
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
                 <select class="ep_select fr ep_font32 ep_align_right personalRoleSelect" type="text" v-model="personalResponsibilityModel" v-cloak>
                     <option disabled value="">请选择个人职责</option>
-                    <option v-for="item in personalResponsibilities" v-bind:value="item.Id">{{item.Name}}</option>
+                    <option v-for="item in personalResponsibilities" v-bind:value="item.Id" v-bind:key="item.Id">{{item.Name}}</option>
                 </select>
             </div>
             <div>
