@@ -27,14 +27,14 @@
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">入职时间</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <div class="fr fr ep_font32 ep_align_right" v-on:click="showDatePicker('startTime')" v-bind:class="[workHistory.StartTime === undefined ? 'ep_color_grey' : '']">
+                <div class="fr fr ep_font32 ep_align_right startTime" v-on:click="showDatePicker('startTime')" v-bind:class="[workHistory.StartTime === undefined ? 'ep_color_grey' : '']">
                     {{workHistory.StartTime === undefined ? '请选择' : workHistory.StartTime}}
                 </div>
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">离职时间</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <div class="fr fr ep_font32 ep_align_right" v-on:click="showDatePicker('endTime')" v-bind:class="[workHistory.EndTime === undefined ? 'ep_color_grey' : '']">
+                <div class="fr fr ep_font32 ep_align_right endTime" v-on:click="showDatePicker('endTime')" v-bind:class="[workHistory.EndTime === undefined ? 'ep_color_grey' : '']">
                     {{workHistory.EndTime === undefined ? '请选择' : workHistory.EndTime}}
                 </div>
             </div>
@@ -52,8 +52,7 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveWorkHistory">保存</span>
-                <span v-if="workHistory.Id === undefined" class="ep_cancelBtn fr">
-                    <!-- <a href="/expert/expertuser/editProfile#workHistory" class="ep_color_orange">取消</a> -->
+                <span v-if="!isValidElement(id)" class="ep_cancelBtn fr">
                     <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
@@ -88,6 +87,9 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
+
     export default {
         name: 'WorkHistory',
         data: function () {
@@ -145,17 +147,22 @@
                 getStartPicker: null,
                 getEndPicker: null,
                 submitPopupVisible: false,
-
-                queryString: {},//GetRequest(),
-                workHistory: {}
+                workHistory: {},
+                id: null
             }
         },
         created: function () {
+            this.id = this.$route.params.id;
             this.initData();
         },
         methods: {
             initData: function () {
-
+                axios.post(webApi.Expert.getWorkHistory, {id: this.id}).then(response => {
+                    this.workHistory = response.data.data;
+                    this.workHistory.OrganizationName = this.workHistory.Company;
+                    this.startTime = this.workHistory.StartTime.split('.')[0] + '年' + (this.workHistory.StartTime.split('.')[1].split('')[0] === '0' ? this.workHistory.StartTime.split('.')[1].split('')[1] : this.workHistory.StartTime.split('.')[1]) + '月';
+                    this.endTime = this.workHistory.EndTime === '至今' ? '至今' : (this.workHistory.EndTime.split('.')[0] + '年' + (this.workHistory.EndTime.split('.')[1].split('')[0] === '0' ? this.workHistory.EndTime.split('.')[1].split('')[1] : this.workHistory.EndTime.split('.')[1]) + '月');
+                });
             },
             setYears: function(start, end, hasNow) {
                 var yearArray = [];

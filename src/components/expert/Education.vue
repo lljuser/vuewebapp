@@ -18,14 +18,14 @@
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">入学时间</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <div class="fr fr ep_font32 ep_align_right" v-on:click="showDatePicker('startTime')" v-bind:class="[education.FromYear === undefined ? 'ep_color_grey' : '']">
+                <div class="fr fr ep_font32 ep_align_right startTime" v-on:click="showDatePicker('startTime')" v-bind:class="[education.FromYear === undefined ? 'ep_color_grey' : '']">
                     {{education.FromYear === undefined ? '请选择' : education.FromYear}}
                 </div>
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">毕业时间</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <div class="fr fr ep_font32 ep_align_right" v-on:click="showDatePicker('endTime')" v-bind:class="[education.ToYear === undefined ? 'ep_color_grey' : '']">
+                <div class="fr fr ep_font32 ep_align_right endTime" v-on:click="showDatePicker('endTime')" v-bind:class="[education.ToYear === undefined ? 'ep_color_grey' : '']">
                     {{education.ToYear === undefined ? '请选择' : education.ToYear}}
                 </div>
             </div>
@@ -43,8 +43,7 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveEducationHistory">保存</span>
-                <span v-if="education.Id === undefined" class="ep_cancelBtn fr">
-                    <!-- <a href="/expert/expertuser/editProfile#educationHistory" class="ep_color_orange">取消</a> -->
+                <span v-if="!isValidElement(id)" class="ep_cancelBtn fr">
                     <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
@@ -72,6 +71,9 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
+
     export default {
         name: 'Activity',
         data: function () {
@@ -99,14 +101,22 @@
                 removePopupVisible: false,
                 submitPopupVisible: false,
                 getPicker: null,
-                queryString: {},//GetRequest(),
-                education: {}
+                education: {},
+                id: null
             }
         },
         created: function () {
-            
+            this.id = this.$route.params.id;
+            this.initData();
         },
         methods: {
+            initData: function () {
+                if (this.isValidElement(this.id) && !isNaN(this.id)) {
+                    axios.post(webApi.Expert.getEducation, { id: this.id }).then(response => {
+                        this.education = response.data.data;
+                    });
+                }
+            },
             setYears: function () {
                 var end = new Date().getFullYear();
                 var start = end - 80;
@@ -133,12 +143,12 @@
             },
             saveYearMonth: function () {
                 if (this.timeType === 'startTime') {
-                    this.startTime = currentStartYear;
+                    this.startTime = this.currentStartYear;
                     this.education.FromYear = this.startTime.replace('年', '');
                 }
 
                 if (this.timeType === 'endTime') {
-                    this.endTime = currentEndYear;
+                    this.endTime = this.currentEndYear;
                     this.education.ToYear = this.endTime.replace('年', '');
                 }
 
@@ -160,7 +170,7 @@
                     
 
                 }
-                currentStartYear = values[0];
+                this.currentStartYear = values[0];
                 if (this.timeType === 'endTime' && values[0] != undefined) {
                     var x = values[0].replace('年', '/') + '01/01';
                     if (this.startTime != '') {
@@ -171,7 +181,7 @@
                     }
                     
                 }
-                currentEndYear = values[0];
+                this.currentEndYear = values[0];
                 this.getPicker = picker;
             },
             removeContent: function () {
@@ -179,21 +189,18 @@
 
                 if (this.education.Id === undefined) return;
 
-                appFrame.ajax("/expert/ExpertInfo/DeleteEducation", {
-                    data: {
+                axios.post(webApi.Expert.deleteEducation, { 
                         id: this.education.Id
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#educationHistory';
-                        };
+                     }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.submitPopupVisible = false;
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
+                        }
 
-                        if (res.status === "fail") {
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
-                    }
-                });
+                        this.$router.go(-1);
+                    });
             },
             saveEducationHistory: function () {
 
@@ -204,7 +211,7 @@
                     return;
                 }
 
-                if (!this.isValidElement(this.education.FromYear) || !isValidElement(this.education.ToYear)) {
+                if (!this.isValidElement(this.education.FromYear) || !this.isValidElement(this.education.ToYear)) {
                     this.isShowError = true;
                     this.errorMessage = "入学年份/毕业年份不能为空，请填写!";
                     return;
@@ -221,54 +228,45 @@
 
                 //添加教育经历
                 if (this.education.Id === undefined) {
-                    appFrame.ajax("/expert/ExpertInfo/AddEducation", {
-                        data: {
-                            School: self.education.School,
-                            Major: self.education.Major,
-                            Degree: self.education.Degree,
-                            FromYear: self.education.FromYear,
-                            ToYear: self.education.ToYear,
-                            Description: self.education.Description
-                        },
-                        success: function (res) {
-                            if (res.status === "ok") {
-                                window.location.href = '/expert/expertuser/editProfile#educationHistory';
-                            };
-
-                            if (res.status === "fail") {
-                                self.submitPopupVisible = false;
-                                self.isShowError = true;
-                                self.errorMessage = res.data;
-                            };
+                    axios.post(webApi.Expert.addEducation, { 
+                        School: this.education.School,
+                        Major: this.education.Major,
+                        Degree: this.education.Degree,
+                        FromYear:this.education.FromYear,
+                        ToYear: this.education.ToYear,
+                        Description: this.education.Description
+                     }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.submitPopupVisible = false;
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
                         }
-                    });
 
+                        this.$router.go(-1);
+                    });
                     return;
                 }
 
                 //更新教育经历
-                appFrame.ajax("/expert/ExpertInfo/UpdateEducation", {
-                    data: {
-                        Id: self.education.Id,
-                        School: self.education.School,
-                        Major: self.education.Major,
-                        Degree: self.education.Degree,
-                        FromYear: self.education.FromYear,
-                        ToYear: self.education.ToYear,
-                        Description: self.education.Description
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#educationHistory';
-                        };
+                axios.post(webApi.Expert.updateEducation, { 
+                        Id: this.education.Id,
+                        School: this.education.School,
+                        Major: this.education.Major,
+                        Degree: this.education.Degree,
+                        FromYear: this.education.FromYear,
+                        ToYear: this.education.ToYear,
+                        Description: this.education.Description
+                     }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.submitPopupVisible = false;
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
+                        }
 
-                        if (res.status === "fail") {
-                            self.submitPopupVisible = false;
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
-                    }
-                });
+                        this.$router.go(-1);
+                    });
             },
             isArrayEmpty: function (arr) {
                 return (arr === null || arr === undefined || arr.length === 0);

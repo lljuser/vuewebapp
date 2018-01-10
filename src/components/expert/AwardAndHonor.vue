@@ -5,7 +5,7 @@
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">获奖年份</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <div class="fr fr ep_font32 ep_align_right" v-on:click="showYearPicker()" v-bind:class="[honorAward.Year=== undefined?'ep_color_grey':'']">{{honorAward.Year=== undefined ?'请选择':honorAward.Year}}</div>
+                <div class="fr fr ep_font32 ep_align_right honorAwardYear" v-on:click="showYearPicker()" v-bind:class="[honorAward.Year=== undefined?'ep_color_grey':'']">{{honorAward.Year=== undefined ?'请选择':honorAward.Year}}</div>
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">奖项名称</span>
@@ -26,9 +26,8 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveAwardsAndHonors">保存</span>
-                <span v-if="queryString.id === undefined" class="ep_cancelBtn fr">
-                    <!-- <a href="/expert/expertuser/editProfile#awardsAndHonors" class="ep_color_orange">取消</a> -->
-                    <router-link to="/" class="ep_color_orange">
+                <span v-if="!isValidElement(id)" class="ep_cancelBtn fr">
+                    <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
                 </span>
@@ -56,6 +55,9 @@
 
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
+
     export default {
         name: 'AwardAndHonor',
         data: function () {
@@ -65,7 +67,7 @@
                 availableYear: [
                 {
                     flex: 1,
-                    values: [],
+                    values: this.setYears(),
                     className: 'slot1',
                     textAlign: 'center',
                 }
@@ -74,15 +76,23 @@
                 errorMessage: '',
                 removePopupVisible: false,
                 getPicker: null,
-                queryString: {},//GetRequest(),
                 honorAward: {},
                 submitPopupVisible:false,
+                id: null
             }
         },
         created: function () {
-            this.availableYear.values = this.setYears();
+            this.id = this.$route.params.id;
+            this.initData();
         },
         methods: {
+            initData: function () {
+                if (this.isValidElement(this.id) && !isNaN(this.id)) {
+                    axios.post(webApi.Expert.getHonorAward, { id: this.id }).then(response => {
+                        this.honorAward = response.data.data;
+                    });
+                }
+            },
             setYears: function () {
                 var end = new Date().getFullYear();
                 var start = end - 80;
@@ -96,7 +106,7 @@
             },
             showYearPicker: function () {
                 this.isShowYearPopup = true;
-                if (this.getPicker != null && currentSelectedYear != '' && currentSelectedYear != this.honorAward.Year+'年') {
+                if (this.getPicker != null && this.currentSelectedYear != '' && this.currentSelectedYear != this.honorAward.Year+'年') {
                     this.getPicker.setSlotValue(0, this.honorAward.Year === undefined ? new Date().getFullYear() + '年' : this.honorAward.Year+'年')
                 }
             },
@@ -104,37 +114,29 @@
                 this.isShowYearPopup = false;
             },
             saveYear: function () {
-                this.honorAward.Year = currentSelectedYear.split('年')[0];
+                this.honorAward.Year = this.currentSelectedYear.split('年')[0];
                 this.hideYearPicker();
             },
             onYearChange: function (picker, values) {
-                currentSelectedYear = values[0];
+                this.currentSelectedYear = values[0];
                 this.getPicker = picker;
             },
             removeContent: function () {
                 if (this.honorAward.Id === undefined) return;
 
-                var self = this;
                 this.removePopupVisible = true;
-                
-                appFrame.ajax("/expert/ExpertInfo/DeleteHonorAward", {
-                    data: {
-                        id: self.honorAward.Id
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#awardsAndHonors'
-                        };
 
-                        //TODO - server error tip
-                        if (res.status === "fail") {
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
+                axios.post(webApi.Expert.deleteHonorAward, { 
+                    id: this.honorAward.Id
+                    }).then(response => {
+                    if (response.data.status === 'fail') {
+                        this.isShowError = true;
+                        this.errorMessage = response.data.data;
+                        return;
                     }
-                });
 
-                
+                    this.$router.go(-1);
+                });
             },
             saveAwardsAndHonors: function () {
                 //Front-end params check
@@ -153,48 +155,38 @@
                 var self = this;
                 //添加个人奖项
                 if (this.honorAward.Id === undefined) {
-                    appFrame.ajax("/expert/ExpertInfo/AddHonorAward", {
-                        data: {
-                            Name: self.honorAward.Name,
-                            Year: self.honorAward.Year,
-                            Description: self.honorAward.Description
-                        },
-                        success: function (res) {
-                            if (res.status === "ok") {
-                                window.location.href = '/expert/expertuser/editProfile#awardsAndHonors';
-                            };
-
-                            if (res.status === "fail") {
-                                self.submitPopupVisible = false;
-                                self.isShowError = true;
-                                self.errorMessage = res.data;
-                            };
+                    axios.post(webApi.Expert.addHonorAward, { 
+                        Name: this.honorAward.Name,
+                        Year: this.honorAward.Year,
+                        Description: this.honorAward.Description
+                     }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
                         }
+
+                        this.$router.go(-1);
                     });
 
                     return;
                 }
 
                 //更新个人奖项
-                appFrame.ajax("/expert/ExpertInfo/UpdateHonorAward", {
-                    data: {
-                        Id: self.honorAward.Id,
-                        Name: self.honorAward.Name,
-                        Year: self.honorAward.Year,
-                        Description: self.honorAward.Description
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#awardsAndHonors';
-                        };
+                axios.post(webApi.Expert.updateHonorAward, { 
+                        Id: this.honorAward.Id,
+                        Name: this.honorAward.Name,
+                        Year: this.honorAward.Year,
+                        Description: this.honorAward.Description
+                     }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
+                        }
 
-                        if (res.status === "fail") {
-                            self.submitPopupVisible = false;
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
-                    }
-                });
+                        this.$router.go(-1);
+                    });
             },
             isArrayEmpty: function (arr) {
                 return (arr === null || arr === undefined || arr.length === 0);

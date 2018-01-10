@@ -83,17 +83,17 @@ export default new Router({
       component: OtherProjectList,
     },
     {
-      path: '/OtherPosition',
+      path: '/OtherPosition/:id?',
       name: 'OtherPosition',
       component: OtherPosition,
     },
     {
-      path: '/AwardAndHonor',
+      path: '/AwardAndHonor/:id?',
       name: 'AwardAndHonor',
       component: AwardAndHonor,
     },
     {
-      path: '/Activity',
+      path: '/Activity/:id?',
       name: 'Activity',
       component: Activity,
     },
@@ -103,7 +103,7 @@ export default new Router({
       component: ActivityList,
     },
     {
-      path: '/Article',
+      path: '/Article/:id?',
       name: 'Article',
       component: Article,
     },
@@ -113,7 +113,7 @@ export default new Router({
       component: ArticleList,
     },
     {
-      path: '/Education',
+      path: '/Education/:id?',
       name: 'Education',
       component: Education,
     },
@@ -123,7 +123,7 @@ export default new Router({
       component: BriefIntroducation,
     },
     {
-      path: '/WorkHistory',
+      path: '/WorkHistory/:id?',
       name: 'WorkHistory',
       component: WorkHistory,
     },

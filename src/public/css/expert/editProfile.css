@@ -119,14 +119,14 @@ body {
     color: #cccccc!important;
 }
 .ep_editBtn {
-    border: 1px solid #EA4200;
+    border: 1px solid #ffc446;
     border-radius: 4px;
-    color: #EA4200;
+    color: #ffc446;
     padding-left: 0.2rem;
     padding-right: 0.2rem;
     padding-top: 0.02rem;
     padding-bottom: 0.02rem;
-    font-size:16px;
+    font-size:17px;
 }
 .ep_greyEditBtn{
     border: 1px solid #E0E0E0;
@@ -203,8 +203,14 @@ a.ep_editBtn:hover {
 .ep_width250{
     width:3.333333rem;
 }
+.ep_width210{
+    width:3.0rem;
+}
 .ep_width176 {
     width: 2.346667rem;
+}
+.ep_width127{
+width:1.7rem;
 }
 .ep_width112{
     width:1.5rem;
@@ -351,6 +357,10 @@ a.ep_editBtn:hover {
 
 .ep_paddingTop30 {
     padding-top: 0.4rem;
+}
+
+.ep_paddingLeft45 {
+    padding-left: 0.6rem !important;
 }
 
 .ep_paddingLeft30 {
@@ -643,6 +653,10 @@ ul.articleDetail li {
     margin-top: 0.36rem;
 }
 
+.projectHistoryABSContent .ep_searchInput {
+    width: 5.5rem !important;
+    padding: 0 0.206667rem;
+}
 .projectNameABS {
     width: 6.666667rem;
     margin-top: 0.233333rem;
@@ -672,24 +686,73 @@ ul.articleDetail li {
         width: 150px;
         height: 150px;
     }
-/*otherProjectList*/
-.projectHistoryOtherContent{
-    background-color: #2b2a29;
-}
-/*otherPositionContent*/
-.projectHistoryOtherContent{
-    background-color: #2b2a29;
-}
+
 /*workHistory CSS*/
 .workHistoryContent .organizationName {
     width: 6.666667rem;
     margin-top: 0.233333rem;
     margin-right: -0.4rem;
 }
+/*workHistoryContent*/
+.workHistoryContent{
+    background-color: #2b2a29;
+}
+.workHistoryContent .startTime,
+.workHistoryContent .endTime
+{
+    padding-right: 0.32rem;
+}
+/*otherProjectList*/
+.projectHistoryOtherContent{
+    background-color: #2b2a29;
+}
+/*otherPositionContent*/
+.otherPositionContent{
+    background-color: #2b2a29;
+}
+.projectHistoryOtherContent{
+    background-color: #2b2a29;
+}
+/*awardsHonorsContent*/
+.awardsHonorsContent{
+    background-color: #2b2a29;
+}
+.awardsHonorsContent .honorAwardYear{
+    padding-right: 0.32rem;
+}
+/*activityContent*/
+.activityContent{
+    background-color: #2b2a29;
+}
+.activityContent .ActivityTime{
+    padding-right: 0.32rem;
+}
+/*articleContent*/
+.articleContent,.articleListContent{
+    background-color: #2b2a29;
+}
+.articleContent .PublishTime{
+    padding-right: 0.32rem;
+}
+/*educationHistoryContent*/
+.educationHistoryContent{
+    background-color: #2b2a29;
+}
+.educationHistoryContent .startTime,
+.educationHistoryContent .endTime
+{
+    padding-right: 0.32rem;
+}
+/*personalProfileContent*/
+.personalProfileContent{
+    background-color: #2b2a29;
+}
+
 /*readProfile CSS*/
 .basicInformationCard {
     padding: 0.533333rem 0.4rem 0.8rem 0.4rem;
-    border-bottom: 6px solid #F35B5B;
+    border-bottom: 6px solid #ffc446;
+    /* border-bottom: 6px solid #F35B5B; */
 }
 /*projectABSDetails CSS*/
 .projectABSDetailsNavbar {
@@ -795,3 +858,43 @@ ul.articleDetail li {
 .divEachFans{
     padding: 0.4rem 0.4rem 0.4rem 0.378667rem;
 }
+
+/* placeholder */
+::-webkit-input-placeholder { color: #ccc;}
+:-moz-placeholder { color: #ccc;}
+::-moz-placeholder { color: #ccc;}
+:-ms-input-placeholde { color: #ccc;}
+
+/*text_right_link*/
+.editProfileContent .text_right_link
+{
+    color: #ffc445;
+    font-size: 15px;
+    height: 19px;
+    line-height: 19px;
+    margin-top: 0.38rem;
+}
+.editProfileContent .followImg,
+.articleListContent .followImg,
+.appH5_table .followImg
+{
+    width: 15px;
+    height: 15px;
+    margin-top: 0.08rem;
+    margin-right: 0.08rem;
+}
+select
+{
+    background-color: #000;
+}
+select option:first-child
+{
+    color: #ccc;
+}
+select option
+{
+    background-color: #000;
+    color: #fff;
+}
+
+   

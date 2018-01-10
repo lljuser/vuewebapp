@@ -2,20 +2,19 @@
     <div id="otherPositionContent" class="otherPositionContent ep_font32">
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div">
-            <div class="ep_part_item ep_part_item_border ep_overhide">
-                <span class="fl ep_color_grey">其它职务</span>
-                <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <input class="ep_align_right ep_input fr ep_font32" type="text" placeholder="请输入" v-model="otherPost.Name" />
-            </div>
+            <div class="ep_part_item ep_part_item_border">
+                    <span class='fl ep_font32 ep_color_grey'>职务</span>
+                      <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
+                    <input class="ep_input fr ep_font32 ep_marginLeft15 ep_align_right" type="text" placeholder="请输入" v-model="otherPost.Name" />
+                </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">
                 <span class="fl ep_marginTop5">*</span>
                 <span class="fl  ep_marginLeft10">{{errorMessage}}</span>
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveOtherPosition">保存</span>
-                <span v-if="queryString.id === undefined" class="ep_cancelBtn fr">
-                    <!-- <a href="/expert/expertuser/editProfile#otherPosition" class="ep_color_orange">取消</a> -->
-                    <router-link to="/" class="ep_color_orange">
+                <span v-if="!isValidElement(id)" class="ep_cancelBtn fr">
+                    <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
                 </span>
@@ -36,6 +35,9 @@
 
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
+
     export default {
         name: 'OtherPosition',
         data: function () {
@@ -44,17 +46,25 @@
                 isShowError: false,
                 errorMessage:'',
                 removePopupVisible: false,
-                queryString: {},//GetRequest(),
-                otherPost: {}
+                otherPost: {},
+                id: null,
             }
         },
         created: function () {
-            
+            this.id = this.$route.params.id;
+            this.initData();
         },
         methods: {
+            initData: function () {
+                if (this.isValidElement(this.id) && !isNaN(this.id)) {
+                    axios.post(webApi.Expert.getOtherPost, { id: this.id }).then(response => {
+                        this.otherPost = response.data.data;
+                    });
+                }
+            },
             saveOtherPosition: function () {
                 //TODO - Front-end params check
-                if (!isValidElement(this.otherPost.Name)) {
+                if (!this.isValidElement(this.otherPost.Name)) {
                     this.isShowError = true;
                     this.errorMessage = "请填写其它职务!";
                     return;
@@ -64,43 +74,29 @@
 
                 //添加其它职务
                 if (this.otherPost.Id === undefined) {
-                    appFrame.ajax("/expert/ExpertInfo/AddOtherPost", {
-                        data: {
-                            Name: self.otherPost.Name
-                        },
-                        success: function (res) {
-                            if (res.status === "ok") {
-                                window.location.href = '/expert/expertuser/editProfile#otherPosition';
-                            };
-                            
-                            if (res.status === "fail") {
-                                self.submitPopupVisible = false;
-                                self.isShowError = true;
-                                self.errorMessage = res.data;
-                            };
+                    axios.post(webApi.Expert.addOtherPost, {Name: this.otherPost.Name}).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
                         }
-                    });
 
+                        this.$router.go(-1);
+                    });
                     return;
                 }
 
                 //更新其它职务
-                appFrame.ajax("/expert/ExpertInfo/UpdateOtherPost", {
-                    data: {
-                        Id: self.otherPost.Id,
-                        Name: self.otherPost.Name
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#otherPosition';
-                        };
-
-                        if (res.status === "fail") {
-                            self.submitPopupVisible = false;
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
+                axios.post(webApi.Expert.updateOtherPost, {
+                         Id: this.otherPost.Id,
+                         Name: this.otherPost.Name}).then(response => {
+                    if (response.data.status === 'fail') {
+                        this.isShowError = true;
+                        this.errorMessage = response.data.data;
+                        return;
                     }
+
+                    this.$router.go(-1);
                 });
             },
             removeContent: function () {
@@ -108,24 +104,22 @@
                 var self = this;
                 if (this.otherPost.Id === undefined) return;
 
-                appFrame.ajax("/expert/ExpertInfo/DeleteOtherPost", {
-                    data: {
-                        Id: self.otherPost.Id
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#otherPosition';
-                        };
-
-                        if (res.status === "fail") {
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
+                axios.post(webApi.Expert.deleteOtherPost, {Id: this.otherPost.Id}).then(response => {
+                    if (response.data.status === 'fail') {
+                        this.isShowError = true;
+                        this.errorMessage = response.data.data;
+                        return;
                     }
+
+                    this.$router.go(-1);
                 });
             },
+            isValidElement: function (item) {
+                return !(item === null || item === undefined || item === "");
+            },
         }
-    }
+      }
+ 
 </script>
 
 <style>

@@ -18,7 +18,7 @@
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">出版时间</span>
-                <div class="fr fr ep_font32 ep_align_right" v-on:click="showYearPicker" v-bind:class="[!isValidElement(publish.PublishTime) ? 'ep_color_grey' : '']">
+                <div class="fr fr ep_font32 ep_align_right PublishTime" v-on:click="showYearPicker" v-bind:class="[!isValidElement(publish.PublishTime) ? 'ep_color_grey' : '']">
                     {{isValidElement(publish.PublishTime) ? publish.PublishTime : '请选择'}}
                 </div>
             </div>
@@ -40,8 +40,7 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveArticle">保存</span>
-                <span v-if="publish.Id === undefined" class="ep_cancelBtn fr">
-                    <!-- <a href="/expert/expertuser/editProfile#article" class="ep_color_orange">取消</a> -->
+                <span v-if="!isValidElement(id)" class="ep_cancelBtn fr">
                     <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
@@ -69,6 +68,9 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
+
     export default {
         name: 'Article',
         data: function () {
@@ -98,14 +100,26 @@
                 submitPopupVisible: false,
                 getPicker: null,
                 uploadUrl: '',
-                queryString: {},//GetRequest(),
-                publish: {}
+                publish: {},
+                id: null
             }
         },
         created: function () {
-            
+            this.id = this.$route.params.id;
+            this.initData();
         },
         methods: {
+            initData: function () {
+                axios.post(webApi.Expert.getUploadFileUrl).then(response => {
+                    this.uploadUrl = response.data.data.UploadUrl;
+                });
+
+                if (this.isValidElement(this.id) && !isNaN(this.id)) {
+                    axios.post(webApi.Expert.getPublish, { id: this.id }).then(response => {
+                        this.publish = response.data.data;
+                    });
+                }
+            },
             setYears: function () {
                 var end = new Date().getFullYear();
                 var start = end - 80;
@@ -119,7 +133,7 @@
             },
             showYearPicker: function () {
                 this.isShowYearPopup = true;
-                if (this.getPicker != null && currentSelectedYear != '' && currentSelectedYear != this.publishTime) {
+                if (this.getPicker != null && this.currentSelectedYear != '' && this.currentSelectedYear != this.publishTime) {
                     this.getPicker.setSlotValue(0, this.publishTime === '' ? new Date().getFullYear() + '年' : this.publishTime)
                 }
             },
@@ -127,12 +141,12 @@
                 this.isShowYearPopup = false;
             },
             saveYear: function () {
-                this.publishTime = currentSelectedYear;
+                this.publishTime = this.currentSelectedYear;
                 this.publish.PublishTime = this.publishTime.replace('年', '');
                 this.hideYearPicker();
             },
             onYearChange: function (picker, values) {
-                currentSelectedYear = values[0];
+                this.currentSelectedYear = values[0];
                 this.getPicker = picker;
             },
             selectFile: function () {
@@ -144,55 +158,46 @@
 
                 if (this.publish.Id === undefined) return;
 
-                appFrame.ajax("/expert/ExpertInfo/DeletePublish", {
-                    data: { id: this.publish.Id },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#article';
-                        };
-
-                        if (res.status === "fail") {
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
+                axios.post(webApi.Expert.deletePublish, { 
+                    id: this.publish.Id 
+                }).then(response => {
+                    if (response.data.status === 'fail') {
+                        this.submitPopupVisible = false;
+                        this.isShowError = true;
+                        this.errorMessage = response.data.data;
+                        return;
                     }
-                });
 
-                window.location.href = '/expert/expertuser/editProfile#article'
+                    this.$router.go(-1);
+                });
             },
             articleHandle: function () {
                 var self = this;
 
                 //添加著作
                 if (this.publish.Id === undefined) {
-                    appFrame.ajax("/expert/ExpertInfo/AddPublish", {
-                        data: {
-                            Name: self.publish.Name,
-                            Publisher: self.publish.Publisher,
-                            PublishTime: self.publish.PublishTime,
-                            Author: self.publish.Author,
-                            Isbn: self.publish.Isbn,
-                            Pages: self.publish.Pages,
-                            Link: self.publish.Link
-                        },
-                        success: function (res) {
-                            if (res.status === "ok") {
-                                window.location.href = '/expert/expertuser/editProfile#article';
-                            };
-
-                            if (res.status === "fail") {
-                                self.submitPopupVisible = false;
-                                self.isShowError = true;
-                                self.errorMessage = res.data;
-                            };
+                    axios.post(webApi.Expert.addPublish, { 
+                        Name: this.publish.Name,
+                        Publisher: this.publish.Publisher,
+                        PublishTime: this.publish.PublishTime,
+                        Author: this.publish.Author,
+                        Isbn: this.publish.Isbn,
+                        Pages: this.publish.Pages,
+                        Link: this.publish.Link
+                     }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.submitPopupVisible = false;
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
                         }
-                    });
 
+                        this.$router.go(-1);
+                    });
                     return;
                 }
 
-                appFrame.ajax("/expert/ExpertInfo/UpdatePublish", {
-                    data: {
+                axios.post(webApi.Expert.updatePublish, { 
                         Id: self.publish.Id,
                         Name: self.publish.Name,
                         Publisher: self.publish.Publisher,
@@ -201,19 +206,16 @@
                         Isbn: self.publish.Isbn,
                         Pages: self.publish.Pages,
                         Link: self.publish.Link
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#article';
-                        };
+                     }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.submitPopupVisible = false;
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
+                        }
 
-                        if (res.status === "fail") {
-                            self.submitPopupVisible = false;
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
-                    }
-                });
+                        this.$router.go(-1);
+                    });
             },
             saveArticle: function () {
                 //Front-end params check

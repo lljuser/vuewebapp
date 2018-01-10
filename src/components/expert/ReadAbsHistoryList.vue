@@ -2,7 +2,36 @@
     <div id="projectHistoryABSListContent" class="projectHistoryABSListContent ep_font32">
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div" v-if="!isArrayEmpty(projectHistories)" v-cloak>
-            <div class="ep_padding30 ep_part_item_border" v-for="(item,index) in projectHistories" v-bind:key="item.DealId" v-bind:class="[index===0?'ep_paddingTop46':'']">
+              <div class='appH5_panel' style="padding-top:0px;">
+                        <table class="appH5_table">
+                            <tr>
+                                <th class='text-left ep_width176'>名称</th>
+                                <th class='text-right'>金额(亿)</th>
+                                <th class='text-center'>类型</th>
+                                <th class='text-right ep_width90'>点赞</th>
+                            </tr>
+                            <tr v-for="item in projectHistories" v-bind:key="item.DealId">
+                                <td class='text-left'>
+                                    <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
+                                    </td>
+                                <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
+                                <td class='text-center ep_ellipsis'>  
+                                     <div class=" ep_ellipsis fl ep_width176">
+                                    {{item.DealType}}
+                                </div>
+                                </td>
+                                <td class='text-right'>
+                                    <div v-if="!editable" class="ep_overhide ep_lineHeight32 ">
+                                          <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="absProjectEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
+                                    </div>
+                                  <div v-else  class="ep_overhide ep_lineHeight32 ">
+                                         <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'"  v-bind:src="endorseImg(item.IsEndorse)" />
+                                  </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+            <!-- <div class="ep_padding30 ep_part_item_border" v-for="(item,index) in projectHistories" v-bind:key="item.DealId" v-bind:class="[index===0?'ep_paddingTop46':'']">
                 <div class="ep_overhide">
                     <a class="ep_font32 ep_ellipsis fl ep_width520 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
                     <div v-if="!editable" class="ep_overhide fr ep_lineHeight32 ep_width112">
@@ -21,7 +50,7 @@
                         <td colspan="2">{{splicingOrganizationRoles(item.OrganizationRoles)}}</td>
                     </tr>
                 </table>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

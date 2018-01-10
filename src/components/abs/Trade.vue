@@ -4,170 +4,143 @@
   <table class="trade_select_div">
      <tr>
        <td class="text-left">
-        <select>
+        <select v-model="TradeRating" v-on:change="selectChange()">
         <option>评级</option>
-        <option>评级</option>
-        <option>评级</option>
-        <option>评级</option>
+        <option v-for="item in ratingList"
+        :value="item.Key"
+        :key="item.Value">{{item.Value}}</option>
         </select>
         </td>
        <td style="text-align:center">
-         <select>
+         <select v-model="TradeType" v-on:change="selectChange()">
           <option>证券类型</option>
-          <option>证券类型</option>
-          <option>证券类型</option>
-          <option>证券类型</option>
+          <option v-for="item in typeList"
+          :value="item.Key"
+          :key="item.Value">{{item.Value}}</option>
         </select>
         </td>
        <td class="text-right"> 
-         <select>
+         <select v-model="TradeWalbuck" v-on:change="selectChange()">
           <option>期限</option>
-          <option>期限</option>
-          <option>期限</option>
-          <option>期限</option>
+          <option v-for="item in walbuckList" 
+          :value="item.Key" 
+          :key="item.Value">{{item.Value}}</option> 
           </select>
         </td>
     </tr>    
   </table>
-  <table id="tradeTableId" class="appH5_table">
+
+    <div class="product-spinner" v-if="isTradeLoading">
+      <mt-spinner type="triple-bounce"></mt-spinner>
+    </div>
+
+  <table id="tradeTableId" class="appH5_table" style="table-layout:fixed;">
     <tr>
       <th>证券简称</th>
-      <th>总额(亿)</th>
-      <th>评级</th>
-      <th>期限(年)</th>
-      <th>利率(%)</th>
+      <th class="text-right">金额(亿)</th>
+      <th class="text-center">评级</th>
+      <th class="text-right">期限(年)</th>
+      <th class="text-right">利率(%)</th>
     </tr>
-    <tr>
-      <td>
-        <router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link>
-      </td>
-      <td>40.00</td>
-      <td>AAA</td>
-      <td>0.65</td>
-      <td>6.00-5.00</td>
-    </tr>
-    <tr>
-      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link></td>
-      <td>40.00</td>
-      <td>AA</td>
-      <td>1.41</td>
-      <td>5.00</td>
-    </tr>
-    <tr>
-      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link></td>
-      <td>40.00</td>
-      <td>AAA</td>
-      <td>1.41</td>
-      <td>5.00</td>
-    </tr>
-    <tr>
-      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link></td>
-      <td>40.00</td>
-      <td>AAA</td>
-      <td>1.41</td>
-      <td>5.00</td>
-    </tr>
-    <tr>
-      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link></td>
-      <td>40.00</td>
-      <td>AAA</td>
-      <td>1.41</td>
-      <td>5.00</td>
-    </tr>
-    <tr>
-      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link></td>
-      <td>40.00</td>
-      <td>AAA</td>
-      <td>1.41</td>
-      <td>5.00</td>
-    </tr>
-    <tr>
-      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link></td>
-      <td>40.00</td>
-      <td>AAA</td>
-      <td>1.41</td>
-      <td>5.00</td>
-    </tr>        
-    <tr>
-      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link></td>
-      <td>40.00</td>
-      <td>AAA</td>
-      <td>1.41</td>
-      <td>5.00</td>
-    </tr>
-    <tr>
-      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link></td>
-      <td>40.00</td>
-      <td>AAA</td>
-      <td>1.41</td>
-      <td>5.00</td>
-    </tr>
-    <tr>
-      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link></td>
-      <td>40.00</td>
-      <td>AAA</td>
-      <td>1.41</td>
-      <td>5.00</td>
-    </tr>
-    <tr>
-      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link></td>
-      <td>40.00</td>
-      <td>AAA</td>
-      <td>1.41</td>
-      <td>5.00</td>
-    </tr>
-    <tr>
-      <td><router-link :to="`tradedetail`" class="appH5_color_link" style=""  >
-        17逸锟1A1
-        </router-link></td>
-      <td>40.00</td>
-      <td>AAA</td>
-      <td>1.41</td>
-      <td>5.00</td>
-    </tr>            
+        <TradeItem 
+          v-for="item in list" 
+          :item="item"
+          :key="item"/>    
   </table>
 </div>    
 </div>
 </template>
 <script>
+import * as webApi from '@/config/api';
 import TradeItem from "./TradeItem";
+import axios from 'axios';  
 
 export default {
   name: "trade",
   data() {
     return {
-      msg: "Welcome to Your Vue.js App",
-      list: [
-        { name: "zhangsan", index: 1 },
-        { name: "lisi", index: 2 },
-        { name: "wangwu", index: 3 },
-        { name: "zhangliu", index: 4 }
-      ]
+      list: [],
+      walbuckList:[],
+      typeList:[],
+      ratingList:[],
+      TradeRating:"0",
+      TradeType:"0",
+      TradeWalbuck:"0",
+      page: 1,
+      isTradeLoading:false
     };
   },
-  components: {
+  created(){
+    this.fetchTrades(1, data => {
+      this.list = data;
+      this.page = this.page + 1;
+    });
+    this.getWalbuckList(data=>{
+      this.walbuckList = data;
+    });
+    this.getTypeList(data=>{
+      this.typeList=data;
+    });
+    this.getRatingList(data=>{
+      this.ratingList=data;
+    })    
+  },
+  mounted(){
+    this.isTradeLoading = true;
+    setTimeout(() => {
+      this.fetchTrades(1, data => {
+        this.list = data;
+        this.page = this.page + 1;
+        this.isTradeLoading = false;
+      });
+    }, 600);    
+  },
+  methods:{
+    fetchTrades(page, callback) {
+      var url=webApi.Trade.list;
+      url=url+"/"+this.TradeRating+"/"+this.TradeType+"/"+this.TradeWalbuck;
+      axios.post(url).then((response) => { 
+        const data = response.data.data;
+        if (data && data.length > 0) {
+          callback(data);
+        }
+      });    
+   },
+   getWalbuckList(callback){ 
+      axios.post(webApi.Trade.walbuckList).then((response) => { 
+        const data = response.data.data;
+        if(data && data.length > 0){
+          callback(data);
+        }
+      });
+   },
+   getTypeList(callback){
+      axios.post(webApi.Trade.typeList).then((response) => { 
+        const data=response.data.data;
+        if(data && data.length > 0 ){
+          callback(data);          
+        }
+      })
+   },
+   getRatingList(callback){
+      axios.post(webApi.Trade.ratingList).then((response) => { 
+        const data=response.data.data;        
+        if(data && data.length > 0 ){
+          callback(data);          
+        }
+      })     
+   },
+    selectChange(){
+      this.isTradeLoading = true;
+      setTimeout(() => {
+        this.fetchTrades(0, 0,data => {
+          this.list = data;
+          this.isTradeLoading = false;
+        });
+      }, 500);
+    }      
+ },
+    components: {
     TradeItem
   }
 };
@@ -193,40 +166,32 @@ a {
 .trade_select_div select{
   min-width: 2.6rem;
 }
-#tradeTableId tr td:nth-of-type(1){
-  color: #ffc446;
-  padding: 0.333333rem 0!important;
-}
-#tradeTableId tr th:nth-of-type(2){
-  text-align: right;
-}
-#tradeTableId tr td:nth-of-type(2){
-  color: #ee7a76;
-  font-size: 17px;
-  text-align: right;
-}
-#tradeTableId tr th:nth-of-type(3){
-  text-align: center;
-}
-#tradeTableId tr td:nth-of-type(3){
-  text-align: center;
-}
-#tradeTableId tr th:nth-of-type(4){
-  text-align: right;
-}
-#tradeTableId tr td:nth-of-type(4){
-  text-align: right;
-}
-#tradeTableId tr th:nth-of-type(5){
-  text-align: right;
-}
-#tradeTableId tr td:nth-of-type(5){
-  text-align: right;
-}
 .trade_select_div {
   display: table;
   width: 100%;
   margin-top:-6px;
   margin-bottom: 12px;
+}
+
+.trade_select_div {
+  table-layout: fixed;
+  width: 100%;
+  margin: 0 0 12px 0;
+  line-height: 0;
+}
+
+.trade_select_div div {
+   width:33%;
+   float: left;
+}
+
+.trade_select_div div:last-child {
+    width:34%;
+    text-align: right;
+}
+
+.trade_select_div select {
+  width:90%;
+  border-radius: 0;
 }
 </style>
