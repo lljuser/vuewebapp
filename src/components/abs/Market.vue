@@ -64,16 +64,10 @@ import Highcharts from 'highcharts';
 
 // load these modules as your need 
 import * as chartTheme from '@/public/js/chartTheme';
-import * as webApi from '@/config/api'; 
+import * as webApi from '@/config/api';  
  
-loadStock(Highcharts);
-loadMap(Highcharts);
-loadDrilldown(Highcharts);
-loadHighchartsMore(Highcharts);
-loadSolidGauge(Highcharts); 
-Vue.use(VueHighcharts, { Highcharts }); 
-
-Highcharts.setOptions(chartTheme);  
+ Highcharts.setOptions(chartTheme);  
+Vue.use(VueHighcharts, { Highcharts });   
  
 export default {
   name: 'market',

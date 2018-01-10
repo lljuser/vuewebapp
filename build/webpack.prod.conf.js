@@ -126,6 +126,11 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.HashedModuleIdsPlugin(),
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
+    new webpack.ContextReplacementPlugin(
+      /moment[\\\/]locale$/,
+      /^\.\/(zh-cn)$/
+     ),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     
     // // split vendor js into its own file
     // new webpack.optimize.CommonsChunkPlugin({
@@ -165,7 +170,6 @@ const webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ]), 
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ]
 })
 
