@@ -45,13 +45,13 @@
         <div style="padding-left:2.09333rem" v-if="productDetail!=null&&productDetail.NoteList.length!=0">
             <table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;">
                 <tbody>
-                    <tr style="text-align:center; padding:0px;" v-if="notionalA!=null&&notionalA!=undefined">
-                        <td v-bind:style="'padding:0px; position: relative; vertical-align:top;height:171px;width:'+(item.Notional*100/notionalA)+';background-color:#B7AFA5'" v-for="(item,index) in productDetail.NoteList" v-if="item.SecurityType=='优先级'&&index<6">
-                            <div v-bind:style="'height:'+((item.Notional-item.Principal)*100/item.Notional)+'%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;'">
+                    <tr style="text-align:center; padding:0px;">
+                        <td v-if="item.SecurityType=='优先级'&&index<6" class="consTableTd" v-bind:style="{width:item.Notional*100/notionalA+'%'}" v-for="(item,index) in productDetail.NoteList">
+                            <!-- <div v-bind:style="'height:'+((item.Notional-item.Principal)*100/item.Notional)+'%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;'">
                                 <span v-bind:style="'position: absolute;top:0px;left:0px;width:'+(item.Notional*100/notionalA)+'%;height:171px;line-height:171px;'">
-                                    <a href="javascript:;" target="_blank" v-bind:style="'width:'+(item.Notional*100/notionalA)+'%;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller'">{{item.Name}}</a>
+                                    <a v-if="notionalA!=null&&notionalA!=undefined" href="javascript:;" target="_blank" v-bind:style="'width:'+(item.Notional*100/notionalA)+'%;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller'">{{item.Name}}</a>
                                 </span>
-                            </div>
+                            </div> -->
                         </td>
                     </tr>
                 </tbody>
@@ -107,6 +107,15 @@
 <style scoped>
 
 </style>
+<style>
+.consTableTd{
+    padding:0px; 
+    position: relative; 
+    vertical-align:top;
+    height:171px;
+    background-color:#B7AFA5
+}
+</style>
 
 <script>
 import BusUtil from './BusUtil';
@@ -142,30 +151,30 @@ export default {
     }
   },
   activated() {
-    // 滚动到顶部
-    window.scrollTo(0,0);
-    const busUtil = BusUtil.getInstance();
+    // // 滚动到顶部
+    // window.scrollTo(0,0);
+    // const busUtil = BusUtil.getInstance();
     
-    this.id = this.$route.params.id;
-    if (this.id) {
-      this.fetchProductDetail(this.id);
-    }
-    busUtil.bus.$emit('showHeader', true);
-    busUtil.bus.$emit('path', '/product');
+    // this.id = this.$route.params.id;
+    // if (this.id) {
+    //   this.fetchProductDetail(this.id);
+    // }
+    // busUtil.bus.$emit('showHeader', true);
+    // busUtil.bus.$emit('path', '/product');
 
-    // url 传来的id
-    const productId = getParams("id");
-    if (productId) {
-      this.fetchProductDetail(productId);
-    }
+    // // url 传来的id
+    // const productId = getParams("id");
+    // if (productId) {
+    //   this.fetchProductDetail(productId);
+    // }
   },
   data() {
     return {
       productDetail: null,
       publishDate:null,
-    //   notionalA:1.00,
-    //   notionalB:1.00,
-    //   notionalC:1.00,
+      notionalA:1.00,
+      notionalB:1.00,
+      notionalC:1.00,
       options: {
         title: {
           text: '暂无数据'
@@ -182,22 +191,27 @@ export default {
         console.log(webApi.Product.detail.concat(['',id].join('/')));
       axios(webApi.Product.detail.concat(['',id].join('/')))
       .then((response) => {
+          console.log(response);
         this.productDetail = response.data.data;
+        console.log(productDetail.Basic.DealNameChinese);
         this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
-        // this.notionalA=0.00;
+        this.notionalA=0.00;
         // this.notionalB=0.00;
         // this.notionalC=0.00;
-        // this.productDetail.NoteList.forEach(function(item,index){
-        //     if(item.SecurityType=="优先级"){
-        //         this.notionalA+=item.Notional;
-        //     }
-        //     if(item.SecurityType=="夹层级"){
-        //         this.notionalB+=item.Notional;
-        //     }
-        //     if(item.SecurityType=="次级"){
-        //         this.notionalC+=item.Notional;
-        //     }
-        // });
+        this.productDetail.NoteList.forEach(function(item,index){
+            if(item.SecurityType=="优先级"){
+                this.notionalA+=item.Notional;
+            }
+            // if(item.SecurityType=="夹层级"){
+            //     this.notionalB+=item.Notional;
+            // }
+            // if(item.SecurityType=="次级"){
+            //     this.notionalC+=item.Notional;
+            // }
+        });
+        console.log(this.notionalA);
+        // console.log(this.notionalB);
+        // console.log(this.notionalC);
         console.log(this.productDetail);
         //get chart data
         let resultId = response.data.data.ResultSetId;
