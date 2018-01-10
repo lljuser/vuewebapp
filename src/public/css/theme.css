@@ -23,7 +23,7 @@ body{
 	margin: 0; 
 	background-color: #373430;
 	text-align:left;
-	padding-top: 1.35266rem;
+	padding-top: 56px;
 }
 .appH5_content{
 	margin: 0 auto;
@@ -37,13 +37,13 @@ body{
 	display: flex;
 	justify-content: space-around;
 	background-color: #2c2a29;
-	margin-bottom: 0.2899rem;
+	margin-bottom: 12px;
 	position: fixed;
 	width: 100%;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
-	margin-bottom: 0.2899rem;
+	margin-bottom: 12px;
 	position: fixed;
 	width: 100%;
 }
@@ -65,7 +65,7 @@ body{
 }
 /*panel之间的间距*/
 .appH5_panel_mb{
-	margin-bottom:0.2899rem;
+	margin-bottom: 12px;
 }
 .appH5_inner_panel{
 	background-color: #444444;
