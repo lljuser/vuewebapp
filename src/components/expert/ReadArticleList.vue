@@ -3,7 +3,7 @@
         <div class="ep_marginTop24"></div>
         <section class="ep_content_div">
             <div v-if="!isArrayEmpty(publishes)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in publishes" v-bind:class="[index === 0 ? 'ep_paddingTop46' : '']">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in publishes" v-bind:key="item.Name" v-bind:class="[index === 0 ? 'ep_paddingTop46' : '']">
                     <div class=" ep_overhide">
                         <span class="fl ep_font32">《</span>
                         <span class="ep_font32 ep_ellipsis fl ep_maxWidth460">{{item.Name}}</span>

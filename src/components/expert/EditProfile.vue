@@ -71,7 +71,7 @@
                                 <th class='text-center'>类型</th>
                                 <th class='text-right'>操作</th>
                             </tr>
-                            <tr v-for="item in _.take(userInfo.ABSProjects,3)">
+                            <tr v-for="item in _.take(userInfo.ABSProjects, 3)" v-bind:key="item.DealName">
                                 <td class='text-left'>{{item.DealName}}</td>
                                 <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
                                 <td class='text-center'>{{item.DealType}}</td>
@@ -111,14 +111,14 @@
                 <div class='appH5_panel' style="padding-top:0px;">
                     <table class="appH5_table">
                         <tr>
-                            <th class="text-left">简称</td>
-                            <th class="text-right">金额(亿)</td>
-                            <th class="text-center">类型</td>
+                            <th class="text-left">简称</th>
+                            <th class="text-right">金额(亿)</th>
+                            <th class="text-center">类型</th>
                             <th class="text-right">
                                 操作
                             </th>
                         </tr>
-                        <tr v-for="item in _.take(userInfo.OtherProjects,3)">
+                        <tr v-for="item in _.take(userInfo.OtherProjects, 3)" v-bind:key="item.ProjectShortName">
                             <td class="ep_ellipsis text-left">{{item.ProjectShortName}}</td>
                             <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
                             <td class="ep_ellipsis text-center">{{item.DealType}}</td>
@@ -146,7 +146,7 @@
                 </a>
             </header>
             <div v-if="!isArrayEmpty(userInfo.WorkHistories)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.WorkHistories">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.WorkHistories" v-bind:key="item.Id">
                     <div class="ep_overhide">
                         <span class="ep_font32 ep_ellipsis fl ep_width600 appH5_color_green">{{item.Position}}</span>
                         <a v-bind:href="'/expert/expertuser/workHistory?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">编辑</a>
@@ -172,7 +172,7 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.OtherPosts)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.OtherPosts">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.OtherPosts" v-bind:key="item.Id">
                     <div class="ep_overhide">
                         <span class="ep_font32 ep_ellipsis fl ep_width600">{{item.Name}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/otherPosition?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">编辑</a> -->
@@ -195,7 +195,7 @@
                 </a> -->
             </header>
             <div v-if="!isArrayEmpty(userInfo.HonorAwards)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.HonorAwards">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.HonorAwards" v-bind:key="item.Id">
                     <div class="ep_overhide">
                         <span class="ep_font32 ep_ellipsis fl ep_width460">{{item.Name}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/awardsAndHonors?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
@@ -217,7 +217,7 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.RecentActivities)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.RecentActivities,3)">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.RecentActivities, 3)" v-bind:key="item.Id">
                     <div class="ep_overhide">
                         <span class="ep_font32 ep_ellipsis fl ep_width460">{{item.Name}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/activity?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
@@ -242,7 +242,7 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.Publishs,3)">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.Publishs, 3)" v-bind:key="item.Id">
                     <div class="ep_overhide">
                         <span class="fl ep_font32">《</span>
                         <span class="ep_font32 ep_ellipsis fl ep_maxWidth460">{{item.Name}}</span>
@@ -302,7 +302,7 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Educations)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.Educations">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.Educations" v-bind:key="item.Id">
                     <div class="ep_overhide">
                         <span class="ep_font32 ep_ellipsis fl ep_width400">{{item.School}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/educationHistory?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
