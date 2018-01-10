@@ -40,8 +40,7 @@
 	    <h2>四列示例</h2>
         <div class="appH5_panel appH5_panel_mb">
     	    <div class="appH5_title">
-		       <span></span>
-		       <span>产品要素</span>
+		       产品要素
 	        </div>
 	        <table class="appH5_list_four">
 	        	<tr>
