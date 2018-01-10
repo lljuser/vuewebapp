@@ -303,7 +303,7 @@ export default {
                             }
                         }],
                         plotBands: [{
-                            color: "#514C44",
+                            color: "#333",
                             from: Date.UTC(2e3, 1, 1),
                             to: i
                         }]
