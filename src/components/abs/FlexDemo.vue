@@ -109,20 +109,20 @@
                 <tr>
                     <td>信贷ABS</td>
                     <td class="text-right">1</td>
-                    <td class="text-right appH5_color_red">5</td>
-                    <td class="text-right appH5_color_red">445</td>
+                    <td class="text-right appH5_color_red appH5_font_larger">5</td>
+                    <td class="text-right">445</td>
                 </tr>
                 <tr>
                     <td>信贷ABS</td>
                     <td class="text-right">1</td>
-                    <td class="text-right appH5_color_red">5</td>
-                    <td class="text-right appH5_color_red">445</td>
+                    <td class="text-right appH5_color_red appH5_font_larger">5</td>
+                    <td class="text-right">445</td>
                 </tr>
                 <tr>
                     <td class="fontBold">总计</td>
                     <td class="text-right fontBold">2</td>
-                    <td class="text-right appH5_color_red fontBold">10</td>
-                    <td class="text-right appH5_color_red fontBold">890</td>
+                    <td class="text-right appH5_color_red fontBold appH5_font_larger">10</td>
+                    <td class="text-right fontBold">890</td>
                 </tr>
             </table>
         </div>
@@ -145,41 +145,41 @@
 					</th>
 				</tr> 
 				<tr>
-					<td class="appH5_font_larger">17康安1A</td>
+					<td>17康安1A</td>
 					<td class="text-right">
-						<span class="appH5_color_red appH5_font_large">1.50</span><br>
+						<span class="appH5_color_red">1.50</span><br>
 						<span class="appH5_color_details appH5_font_smaller">1.50</span>
 					</td> 
 					<td class="text-right">
-						<span class="appH5_font_large">4.85</span><br>
+						<span>4.85</span><br>
 						<span class="appH5_color_green appH5_font_smaller">4.85</span>
                     </td> 
 					<td class="text-right">
-						<span class="appH5_font_large">0.70</span><br>
+						<span>0.70</span><br>
 						<span class="appH5_color_details appH5_font_smaller">过手型</span>
 					</td> 
 					<td class="text-right">
-						<span class="appH5_font_large">AAA/AAA</span><br>
+						<span>AAA/AAA</span><br>
 						<span data-v-6719a154="" class="appH5_color_green appH5_font_smaller">AAA</span>
 					</td>
 			    </tr>
 				<tr>
-					<td class="appH5_font_larger">17康安1A</td>
+					<td>17康安1A</td>
 					<td class="text-right">
-						<span class="appH5_color_red appH5_font_large">1.50</span><br>
+						<span class="appH5_color_red">1.50</span><br>
 						<span class="appH5_color_details appH5_font_smaller">1.50</span>
 					</td> 
 					<td class="text-right">
-						<span class="appH5_font_large">4.85</span><br>
+						<span>4.85</span><br>
 						<span class="appH5_color_green appH5_font_smaller">4.85</span>
                     </td> 
 					<td class="text-right">
-						<span class="appH5_font_large">0.70</span><br>
+						<span>0.70</span><br>
 						<span class="appH5_color_details appH5_font_smaller">过手型</span>
 					</td> 
 					<td class="text-right">
-						<span class="appH5_font_large">AAA/AAA</span><br>
-						<span class="appH5_color_green appH5_font_smaller">AAA</span>
+						<span>AAA/AAA</span><br>
+						<span data-v-6719a154="" class="appH5_color_green appH5_font_smaller">AAA</span>
 					</td>
 			    </tr>
 			</table>
