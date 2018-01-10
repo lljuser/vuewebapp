@@ -33,29 +33,7 @@
     </div>
 
     <div v-else>
-<<<<<<< HEAD
-      <mt-loadmore :top-method="loadMore" ref="loadmore" :topDistance="70" topPullText="" topDropText="" topLoadingText="">
-        <table class="appH5_table"  >
-          <tr>
-            <th>产品名称</th>
-            <th class="text-right">总额(亿)</th>
-            <th class="text-right">产品分类</th>
-            </tr>
-
-          <ProductItem 
-            v-for="(item, index) in list" 
-            :item="item"
-            :id="index"
-            :key="index"
-            v-infinite-scroll="loadMore"
-            infinite-scroll-disabled="loading"
-            infinite-scroll-immediate-check="true"
-            infinite-scroll-distance="55"/>
-        </table>
-      </mt-loadmore>
-          </div>
-=======
-      <table class="appH5_table"  >
+      <table class="appH5_table">
         <tr>
           <th>产品名称</th>
           <th class="text-right">总额(亿)</th>
@@ -74,7 +52,6 @@
           infinite-scroll-distance="55"/>
       </table>
     </div>
->>>>>>> e08736467251acfd78b901d66a7692746db6425a
   </div>
 </div>
 </template>

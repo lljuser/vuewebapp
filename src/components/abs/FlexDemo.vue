@@ -126,8 +126,6 @@
                 </tr>
             </table>
         </div>
-<<<<<<< HEAD
-=======
 		<h2>示例表格（每行含两子行）</h2>
         <div class="appH5_panel appH5_panel_mb">
 			<table class="appH5_table">
@@ -186,7 +184,6 @@
 			    </tr>
 			</table>
 		</div>
->>>>>>> e08736467251acfd78b901d66a7692746db6425a
 		<h2>小图标</h2>
 		<div class="appH5_panel">
             <img class="appH5_arrowDown" src="../../public/image/arrowdown.png" />
