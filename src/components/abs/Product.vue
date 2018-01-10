@@ -33,7 +33,7 @@
     </div>
 
     <div v-else>
-      <table class="appH5_table"  >
+      <table class="appH5_table">
         <tr>
           <th>产品名称</th>
           <th class="text-right">总额(亿)</th>

@@ -58,7 +58,8 @@ body{
 	padding-right: 2.0rem;
 	padding-left: 2.0rem; 
 	z-index: 999999;
-	transform: translateZ(0);
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
 	perspective: 1000;
 }
 .appH5_navbar_bg {
@@ -67,7 +68,8 @@ body{
 	position: fixed;
 	width: 100%;
 	z-index: 999999;
-	transform: translateZ(0);
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
 	perspective: 1000;
 }
 .appH5_footer{
@@ -92,7 +94,7 @@ body{
    background-color: #444444;
    color:#fff;
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
-   padding: 0.333333rem 0.146667rem;
+   padding: 0.28rem 0.146667rem;
    font-weight: normal;
    font-size: 15px;
    white-space: nowrap;
@@ -100,7 +102,7 @@ body{
 
 .appH5_table td{
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
-   padding: 0.333333rem 0.146667rem;
+   padding: 0.26rem 0.146667rem;
    border-bottom:0.5px solid #535353;
    white-space: nowrap;
    font-size: 17px;
@@ -112,11 +114,11 @@ body{
 	padding-right: 0.32rem;
 }
 a{
-	color:#ffc445;
+	color:#ffc446;
 	text-decoration: none;
 }
 a:hover{
-	color:#ffc445;
+	color:#ffc446;
 }
 /*文字大小4种*/
 .appH5_font_smaller{
@@ -371,6 +373,7 @@ select{
 .appH5_tab{
 	color:#fff;
 	font-size: 19px;
+	line-height: 19px;
 	padding-top: 12.5px;
 	padding-bottom: 9.5px;
 	padding-left:0.16rem;

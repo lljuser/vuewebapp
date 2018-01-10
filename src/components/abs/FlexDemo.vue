@@ -109,25 +109,23 @@
                 <tr>
                     <td>信贷ABS</td>
                     <td class="text-right">1</td>
-                    <td class="text-right appH5_color_red appH5_font_larger">5</td>
-                    <td class="text-right">445</td>
+                    <td class="text-right appH5_color_red">5</td>
+                    <td class="text-right appH5_color_red">445</td>
                 </tr>
                 <tr>
                     <td>信贷ABS</td>
                     <td class="text-right">1</td>
-                    <td class="text-right appH5_color_red appH5_font_larger">5</td>
-                    <td class="text-right">445</td>
+                    <td class="text-right appH5_color_red">5</td>
+                    <td class="text-right appH5_color_red">445</td>
                 </tr>
                 <tr>
                     <td class="fontBold">总计</td>
                     <td class="text-right fontBold">2</td>
-                    <td class="text-right appH5_color_red fontBold appH5_font_larger">10</td>
-                    <td class="text-right fontBold">890</td>
+                    <td class="text-right appH5_color_red fontBold">10</td>
+                    <td class="text-right fontBold appH5_color_red">890</td>
                 </tr>
             </table>
         </div>
-<<<<<<< HEAD
-=======
 		<h2>示例表格（每行含两子行）</h2>
         <div class="appH5_panel appH5_panel_mb">
 			<table class="appH5_table">
@@ -186,7 +184,6 @@
 			    </tr>
 			</table>
 		</div>
->>>>>>> e08736467251acfd78b901d66a7692746db6425a
 		<h2>小图标</h2>
 		<div class="appH5_panel">
             <img class="appH5_arrowDown" src="../../public/image/arrowdown.png" />
