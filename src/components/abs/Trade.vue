@@ -5,26 +5,26 @@
      <tr>
        <td class="text-left">
         <select>
-        <option>市场分类</option>
-        <option>市场分类</option>
-        <option>市场分类</option>
-        <option>市场分类</option>
+        <option>评级</option>
+        <option>评级</option>
+        <option>评级</option>
+        <option>评级</option>
         </select>
         </td>
        <td style="text-align:center">
          <select>
-          <option>产品分类</option>
-          <option>产品分类</option>
-          <option>产品分类</option>
-          <option>产品分类</option>
+          <option>证券类型</option>
+          <option>证券类型</option>
+          <option>证券类型</option>
+          <option>证券类型</option>
         </select>
         </td>
        <td class="text-right"> 
          <select>
-          <option>发行状态</option>
-          <option>发行状态</option>
-          <option>发行状态</option>
-          <option>发行状态</option>
+          <option>期限</option>
+          <option>期限</option>
+          <option>期限</option>
+          <option>期限</option>
           </select>
         </td>
     </tr>    
@@ -190,6 +190,9 @@ li {
 a {
   color: #ffc446;
 }
+.trade_select_div select{
+  min-width: 2.6rem;
+}
 #tradeTableId tr td:nth-of-type(1){
   color: #ffc446;
   padding: 0.333333rem 0!important;
@@ -223,7 +226,7 @@ a {
 .trade_select_div {
   display: table;
   width: 100%;
-  margin-top:-12px;
+  margin-top:-6px;
   margin-bottom: 12px;
 }
 </style>

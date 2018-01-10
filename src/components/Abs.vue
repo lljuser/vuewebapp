@@ -14,8 +14,8 @@
     
     <div v-else class="appH5_navbar_bg">
       <mt-header title="产品信息">
-        <router-link to="/" slot="left">
-          <mt-button icon="back" @click.stop="goBack"></mt-button>
+        <router-link :to="backPath" slot="left">
+          <mt-button icon="back" @click.native="goBack"></mt-button>
         </router-link>
       </mt-header>
     </div>
@@ -34,6 +34,7 @@ export default {
   data() {
     return {
       showHeader: false,
+      backPath: '/',
     };
   },
   created() {
@@ -42,10 +43,15 @@ export default {
       this.showHeader = showHeader;
     });
   },
+  beforeRouteEnter(to, from, next){ 
+    next(vm => {
+      vm.backPath=from;
+    }) 
+  },
   methods: {
-    goBack() {
+    goBack() { 
       this.showHeader = false;
-      this.$router.go(-1);
+      //this.$router.go(-1);
     },
   },
 };
