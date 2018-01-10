@@ -9,8 +9,8 @@ module.exports = {
         y2: 1,
       },
       stops: [
-        [0, '#47423C'],
-        [1, '#47423C'],
+        [0, '#2b2a29'],
+        [1, '#2b2a29'],
       ],
     },
     style: {
@@ -36,7 +36,7 @@ module.exports = {
     labels: {
       style: {
         color: '#E0E0E3',
-        fontSize: '14px',
+        fontSize: '12px',
       },
     },
     lineColor: '#707073',

@@ -30,27 +30,32 @@
       </tr>
     </table>
     
-    <mt-loadmore :top-method="loadTop" ref="loadmore" :topDistance="70" topPullText="" topDropText="" topLoadingText="">
-      <table class="appH5_table"  >
-        <tr>
-          <th>产品名称</th>
-          <th class="text-right">总额(亿)</th>
-          <th>产品分类</th>
-          <th class="text-right">发行日期</th>
-        </tr>
+    <div class="product-spinner" v-if="isProductLoading">
+      <mt-spinner type="triple-bounce"></mt-spinner>
+    </div>
 
-        <ProductItem 
-          v-for="(item, index) in list" 
-          :item="item"
-          :id="index"
-          :key="index"
-          v-infinite-scroll="loadMore"
-          infinite-scroll-disabled="loading"
-          infinite-scroll-immediate-check="true"
-          infinite-scroll-distance="55"/>
-      </table>
-    </mt-loadmore>
-    
+    <div v-else>
+      <mt-loadmore :top-method="loadMore" ref="loadmore" :topDistance="70" topPullText="" topDropText="" topLoadingText="">
+        <table class="appH5_table"  >
+          <tr>
+            <th>产品名称</th>
+            <th class="text-right">总额(亿)</th>
+            <th>产品分类</th>
+            <th class="text-right">发行日期</th>
+          </tr>
+
+          <ProductItem 
+            v-for="(item, index) in list" 
+            :item="item"
+            :id="index"
+            :key="index"
+            v-infinite-scroll="loadMore"
+            infinite-scroll-disabled="loading"
+            infinite-scroll-immediate-check="true"
+            infinite-scroll-distance="55"/>
+        </table>
+      </mt-loadmore>
+    </div>
   </div>
 </div>
 </template>
@@ -58,7 +63,8 @@
 <script> 
 import * as webApi from '@/config/api';
 import ProductItem from './ProductItem';
-import axios from 'axios';   
+import axios from 'axios';
+import { Toast } from 'mint-ui';
 
 export default {
   name: "product",
@@ -67,18 +73,39 @@ export default {
       list: [],
       page: 1,
       loading: false,
-      marketType: "",
-      productType: "",
-      issueState: ""
+      marketType: '',
+      productType: '',
+      issueState: '',
+      isProductLoading: false,
+      isComponentActive: false,
+      isFetchProductsError: false,
     };
   },
-  created() {
-    this.fetchProducts(1, data => {
-      this.list = data;
-      this.page = this.page + 1;
-    });
+  mounted() {
+    this.isProductLoading = true;
+    this.isComponentActive = true;
+    this.loadFirstPageProducts();
+  },
+  activated() {
+    this.loading = false;
+    if (this.isFetchProductsError) {
+      this.loadFirstPageProducts();
+    }
+  },
+  deactivated() {
+    // 防止在其他组件滚动时 此组件调用loadMore方法
+    this.loading = true;
   },
   methods: {
+    loadFirstPageProducts() {
+      setTimeout(() => {
+        this.fetchProducts(1, data => {
+          this.list = data;
+          this.page = this.page + 1;
+          this.isProductLoading = false;
+        });
+      }, 600);
+    },
     loadTop() {
       setTimeout(() => {
         this.fetchProducts(1, data => {
@@ -109,7 +136,12 @@ export default {
         if (data && data.length > 0) {
           callback(data);
         }
-      });
+      }).catch((error) => {
+        Toast('数据获取失败');
+        this.loading = false;
+        this.isProductLoading = false;
+        this.isFetchProductsError = true;
+      });;
 
       // fetch(`${webApi.Product.list}`)
       // .then(response => response.json())

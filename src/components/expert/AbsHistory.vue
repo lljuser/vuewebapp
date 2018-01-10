@@ -102,7 +102,7 @@ export default {
       util: {}
     };
   },
-  created: function() {
+  mounted: function() {
     this.util = util;
     this.initData();
   },

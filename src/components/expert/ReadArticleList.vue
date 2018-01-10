@@ -64,6 +64,8 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
     import dislikeImg from '@/public/images/dislike.png';
     import likeImg from '@/public/images/like.png';
 
@@ -74,15 +76,20 @@
                 publishes: {},
                 editable: false,
                 queryString: {},//GetRequest(),
-                publicEndorseLock: false
+                publicEndorseLock: false,
+                userId: null
             }
         },
         created: function () {
+            this.userId = this.$route.params.userId;
             this.initData();
         },
         methods: {
             initData: function () {
-                this.publishes = [{"Id":133,"Name":"test","Publisher":"test","PublishTime":"2016","Year":null,"Author":"test","Isbn":"11241231","Pages":100,"Link":null,"EndorseNum":1,"IsEndorse":false,"AttachmentFileCode":null},{"Id":139,"Name":"12312323","Publisher":null,"PublishTime":null,"Year":null,"Author":"123123","Isbn":null,"Pages":null,"Link":null,"EndorseNum":0,"IsEndorse":false,"AttachmentFileCode":null},{"Id":140,"Name":"12312312","Publisher":null,"PublishTime":null,"Year":null,"Author":"123123","Isbn":null,"Pages":null,"Link":null,"EndorseNum":0,"IsEndorse":false,"AttachmentFileCode":null},{"Id":132,"Name":"test","Publisher":null,"PublishTime":null,"Year":null,"Author":"test","Isbn":null,"Pages":null,"Link":null,"EndorseNum":1,"IsEndorse":false,"AttachmentFileCode":null}];
+                axios.post(webApi.Expert.getPublishs, { UserId: this.userId }).then(response => {
+                    this.publishes = response.data.data.Publishes;
+                    this.editable = response.data.data.Editable;
+                });
             },
             isArrayEmpty: function (arr) {
                 return (arr === null || arr === undefined || arr.length === 0);
@@ -101,36 +108,26 @@
 
                 //取消点赞
                 if (publish.IsEndorse) {
-                    appFrame.ajax("/expert/ExpertInfo/DeletePublishEndorse", {
-                        data: { userId: this.queryString.UserId, publishId: publish.Id },
-                        success: function (res) {
-                            if (res.status === "fail") {
-                                //TODO alert fail message
-                                return;
-                            }
-
-                            publish.EndorseNum = res.data.EndorseNum;
-                            publish.IsEndorse = res.data.IsEndorse;
-                            self.publicEndorseLock = false;
-                        }
+                    axios.post(webApi.Expert.deletePublishEndorse, {
+                        UserId: this.userId,
+                        publishId: publish.Id
+                    }).then(response => {
+                        publish.EndorseNum = response.data.data.EndorseNum;
+                        publish.IsEndorse = response.data.data.IsEndorse;
+                        this.publicEndorseLock = false;
                     });
                     return;
                 }
 
                 //点赞
-                appFrame.ajax("/expert/ExpertInfo/AddPublishEndorse", {
-                    data: { userId: this.queryString.UserId, publishId: publish.Id },
-                    success: function (res) {
-                        if (res.status === "fail") {
-                            //TODO alert fail message
-                            return;
-                        }
-
-                        publish.EndorseNum = res.data.EndorseNum;
-                        publish.IsEndorse = res.data.IsEndorse;
-                        self.publicEndorseLock = false;
-                    }
-                });
+                axios.post(webApi.Expert.addPublishEndorse, {
+                        UserId: this.userId,
+                        publishId: publish.Id
+                    }).then(response => {
+                        publish.EndorseNum = response.data.data.EndorseNum;
+                        publish.IsEndorse = response.data.data.IsEndorse;
+                        this.publicEndorseLock = false;
+                    });
             },
         }
     }
