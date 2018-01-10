@@ -46,11 +46,6 @@ export default {
       this.path = path;
     });
   },
-  beforeRouteEnter(to, from, next){ 
-    next(vm => {
-      vm.backPath=from;
-    }) 
-  },
   methods: {
     clearPath() {
       this.showHeader = false;
