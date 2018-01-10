@@ -163,9 +163,8 @@ Highcharts.setOptions(chartTheme);
 
 export default {
   name: 'productDetail',
-  created() {
-    const busUtil = BusUtil.getInstance()
-    ;
+  mounted() {
+    const busUtil = BusUtil.getInstance();
     this.id = this.$route.params.id;
     if (this.id) {
       this.fetchProductDetail(this.id);
@@ -188,7 +187,6 @@ export default {
     if (this.id) {
       this.fetchProductDetail(this.id);
     }
-    this.fetchProductPaymentChart(440,28203);//(this.dealId, this.resultId);
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/product');
 
@@ -204,6 +202,10 @@ export default {
       options: {
         title: {
           text: '暂无数据'
+        },
+        credits: {
+          href: '',
+          text: 'CNABS'
         },
       }
     };

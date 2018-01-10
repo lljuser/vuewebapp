@@ -170,11 +170,14 @@ Highcharts.setOptions(chartTheme);
 
 export default {
   name: 'productDetail',
-  created() {
+  mounted() {
     const busUtil = BusUtil.getInstance();
     this.id = this.$route.params.id;
-    this.fetchProductDetail(this.id);
-    this.fetchProductPaymentChart(440,28203);//(this.dealId, this.resultId);
+    setTimeout(() => {
+      this.fetchProductDetail(this.id);
+      this.fetchProductPaymentChart(440,28203);//(this.dealId, this.resultId);
+    }, 500);
+    
     busUtil.bus.$emit('showHeader', true);
   },
   data() {

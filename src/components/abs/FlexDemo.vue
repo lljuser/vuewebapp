@@ -101,10 +101,10 @@
         <div class="appH5_panel">
             <table class="appH5_table">
                 <tr>
-                    <th>名称</th>
-                    <th>今年总数</th>
-                    <th>今年总额(亿)</th>
-                    <th>累计总额(亿)</th>
+                    <th class="text-left">名称</th>
+                    <th class="text-right">今年总数</th>
+                    <th class="text-right">今年总额(亿)</th>
+                    <th class="text-right">累计总额(亿)</th>
                 </tr>
                 <tr>
                     <td>信贷ABS</td>

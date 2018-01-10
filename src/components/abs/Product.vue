@@ -79,7 +79,7 @@ export default {
       isComponentActive: false,
     };
   },
-  created() {
+  mounted() {
     this.isProductLoading = true;
     this.isComponentActive = true;
     setTimeout(() => {

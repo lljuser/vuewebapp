@@ -79,11 +79,15 @@ export default {
         title: {
           text: '暂无数据'
         },
+        credits: {
+          href: '',
+          text: 'CNABS'
+        },
       },
       marketSummary:[],
     };
-  },
-  created() {
+  }, 
+  mounted() {
     this.fetchMarketSummary(); 
     this.fetchChartData();
   },
@@ -91,12 +95,7 @@ export default {
     fetchMarketSummary() {
       axios.post(webApi.Market.list).then((response)=>{
           this.marketSummary=response.data.data;
-      });
-        // .then(response => response.json())
-        // .then((json) => {
-        //   this.marketSummary = json.data;
-        //   console.log(json.data);
-        // });
+      }); 
     }, 
     fetchChartData() {
       axios.post(webApi.Market.chart)
@@ -143,7 +142,7 @@ export default {
             yAxis: [{
               title: {
                 enabled: !0,
-                text: "发行总额(亿)"
+                text: ""
               },
               labels: {
                 formatter: function () {
