@@ -163,9 +163,8 @@ Highcharts.setOptions(chartTheme);
 
 export default {
   name: 'productDetail',
-  created() {
-    const busUtil = BusUtil.getInstance()
-    ;
+  mounted() {
+    const busUtil = BusUtil.getInstance();
     this.id = this.$route.params.id;
     if (this.id) {
       this.fetchProductDetail(this.id);
