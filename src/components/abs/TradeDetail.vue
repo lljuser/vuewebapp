@@ -145,6 +145,9 @@ export default {
 .pdrSpecial div.fl{
   width: 7.2rem;
 }
+.pdrSpecial{
+    padding-top: 0!important;
+}
 .inlineBlock{
   display: inline-block;
 }
@@ -166,7 +169,7 @@ export default {
   display: inline-block;
   margin-right: .05rem;
 }
-.appH5_content table tr td:not(:first-child){
+.appH5_content table tr td{
   padding-top: .31rem;
 }
 .appH5_content table tr td:nth-child(2){
