@@ -235,7 +235,10 @@
                     <pre class="ep_decription ep_color_grey2 ep_font28">{{item.Description}}</pre>
                 </div>
                 <div class="ep_font30 ep_align_center ep_padding30" v-if="userInfo.RecentActivities.length > 3">
-                    <a href="/expert/expertuser/recentActivitiesList">查看更多</a>
+                    <!-- <a href="/expert/expertuser/recentActivitiesList">查看更多</a> -->
+                    <router-link to="/ActivityList">
+                        查看更多
+                    </router-link>
                 </div>
             </div>
             <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.RecentActivities)">暂无近期活动</p>
@@ -294,7 +297,10 @@
                     </div>
                 </div>
                 <div class="ep_font30 ep_align_center ep_padding30" v-if="userInfo.Publishs.length > 3">
-                    <a href="/expert/expertuser/articleList">查看更多</a>
+                    <router-link to="/ArticleList">
+                        查看更多
+                    </router-link>
+                    <!-- <a href="/expert/expertuser/articleList">查看更多</a> -->
                 </div>
             </div>
             <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.Publishs)">暂无著作与文章</p>

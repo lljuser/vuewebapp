@@ -10,6 +10,7 @@ import ReadProfile from '@/components/expert/ReadProfile';
 import ReadAbsHistoryList from '@/components/expert/ReadAbsHistoryList';
 import ReadOtherProjectList from '@/components/expert/ReadOtherProjectList';
 import ReadArticleList from '@/components/expert/ReadArticleList';
+import ReadActivityList from '@/components/expert/ReadActivityList';
 import EditProfile from '@/components/expert/EditProfile';
 import BasicInfomation from '@/components/expert/BasicInfomation';
 import AbsHistory from '@/components/expert/AbsHistory';
@@ -19,7 +20,9 @@ import OtherProjectList from '@/components/expert/OtherProjectList';
 import OtherPosition from '@/components/expert/OtherPosition';
 import AwardAndHonor from '@/components/expert/AwardAndHonor';
 import Activity from '@/components/expert/Activity';
+import ActivityList from '@/components/expert/ActivityList';
 import Article from '@/components/expert/Article';
+import ArticleList from '@/components/expert/ArticleList';
 import Education from '@/components/expert/Education';
 import BriefIntroducation from '@/components/expert/BriefIntroducation';
 import WorkHistory from '@/components/expert/WorkHistory';
@@ -95,9 +98,19 @@ export default new Router({
       component: Activity,
     },
     {
+      path: '/ActivityList',
+      name: 'ActivityList',
+      component: ActivityList,
+    },
+    {
       path: '/Article',
       name: 'Article',
       component: Article,
+    },
+    {
+      path: '/ArticleList',
+      name: 'ArticleList',
+      component: ArticleList,
     },
     {
       path: '/Education',
@@ -113,6 +126,12 @@ export default new Router({
       path: '/WorkHistory',
       name: 'WorkHistory',
       component: WorkHistory,
+    },
+    
+    {
+      path: '/ReadActivityList',
+      name: 'ReadActivityList',
+      component: ReadActivityList,
     },
   ],
 });
