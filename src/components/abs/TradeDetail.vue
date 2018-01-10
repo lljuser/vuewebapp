@@ -30,7 +30,7 @@
             <td>{{detailInfo.AssetType}}</td>
         </tr>
         <tr>
-            <td class="appH5_white_space">利&#12288;&#12288;率</td>
+            <td class="appH5_white_space">利率(%)</td>
             <td>{{detailInfo.Coupon}}</td>
             <td class="appH5_white_space">交易场所</td>
             <td>{{detailInfo.Exchange}}</td>
