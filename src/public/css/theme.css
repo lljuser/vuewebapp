@@ -53,17 +53,17 @@ body{
 	background-color: #2c2a29;
 	margin-bottom: 12px;
 	position: fixed;
-	width:6rem;
+	width: 6rem;
 	padding-right: 2.0rem;
 	padding-left: 2.0rem; 
-	z-index: 999;
+	z-index: 999999;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
 	margin-bottom: 12px;
 	position: fixed;
 	width: 100%;
-	z-index: 999;
+	z-index: 999999;
 }
 .appH5_navbar .router-link-active .appH5_tab {
 	color: #ffc445;
