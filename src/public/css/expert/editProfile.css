@@ -643,6 +643,10 @@ ul.articleDetail li {
     margin-top: 0.36rem;
 }
 
+.projectHistoryABSContent .ep_searchInput {
+    width: 5.5rem !important;
+    padding: 0 0.206667rem;
+}
 .projectNameABS {
     width: 6.666667rem;
     margin-top: 0.233333rem;
@@ -677,7 +681,44 @@ ul.articleDetail li {
     background-color: #2b2a29;
 }
 /*otherPositionContent*/
+.otherPositionContent{
+    background-color: #2b2a29;
+}
 .projectHistoryOtherContent{
+    background-color: #2b2a29;
+}
+/*awardsHonorsContent*/
+.awardsHonorsContent{
+    background-color: #2b2a29;
+}
+.awardsHonorsContent .honorAwardYear{
+    padding-right: 0.32rem;
+}
+/*activityContent*/
+.activityContent{
+    background-color: #2b2a29;
+}
+.activityContent .ActivityTime{
+    padding-right: 0.32rem;
+}
+/*articleContent*/
+.articleContent{
+    background-color: #2b2a29;
+}
+.articleContent .PublishTime{
+    padding-right: 0.32rem;
+}
+/*educationHistoryContent*/
+.educationHistoryContent{
+    background-color: #2b2a29;
+}
+.educationHistoryContent .startTime,
+.educationHistoryContent .endTime
+{
+    padding-right: 0.32rem;
+}
+/*personalProfileContent*/
+.personalProfileContent{
     background-color: #2b2a29;
 }
 /*workHistory CSS*/
@@ -795,3 +836,10 @@ ul.articleDetail li {
 .divEachFans{
     padding: 0.4rem 0.4rem 0.4rem 0.378667rem;
 }
+
+/* placeholder */
+::-webkit-input-placeholder { color: #ccc;}
+:-moz-placeholder { color: #ccc;}
+::-moz-placeholder { color: #ccc;}
+:-ms-input-placeholde { color: #ccc;}
+   

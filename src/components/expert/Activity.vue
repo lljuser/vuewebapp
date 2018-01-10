@@ -10,7 +10,7 @@
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">活动时间</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <div class="fr fr ep_font32 ep_align_right" v-on:click="showYearMonthPicker()" v-bind:class="[activity.ActivityTime === undefined ? 'ep_color_grey' : '']">
+                <div class="fr fr ep_font32 ep_align_right ActivityTime" v-on:click="showYearMonthPicker()" v-bind:class="[activity.ActivityTime === undefined ? 'ep_color_grey' : '']">
                     {{activity.ActivityTime === undefined ? '请选择' : activity.ActivityTime}}
                 </div>
             </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveActivity">保存</span>
-                <span v-if="activity.Id === undefined" class="ep_cancelBtn fl">
+                <span v-if="activity.Id === undefined" class="ep_cancelBtn fr">
                     <!-- <a href="/expert/expertuser/editProfile#activity" class="ep_color_orange">取消</a> -->
                     <router-link to="/EditProfile" class="ep_color_orange">
                         取消
