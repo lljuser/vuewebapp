@@ -37,8 +37,7 @@
         <tr>
           <th>产品名称</th>
           <th class="text-right">总额(亿)</th>
-          <th>产品分类</th>
-          <th class="text-right">发行日期</th>
+          <th class="text-right">产品分类</th>
         </tr>
 
         <ProductItem 
@@ -120,10 +119,10 @@ export default {
           this.page = this.page + 1;
           this.loading = false;
         });
-      }, 1000);
+      }, 300);
     },
 
-    fetchProducts(page,direction, callback) {
+    fetchProducts(page,direction,callback) {
       var url=webApi.Product.list;
       url=url+"/"+this.ProductTypeVal+"/"+this.DealTypeVal+"/"+this.CurrentStatusVal;
       url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
@@ -152,11 +151,10 @@ export default {
     selectChange(){
       this.isProductLoading = true;
       this.isComponentActive = true;
-      
+      this.page=1;
       setTimeout(() => {
-        this.fetchProducts(1, 1,data => {
+        this.fetchProducts(0, 0,data => {
           this.list = data;
-          this.page = this.page + 1;
           this.isProductLoading = false;
         });
       }, 500);

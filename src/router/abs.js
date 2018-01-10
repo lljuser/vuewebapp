@@ -54,7 +54,7 @@ export default new Router({
       component: FlexDemo,
     },
     {
-      path: '/tradedetail',
+      path: '/tradedetail/:tradeId/:noteId',
       name: 'tradedetail',
       component: TradeDetail,
     },
