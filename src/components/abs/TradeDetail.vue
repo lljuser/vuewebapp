@@ -77,10 +77,10 @@
   </div>
   <div class="fixedMain appH5_font_normal">
     <div class="fl fixedLeft">
-          <div class="inlineBlock" style="margin-left:.2667rem;margin-right:.1rem;">
+          <div class="fl" style="margin: .2rem .15rem 0 .32rem;">
             <img class="touxiang" src="../../assets/logo.png"/>
           </div>
-          <div class="inlineBlock txtLeft" style="margin-top:.1rem;">
+          <div class="fl txtLeft" style="margin: .1rem 0 0 0;">
               <div class="lxname">吴晨</div>
               <div class="lxcompany appH5_font_smaller">上海和逸金融信息服务有限公司</div>
               <div class="lxcont appH5_font_smaller">市场部-高级销售经理</div>
@@ -166,15 +166,15 @@ export default {
   display: inline-block;
   margin-right: .05rem;
 }
-.appH5_content table tr td{
+.appH5_content table tr td:not(:first-child){
   padding-top: .31rem;
 }
 .appH5_content table tr td:nth-child(2){
   width: 32%;
-  padding-left: .2rem;
+  padding-left: .27rem;
 }
 .appH5_content table tr td:nth-child(4){
-  padding-left: .2rem;
+  padding-left: .27rem;
 }
 .fixedMain{
   position: fixed;
