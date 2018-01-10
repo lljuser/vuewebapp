@@ -84,8 +84,7 @@ export default {
     };
   },
   created() {
-    this.fetchMarketSummary();
-    this.fetchPost();
+    this.fetchMarketSummary(); 
     this.fetchChartData();
   },
   methods: {
@@ -98,14 +97,7 @@ export default {
         //   this.marketSummary = json.data;
         //   console.log(json.data);
         // });
-    },
-    fetchPost() {
-      fetch(webApi.Market.list)
-        .then(response => response.json())
-        .then((json) => {
-          this.list = json.data;
-        });
-    },
+    }, 
     fetchChartData() {
       axios.post(webApi.Market.chart)
         .then((response) => {
