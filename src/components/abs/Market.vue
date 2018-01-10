@@ -107,9 +107,9 @@ export default {
         });
     },
     fetchChartData() {
-      fetch(webApi.Market.chart)
-        .then(response => response.json())
-        .then((json) => {
+      axios.post(webApi.Market.chart)
+        .then((response) => {
+          const json = response.data
           if (json.status == "ok") {
             var chartData = json.data;
             var seriesList = [];
