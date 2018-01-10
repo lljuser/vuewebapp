@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td class="appH5_white_space">证券类型</td>
-            <td class="appH5_color_link"><a href="">{{detailInfo.SecurityType}}</a></td>
+            <td class="appH5_color_link"><router-link to="/product"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
             <td class="appH5_white_space">评&#12288;&#12288;级</td>
             <td>{{detailInfo.Rating}}</td>
         </tr>
@@ -27,7 +27,7 @@
             <td class="appH5_white_space">分层占比</td>
             <td>{{detailInfo.NotionalPct}}%</td>
             <td class="appH5_white_space">产品类型</td>
-            <td class="appH5_color_link"><a href="">{{detailInfo.AssetType}}</a></td>
+            <td>{{detailInfo.AssetType}}</td>
         </tr>
         <tr>
             <td class="appH5_white_space">利&#12288;&#12288;率</td>
