@@ -109,20 +109,20 @@
                 <tr>
                     <td>信贷ABS</td>
                     <td class="text-right">1</td>
-                    <td class="text-right appH5_color_red appH5_font_larger">5</td>
-                    <td class="text-right">445</td>
+                    <td class="text-right appH5_color_red">5</td>
+                    <td class="text-right appH5_color_red">445</td>
                 </tr>
                 <tr>
                     <td>信贷ABS</td>
                     <td class="text-right">1</td>
-                    <td class="text-right appH5_color_red appH5_font_larger">5</td>
-                    <td class="text-right">445</td>
+                    <td class="text-right appH5_color_red">5</td>
+                    <td class="text-right appH5_color_red">445</td>
                 </tr>
                 <tr>
                     <td class="fontBold">总计</td>
                     <td class="text-right fontBold">2</td>
-                    <td class="text-right appH5_color_red fontBold appH5_font_larger">10</td>
-                    <td class="text-right fontBold">890</td>
+                    <td class="text-right appH5_color_red fontBold">10</td>
+                    <td class="text-right fontBold appH5_color_red">890</td>
                 </tr>
             </table>
         </div>
