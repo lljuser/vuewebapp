@@ -87,7 +87,7 @@ export default {
       marketSummary:[],
     };
   },
-  created() {
+  mounted() {
     this.fetchMarketSummary();
     this.fetchPost();
     this.fetchChartData();
