@@ -22,7 +22,7 @@ module.exports = {
     style: {
       color: '#E0E0E3',
       textTransform: 'uppercase',
-      fontSize: '20px',
+      fontSize: '14px',
     },
   },
   subtitle: {
@@ -45,7 +45,7 @@ module.exports = {
     title: {
       style: {
         color: '#A0A0A3',
-        fontSize: '16px',
+        fontSize: '14px',
       },
     },
   },

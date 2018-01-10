@@ -33,34 +33,11 @@
     </div>
 
     <div v-else>
-<<<<<<< HEAD
-      <mt-loadmore :top-method="loadMore" ref="loadmore" :topDistance="70" topPullText="" topDropText="" topLoadingText="">
-        <table class="appH5_table"  >
-          <tr>
-            <th>产品名称</th>
-            <th class="text-right">总额(亿)</th>
-            <th class="text-right">产品分类</th>
-            </tr>
-
-          <ProductItem 
-            v-for="(item, index) in list" 
-            :item="item"
-            :id="index"
-            :key="index"
-            v-infinite-scroll="loadMore"
-            infinite-scroll-disabled="loading"
-            infinite-scroll-immediate-check="true"
-            infinite-scroll-distance="55"/>
-        </table>
-      </mt-loadmore>
-          </div>
-=======
-      <table class="appH5_table"  >
+      <table class="appH5_table">
         <tr>
           <th>产品名称</th>
           <th class="text-right">总额(亿)</th>
-          <th>产品分类</th>
-          <th class="text-right">发行日期</th>
+          <th class="text-right">产品分类</th>
         </tr>
 
         <ProductItem 
@@ -74,7 +51,6 @@
           infinite-scroll-distance="55"/>
       </table>
     </div>
->>>>>>> e08736467251acfd78b901d66a7692746db6425a
   </div>
 </div>
 </template>
@@ -143,10 +119,10 @@ export default {
           this.page = this.page + 1;
           this.loading = false;
         });
-      }, 1000);
+      }, 300);
     },
 
-    fetchProducts(page,direction, callback) {
+    fetchProducts(page,direction,callback) {
       var url=webApi.Product.list;
       url=url+"/"+this.ProductTypeVal+"/"+this.DealTypeVal+"/"+this.CurrentStatusVal;
       url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
@@ -175,11 +151,10 @@ export default {
     selectChange(){
       this.isProductLoading = true;
       this.isComponentActive = true;
-      
+      this.page=1;
       setTimeout(() => {
-        this.fetchProducts(1, 1,data => {
+        this.fetchProducts(0, 0,data => {
           this.list = data;
-          this.page = this.page + 1;
           this.isProductLoading = false;
         });
       }, 500);
