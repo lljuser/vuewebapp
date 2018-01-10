@@ -29,6 +29,26 @@ export const Trade = {
 
 export const Expert = {
   getExpertDisplay: `${apiAddress}/ExpertInfo/GetExpertDisplay`,
+  // 获取ABS项目经历
+  getAbsProjects: `${apiAddress}/ExpertInfo/GetAbsProjects`,
+  // 取消ABS项目经历点赞
+  deleteAbsProjectEndorse: `${apiAddress}/ExpertInfo/DeleteAbsProjectEndorse`,
+  // 点赞ABS项目经历
+  addAbsProjectEndorse: `${apiAddress}/ExpertInfo/AddAbsProjectEndorse`,
+  // 获取其它项目经历
+  getOtherProjects: `${apiAddress}/ExpertInfo/GetOtherProjects`,
+  // 取消其它项目经历点赞
+  deleteOtherProjectEndorse: `${apiAddress}/ExpertInfo/DeleteOtherProjectEndorse`,
+  // 点赞其它项目经历
+  addOtherProjectEndorse: `${apiAddress}/ExpertInfo/AddOtherProjectEndorse`,
+  // 获取著作与文章
+  getPublishs: `${apiAddress}/ExpertInfo/GetPublishs`,
+  // 取消著作与文章点赞
+  deletePublishEndorse: `${apiAddress}/ExpertInfo/DeletePublishEndorse`,
+  // 点赞著作与文章
+  addPublishEndorse: `${apiAddress}/ExpertInfo/AddPublishEndorse`,
+  // 获取近期活动
+  getRecentActivities: `${apiAddress}/ExpertInfo/GetRecentActivities`,
 };
 
 export const Demo = {
