@@ -34,7 +34,7 @@
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveBasicInformation">保存</span>
                 <span class="ep_cancelBtn fr">
-                    <router-link to="/" class="ep_color_orange">
+                    <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
                 </span>
@@ -71,7 +71,8 @@
 
 <script>
 import $ from 'jquery';
-
+import axios from "axios";
+import * as webApi from "@/config/api";
 import '@/public/css/expert/reset.css';
 import '@/public/css/expert/editProfile.css';
 import '@/public/css/expert/jquery.Jcrop.min.css';
@@ -93,7 +94,9 @@ export default {
     },
     methods: {
         initData: function () {
-            this.userInfo = {"Name":"杨小峰177","Company":"asdasdasd","Avatar":"http://10.1.1.35:8000/filestore/common/downloadimg/cnabs/479fc8b7-2e95-cde6-098e-08d5518e105d/s","Cellphone":"17721307643","Email":"xiaofeng.yang@sail-fs.com","AvatarFileCode":"479fc8b7-2e95-cde6-098e-08d5518e105d","UploadImgUrl":"http://10.1.1.35:8000/filestore/common/uploaddata/cnabs/"}
+            axios.post(webApi.Expert.getUserBasicInfo).then(response => {
+                this.userInfo = response.data.data;
+            });
         },
         closepop: function() {
             this.popupVisible = false;

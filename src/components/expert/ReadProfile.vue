@@ -32,8 +32,8 @@
                         </span>
                   </div>
                 <router-link v-if="userInfo.ABSProjects && userInfo.ABSProjects.length > 3" v-bind:to="routeUrls.ReadAbsHistoryList" class="fr text_right_link">
-                       更多
-                    </router-link>
+                    更多
+                </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.ABSProjects)" v-cloak>
                  <div class='appH5_panel' style="padding-top:0px;">

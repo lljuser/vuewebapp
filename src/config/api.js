@@ -1,11 +1,11 @@
-
+ 
 const apiAddress = 'http://10.1.1.35';
 export default apiAddress;
 
 export const Market = {
   list: `${apiAddress}/momarket/productsummary`,
   chart: `${apiAddress}/momarket/getissuestatchartdata`,
-};
+}; 
 
 export const Product = {
   // {productTypeId?}/{dealTypeId?}/{currentStatusId?}/{direction?}/{lastId?}/{pageSize?}
@@ -14,17 +14,16 @@ export const Product = {
   detail: `${apiAddress}/modeal/getdealfactory`,
   // /{dealId}/{resultId}
   chart: `${apiAddress}/modeal/getnotecashflowchartdata`,
-  //
-};
-
+  // 
+}; 
+ 
 export const Trade = {
   // /{ratingId?}/{securityTypeId?}/{walId?}/{lastId?}/{pageSize?}/{direction?}
   list: `${apiAddress}/motrade/gettradelist`,
   // /{tradeId}/{noteId}/{tradeType}
   detail: `${apiAddress}//motrade/gettradedata`,
   typeList: `${apiAddress}/motrade/getsecuritytypelist`,
-  walbuckList: `${apiAddress}/moTrade/getwalbucketlist`,
-  ratingList: `${apiAddress}/motrade/getratinglist`,
+  walbuckList: `${apiAddress}/moTrade/getwalbucketlist`, 
 };
 
 export const Expert = {
@@ -110,9 +109,12 @@ export const Expert = {
   updateEducation: `${apiAddress}/ExpertInfo/UpdateEducation`,
   // 获取个人简介
   getPersonalProfile: `${apiAddress}/ExpertInfo/GetPersonalProfile`,
-
   // 更新个人简介
   updatePersonalProfile: `${apiAddress}/ExpertInfo/UpdatePersonalProfile`,
+  // 获取用户基本信息
+  getUserBasicInfo: `${apiAddress}/ExpertInfo/GetUserBasicInfo`,
+  // 获取单个工作经历
+  getWorkHistory: `${apiAddress}/ExpertInfo/GetWorkHistory`,
 };
 
 export const Demo = {

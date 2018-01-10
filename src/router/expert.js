@@ -123,7 +123,7 @@ export default new Router({
       component: BriefIntroducation,
     },
     {
-      path: '/WorkHistory',
+      path: '/WorkHistory/:id?',
       name: 'WorkHistory',
       component: WorkHistory,
     },
