@@ -58,9 +58,9 @@
             </table>
         </div>
         <div style="margin-bottom:0.25rem;margin-left:2.1rem" v-if="productDetail!=null&&productDetail.NoteList.length!=0">
-            <div style="float:left;margin: 4px 4px 4px 2px; width: 12px;height: 11px; background-image: url(&quot;/src/public/images/table_bg.png&quot;); background-repeat: repeat;"></div> 
-            <div style="float:left;font-size: 11px;">已偿付</div> 
-            <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div> 
+            <div style="float:left;margin: 4px 4px 4px 2px; width: 12px;height: 11px; background-image: url(&quot;/src/public/images/table_bg.png&quot;); background-repeat: repeat;"></div>
+            <div style="float:left;font-size: 11px;">已偿付</div>
+            <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div>
             <div style="float:left;font-size: 11px;">剩余</div>
         </div>
     </div>
@@ -80,8 +80,8 @@
               <tr v-for="(item,index) in productDetail.NoteList">
                 <td><div class="appH5_ellipsis" style="width:2.1rem;">{{item.Description}}</div></td>
                 <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.Principal}}</span></td>
-                <td class="text-right"><span>{{item.CurrentCoupon!=null?item.CurrentCoupon.toFixed(2):"-"}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestYield!=null?item.CurrentSuggestYield:"-"}}</span></td>
-                <td class="text-right"><span>{{item.CurrentWal!=null?item.CurrentWal.toFixed(2):"-"}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.RepaymentOfPrincipal}}</span></td>
+                <td class="text-right"><span>{{item.CurrentCoupon}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestYield}}</span></td>
+                <td class="text-right"><span>{{item.CurrentWal}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.RepaymentOfPrincipal}}</span></td>
                 <td class="text-right"><span>{{item.CurrentRatingCombineString}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestRatingCombineString}}</span></td>
               </tr>
             </table>
@@ -121,7 +121,7 @@ import * as chartTheme from '@/public/js/chartTheme';
 import * as webApi from '@/config/api';
 import axios from 'axios';
 
-Vue.use(VueHighcharts, { Highcharts }); 
+Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
 
 export default {
@@ -145,7 +145,7 @@ export default {
     // 滚动到顶部
     window.scrollTo(0,0);
     const busUtil = BusUtil.getInstance();
-    
+
     this.id = this.$route.params.id;
     if (this.id) {
       this.fetchProductDetail(this.id);
