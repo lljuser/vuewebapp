@@ -324,7 +324,7 @@ select{
 	vertical-align: top;
 }
 .appH5_list_two td:nth-of-type(1){
-	width:1.333333rem;
+	width:21%;
     color:#57b489;
 	padding-right: 0.2rem;
 	white-space: nowrap;
@@ -346,13 +346,13 @@ select{
 	padding-bottom:0.2rem; 
 }
 .appH5_list_four td:nth-of-type(2n+1){
-	width:1.333333rem;
+	width:21%;
 	vertical-align: top;
     color:#57b489;
 	padding-right: 0.2rem;
 }
 .appH5_list_four td:nth-of-type(2n){
-	width:2rem;
+	width:29%;
 }
 .appH5_list_four tr:last-child td{
 	padding-bottom:0rem; 
@@ -395,4 +395,7 @@ select{
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+}
+.appH5_margin_top_td_div{
+	margin-top: 0.1rem;
 }
