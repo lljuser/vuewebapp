@@ -11,35 +11,35 @@
           <th class="text-right">今年总额(亿)</th>
           <th class="text-right">累计总额(亿)</th>
         </tr>
-        <tr>
-          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">信贷ABS</a></router-link></td>
-          <td class="text-right">1</td>
-          <td class="text-right appH5_color_red">5.00</td>
-          <td class="text-right">442.00</td>
+        <tr v-if="marketSummary.length!=0">
+          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[0].SimpleProductType}}</a></router-link></td>
+          <td class="text-right">{{marketSummary[0].DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[0].BalanceCurrentYear.toFixed(2)}}</td>
+          <td class="text-right">{{marketSummary[0].BalanceCumulative.toFixed(2)}}</td>
         </tr>
-        <tr>
-          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">企业ABS</a></router-link></td>
-          <td class="text-right">1</td>
-          <td class="text-right appH5_color_red">1.00</td>
-          <td class="text-right">1183.00</td>
+        <tr v-if="marketSummary.length!=0">
+          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[1].SimpleProductType}}</a></router-link></td>
+          <td class="text-right">{{marketSummary[1].DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[1].BalanceCurrentYear.toFixed(2)}}</td>
+          <td class="text-right">{{marketSummary[1].BalanceCumulative.toFixed(2)}}</td>
         </tr>
-        <tr>
-          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">ABN</a></router-link></td>
-          <td class="text-right">1</td>
-          <td class="text-right appH5_color_red">10.00</td>
-          <td class="text-right">67.00</td>
+        <tr v-if="marketSummary.length!=0">
+          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[2].SimpleProductType}}</a></router-link></td>
+          <td class="text-right">{{marketSummary[2].DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[2].BalanceCurrentYear.toFixed(2)}}</td>
+          <td class="text-right">{{marketSummary[2].BalanceCumulative.toFixed(2)}}</td>
         </tr>
-        <tr>
-          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">保险ABS</a></router-link></td>
-          <td class="text-right">1</td>
-          <td class="text-right appH5_color_red">2.00</td>
-          <td class="text-right">3.00</td>
+        <tr v-if="marketSummary.length!=0">
+          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[3].SimpleProductType}}</a></router-link></td>
+          <td class="text-right">{{marketSummary[3].DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red">{{marketSummary[3].BalanceCurrentYear.toFixed(2)}}</td>
+          <td class="text-right">{{marketSummary[3].BalanceCumulative.toFixed(2)}}</td>
         </tr>
-        <tr>
-          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447;font-weight:bold">总计</a></router-link></td>
-          <td class="text-right" style="font-weight:bold">11</td>
-          <td class="text-right appH5_color_red" style="font-weight:bold">112.00</td>
-          <td class="text-right" style="font-weight:bold">1113.00</td>
+        <tr v-if="marketSummary.length!=0">
+          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447;font-weight:bold">{{marketSummary[4].SimpleProductType}}</a></router-link></td>
+          <td class="text-right" style="font-weight:bold">{{marketSummary[4].DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red" style="font-weight:bold">{{(parseFloat(marketSummary[0].BalanceCurrentYear.toFixed(2))+parseFloat(marketSummary[1].BalanceCurrentYear.toFixed(2))+parseFloat(marketSummary[2].BalanceCurrentYear.toFixed(2))+parseFloat(marketSummary[3].BalanceCurrentYear.toFixed(2))).toFixed(2)}}</td>
+          <td class="text-right" style="font-weight:bold">{{(parseFloat(marketSummary[0].BalanceCumulative.toFixed(2))+parseFloat(marketSummary[1].BalanceCumulative.toFixed(2))+parseFloat(marketSummary[2].BalanceCumulative.toFixed(2))+parseFloat(marketSummary[3].BalanceCumulative.toFixed(2))).toFixed(2)}}</td>
         </tr>
       </table>
     </div>
@@ -60,26 +60,14 @@
 <script>
 import Vue from 'vue';
 import VueHighcharts from 'vue-highcharts';
-import Highcharts from 'highcharts';
-
-// load these modules as your need
-import loadStock from 'highcharts/modules/stock';
-import loadMap from 'highcharts/modules/map';
-import loadDrilldown from 'highcharts/modules/drilldown';
-// some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
-import loadHighchartsMore from 'highcharts/highcharts-more';
-import loadSolidGauge from 'highcharts/modules/solid-gauge';
-import * as chartTheme from '@/public/js/chartTheme';
-import * as webApi from '@/config/api'; 
+import Highcharts from 'highcharts'; 
+import axios from 'axios';
+// load these modules as your need 
+import * as chartTheme from '@/public/js/chartTheme'; 
+import * as webApi from '@/config/api';  
  
-loadStock(Highcharts);
-loadMap(Highcharts);
-loadDrilldown(Highcharts);
-loadHighchartsMore(Highcharts);
-loadSolidGauge(Highcharts); 
-Vue.use(VueHighcharts, { Highcharts }); 
-
 Highcharts.setOptions(chartTheme);  
+Vue.use(VueHighcharts, { Highcharts });    
  
 export default {
   name: 'market',
@@ -92,13 +80,25 @@ export default {
           text: '暂无数据'
         },
       },
+      marketSummary:[],
     };
   },
   created() {
+    this.fetchMarketSummary();
     this.fetchPost();
     this.fetchChartData();
   },
   methods: {
+    fetchMarketSummary() {
+      axios.post(webApi.Market.list).then((response)=>{
+          this.marketSummary=response.data.data;
+      });
+        // .then(response => response.json())
+        // .then((json) => {
+        //   this.marketSummary = json.data;
+        //   console.log(json.data);
+        // });
+    },
     fetchPost() {
       fetch(webApi.Market.list)
         .then(response => response.json())
@@ -107,9 +107,9 @@ export default {
         });
     },
     fetchChartData() {
-      fetch(webApi.Market.chart)
-        .then(response => response.json())
-        .then((json) => {
+      axios.post(webApi.Market.chart)
+        .then((response) => {
+          const json = response.data
           if (json.status == "ok") {
             var chartData = json.data;
             var seriesList = [];
