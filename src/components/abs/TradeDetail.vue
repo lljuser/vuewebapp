@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td class="appH5_white_space">证券类型</td>
-            <td class="appH5_color_link"><a href="">{{detailInfo.SecurityType}}</a></td>
+            <td class="appH5_color_link"><router-link to="/product"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
             <td class="appH5_white_space">评&#12288;&#12288;级</td>
             <td>{{detailInfo.Rating}}</td>
         </tr>
@@ -27,10 +27,10 @@
             <td class="appH5_white_space">分层占比</td>
             <td>{{detailInfo.NotionalPct}}%</td>
             <td class="appH5_white_space">产品类型</td>
-            <td class="appH5_color_link"><a href="">{{detailInfo.AssetType}}</a></td>
+            <td>{{detailInfo.AssetType}}</td>
         </tr>
         <tr>
-            <td class="appH5_white_space">利&#12288;&#12288;率</td>
+            <td class="appH5_white_space">利率(%)</td>
             <td>{{detailInfo.Coupon}}</td>
             <td class="appH5_white_space">交易场所</td>
             <td>{{detailInfo.Exchange}}</td>
@@ -106,17 +106,21 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       detailInfo:[],
-      contactInfo:[],
     };
   },
   created() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
-    this.fetchTradeDetail(59,9461,data => {
+  }, 
+  mounted() {
+    this.tradeId = this.$route.params.tradeId;
+    this.noteId = this.$route.params.noteId;
+    //debugger;
+    this.fetchTradeDetail(this.tradeId,this.noteId,data => {   //59,9461,this.tradeId,this.noteId
     this.detailInfo = data;
     });
-  }, 
+  },
   methods: {
    fetchTradeDetail(tradeId,noteId,callback) { 
     axios.post(webApi.Trade.detail.concat(['', tradeId, noteId].join('/'))).then((response) => { 

@@ -229,4 +229,26 @@ a {
   margin-top:-6px;
   margin-bottom: 12px;
 }
+
+.trade_select_div {
+  table-layout: fixed;
+  width: 100%;
+  margin-top: -6px;
+  margin-bottom: 12px;
+}
+
+.trade_select_div div {
+   width:33%;
+   float: left;
+}
+
+.trade_select_div div:last-child {
+    width:34%;
+    text-align: right;
+}
+
+.trade_select_div select {
+  width:90%;
+  border-radius: 0;
+}
 </style>

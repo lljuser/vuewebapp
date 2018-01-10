@@ -5,7 +5,7 @@
        <div class='td_elips1'> {{ item.DealName }}</div>
       </router-link>
     </td>
-    <td class="text-right appH5_color_red appH5_font_larger" style="font-size:17px">{{item.TotalOffering.toFixed(2)}}</td>
+    <td class="text-right appH5_color_red appH5_font_larger" style="font-size:17px">{{item.TotalOffering}}</td>
     <td style="color:white" class="text-right td_elips2"><div style="width:100%;float:right"><div>{{ item.DealType }}</div></div></td>
   </tr>
 </template>
@@ -13,9 +13,9 @@
 <script>
 import { Toast } from 'mint-ui';
 
-export default { 
-  name: 'productItem', 
-  props: ['id', 'item'], 
+export default {
+  name: 'productItem',
+  props: ['id', 'item'],
   mounted() {
   },
   data() {

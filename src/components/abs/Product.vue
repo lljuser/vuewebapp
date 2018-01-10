@@ -1,7 +1,7 @@
 <template>
 <div class="appH5_body">
   <div class="appH5_panel">
-    <table class="select_div">
+    <table class="select_div" cellspacing="0"  cellpadding="0">
       <tr>
         <td class="text-left">
           <select v-model="ProductTypeVal" v-on:change="selectChange()" >
@@ -56,6 +56,7 @@
 </template>
 
 <script> 
+import BusUtil from './BusUtil';
 import * as webApi from '@/config/api';
 import ProductItem from './ProductItem';
 import axios from 'axios';
@@ -89,6 +90,8 @@ export default {
 
   activated() {
     this.loading = false;
+    const busUtil = BusUtil.getInstance();
+    busUtil.bus.$emit('showHeader', false);
     if (this.isFetchProductsError) {
       this.loadFirstPageProducts();
     }
@@ -177,8 +180,19 @@ export default {
   margin-bottom: 12px;
 }
 
+.select_div div {
+   width:33%;
+   float: left;
+}
+
+.select_div div:last-child {
+    width:34%;
+    text-align: right;
+}
+
 .select_div select {
-  width:100%;
+  width:90%;
+  border-radius: 0;
 }
 
 h1,
