@@ -70,7 +70,8 @@ import loadDrilldown from 'highcharts/modules/drilldown';
 import loadHighchartsMore from 'highcharts/highcharts-more';
 import loadSolidGauge from 'highcharts/modules/solid-gauge';
 import * as chartTheme from '@/public/js/chartTheme';
-import * as webApi from '@/config/api'; 
+import * as webApi from '@/config/api';
+import axios from 'axios';
  
 loadStock(Highcharts);
 loadMap(Highcharts);
@@ -107,9 +108,9 @@ export default {
         });
     },
     fetchChartData() {
-      fetch(webApi.Market.chart)
-        .then(response => response.json())
-        .then((json) => {
+      axios.post(webApi.Market.chart)
+        .then((response) => {
+          const json = response.data
           if (json.status == "ok") {
             var chartData = json.data;
             var seriesList = [];
