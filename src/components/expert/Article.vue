@@ -18,7 +18,7 @@
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">出版时间</span>
-                <div class="fr fr ep_font32 ep_align_right" v-on:click="showYearPicker" v-bind:class="[!isValidElement(publish.PublishTime) ? 'ep_color_grey' : '']">
+                <div class="fr fr ep_font32 ep_align_right PublishTime" v-on:click="showYearPicker" v-bind:class="[!isValidElement(publish.PublishTime) ? 'ep_color_grey' : '']">
                     {{isValidElement(publish.PublishTime) ? publish.PublishTime : '请选择'}}
                 </div>
             </div>

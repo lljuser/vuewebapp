@@ -2,11 +2,11 @@
     <div id="otherPositionContent" class="otherPositionContent ep_font32">
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div">
-            <div class="ep_part_item ep_part_item_border ep_overhide">
-                <span class="fl ep_color_grey">其它职务</span>
-                <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <input class="ep_align_right ep_input fr ep_font32" type="text" placeholder="请输入" v-model="otherPost.Name" />
-            </div>
+            <div class="ep_part_item ep_part_item_border">
+                    <span class='fl ep_font32 ep_color_grey'>职务</span>
+                      <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
+                    <input class="ep_input fr ep_font32 ep_marginLeft15 ep_align_right" type="text" placeholder="请输入" v-model="otherPost.Name" />
+                </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">
                 <span class="fl ep_marginTop5">*</span>
                 <span class="fl  ep_marginLeft10">{{errorMessage}}</span>
@@ -118,7 +118,8 @@
                 return !(item === null || item === undefined || item === "");
             },
         }
-    }
+      }
+ 
 </script>
 
 <style>

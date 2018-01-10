@@ -1,24 +1,30 @@
 <template>
     <div class="projectHistoryABSListContent ep_font32">
         <div class="ep_marginTop24"></div>
-        <div class="ep_content_div" v-if="!isArrayEmpty(projectHistories)" v-cloak>
-            <div class="ep_padding30 ep_part_item_border" v-for="(item,index) in projectHistories" v-bind:key="item.Id" v-bind:class="[index===0?'ep_paddingTop46':'']">
-                <div class="ep_overhide">
-                    <a class="ep_font32 ep_ellipsis fl ep_width600 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
-                    <a class="ep_font24 ep_color_orange fr ep_lineHeight32" v-bind:href="'/expert/expertuser/projectHistoryABS?id=' + item.Id">编辑</a>
+            <div class='appH5_panel' style="padding-top:0px;">
+                <div class="ep_content_div" v-if="!isArrayEmpty(projectHistories)" v-cloak>
+                    <table class="appH5_table">
+                        <tr>
+                            <th class='text-left'>名称</th>
+                            <th class='text-right'>金额(亿)</th>
+                            <th class='text-center'>类型</th>
+                            <th class='text-right'>操作</th>
+                        </tr>
+                        <tr v-for="item in projectHistories" v-bind:key="item.Id">
+                            <td class='text-left ep_color_yellow'>
+                                    <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
+                            </td>
+                            <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
+                            <td class='text-center ep_ellipsis'>{{item.DealType}}</td>
+                            <td>
+                                <router-link to="'/expert/expertuser/projectHistoryABS?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">
+                                    编辑
+                                </router-link>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <table class="projectHistoryABSList ep_font28 ep_marginTop10">
-                    <tr>
-                        <td class="ep_ellipsis ep_paddingright30">{{item.DealType}}</td>
-                        <td class="ep_ellipsis ep_paddingright30">{{item.TotalOffering.toFixed(2)}}亿元</td>
-                    </tr>
-                    <tr>
-                        <td>{{item.PersonalResponsibility.Name}}</td>
-                        <td colspan="2">{{splicingOrganizationRoles(item.OrganizationRoles)}}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+                </div>
     </div>
 </template>
 

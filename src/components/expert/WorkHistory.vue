@@ -27,14 +27,14 @@
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">入职时间</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <div class="fr fr ep_font32 ep_align_right" v-on:click="showDatePicker('startTime')" v-bind:class="[workHistory.StartTime === undefined ? 'ep_color_grey' : '']">
+                <div class="fr fr ep_font32 ep_align_right startTime" v-on:click="showDatePicker('startTime')" v-bind:class="[workHistory.StartTime === undefined ? 'ep_color_grey' : '']">
                     {{workHistory.StartTime === undefined ? '请选择' : workHistory.StartTime}}
                 </div>
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">离职时间</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <div class="fr fr ep_font32 ep_align_right" v-on:click="showDatePicker('endTime')" v-bind:class="[workHistory.EndTime === undefined ? 'ep_color_grey' : '']">
+                <div class="fr fr ep_font32 ep_align_right endTime" v-on:click="showDatePicker('endTime')" v-bind:class="[workHistory.EndTime === undefined ? 'ep_color_grey' : '']">
                     {{workHistory.EndTime === undefined ? '请选择' : workHistory.EndTime}}
                 </div>
             </div>

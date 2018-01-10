@@ -5,10 +5,10 @@
             <div v-if="!isArrayEmpty(recentActivities)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="item in recentActivities" v-bind:key="item.Name">
                     <div class="ep_overhide">
-                        <span class="ep_font32 ep_ellipsis fl ep_width460">{{item.Name}}</span>
-                        <span class="ep_font28 ep_ellipsis fr ep_color_grey ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.ActivityTime}}</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
+                        <span class="ep_font24 ep_ellipsis fr ep_color_grey ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.ActivityTime}}</span>
                     </div>
-                    <pre class="ep_decription ep_color_grey ep_font28">{{item.Description}}</pre>
+                    <pre class="ep_decription ep_color_grey ep_font24">{{item.Description}}</pre>
                 </div>
             </div>
         </section>
