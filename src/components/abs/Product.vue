@@ -4,21 +4,21 @@
     <table class="select_div">
       <tr>
         <td class="text-left">
-          <select v-model="ProductTypeVal" v-on:change="productChange(ProductTypeVal)" >
+          <select v-model="ProductTypeVal" v-on:change="selectChange()" >
              <option v-for="option in ProductType" :value="option.Value" :key="option.Value" selected="option.Selected">
               {{ option.Text }}
               </option>
           </select>
         </td>
         <td style="text-align:center">
-          <select v-model="DealTypeVal">
+          <select v-model="DealTypeVal" v-on:change="selectChange()">
              <option v-for="option in DealType" :value="option.Value" :key="option.Value" selected="option.Selected">
               {{ option.Text }}
               </option>
           </select>
         </td>
         <td class="text-right"> 
-          <select v-model="CurrentStatusVal">
+          <select v-model="CurrentStatusVal" v-on:change="selectChange()">
            <option v-for="option in CurrentStatus" :value="option.Value" :key="option.Value" selected="option.Selected">
               {{ option.Text }}
               </option>
@@ -60,7 +60,8 @@
 <script> 
 import * as webApi from '@/config/api';
 import ProductItem from './ProductItem';
-import axios from 'axios';   
+import axios from 'axios';
+import { Toast } from 'mint-ui';
 
 export default {
   name: "product",
@@ -79,47 +80,54 @@ export default {
       CurrentStatus:[],
       isProductLoading: false,
       isComponentActive: false,
+      isFetchProductsError: false,
     };
   },
   mounted() {
     this.isProductLoading = true;
     this.isComponentActive = true;
-
-    setTimeout(() => {
-      this.fetchProducts(1,0, data => {
-        this.list = data;
-        //this.page = this.page + 1;
-        this.isProductLoading = false;
-      });
-    }, 600);
+    this.loadFirstPageProducts();
   },
+
   activated() {
     this.loading = false;
+    if (this.isFetchProductsError) {
+      this.loadFirstPageProducts();
+    }
   },
   deactivated() {
     // 防止在其他组件滚动时 此组件调用loadMore方法
     this.loading = true;
   },
   methods: {
+    loadFirstPageProducts() {
+      setTimeout(() => {
+        this.fetchProducts(1,0, data => {
+          this.list = data;
+          this.isProductLoading = false;
+        });
+      }, 600);
+    },
+
     loadMore() {
       this.loading = true;
       setTimeout(() => {
         this.fetchProducts(this.page,1, data => {
-          if (this.page > 1) {
+          // if (this.page > 1) {
             this.list = this.list.concat(data);
-          } else {
-            this.list = data;
-          }
+          // } else {
+          //   this.list = data;
+          // }
           this.page = this.page + 1;
           this.loading = false;
         });
       }, 1000);
     },
+
     fetchProducts(page,direction, callback) {
       var url=webApi.Product.list;
       url=url+"/"+this.ProductTypeVal+"/"+this.DealTypeVal+"/"+this.CurrentStatusVal;
       url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
-      debugger;
       axios.post(url).then((response) => { 
         const data = response.data.data;
         if (data) {
@@ -134,10 +142,15 @@ export default {
             this.CurrentStatus=data.CurrentStatus;
           callback(data.Deal);
         }
+      }).catch((error) => {
+        Toast('数据获取失败');
+        this.loading = false;
+        this.isProductLoading = false;
+        this.isFetchProductsError = true;
       });
     }, 
 
-    productChange(val){
+    selectChange(){
       this.isProductLoading = true;
       this.isComponentActive = true;
       
@@ -147,8 +160,10 @@ export default {
           this.page = this.page + 1;
           this.isProductLoading = false;
         });
-      }, 600);
-      }
+      }, 500);
+    }
+
+     
   },
   components: {
     ProductItem
