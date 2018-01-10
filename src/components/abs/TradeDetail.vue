@@ -100,7 +100,12 @@ import BusUtil from './BusUtil';
 export default {
   name: 'tradeDetail',
   props: ['id'],
-   created() {
+  created() {
+    const busUtil = BusUtil.getInstance();
+    busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/trade');
+  },
+  activated() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');

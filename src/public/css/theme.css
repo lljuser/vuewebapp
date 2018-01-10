@@ -16,6 +16,12 @@ body{
 	font-size: 19px;
 	margin: 0;
 }
+.product-spinner {
+	display: flex;
+	justify-content: center;
+	padding-top: 1rem;
+	height: 100vh;
+}
 .appH5_body{
 	color:#fff;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
@@ -35,7 +41,7 @@ body{
 }
 .appH5_navbar {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	background-color: #2c2a29;
 	margin-bottom: 12px;
 	position: fixed;
@@ -46,12 +52,6 @@ body{
 	margin-bottom: 12px;
 	position: fixed;
 	width: 100%;
-}
-.appH5_navbar .router-link-active {
-	border-color: #ffc445;
-	border-bottom-width: 3px;
-	border-bottom-style: solid;
-	color: #ffc445;
 }
 .appH5_navbar .router-link-active .appH5_tab {
 	color: #ffc445;
@@ -354,13 +354,22 @@ select{
 	padding-right: 0.72rem; 
 }
 .appH5_tab{
+	width: 50px;
+	margin-left: 25px;
+	margin-right: 25px;
 	color:#fff;
 	line-height: 19px;
 	font-size: 19px;
 	padding-top: 0.302rem;
 	padding-bottom: 0.2295rem;
-	float:left;
+	float: left;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
+}
+.router-link-active .appH5_tab {
+	border-color: #ffc445;
+	border-bottom-width: 3px;
+	border-bottom-style: solid;
+	color: #ffc445;
 }
 .appH5_select_tab{
 	color:#ffc446;
