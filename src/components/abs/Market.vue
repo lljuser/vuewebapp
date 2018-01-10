@@ -60,28 +60,14 @@
 <script>
 import Vue from 'vue';
 import VueHighcharts from 'vue-highcharts';
-import Highcharts from 'highcharts';
-
+import Highcharts from 'highcharts'; 
+import axios from 'axios';
 // load these modules as your need 
-import * as chartTheme from '@/public/js/chartTheme';
-<<<<<<< HEAD
+import * as chartTheme from '@/public/js/chartTheme'; 
 import * as webApi from '@/config/api';  
  
- Highcharts.setOptions(chartTheme);  
-Vue.use(VueHighcharts, { Highcharts });   
-=======
-import * as webApi from '@/config/api'; 
-import axios from 'axios';
-
-loadStock(Highcharts);
-loadMap(Highcharts);
-loadDrilldown(Highcharts);
-loadHighchartsMore(Highcharts);
-loadSolidGauge(Highcharts); 
-Vue.use(VueHighcharts, { Highcharts }); 
-
 Highcharts.setOptions(chartTheme);  
->>>>>>> 5b4af25a94b39f708d0952cdfffa190bbfec4a14
+Vue.use(VueHighcharts, { Highcharts });    
  
 export default {
   name: 'market',
