@@ -53,17 +53,17 @@ body{
 	background-color: #2c2a29;
 	margin-bottom: 12px;
 	position: fixed;
-	width:6rem;
+	width: 6rem;
 	padding-right: 2.0rem;
 	padding-left: 2.0rem; 
-	z-index: 999;
+	z-index: 999999;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
 	margin-bottom: 12px;
 	position: fixed;
 	width: 100%;
-	z-index: 999;
+	z-index: 999999;
 }
 .appH5_navbar .router-link-active .appH5_tab {
 	color: #ffc445;
@@ -92,7 +92,8 @@ body{
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
    padding: 0.333333rem 0.146667rem;
    font-weight: bold;
-   font-size: 17px;
+   font-size: 15px;
+   white-space: nowrap;
 }
 
 .appH5_table td{
@@ -324,7 +325,7 @@ select{
 	vertical-align: top;
 }
 .appH5_list_two td:nth-of-type(1){
-	width:1.333333rem;
+	width:20%;
     color:#57b489;
 	padding-right: 0.2rem;
 	white-space: nowrap;
@@ -344,21 +345,27 @@ select{
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
 	font-size: 15px;
 	padding-bottom:0.2rem; 
+	vertical-align: top;
 }
 .appH5_list_four td:nth-of-type(2n+1){
-	width:1.333333rem;
-	vertical-align: top;
+	width:20%;
     color:#57b489;
 	padding-right: 0.2rem;
 }
 .appH5_list_four td:nth-of-type(2n){
-	width:2rem;
+	width:30%;
 }
 .appH5_list_four tr:last-child td{
 	padding-bottom:0rem; 
 }
 .appH5_white_space{
 	white-space: nowrap;
+}
+.appH5_vertical_Top{
+	vertical-align: top;
+}
+.appH5_vertical_middle{
+	vertical-align: middle;
 }
 .appH5_tab_div{
 	overflow: hidden;
@@ -368,6 +375,7 @@ select{
 .appH5_tab{
 	color:#fff;
 	font-size: 19px;
+	line-height: 19px;
 	padding-top: 12.5px;
 	padding-bottom: 9.5px;
 	padding-left:0.16rem;
@@ -395,4 +403,7 @@ select{
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+}
+.appH5_margin_top_td_div{
+	margin-top: 0.1rem;
 }

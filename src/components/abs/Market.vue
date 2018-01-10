@@ -86,30 +86,17 @@ export default {
       },
       marketSummary:[],
     };
-  },
-  created() {
-    this.fetchMarketSummary();
-    this.fetchPost();
+  }, 
+  mounted() {
+    this.fetchMarketSummary(); 
     this.fetchChartData();
   },
   methods: {
     fetchMarketSummary() {
       axios.post(webApi.Market.list).then((response)=>{
           this.marketSummary=response.data.data;
-      });
-        // .then(response => response.json())
-        // .then((json) => {
-        //   this.marketSummary = json.data;
-        //   console.log(json.data);
-        // });
-    },
-    fetchPost() {
-      fetch(webApi.Market.list)
-        .then(response => response.json())
-        .then((json) => {
-          this.list = json.data;
-        });
-    },
+      }); 
+    }, 
     fetchChartData() {
       axios.post(webApi.Market.chart)
         .then((response) => {
