@@ -10,8 +10,8 @@
       <router-link to="/trade">
         <a class="appH5_tab" href="javascript:;">交易</a>
       </router-link>
-    </div>  
-    
+    </div> 
+
     <div v-else class="appH5_navbar_bg">
       <mt-header title="产品信息">
         <router-link :to="path" slot="left">
