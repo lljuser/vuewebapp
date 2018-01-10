@@ -58,7 +58,8 @@ body{
 	padding-right: 2.0rem;
 	padding-left: 2.0rem; 
 	z-index: 999999;
-	transform: translateZ(0);
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
 	perspective: 1000;
 }
 .appH5_navbar_bg {
@@ -67,7 +68,8 @@ body{
 	position: fixed;
 	width: 100%;
 	z-index: 999999;
-	transform: translateZ(0);
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
 	perspective: 1000;
 }
 .appH5_footer{
