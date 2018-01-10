@@ -27,7 +27,7 @@ export const Trade = {
 };
 
 export const Expert = {
-
+  getExpertDisplay: `${apiAddress}/ExpertInfo/GetExpertDisplay`,
 };
 
 export const Demo = {

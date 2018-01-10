@@ -27,26 +27,32 @@
       </tr>
     </table>
     
-    <mt-loadmore :top-method="loadTop" ref="loadmore" :topDistance="70" topPullText="" topDropText="" topLoadingText="">
-      <table class="appH5_table"  >
-        <tr>
-          <th>产品名称</th>
-          <th class="text-right">总额(亿)</th>
-          <th class="text-right">产品分类</th>
-        </tr>
+  
+    <div class="product-spinner" v-if="isProductLoading">
+      <mt-spinner type="triple-bounce"></mt-spinner>
+    </div>
 
-        <ProductItem 
-          v-for="(item, index) in list" 
-          :item="item"
-          :id="index"
-          :key="index"
-          v-infinite-scroll="loadMore"
-          infinite-scroll-disabled="loading"
-          infinite-scroll-immediate-check="true"
-          infinite-scroll-distance="55"/>
-      </table>
-    </mt-loadmore>
-    
+    <div v-else>
+      <mt-loadmore :top-method="loadMore" ref="loadmore" :topDistance="70" topPullText="" topDropText="" topLoadingText="">
+        <table class="appH5_table"  >
+          <tr>
+            <th>产品名称</th>
+            <th class="text-right">总额(亿)</th>
+            <th class="text-right">产品分类</th>
+            </tr>
+
+          <ProductItem 
+            v-for="(item, index) in list" 
+            :item="item"
+            :id="index"
+            :key="index"
+            v-infinite-scroll="loadMore"
+            infinite-scroll-disabled="loading"
+            infinite-scroll-immediate-check="true"
+            infinite-scroll-distance="55"/>
+        </table>
+      </mt-loadmore>
+          </div>
   </div>
 </div>
 </template>
@@ -62,33 +68,43 @@ export default {
     return {
       list: [],
       page: 1,
+      pageSize:15,
+      direction:0,
       loading: false,
-      ProductType: "",
-      DealType: "",
-      CurrentStatus: ""
+      ProductTypeVal: "0",
+      DealTypeVal: "0",
+      CurrentStatusVal: "0",
+      ProductType:[],
+      DealType:[],
+      CurrentStatus:[],
+      isProductLoading: false,
+      isComponentActive: false,
     };
   },
-  created() {
-    this.fetchProducts(1, data => {
-      this.list = data;
-      this.page = this.page + 1;
-    });
+  mounted() {
+    this.isProductLoading = true;
+    this.isComponentActive = true;
+
+    setTimeout(() => {
+      this.fetchProducts(1,0, data => {
+        this.list = data;
+        //this.page = this.page + 1;
+        this.isProductLoading = false;
+      });
+    }, 600);
+  },
+  activated() {
+    this.loading = false;
+  },
+  deactivated() {
+    // 防止在其他组件滚动时 此组件调用loadMore方法
+    this.loading = true;
   },
   methods: {
-    loadTop() {
-      setTimeout(() => {
-        this.fetchProducts(1, data => {
-          this.list = data;
-          this.page = 2;
-          this.loading = false;
-          this.$refs.loadmore.onTopLoaded();
-        });
-      }, 200);
-    },
     loadMore() {
       this.loading = true;
       setTimeout(() => {
-        this.fetchProducts(this.page, data => {
+        this.fetchProducts(this.page,1, data => {
           if (this.page > 1) {
             this.list = this.list.concat(data);
           } else {
@@ -99,37 +115,40 @@ export default {
         });
       }, 1000);
     },
-    fetchProducts(page, callback) {
-   var ss=webApi.Product.list;
-   debugger;
-      axios.post(webApi.Product.list).then((response) => { 
-           debugger;
+    fetchProducts(page,direction, callback) {
+      var url=webApi.Product.list;
+      url=url+"/"+this.ProductTypeVal+"/"+this.DealTypeVal+"/"+this.CurrentStatusVal;
+      url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
+      debugger;
+      axios.post(url).then((response) => { 
         const data = response.data.data;
         if (data) {
+            var productTypeSel=data.ProductType.filter(x=>x.Selected==true);
+            this.ProductTypeVal=productTypeSel.length>0?productTypeSel[0].Value:"";
+            var dealTypeSel=data.DealType.filter(x=>x.Selected==true)
+            this.DealTypeVal=dealTypeSel.length>0?dealTypeSel[0].Value:"";
+            var currentStatusSel=data.CurrentStatus.filter(x=>x.Selected==true);
+            this.CurrentStatusVal=currentStatusSel.length>0?currentStatusSel[0].Value:"";
             this.ProductType=data.ProductType;
-            this.ProductTypeVal=data.ProductType.filter(x=>x.Selected==true)[0].Value;
-            this.DealTypeVal=data.DealType.filter(x=>x.Selected==true)[0].Value;
-            this.CurrentStatusVal=data.CurrentStatus.filter(x=>x.Selected==true)[0].Value;
             this.DealType=data.DealType;
             this.CurrentStatus=data.CurrentStatus;
           callback(data.Deal);
         }
       });
-
-      // fetch(`${webApi.Product.list}`)
-      // .then(response => response.json())
-      // .then((json) => {
-      //   debugger;
-      //   const data = json.data.Deal;
-      //   if (data && data.length > 0) {
-      //     callback(data);
-      //   }
-      // });
     }, 
 
     productChange(val){
-
-    }
+      this.isProductLoading = true;
+      this.isComponentActive = true;
+      
+      setTimeout(() => {
+        this.fetchProducts(1, 1,data => {
+          this.list = data;
+          this.page = this.page + 1;
+          this.isProductLoading = false;
+        });
+      }, 600);
+      }
   },
   components: {
     ProductItem
