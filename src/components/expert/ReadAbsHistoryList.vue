@@ -27,90 +27,90 @@
 </template>
 
 <script>
-    import dislikeImg from '@/public/images/dislike.png';
-    import likeImg from '@/public/images/like.png';
+import axios from "axios";
+import * as webApi from "@/config/api";
+import dislikeImg from "@/public/images/dislike.png";
+import likeImg from "@/public/images/like.png";
 
-    export default {
-        name: 'ReadAbsHistoryList',
-        data: function () {
-            return {
-                queryString: {},//GetRequest(),
-                projectHistories: [],
-                absProjectEndorseLock: false,
-                editable: false
-            }
-        },
-        created: function () {
-            this.initData();
-        },
-        methods: {
-            initData: function () {
-                this.projectHistories = [{"Id":154,"DealId":2605,"DealName":"鼎程2018-1","TotalOffering":11.18,"DealType":"保理融资","EndorseNum":3,"IsEndorse":false,"OrganizationRoles":[{"Id":391,"DealId":2605,"OrganizationRoleId":11,"OrganizationRole":"差额支付承诺人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":2,"Name":"项目负责人"}},{"Id":157,"DealId":1423,"DealName":"中飞租2017-1","TotalOffering":1.71,"DealType":"融资租赁","EndorseNum":3,"IsEndorse":false,"OrganizationRoles":[{"Id":394,"DealId":1423,"OrganizationRoleId":11,"OrganizationRole":"差额支付承诺人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":3,"Name":"项目参与人"}},{"Id":138,"DealId":2084,"DealName":"中建材2017-2","TotalOffering":9.0,"DealType":"应收账款","EndorseNum":3,"IsEndorse":false,"OrganizationRoles":[{"Id":332,"DealId":2084,"OrganizationRoleId":11,"OrganizationRole":"差额支付承诺人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":1,"Name":"部门负责人"}},{"Id":145,"DealId":2031,"DealName":"安心贷1号2017-1","TotalOffering":4.47,"DealType":"小额贷款","EndorseNum":3,"IsEndorse":false,"OrganizationRoles":[{"Id":357,"DealId":2031,"OrganizationRoleId":24,"OrganizationRole":"其它","IsCustomizedOrganizationRole":true,"CustomizedOrganizationRole":"test"},{"Id":358,"DealId":2031,"OrganizationRoleId":24,"OrganizationRole":"其它","IsCustomizedOrganizationRole":true,"CustomizedOrganizationRole":"testss"}],"PersonalResponsibility":{"Id":1,"Name":"部门负责人"}},{"Id":153,"DealId":2291,"DealName":"借呗2017-43","TotalOffering":40.0,"DealType":"个人消费贷款","EndorseNum":3,"IsEndorse":false,"OrganizationRoles":[{"Id":390,"DealId":2291,"OrganizationRoleId":1,"OrganizationRole":"承销商","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":1,"Name":"部门负责人"}},{"Id":137,"DealId":2277,"DealName":"借呗E2017-1","TotalOffering":4.7,"DealType":"个人消费贷款","EndorseNum":3,"IsEndorse":false,"OrganizationRoles":[{"Id":331,"DealId":2277,"OrganizationRoleId":1,"OrganizationRole":"承销商","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":1,"Name":"部门负责人"}},{"Id":156,"DealId":1628,"DealName":"鄂黄2017-1","TotalOffering":5.0,"DealType":"收费收益权","EndorseNum":3,"IsEndorse":false,"OrganizationRoles":[{"Id":393,"DealId":1628,"OrganizationRoleId":11,"OrganizationRole":"差额支付承诺人","IsCustomizedOrganizationRole":false,"CustomizedOrganizationRole":null}],"PersonalResponsibility":{"Id":2,"Name":"项目负责人"}}];
-            },
-            //机构角色拼接
-            splicingOrganizationRoles: function (organizationRoles) {
-                if (this.isArrayEmpty(organizationRoles)) return "";
+export default {
+  name: "ReadAbsHistoryList",
+  data: function() {
+    return {
+      queryString: {}, //GetRequest(),
+      projectHistories: [],
+      absProjectEndorseLock: false,
+      editable: false,
+      userId: null
+    };
+  },
+  created: function() {
+    this.userId = this.$route.params.userId;
+    this.initData();
+  },
+  methods: {
+    initData: function() {
+      axios.post(webApi.Expert.getAbsProjects, { UserId: this.userId })
+        .then(response => {
+          this.projectHistories = response.data.data.ProjectHistories;
+          this.editable = response.data.data.Editable;
+        });
+    },
+    //机构角色拼接
+    splicingOrganizationRoles: function(organizationRoles) {
+      if (this.isArrayEmpty(organizationRoles)) return "";
 
-                var result = [];
+      var result = [];
 
-                organizationRoles.forEach(function (item) {
-                    result.push(item.IsCustomizedOrganizationRole ? item.CustomizedOrganizationRole : item.OrganizationRole);
-                });
+      organizationRoles.forEach(function(item) {
+        result.push(
+          item.IsCustomizedOrganizationRole
+            ? item.CustomizedOrganizationRole
+            : item.OrganizationRole
+        );
+      });
 
-                return result.sort().join();
-            },
-            isArrayEmpty: function (arr) {
-                return (arr === null || arr === undefined || arr.length === 0);
-            },
-            isValidElement: function (item) {
-                return !(item === null || item === undefined || item === "");
+      return result.sort().join();
+    },
+    isArrayEmpty: function(arr) {
+      return arr === null || arr === undefined || arr.length === 0;
+    },
+    isValidElement: function(item) {
+      return !(item === null || item === undefined || item === "");
+    },
+    endorseImg: function(isEndorse) {
+      return isEndorse ? likeImg : dislikeImg;
+    },
+    absProjectEndorseHandle: function(absProject) {
+      if (this.absProjectEndorseLock) return;
 
-            },
-            endorseImg: function (isEndorse) {
-                return isEndorse ? likeImg : dislikeImg;
-            },
-            absProjectEndorseHandle: function (absProject) {
-                if (this.absProjectEndorseLock) return;
+      this.absProjectEndorseLock = true;
+      var self = this;
 
-                this.absProjectEndorseLock = true;
-                var self = this;
+      //取消点赞
+      if (absProject.IsEndorse) {
+        axios.post(webApi.Expert.deleteAbsProjectEndorse, {
+            UserId: this.userId,
+            dealId: absProject.DealId
+          }).then(response => {
+             absProject.EndorseNum = response.data.data.EndorseNum;
+             absProject.IsEndorse = response.data.data.IsEndorse;
+             this.absProjectEndorseLock = false;
+          });
+        return;
+      }
 
-                //取消点赞
-                if (absProject.IsEndorse) {
-                    appFrame.ajax("/expert/ExpertInfo/DeleteAbsProjectEndorse", {
-                        data: { userId: this.queryString.UserId, dealId: absProject.DealId },
-                        success: function (res) {
-                            if (res.status === "fail") {
-                                //TODO alert fail message
-                                return;
-                            }
-
-                            absProject.EndorseNum = res.data.EndorseNum;
-                            absProject.IsEndorse = res.data.IsEndorse;
-                            self.absProjectEndorseLock = false;
-                        }
-                    });
-                    return;
-                }
-
-                //点赞
-                appFrame.ajax("/expert/ExpertInfo/AddAbsProjectEndorse", {
-                    data: { userId: this.queryString.UserId, dealId: absProject.DealId },
-                    success: function (res) {
-
-                        if (res.status === "fail") {
-                            //TODO alert fail message
-                            return;
-                        }
-
-                        absProject.EndorseNum = res.data.EndorseNum;
-                        absProject.IsEndorse = res.data.IsEndorse;
-                        self.absProjectEndorseLock = false;
-                    }
-                });
-            }
-        }
+      //点赞
+      axios.post(webApi.Expert.addAbsProjectEndorse, {
+            UserId: this.userId,
+            dealId: absProject.DealId
+          }).then(response => {
+             absProject.EndorseNum = response.data.data.EndorseNum;
+             absProject.IsEndorse = response.data.data.IsEndorse;
+             this.absProjectEndorseLock = false;
+          });
     }
+  }
+};
 </script>
 
 
