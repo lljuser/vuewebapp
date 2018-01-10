@@ -28,8 +28,7 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveActivity">保存</span>
-                <span v-if="activity.Id === undefined" class="ep_cancelBtn fr">
-                    <!-- <a href="/expert/expertuser/editProfile#activity" class="ep_color_orange">取消</a> -->
+                <span v-if="!isValidElement(id)" class="ep_cancelBtn fl">
                     <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
@@ -57,6 +56,9 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
+
     export default {
         name: 'Activity',
         data: function () {
@@ -89,14 +91,22 @@
                 errorMessage: "",
                 removePopupVisible: false,
                 getPicker: null,
-                queryString: {},//GetRequest(),
-                activity: {}
+                activity: {},
+                id: null
             }
         },
         created: function () {
-            
+            this.id = this.$route.params.id;
+            this.initData();
         },
         methods: {
+            initData: function () {
+                if (this.isValidElement(this.id) && !isNaN(this.id)) {
+                    axios.post(webApi.Expert.getRecentActivity, { id: this.id }).then(response => {
+                        this.activity = response.data.data;
+                    });
+                }
+            },
             setYears: function () {
                 var end = new Date().getFullYear();
                 var start = end - 80;
@@ -132,7 +142,7 @@
                 return temp[0] + "." + (parseInt(temp[1]) < 10 ? ('0' + temp[1]) : temp[1]);
             },
             saveYearMonth: function () {
-                this.activityTime = currentSelectedYear + currentSelectedMonth;
+                this.activityTime = this.currentSelectedYear + this.currentSelectedMonth;
                 this.activity.ActivityTime = this.dateFormat(this.activityTime);
                 this.hideYearMonthPicker();
             },
@@ -143,33 +153,24 @@
                         picker.setSlotValue(1, new Date().getMonth()+1 + '月');
                     }
                 }
-                currentSelectedYear = values[0];
-                currentSelectedMonth = values[1];
+                this.currentSelectedYear = values[0];
+                this.currentSelectedMonth = values[1];
                 this.getPicker = picker;
             },
             removeContent: function () {
-            
                 this.removePopupVisible = false;
 
                 if (this.activity.Id === undefined) return;
 
-                appFrame.ajax("/expert/ExpertInfo/DeleteRecentActivity", {
-                    data: {
-                        id: this.activity.Id
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#activity';
-                        }
-
-                        if (res.status === "fail") {
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
+                axios.post(webApi.Expert.deleteRecentActivity, { id: this.activity.Id }).then(response => {
+                    if (response.data.status === 'fail') {
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
                     }
-                });
 
-                window.location.href = '/expert/expertuser/editProfile#activity'
+                    this.$router.go(-1);
+                });
             },
             saveActivity: function () {
                 //Front-end params check
@@ -190,47 +191,38 @@
 
                 //添加近期活动
                 if (this.activity.Id === undefined) {
-                    appFrame.ajax("/expert/ExpertInfo/AddRecentActivity", {
-                        data: {
-                            Name: self.activity.Name,
-                            ActivityTime: self.activity.ActivityTime,
-                            Description: self.activity.Description
-                        },
-                        success: function (res) {
-                            if (res.status === "ok") {
-                                window.location.href = '/expert/expertuser/editProfile#activity';
-                            };
-                            
-                            if (res.status === "fail") {
-                                self.submitPopupVisible = false;
-                                self.isShowError = true;
-                                self.errorMessage = res.data;
-                            };
+                    axios.post(webApi.Expert.addRecentActivity, { 
+                        Name: this.activity.Name,
+                        ActivityTime: this.activity.ActivityTime,
+                        Description: this.activity.Description
+                     }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.submitPopupVisible = false;
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
                         }
-                    });
 
+                        this.$router.go(-1);
+                    });
                     return;
                 }
 
-                appFrame.ajax("/expert/ExpertInfo/UpdateRecentActivity", {
-                    data: {
-                        Id: self.activity.Id,
-                        Name: self.activity.Name,
-                        ActivityTime: self.activity.ActivityTime,
-                        Description: self.activity.Description
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#activity';
-                        };
+                axios.post(webApi.Expert.updateRecentActivity, { 
+                        Id: this.activity.Id,
+                        Name: this.activity.Name,
+                        ActivityTime: this.activity.ActivityTime,
+                        Description: this.activity.Description
+                     }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.submitPopupVisible = false;
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
+                        }
 
-                        if (res.status === "fail") {
-                            self.submitPopupVisible = false;
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
-                    }
-                });
+                        this.$router.go(-1);
+                    });
             },
             isArrayEmpty: function (arr) {
                 return (arr === null || arr === undefined || arr.length === 0);

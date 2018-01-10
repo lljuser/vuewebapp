@@ -66,7 +66,11 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveProjectHistoryOther">保存</span>
-                <span v-if="queryString.id === undefined" class="ep_cancelBtn fr"><a href="/expert/expertuser/editProfile#projectHistoryOther" class="ep_color_orange">取消</a></span>
+                <span v-if="!isValidElement(id)" class="ep_cancelBtn fr">
+                    <router-link to="/" class="ep_color_orange">
+                        取消
+                    </router-link>
+                </span>
                 <span v-else class="ep_removeBtn fr" v-on:click="removePopupVisible=true">删除本条</span>
             </div>
         </div>
@@ -83,6 +87,9 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
+
     export default {
         name: 'OtherProject',
         data: function () {
@@ -91,7 +98,7 @@
                 isShowError: false,
                 errorMessage: '',
                 removePopupVisible: false,
-                queryString: {},//GetRequest(),
+                //queryString: {},//GetRequest(),
                 projectHistory: {},
                 organizationRoles: [],
                 personalResponsibilities: [],
@@ -99,18 +106,28 @@
                 organizationRoleModel: '',
                 personalResponsibilityModel: '',
                 otherDealTypeModel: '',
+                id: null
             }
         },
         created: function () {
+            this.id = this.$route.params.id;
             this.initData();
         },
         methods: {
             initData: function () {
+                axios.post(webApi.Expert.getOrganizationRolesAndResponsibilitiesAndDealTypes).then(response => {
+                    this.organizationRoles = response.data.data.OrganizationRoles;
+                    this.personalResponsibilities = response.data.data.PersonalResponsibilities;
+                    this.otherDealTypes = response.data.data.OtherDealTypes;
+                });
 
-            },
-            deepClone: function (obj) {
-                var proto = Object.getPrototypeOf(obj);
-                return Object.assign({}, Object.create(proto), obj);
+                if (this.isValidElement(this.id) && !isNaN(this.id)) {
+                    axios.post(webApi.Expert.getOtherProject, {id: this.id}).then(response => {
+                        this.projectHistory = response.data.data;
+                        this.personalResponsibilityModel = this.projectHistory.PersonalResponsibility.Id
+                        this.otherDealTypeModel = this.projectHistory.DealType;
+                    });
+                }
             },
             organizationRoleDisplay: function (item) {
                 return item.IsCustomizedOrganizationRole ? item.OrganizationRole + "(" + item.CustomizedOrganizationRole + ")" : item.OrganizationRole;
@@ -120,13 +137,19 @@
             },
             findOrganizationRoleIndex: function (arr, item) {
                 var itemIndex = -1;
-
-                $.each(arr, function (index, role) {
-                    if (role.Id === item.OrganizationRoleId) {
-                        itemIndex = index;
-                        return false;
-                    }
-                });
+                // arr.forEach((role, index) => {
+                //     if (role.Id === item.OrganizationRoleId) {
+                //         itemIndex = index;
+                //         return false;
+                //     }
+                // });
+                
+                // $.each(arr, function (index, role) {
+                //     if (role.Id === item.OrganizationRoleId) {
+                //         itemIndex = index;
+                //         return false;
+                //     }
+                // });
 
                 return itemIndex;
             },
@@ -141,22 +164,17 @@
 
                 if (this.projectHistory.Id === undefined) return;
 
-                appFrame.ajax("/expert/ExpertInfo/DeleteOtherProject", {
-                    data: {
-                        id: this.projectHistory.Id
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#projectHistoryOther';
-                        }
-                        
-                        if (res.status === "fail") {
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
+                axios.post(webApi.Expert.deleteOtherProject, {
+                    id: this.projectHistory.Id
+                }).then(response => {
+                    if (response.data.status === 'fail') {
+                        this.isShowError = true;
+                        this.errorMessage = response.data.data;
+                        return;
                     }
+
+                    this.$router.go(-1);
                 });
-                
             },
             isValidNum: function (num) {
                 var result1 = /^[1-9]\d*\.\d*$/.test(num);
@@ -174,13 +192,13 @@
                 return !(item === null || item === undefined || item === "");
             },
             saveProjectHistoryOther: function () {
-
                 //Front-end params check
-                if (!isValidElement(this.projectHistory.DealType)) {
+                if (!this.isValidElement(this.projectHistory.DealType)) {
                     this.isShowError = true;
                     this.errorMessage = "产品类型不能为空，请选择产品类型!";
                     return;
                 }
+
                 //国家如果填写的话，必须是全英或者全中文
                 if (this.isValidElement(this.projectHistory.Nation)) {
                     var reg = /^[\u4E00-\u9FA0\s]+$|^[a-zA-Z\s]+$/
@@ -226,64 +244,54 @@
 
                 //添加其它项目经历
                 if (this.projectHistory.Id === undefined) {
-                    appFrame.ajax("/expert/ExpertInfo/AddOtherProject", {
-                        data: {
-                            ProjectName: self.projectHistory.ProjectName,
-                            ProjectShortName: self.projectHistory.ProjectShortName,
-                            TotalOffering: self.projectHistory.TotalOffering,
-                            DealType: self.projectHistory.DealType,
-                            Nation: self.projectHistory.Nation,
-                            Description: self.projectHistory.Description,
-                            OrganizationRoles: self.projectHistory.OrganizationRoles,
-                            PersonalResponsibility: self.projectHistory.PersonalResponsibility
-                        },
-                        success: function (res) {
-                            if (res.status === "ok") {
-                                window.location.href = '/expert/expertuser/editProfile#projectHistoryOther';
-                            };
-                            //TODO - server error tip
-                            if (res.status === "fail") {
-                                self.submitPopupVisible = false;
-                                self.isShowError = true;
-                                self.errorMessage = res.data;
-                            };
-                        }
-                    });
+                    axios.post(webApi.Expert.addOtherProject, {
+                            ProjectName: this.projectHistory.ProjectName,
+                            ProjectShortName: this.projectHistory.ProjectShortName,
+                            TotalOffering: this.projectHistory.TotalOffering,
+                            DealType: this.projectHistory.DealType,
+                            Nation: this.projectHistory.Nation,
+                            Description: this.projectHistory.Description,
+                            OrganizationRoles: this.projectHistory.OrganizationRoles,
+                            PersonalResponsibility: this.projectHistory.PersonalResponsibility
+                        }).then(response => {
+                            if (response.data.status === 'fail') {
+                                this.submitPopupVisible = false;
+                                this.isShowError = true;
+                                this.errorMessage = response.data.data;
+                                return;
+                            }
 
+                            this.$router.go(-1);
+                        });
                     return;
                 }
 
                 //更新其它项目经历
-                appFrame.ajax("/expert/ExpertInfo/UpdateOtherProject", {
-                    data: {
-                        Id: self.projectHistory.Id,
-                        ProjectName: self.projectHistory.ProjectName,
-                        ProjectShortName: self.projectHistory.ProjectShortName,
-                        TotalOffering: self.projectHistory.TotalOffering,
-                        DealType: self.projectHistory.DealType,
-                        Nation: self.projectHistory.Nation,
-                        Description: self.projectHistory.Description,
-                        OrganizationRoles: self.projectHistory.OrganizationRoles,
-                        PersonalResponsibility: self.projectHistory.PersonalResponsibility
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#projectHistoryOther';
-                        };
-                        //TODO - server error tip
-                        if (res.status === "fail") {
-                            self.submitPopupVisible = false;
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
+                axios.post(webApi.Expert.updateOtherProject, {
+                    Id: this.projectHistory.Id,
+                    ProjectName: this.projectHistory.ProjectName,
+                    ProjectShortName: this.projectHistory.ProjectShortName,
+                    TotalOffering: this.projectHistory.TotalOffering,
+                    DealType: this.projectHistory.DealType,
+                    Nation: this.projectHistory.Nation,
+                    Description: this.projectHistory.Description,
+                    OrganizationRoles: this.projectHistory.OrganizationRoles,
+                    PersonalResponsibility: this.projectHistory.PersonalResponsibility
+                }).then(response => {
+                    if (response.data.status === 'fail') {
+                        this.submitPopupVisible = false;
+                        this.isShowError = true;
+                        this.errorMessage = response.data.data;
+                        return;
                     }
+
+                    this.$router.go(-1);
                 });
             }
         },
         computed: {
              editingOrganizationRoles: function () {
-                
-                var temp = this.deepClone(this.organizationRoles);
+                var temp = this.organizationRoles.concat();
 
                 if (this.isArrayEmpty(this.projectHistory.OrganizationRoles)) return temp;
 
@@ -334,7 +342,6 @@
                 for (let item of this.personalResponsibilities) {
                     if (item.Id === id) {
                         self.projectHistory.PersonalResponsibility = item;
-                        return false;
                     }
                 }
             },

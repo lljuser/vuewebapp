@@ -13,8 +13,8 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveOtherPosition">保存</span>
-                <span v-if="queryString.id === undefined" class="ep_cancelBtn fr">
-                    <router-link to="/">
+                <span v-if="!isValidElement(id)" class="ep_cancelBtn fr">
+                    <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
                 </span>
@@ -35,96 +35,91 @@
 
 
 <script>
-export default {
-  name: "OtherPosition",
-  data: function() {
-    return {
-      submitPopupVisible: false,
-      isShowError: false,
-      errorMessage: "",
-      removePopupVisible: false,
-      queryString: {}, //GetRequest(),
-      otherPost: {}
-    };
-  },
-  created: function() {},
-  methods: {
-    saveOtherPosition: function() {
-      //TODO - Front-end params check
-      if (!isValidElement(this.otherPost.Name)) {
-        this.isShowError = true;
-        this.errorMessage = "请填写其它职务!";
-        return;
-      }
-      var self = this;
-      this.submitPopupVisible = true;
+    import axios from "axios";
+    import * as webApi from "@/config/api";
 
-      //添加其它职务
-      if (this.otherPost.Id === undefined) {
-        appFrame.ajax("/expert/ExpertInfo/AddOtherPost", {
-          data: {
-            Name: self.otherPost.Name
-          },
-          success: function(res) {
-            if (res.status === "ok") {
-              window.location.href =
-                "/expert/expertuser/editProfile#otherPosition";
+    export default {
+        name: 'OtherPosition',
+        data: function () {
+            return {
+                submitPopupVisible:false,
+                isShowError: false,
+                errorMessage:'',
+                removePopupVisible: false,
+                otherPost: {},
+                id: null,
             }
+        },
+        created: function () {
+            this.id = this.$route.params.id;
+            this.initData();
+        },
+        methods: {
+            initData: function () {
+                if (this.isValidElement(this.id) && !isNaN(this.id)) {
+                    axios.post(webApi.Expert.getOtherPost, { id: this.id }).then(response => {
+                        this.otherPost = response.data.data;
+                    });
+                }
+            },
+            saveOtherPosition: function () {
+                //TODO - Front-end params check
+                if (!this.isValidElement(this.otherPost.Name)) {
+                    this.isShowError = true;
+                    this.errorMessage = "请填写其它职务!";
+                    return;
+                }
+                var self = this;
+                this.submitPopupVisible = true;
 
-            if (res.status === "fail") {
-              self.submitPopupVisible = false;
-              self.isShowError = true;
-              self.errorMessage = res.data;
-            }
-          }
-        });
+                //添加其它职务
+                if (this.otherPost.Id === undefined) {
+                    axios.post(webApi.Expert.addOtherPost, {Name: this.otherPost.Name}).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
+                        }
 
-        return;
+                        this.$router.go(-1);
+                    });
+                    return;
+                }
+
+                //更新其它职务
+                axios.post(webApi.Expert.updateOtherPost, {
+                         Id: this.otherPost.Id,
+                         Name: this.otherPost.Name}).then(response => {
+                    if (response.data.status === 'fail') {
+                        this.isShowError = true;
+                        this.errorMessage = response.data.data;
+                        return;
+                    }
+
+                    this.$router.go(-1);
+                });
+            },
+            removeContent: function () {
+                this.removePopupVisible = false;
+                var self = this;
+                if (this.otherPost.Id === undefined) return;
+
+                axios.post(webApi.Expert.deleteOtherPost, {Id: this.otherPost.Id}).then(response => {
+                    if (response.data.status === 'fail') {
+                        this.isShowError = true;
+                        this.errorMessage = response.data.data;
+                        return;
+                    }
+
+                    this.$router.go(-1);
+                });
+            },
+            isValidElement: function (item) {
+                return !(item === null || item === undefined || item === "");
+            },
+        }
       }
-
-      //更新其它职务
-      appFrame.ajax("/expert/ExpertInfo/UpdateOtherPost", {
-        data: {
-          Id: self.otherPost.Id,
-          Name: self.otherPost.Name
-        },
-        success: function(res) {
-          if (res.status === "ok") {
-            window.location.href =
-              "/expert/expertuser/editProfile#otherPosition";
-          }
-
-          if (res.status === "fail") {
-            self.submitPopupVisible = false;
-            self.isShowError = true;
-            self.errorMessage = res.data;
-          }
-        }
-      });
-    },
-    removeContent: function() {
-      this.removePopupVisible = false;
-      var self = this;
-      if (this.otherPost.Id === undefined) return;
-
-      appFrame.ajax("/expert/ExpertInfo/DeleteOtherPost", {
-        data: {
-          Id: self.otherPost.Id
-        },
-        success: function(res) {
-          if (res.status === "ok") {
-            window.location.href =
-              "/expert/expertuser/editProfile#otherPosition";
-          }
-          if (res.status === "fail") {
-            self.isShowError = true;
-            self.errorMessage = res.data;
-          }
-        }
-      });
-    }
-  }
-};
+ 
 </script>
 
 <style>

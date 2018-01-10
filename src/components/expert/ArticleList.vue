@@ -5,10 +5,12 @@
             <div v-if="!isArrayEmpty(publishs)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item,index) in publishs" v-bind:key="item.Id" v-bind:class="[index===0?'ep_paddingTop46':'']">
                     <div class=" ep_overhide">
-                        <span class="fl ep_font28 appH5_color_green">《</span>
-                        <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
-                        <span class="fl ep_font28 appH5_color_green">》</span>
-                        <a v-bind:href="'/expert/expertuser/article?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a>
+                        <span class="fl ep_font28">《</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_maxWidth460">{{item.Name}}</span>
+                        <span class="fl ep_font28">》</span>
+                        <router-link v-bind:to="'/Article/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
+                            编辑
+                        </router-link>
                     </div>
                     <div class="divArticleDetail">
                         <ul class="ep_color_grey ep_font24 ep_decription articleDetail">
@@ -51,6 +53,9 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
+
     export default {
         name: 'ArticleList',
         data: function () {
@@ -59,9 +64,14 @@
             }
         },
         created: function () {
-            this.publishs = [{"Id":133,"Name":"test","Publisher":"test","PublishTime":"2016","Year":null,"Author":"test","Isbn":"11241231","Pages":100,"Link":null,"EndorseNum":0,"IsEndorse":false,"AttachmentFileCode":null},{"Id":139,"Name":"12312323","Publisher":null,"PublishTime":null,"Year":null,"Author":"123123","Isbn":null,"Pages":null,"Link":null,"EndorseNum":0,"IsEndorse":false,"AttachmentFileCode":null},{"Id":140,"Name":"12312312","Publisher":null,"PublishTime":null,"Year":null,"Author":"123123","Isbn":null,"Pages":null,"Link":null,"EndorseNum":0,"IsEndorse":false,"AttachmentFileCode":null},{"Id":132,"Name":"test","Publisher":null,"PublishTime":null,"Year":null,"Author":"test","Isbn":null,"Pages":null,"Link":null,"EndorseNum":0,"IsEndorse":false,"AttachmentFileCode":null}];
+            this.initData();
         },
         methods: {
+            initData: function () {
+                axios.post(webApi.Expert.getPublishsByEditing).then(response => {
+                    this.publishs = response.data.data;
+                });
+            },
             isArrayEmpty: function (arr) {
                 return (arr === null || arr === undefined || arr.length === 0);
             },

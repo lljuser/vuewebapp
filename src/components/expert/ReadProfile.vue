@@ -85,6 +85,9 @@
                 <router-link v-if="userInfo.OtherProjects && userInfo.OtherProjects.length > 3" v-bind:to="routeUrls.ReadOtherProjectList" class="fr text_right_link">
                     更多
                 </router-link>  
+                <!-- <a v-if="userInfo.OtherProjects&&userInfo.OtherProjects.length>3" class="fr ep_color_grey ep_font24" v-bind:href="'/expert/expertuser/readProjectHistoryOtherList?UserId=' + queryString.UserId">
+                    更多 >
+                </a> -->
             </header>
             <div v-if="!isArrayEmpty(userInfo.OtherProjects)" v-cloak>
                  <div class='appH5_panel' style="padding-top:0px;">
@@ -127,7 +130,7 @@
                             </div>
             </header>
             <div v-if="!isArrayEmpty(userInfo.WorkHistories)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, key) in userInfo.WorkHistories" v-bind:key="key">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.WorkHistories" v-bind:key="item.Position">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width520 appH5_color_green">{{item.Position}}</span>
                         <!-- <span class="fr ep_color_grey2 ep_font28 ep_lineHeight32">机构已认证</span> -->
@@ -152,7 +155,7 @@
                 </div>
             </header>
             <div v-if="!isArrayEmpty(userInfo.OtherPosts)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, key) in userInfo.OtherPosts" v-bind:key="key">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.OtherPosts" v-bind:key="item.Name">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width600">{{item.Name}}</span>
                     </div>
@@ -167,7 +170,7 @@
             </div>
             </header>
             <div v-if="!isArrayEmpty(userInfo.HonorAwards)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, key) in userInfo.HonorAwards" v-bind:key="key">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.HonorAwards" v-bind:key="item.Name">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
                         <span class="ep_font24 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.Year}}</span>
@@ -191,7 +194,7 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.RecentActivities)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, key) in _.take(userInfo.RecentActivities, 3)" v-bind:key="key">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.RecentActivities, 3)" v-bind:key="item.Name">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
                         <span class="ep_font24 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.ActivityTime}}</span>
@@ -211,7 +214,7 @@
                     </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, key) in _.take(userInfo.Publishs, 3)" v-bind:key="key">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.Publishs, 3)" v-bind:key="item.Name">
                     <div class="ep_overhide">
                         <span class="fl ep_font28 appH5_color_green">《</span>
                         <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
@@ -270,7 +273,7 @@
                </div>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Educations)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, key) in userInfo.Educations" v-bind:key="key">
+                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.Educations" v-bind:key="item.School">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width400 appH5_color_green">{{item.School}}</span>
                         <span class="ep_font24 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">

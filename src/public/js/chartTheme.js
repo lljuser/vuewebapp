@@ -22,7 +22,7 @@ module.exports = {
     style: {
       color: '#E0E0E3',
       textTransform: 'uppercase',
-      fontSize: '20px',
+      fontSize: '14px',
     },
   },
   subtitle: {
@@ -45,12 +45,13 @@ module.exports = {
     title: {
       style: {
         color: '#A0A0A3',
-        fontSize: '16px',
+        fontSize: '14px',
       },
     },
   },
   yAxis: {
-    gridLineColor: '#707073',
+    gridLineColor: '#535353',
+    gridLineWidth: 0.5,
     labels: {
       style: {
         color: '#E0E0E3',
@@ -59,8 +60,8 @@ module.exports = {
     },
     lineColor: '#707073',
     minorGridLineColor: '#505053',
-    tickColor: '#707073',
-    tickWidth: 1,
+    tickColor: '#535353',
+    tickWidth: 0.5,
     title: {
       enabled: !1,
       style: {

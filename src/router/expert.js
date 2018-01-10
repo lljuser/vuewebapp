@@ -38,17 +38,17 @@ export default new Router({
       component: ReadProfile,
     },
     {
-      path: '/ReadAbsHistoryList/:userId?',
+      path: '/ReadAbsHistoryList',
       name: 'ReadAbsHistoryList',
       component: ReadAbsHistoryList,
     },
     {
-      path: '/ReadOtherProjectList/:userId?',
+      path: '/ReadOtherProjectList',
       name: 'ReadOtherProjectList',
       component: ReadOtherProjectList,
     },
     {
-      path: '/ReadArticleList/:userId?',
+      path: '/ReadArticleList',
       name: 'ReadArticleList',
       component: ReadArticleList,
     },
@@ -68,7 +68,7 @@ export default new Router({
       component: AbsHistory,
     },
     {
-      path: '/OtherProject',
+      path: '/OtherProject/:id?',
       name: 'OtherProject',
       component: OtherProject,
     },
@@ -83,17 +83,17 @@ export default new Router({
       component: OtherProjectList,
     },
     {
-      path: '/OtherPosition',
+      path: '/OtherPosition/:id?',
       name: 'OtherPosition',
       component: OtherPosition,
     },
     {
-      path: '/AwardAndHonor',
+      path: '/AwardAndHonor/:id?',
       name: 'AwardAndHonor',
       component: AwardAndHonor,
     },
     {
-      path: '/Activity',
+      path: '/Activity/:id?',
       name: 'Activity',
       component: Activity,
     },
@@ -103,7 +103,7 @@ export default new Router({
       component: ActivityList,
     },
     {
-      path: '/Article',
+      path: '/Article/:id?',
       name: 'Article',
       component: Article,
     },
@@ -113,7 +113,7 @@ export default new Router({
       component: ArticleList,
     },
     {
-      path: '/Education',
+      path: '/Education/:id?',
       name: 'Education',
       component: Education,
     },
@@ -127,8 +127,9 @@ export default new Router({
       name: 'WorkHistory',
       component: WorkHistory,
     },
+    
     {
-      path: '/ReadActivityList/:userId?',
+      path: '/ReadActivityList',
       name: 'ReadActivityList',
       component: ReadActivityList,
     },
