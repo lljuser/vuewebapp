@@ -1,17 +1,25 @@
 <template>
-  <div class="form">
-    <p>ID: {{ id }}</p>
-    <input value="zhangsan"/>
-  </div>
+  <tr>
+    <td class="text-left">
+  <router-link :to="`tradedetail/${ item.TradeId}/${ item.SecurityId}`" class="appH5_color_link">
+        <div class='td_elips1'>{{item.SecurityName}}</div>
+      </router-link>
+    </td>
+    <td class="tradeTotall text-right">{{item.TotalOffering}}</td>
+    <td class="tradeRating">{{item.Rating}}</td>
+    <td class="text-right">{{item.WAL}}</td>
+    <td class="text-right" v-if="item.Coupon.split('~').length>1">{{item.Coupon.split('~')[0]}}<br><span>/</span>{{item.Coupon.split('~')[1]}}</td>
+    <td class="text-right" v-else>{{item.Coupon}}</td>
+
+  </tr>
 </template>
 
 <script>
 export default {
   name: 'tradeItem',
-  props: ['id'],
+  props: ['item'],
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
     };
   },
 };
@@ -19,5 +27,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.tradeTotall{
+  color:#ee7a76;
+  font-size: 17px;
+}
+.tradeRating{
+  text-align: center;
+}
+.td_elips1 {
+   width:70px;
+   text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+ }
 </style>
