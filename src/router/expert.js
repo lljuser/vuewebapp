@@ -38,17 +38,17 @@ export default new Router({
       component: ReadProfile,
     },
     {
-      path: '/ReadAbsHistoryList/:userId?',
+      path: '/ReadAbsHistoryList',
       name: 'ReadAbsHistoryList',
       component: ReadAbsHistoryList,
     },
     {
-      path: '/ReadOtherProjectList/:userId?',
+      path: '/ReadOtherProjectList',
       name: 'ReadOtherProjectList',
       component: ReadOtherProjectList,
     },
     {
-      path: '/ReadArticleList/:userId?',
+      path: '/ReadArticleList',
       name: 'ReadArticleList',
       component: ReadArticleList,
     },
@@ -127,8 +127,9 @@ export default new Router({
       name: 'WorkHistory',
       component: WorkHistory,
     },
+    
     {
-      path: '/ReadActivityList/:userId?',
+      path: '/ReadActivityList',
       name: 'ReadActivityList',
       component: ReadActivityList,
     },
