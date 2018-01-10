@@ -57,7 +57,8 @@
 
 <script> 
 import * as webApi from '@/config/api';
-import ProductItem from './ProductItem';   
+import ProductItem from './ProductItem';
+import axios from 'axios';   
 
 export default {
   name: "product",
@@ -102,15 +103,23 @@ export default {
         });
       }, 1000);
     },
-    fetchProducts(page, callback) { 
-      fetch(`${webApi.Demo.list}/${page}`)
-      .then(response => response.json())
-      .then((json) => {
-        const data = json.data;
+    fetchProducts(page, callback) {
+      axios.post(webApi.Product.list).then((response) => { 
+        const data = response.data.data.Deal;
         if (data && data.length > 0) {
           callback(data);
         }
       });
+
+      // fetch(`${webApi.Product.list}`)
+      // .then(response => response.json())
+      // .then((json) => {
+      //   debugger;
+      //   const data = json.data.Deal;
+      //   if (data && data.length > 0) {
+      //     callback(data);
+      //   }
+      // });
     }, 
   },
   components: {

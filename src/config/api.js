@@ -24,7 +24,11 @@ export const Trade = {
   detail: `${apiAddress}//motrade/gettradedata`,
   typeList: `${apiAddress}/motrade/getsecuritytypelist`,
   walbuckList: `${apiAddress}/moTrade/getwalbucketlist`, 
-}; 
+};
+
+export const Expert = {
+
+};
 
 export const Demo = {
   list: 'http://10.1.1.35/Demo/DemoProduct/getlist',

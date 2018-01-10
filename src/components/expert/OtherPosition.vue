@@ -129,7 +129,6 @@ export default {
             window.location.href =
               "/expert/expertuser/editProfile#otherPosition";
           }
-
           if (res.status === "fail") {
             self.isShowError = true;
             self.errorMessage = res.data;

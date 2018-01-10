@@ -2,7 +2,7 @@
     <div id="projectHistoryABSListContent" class="projectHistoryABSListContent ep_font32">
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div" v-if="!isArrayEmpty(projectHistories)" v-cloak>
-            <div class="ep_padding30 ep_part_item_border" v-for="(item,index) in projectHistories" v-bind:class="[index===0?'ep_paddingTop46':'']">
+            <div class="ep_padding30 ep_part_item_border" v-for="(item,index) in projectHistories" v-bind:key="item.DealId" v-bind:class="[index===0?'ep_paddingTop46':'']">
                 <div class="ep_overhide">
                     <a class="ep_font32 ep_ellipsis fl ep_width520 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
                     <div v-if="!editable" class="ep_overhide fr ep_lineHeight32 ep_width112">

@@ -1,13 +1,13 @@
 <template>
   <tr>
     <td class="text-left">
-      <router-link :to="`productDetail/${id}`" class="appH5_color_link" style=""  >
-        {{ item.Title }}
+      <router-link :to="`productDetail/${ item.DealId}`" class="appH5_color_link" style=""  >
+        {{ item.DealName }}
       </router-link>
     </td>
-    <td class="text-right appH5_color_red appH5_font_large" style="font-size:17px">22.00</td>
-    <td style="color:white">{{ item.Content }}</td>
-    <td style="color:white" class="text-right">{{ item.Time | moment("YY-MM-DD") }}</td>
+    <td class="text-right appH5_color_red appH5_font_large" style="font-size:17px">{{item.TotalOffering}}</td>
+    <td style="color:white">{{ item.ProductType }}</td>
+    <td style="color:white" class="text-right">{{ item.ClosingDate | moment("YY-MM-DD") }}</td>
   </tr>
 </template>
 
