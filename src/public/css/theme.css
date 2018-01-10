@@ -1,12 +1,16 @@
 body{
- margin:0;	
+ margin:0;
+ background-color: #383432;
 }
 #app {
 	background-color: #383431;
-	padding-top: 0.32rem;
+}
+.mintui {
+	font-size: 19px;
 }
 .mint-header {
 	background-color: #2c2a29;
+	height: 1.0628rem;
 }
 .mint-header-title {
 	font-size: 19px;
@@ -19,6 +23,7 @@ body{
 	margin: 0; 
 	background-color: #373430;
 	text-align:left;
+	padding-top: 1.35266rem;
 }
 .appH5_content{
 	margin: 0 auto;
@@ -32,16 +37,24 @@ body{
 	display: flex;
 	justify-content: space-around;
 	background-color: #2c2a29;
-	margin-bottom: 0.32rem;
+	margin-bottom: 0.2899rem;
+	position: fixed;
+	width: 100%;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
-	margin-bottom: 0.32rem;
+	margin-bottom: 0.2899rem;
+	position: fixed;
+	width: 100%;
 }
 .appH5_navbar .router-link-active {
 	border-color: #ffc445;
 	border-bottom-width: 3px;
 	border-bottom-style: solid;
+	color: #ffc445;
+}
+.appH5_navbar .router-link-active .appH5_tab {
+	color: #ffc445;
 }
 .appH5_footer{
 	background-color: #535352;
@@ -52,7 +65,7 @@ body{
 }
 /*panel之间的间距*/
 .appH5_panel_mb{
-	margin-bottom:0.266667rem;
+	margin-bottom:0.2899rem;
 }
 .appH5_inner_panel{
 	background-color: #444444;
@@ -78,7 +91,7 @@ a:hover{
 	font-size: 19px;
 }
 .appH5_font_largest{
-	font-size: 0.8rem;
+	font-size: 0.8rem !important;
 }
 /*文字颜色*/
 .appH5_color_disabled{
@@ -117,8 +130,8 @@ input{
    width:5.413333rem;
 }
 select{
-	padding-left: 0.266667rem;
-	padding-right: 0.266667rem;
+	padding-left: 0.206667rem;
+	padding-right: 0.206667rem;
 	height: 0.746667rem;
 	line-height: 0.746667rem;
 	font-size: 15px;
@@ -242,6 +255,7 @@ select{
    font-weight: bold;
    font-size: 15px;
 }
+
 .appH5_table td{
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
    padding: 0.333333rem 0.146667rem;
@@ -249,11 +263,20 @@ select{
    white-space: nowrap;
    font-size: 15px;
 }
+.appH5_table th:nth-of-type(1),.appH5_table td:nth-of-type(1){
+	padding-left: 0.32rem;
+}
+.appH5_table th:last-child,.appH5_table td:last-child{
+	padding-right: 0.32rem;
+}
 .text-right{
   text-align: right;
 }
 .text-left{
   text-align: left;
+}
+.text-center{
+	text-align: center;
 }
 .fontBold{
 	font-weight: bold;
@@ -332,13 +355,12 @@ select{
 }
 .appH5_tab{
 	color:#fff;
-	font-size:19px;
-	border-bottom: 0.08rem solid transparent;
-	padding-left:0.16rem;
-	padding-right:0.16rem;
-	padding-top: 0.346667rem;
-	padding-bottom:0.266667rem;
+	line-height: 19px;
+	font-size: 19px;
+	padding-top: 0.302rem;
+	padding-bottom: 0.2295rem;
 	float:left;
+	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
 }
 .appH5_select_tab{
 	color:#ffc446;

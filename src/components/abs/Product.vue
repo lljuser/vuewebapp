@@ -1,4 +1,5 @@
 <template>
+<div class="appH5_body">
   <div class="appH5_panel">
     <table class="select_div">
       <tr>
@@ -10,7 +11,7 @@
             <option>C</option>
           </select>
         </td>
-        <td>
+        <td style="text-align:center">
           <select v-model="productType">
             <option  value="">产品分类</option>
             <option>A</option>
@@ -29,7 +30,7 @@
       </tr>
     </table>
     
-    <mt-loadmore :top-method="loadTop" ref="loadmore" :topDistance="70" topPullText="">
+    <mt-loadmore :top-method="loadTop" ref="loadmore" :topDistance="70" topPullText="" topDropText="" topLoadingText="">
       <table class="appH5_table"  >
         <tr>
           <th>产品名称</th>
@@ -51,6 +52,7 @@
     </mt-loadmore>
     
   </div>
+</div>
 </template>
 
 <script> 
@@ -122,10 +124,8 @@ export default {
 .select_div {
   display: table;
   width: 100%;
-  height: 1.227rem;
-}
-.select_div td {
-  vertical-align: top;
+  margin-top: -6px;
+  margin-bottom: 12px;
 }
 h1,
 h2 {
@@ -139,4 +139,6 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
+
+
 </style>
