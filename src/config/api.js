@@ -1,11 +1,11 @@
- 
+
 const apiAddress = 'http://10.1.1.35';
 export default apiAddress;
 
 export const Market = {
   list: `${apiAddress}/momarket/productsummary`,
   chart: `${apiAddress}/momarket/getissuestatchartdata`,
-}; 
+};
 
 export const Product = {
   // {productTypeId?}/{dealTypeId?}/{currentStatusId?}/{direction?}/{lastId?}/{pageSize?}
@@ -14,16 +14,17 @@ export const Product = {
   detail: `${apiAddress}/modeal/getdealfactory`,
   // /{dealId}/{resultId}
   chart: `${apiAddress}/modeal/getnotecashflowchartdata`,
-  // 
-}; 
- 
+  //
+};
+
 export const Trade = {
   // /{ratingId?}/{securityTypeId?}/{walId?}/{lastId?}/{pageSize?}/{direction?}
   list: `${apiAddress}/motrade/gettradelist`,
   // /{tradeId}/{noteId}/{tradeType}
   detail: `${apiAddress}//motrade/gettradedata`,
   typeList: `${apiAddress}/motrade/getsecuritytypelist`,
-  walbuckList: `${apiAddress}/moTrade/getwalbucketlist`, 
+  walbuckList: `${apiAddress}/motrade/getwalbucketlist`,
+  ratingList: `${apiAddress}/motrade/getratinglist`,
 };
 
 export const Expert = {
