@@ -24,12 +24,11 @@
 	    <h2>两列示例</h2>
         <div class="appH5_panel appH5_panel_mb">
     	    <div class="appH5_title">
-		       <span></span>
-		       <span>产品要素</span>
+		       产品要素
 	        </div>
 	        <table class="appH5_list_two">
 	        	<tr>
-	        		<td>产品名称</td>
+	        		<td class='appH5_vertical_Top'>产品名称</td>
 	        		<td>这是一个产品名称，可能会很长，这是一个产品名称，可能会很长</td>
 	        	</tr>
 	        	<tr>
@@ -46,7 +45,7 @@
 	        </div>
 	        <table class="appH5_list_four">
 	        	<tr>
-	        		<td class='appH5_white_space'>产品名称</td>
+	        		<td class='appH5_white_space appH5_vertical_Top'>产品名称</td>
 	        		<td colspan="3">这是一个产品名称，这是一个产品名称，这是一个产品名称</td>
 	        	</tr>
 	        	<tr>
