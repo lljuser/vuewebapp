@@ -109,23 +109,84 @@
                 <tr>
                     <td>信贷ABS</td>
                     <td class="text-right">1</td>
-                    <td class="text-right appH5_color_red">5</td>
-                    <td class="text-right appH5_color_red">445</td>
+                    <td class="text-right appH5_color_red appH5_font_larger">5</td>
+                    <td class="text-right">445</td>
                 </tr>
                 <tr>
                     <td>信贷ABS</td>
                     <td class="text-right">1</td>
-                    <td class="text-right appH5_color_red">5</td>
-                    <td class="text-right appH5_color_red">445</td>
+                    <td class="text-right appH5_color_red appH5_font_larger">5</td>
+                    <td class="text-right">445</td>
                 </tr>
                 <tr>
                     <td class="fontBold">总计</td>
                     <td class="text-right fontBold">2</td>
-                    <td class="text-right appH5_color_red fontBold">10</td>
-                    <td class="text-right appH5_color_red fontBold">890</td>
+                    <td class="text-right appH5_color_red fontBold appH5_font_larger">10</td>
+                    <td class="text-right fontBold">890</td>
                 </tr>
             </table>
         </div>
+<<<<<<< HEAD
+=======
+		<h2>示例表格（每行含两子行）</h2>
+        <div class="appH5_panel appH5_panel_mb">
+			<table class="appH5_table">
+				<tr>
+					<th>证券简称</th> 
+					<th class="text-right">
+						初始(亿)<br>剩余(亿)
+					</th>
+					<th class="text-right">
+						利率<br>估值
+					</th> 
+					<th class="text-right">
+						期限<br>类型
+					</th> 
+					<th class="text-right">
+						最新评级<br>建议评级
+					</th>
+				</tr> 
+				<tr>
+					<td>17康安1A</td>
+					<td class="text-right">
+						<span class="appH5_color_red">1.50</span><br>
+						<span class="appH5_color_details appH5_font_smaller">1.50</span>
+					</td> 
+					<td class="text-right">
+						<span>4.85</span><br>
+						<span class="appH5_color_green appH5_font_smaller">4.85</span>
+                    </td> 
+					<td class="text-right">
+						<span>0.70</span><br>
+						<span class="appH5_color_details appH5_font_smaller">过手型</span>
+					</td> 
+					<td class="text-right">
+						<span>AAA/AAA</span><br>
+						<span data-v-6719a154="" class="appH5_color_green appH5_font_smaller">AAA</span>
+					</td>
+			    </tr>
+				<tr>
+					<td>17康安1A</td>
+					<td class="text-right">
+						<span class="appH5_color_red">1.50</span><br>
+						<span class="appH5_color_details appH5_font_smaller">1.50</span>
+					</td> 
+					<td class="text-right">
+						<span>4.85</span><br>
+						<span class="appH5_color_green appH5_font_smaller">4.85</span>
+                    </td> 
+					<td class="text-right">
+						<span>0.70</span><br>
+						<span class="appH5_color_details appH5_font_smaller">过手型</span>
+					</td> 
+					<td class="text-right">
+						<span>AAA/AAA</span><br>
+						<span data-v-6719a154="" class="appH5_color_green appH5_font_smaller">AAA</span>
+					</td>
+			    </tr>
+			</table>
+		</div>
+>>>>>>> e08736467251acfd78b901d66a7692746db6425a
 		<h2>小图标</h2>
 		<div class="appH5_panel">
             <img class="appH5_arrowDown" src="../../public/image/arrowdown.png" />
