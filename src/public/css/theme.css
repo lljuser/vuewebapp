@@ -368,6 +368,7 @@ select{
 .appH5_tab{
 	color:#fff;
 	font-size: 19px;
+	line-height: 19px;
 	padding-top: 12.5px;
 	padding-bottom: 9.5px;
 	padding-left:0.16rem;
