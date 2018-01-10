@@ -5,16 +5,14 @@
             <div v-if="!isArrayEmpty(publishes)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in publishes" v-bind:key="item.Name" v-bind:class="[index === 0 ? 'ep_paddingTop46' : '']">
                     <div class=" ep_overhide">
-                        <span class="fl ep_font32 appH5_color_green">《</span>
-                        <span class="ep_font32 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
-                        <span class="fl ep_font32 appH5_color_green">》</span>
-                             <div v-if="!editable" class="ep_overhide fr ep_lineHeight32 ep_width112">
+                        <span class="fl ep_font28 appH5_color_green">《</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
+                        <span class="fl ep_font28 appH5_color_green">》</span>
+                             <div v-if="!editable" class="ep_overhide fr ep_lineHeight32 ">
                                 <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="publishEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
-                            {{item.EndorseNum === 0 ? '' : item.EndorseNum}}
                         </div>
-                        <div v-else class="ep_overhide fr ep_lineHeight32 ep_width112">
+                        <div v-else class="ep_overhide fr ep_lineHeight32 ">
                                 <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-bind:src="endorseImg(item.IsEndorse)" />
-                                {{item.EndorseNum === 0 ? '' : item.EndorseNum}}
                         </div>
                         <!-- <div v-if="!editable" class="ep_overhide fr ep_lineHeight32 ep_width112">
                             <img class="fl ep_icon_like ep_marginTop5" v-on:click="publishEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
@@ -23,7 +21,7 @@
                         <span v-else class="fr ep_color_grey ep_font24 ep_lineHeight32">{{item.EndorseNum === 0 ? '' : item.EndorseNum+'人赞'}}</span> -->
                     </div>
                     <div class="divArticleDetail">
-                        <ul class="ep_color_grey ep_font28 ep_decription articleDetail">
+                        <ul class="ep_color_grey ep_font24 ep_decription articleDetail">
                             <li>
                                 <span>作者：</span>
                                 <span class="ep_ellipsis">{{item.Author}}</span>
@@ -46,7 +44,7 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span>作品网址：</span>
-                                <a class="fl ep_ellipsis ep_width300 ep_color_blue ep_Link"  v-bind:href="item.Link">{{item.Link}}</a>
+                                <a class="fl ep_ellipsis ep_width400 ep_Link"  v-bind:href="item.Link">{{item.Link}}</a>
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
                                 <span>作品文件：</span>

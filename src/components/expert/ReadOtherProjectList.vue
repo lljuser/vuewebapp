@@ -5,23 +5,29 @@
             <div class='appH5_panel' style="padding-top:0px;">
                     <table class="appH5_table">
                         <tr>
-                            <th class="text-left">简称</th>
+                            <th class="text-left ep_width176">简称</th>
                             <th class="text-right">金额(亿)</th>
                             <th class="text-center">类型</th>
-                            <th class='text-right'>为Ta点赞</th>
+                            <th class='text-right ep_width90'>点赞</th>
                         </tr>
                         <tr v-for="item in projectHistories" v-bind:key="item.ProjectShortName">
-                            <td class="ep_ellipsis text-left">{{item.ProjectShortName}}</td>
-                            <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
-                            <td class="ep_ellipsis text-center">{{item.DealType}}</td>
-                            <td class='text-right'>
-                               <div v-if="!editable" class="ep_overhide ep_lineHeight32 ep_width112">
-                                <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="otherProjectEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
-                                {{item.EndorseNum === 0 ? '' : item.EndorseNum}}
+                            <td class="ep_ellipsis text-left">
+                                      <div class=" ep_ellipsis fl ep_width176">
+                                    {{item.ProjectShortName}}
                                 </div>
-                                 <div v-else class="ep_overhide ep_lineHeight32 ep_width112">
+                              </td>
+                            <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
+                            <td class="ep_ellipsis text-center">
+                                     <div class=" ep_ellipsis fl ep_width176">
+                                    {{item.DealType}}
+                                </div>
+                            </td>
+                            <td class='text-right '>
+                               <div v-if="!editable" class="ep_overhide ep_lineHeight32 ">
+                                <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="otherProjectEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
+                                </div>
+                                 <div v-else class="ep_overhide ep_lineHeight32 ">
                                 <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'"  v-bind:src="endorseImg(item.IsEndorse)" />
-                                {{item.EndorseNum === 0 ? '' : item.EndorseNum}}
                                 </div>
                             </td>
                         </tr>

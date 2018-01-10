@@ -24,24 +24,6 @@
                         </tr>
                     </table>
                </div>
-            <!-- <div class="ep_padding30 ep_part_item_border" v-for="(item,index) in projectHistories" v-bind:key="item.ProjectName" v-bind:class="[index===0?'ep_paddingTop46':'']">
-                <div class="ep_overhide">
-                    <span class="ep_font32 fl ep_width600">{{item.ProjectName}}</span>
-                    <a class="ep_font24 ep_color_orange fr ep_lineHeight32" v-bind:href="'/expert/expertuser/projectHistoryOther?id=' + item.Id">编辑</a>
-                </div>
-                <table class="projectHistoryABSList ep_font28 ep_marginTop10">
-                    <tr>
-                        <td class="ep_ellipsis">{{item.DealType}}</td>
-                        <td class="ep_ellipsis" v-if="item.TotalOffering !== 0">{{item.TotalOffering.toFixed(2)}}亿元</td>
-                        <td class="ep_ellipsis">{{item.ProjectShortName}}</td>
-                        <td class="ep_ellipsis">{{item.Nation}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{item.PersonalResponsibility.Name}}</td>
-                        <td colspan="3">{{splicingOrganizationRoles(item.OrganizationRoles)}}</td>
-                    </tr>
-                </table>
-            </div> -->
         </div>
     </div>
 </template>

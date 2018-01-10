@@ -12,10 +12,10 @@
                         </tr>
                         <tr v-for="item in projectHistories" v-bind:key="item.Id">
                             <td class='text-left ep_color_yellow'>
-                                    <a class="ep_font32 ep_ellipsis fl ep_width520 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
+                                    <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
                             </td>
                             <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
-                            <td class='text-center'>{{item.DealType}}</td>
+                            <td class='text-center ep_ellipsis'>{{item.DealType}}</td>
                             <td>
                                 <router-link to="'/expert/expertuser/projectHistoryABS?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">
                                     编辑

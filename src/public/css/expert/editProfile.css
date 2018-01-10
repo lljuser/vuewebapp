@@ -119,14 +119,14 @@ body {
     color: #cccccc!important;
 }
 .ep_editBtn {
-    border: 1px solid #EA4200;
+    border: 1px solid #ffc446;
     border-radius: 4px;
-    color: #EA4200;
+    color: #ffc446;
     padding-left: 0.2rem;
     padding-right: 0.2rem;
     padding-top: 0.02rem;
     padding-bottom: 0.02rem;
-    font-size:16px;
+    font-size:17px;
 }
 .ep_greyEditBtn{
     border: 1px solid #E0E0E0;
@@ -203,8 +203,14 @@ a.ep_editBtn:hover {
 .ep_width250{
     width:3.333333rem;
 }
+.ep_width210{
+    width:3.0rem;
+}
 .ep_width176 {
     width: 2.346667rem;
+}
+.ep_width127{
+width:1.7rem;
 }
 .ep_width112{
     width:1.5rem;
@@ -351,6 +357,10 @@ a.ep_editBtn:hover {
 
 .ep_paddingTop30 {
     padding-top: 0.4rem;
+}
+
+.ep_paddingLeft45 {
+    padding-left: 0.6rem !important;
 }
 
 .ep_paddingLeft30 {
@@ -718,7 +728,7 @@ ul.articleDetail li {
     padding-right: 0.32rem;
 }
 /*articleContent*/
-.articleContent{
+.articleContent,.articleListContent{
     background-color: #2b2a29;
 }
 .articleContent .PublishTime{
@@ -871,10 +881,20 @@ ul.articleDetail li {
     width: 15px;
     height: 15px;
     margin-top: 0.08rem;
+    margin-right: 0.08rem;
 }
-
+select
+{
+    background-color: #000;
+}
 select option:first-child
 {
     color: #ccc;
 }
+select option
+{
+    background-color: #000;
+    color: #fff;
+}
+
    

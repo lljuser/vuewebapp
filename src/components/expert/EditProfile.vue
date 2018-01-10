@@ -73,10 +73,10 @@
                             </tr>
                             <tr v-for="item in _.take(userInfo.ABSProjects, 3)" v-bind:key="item.DealName">
                                 <td class='text-left'>
-                                    <a class="ep_font32 ep_ellipsis fl ep_width520 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
+                                    <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
                                 </td>
                                 <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
-                                <td class='text-center'>{{item.DealType}}</td>
+                                <td class='text-center ep_ellipsis'>{{item.DealType}}</td>
                                 <td>
                                     <router-link to="/AbsHistory" class="ep_font24 ep_color_orange fr ep_lineHeight32">
                                         编辑
@@ -153,17 +153,17 @@
             <div v-if="!isArrayEmpty(userInfo.WorkHistories)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.WorkHistories" v-bind:key="item.Id">
                     <div class="ep_overhide">
-                        <span class="ep_font32 ep_ellipsis fl ep_width600 appH5_color_green">{{item.Position}}</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_width600 appH5_color_green">{{item.Position}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/workHistory?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">编辑</a> -->
                         <router-link to="/WorkHistory" class="ep_font24 ep_color_orange fr ep_lineHeight32">
                             编辑
                         </router-link>
                     </div>
-                    <div class="ep_font28 ep_color_grey2 ep_marginTop10 ep_overhide">
+                    <div class="ep_font24 ep_color_grey2 ep_marginTop10 ep_overhide">
                         <span class="fl ep_maxWidth400 ep_ellipsis">{{item.Company}}</span>
                         <span class="fl ep_marginLeft24 ep_width250 ep_ellipsis">{{item.Department}}</span>
                     </div>
-                    <div class="ep_font28 ep_color_grey2 ep_marginTop10">
+                    <div class="ep_font24 ep_color_grey2 ep_marginTop10">
                         <span>{{item.StartTime}}</span>
                         <span>-</span>
                         <span>{{item.EndTime}}</span>
@@ -182,7 +182,7 @@
             <div v-if="!isArrayEmpty(userInfo.OtherPosts)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.OtherPosts" v-bind:key="item.Id">
                     <div class="ep_overhide">
-                        <span class="ep_font32 ep_ellipsis fl ep_width600">{{item.Name}}</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_width600">{{item.Name}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/otherPosition?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">编辑</a> -->
                         <router-link to="/OtherPosition" class="ep_font24 ep_color_orange fr ep_lineHeight32">
                             编辑
@@ -205,14 +205,14 @@
             <div v-if="!isArrayEmpty(userInfo.HonorAwards)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.HonorAwards" v-bind:key="item.Id">
                     <div class="ep_overhide">
-                        <span class="ep_font32 ep_ellipsis fl ep_width460">{{item.Name}}</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/awardsAndHonors?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
                         <router-link to="/AwardAndHonor" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
                         <span class="ep_font24 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.Year}}</span>
                     </div>
-                    <pre class="ep_decription ep_color_grey2 ep_font28">{{item.Description}}</pre>
+                    <pre class="ep_decription ep_color_grey2 ep_font24">{{item.Description}}</pre>
                 </div>
             </div>
             <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.HonorAwards)">暂无奖项与荣誉</p>
@@ -227,14 +227,14 @@
             <div v-if="!isArrayEmpty(userInfo.RecentActivities)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.RecentActivities, 3)" v-bind:key="item.Id">
                     <div class="ep_overhide">
-                        <span class="ep_font32 ep_ellipsis fl ep_width460">{{item.Name}}</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/activity?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
                         <router-link to="/Activity" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
                         <span class="ep_font24 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.ActivityTime}}</span>
                     </div>
-                    <pre class="ep_decription ep_color_grey2 ep_font28">{{item.Description}}</pre>
+                    <pre class="ep_decription ep_color_grey2 ep_font24">{{item.Description}}</pre>
                 </div>
                 <div class="ep_font30 ep_align_center ep_padding30" v-if="userInfo.RecentActivities.length > 3">
                     <!-- <a href="/expert/expertuser/recentActivitiesList">查看更多</a> -->
@@ -255,16 +255,16 @@
             <div v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.Publishs, 3)" v-bind:key="item.Id">
                     <div class="ep_overhide">
-                        <span class="fl ep_font32 appH5_color_green">《</span>
-                        <span class="ep_font32 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
-                        <span class="fl ep_font32 appH5_color_green">》</span>
+                        <span class="fl ep_font28 appH5_color_green">《</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
+                        <span class="fl ep_font28 appH5_color_green">》</span>
                         <!-- <a v-bind:href="'/expert/expertuser/article?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
                         <router-link to="/Article" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
                     </div>
                     <div class="divArticleDetail">
-                        <ul class="ep_color_grey2 ep_font28 ep_decription articleDetail">
+                        <ul class="ep_color_grey2 ep_font24 ep_decription articleDetail">
                             <li>
                                 <span>作者：</span>
                                 <span class="ep_ellipsis">{{item.Author}}</span>
@@ -287,7 +287,7 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span>作品网址：</span>
-                                <a class="fl ep_ellipsis ep_width300 ep_color_blue ep_Link" v-bind:href="item.Link">{{item.Link}}</a>
+                                <a class="fl ep_ellipsis ep_width400 ep_color_blue ep_Link" v-bind:href="item.Link">{{item.Link}}</a>
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
                                 <span>作品文件：</span>
@@ -318,18 +318,18 @@
             <div v-if="!isArrayEmpty(userInfo.Educations)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.Educations" v-bind:key="item.Id">
                     <div class="ep_overhide">
-                        <span class="ep_font32 ep_ellipsis fl ep_width400">{{item.School}}</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_width400 appH5_color_green">{{item.School}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/educationHistory?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
                         <router-link to="/Education" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
-                        <span class="ep_font28 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">
+                        <span class="ep_font24 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">
                             <span>{{item.FromYear}}</span>
                             <span>-</span>
                             <span>{{item.ToYear}}</span>
                         </span>
                     </div>
-                    <ul class="ep_color_grey2 ep_font28 ep_decription educationDetail ep_marginTop10">
+                    <ul class="ep_color_grey2 ep_font24 ep_decription educationDetail ep_marginTop10">
                         <li class="ep_overhide">
                             <span class="fl">学位：</span>
                             <span class="fl ep_width600">{{item.Degree}}</span>
