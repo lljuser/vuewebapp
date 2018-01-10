@@ -178,6 +178,25 @@ export default {
       this.fetchProductDetail(productId);
     }
   },
+  activated() {
+    // 滚动到顶部
+    window.scrollTo(0,0)
+    const busUtil = BusUtil.getInstance();
+    
+    this.id = this.$route.params.id;
+    if (this.id) {
+      this.fetchProductDetail(this.id);
+    }
+    this.fetchProductPaymentChart(440,28203);//(this.dealId, this.resultId);
+    busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/product');
+
+    // url 传来的id
+    const productId = getParams("id");
+    if (productId) {
+      this.fetchProductDetail(productId);
+    }
+  },
   data() {
     return {
       productDetail: null,
