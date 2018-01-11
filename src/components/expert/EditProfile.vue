@@ -47,44 +47,28 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.ABSProjects)" v-cloak>
-                    <!-- <div class="ep_overhide">
-                        <a class="ep_font32 ep_ellipsis fl ep_width600 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
-                        <router-link to="/AbsHistory" class="ep_font24 ep_color_orange fr ep_lineHeight32">
-                            编辑
-                        </router-link>
-                    </div>
-                    <table class="projectHistoryABSList ep_font28 ep_marginTop10">
+                <div class='appH5_panel' style="padding-top:0px;">
+                    <table class="appH5_table">
                         <tr>
-                            <td class="ep_ellipsis ep_paddingright30">{{item.DealType}}</td>
-                            <td class="ep_ellipsis ep_paddingright30">{{item.TotalOffering.toFixed(2)}}亿元</td>
+                            <th class='text-left'>名称</th>
+                            <th class='text-right'>金额(亿)</th>
+                            <th class='text-center'>类型</th>
+                            <th class='text-right ep_width90'>操作</th>
                         </tr>
-                        <tr>
-                            <td>{{item.PersonalResponsibility.Name}}</td>
-                            <td colspan="2">{{splicingOrganizationRoles(item.OrganizationRoles)}}</td>
+                        <tr v-for="item in _.take(userInfo.ABSProjects, 3)" v-bind:key="item.DealName">
+                            <td class='text-left'>
+                                <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
+                            </td>
+                            <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
+                            <td class='text-center ep_ellipsis'>{{item.DealType}}</td>
+                            <td>
+                                <router-link v-bind:to="'/AbsHistory/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">
+                                    编辑
+                                </router-link>
+                            </td>
                         </tr>
-                    </table> -->
-                    <div class='appH5_panel' style="padding-top:0px;">
-                        <table class="appH5_table">
-                            <tr>
-                                <th class='text-left'>名称</th>
-                                <th class='text-right'>金额(亿)</th>
-                                <th class='text-center'>类型</th>
-                                <th class='text-right ep_width90'>操作</th>
-                            </tr>
-                            <tr v-for="item in _.take(userInfo.ABSProjects, 3)" v-bind:key="item.DealName">
-                                <td class='text-left'>
-                                    <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
-                                </td>
-                                <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
-                                <td class='text-center ep_ellipsis'>{{item.DealType}}</td>
-                                <td>
-                                    <router-link to="/AbsHistory" class="ep_font24 ep_color_orange fr ep_lineHeight32">
-                                        编辑
-                                    </router-link>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                    </table>
+                </div>
                 <div class="ep_font30 ep_align_center ep_padding30" style="padding-top:0;" v-if="userInfo.ABSProjects.length > 3">
                     <router-link to="/AbsHistoryList">
                         查看更多

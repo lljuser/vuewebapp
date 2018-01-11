@@ -44,7 +44,7 @@
                                 <th class='text-center'>类型</th>
                                 <th class='text-right ep_width90'>点赞</th>
                             </tr>
-                            <tr v-for="item in _.take(userInfo.ABSProjects, 3)" v-bind:key="item.DealId">
+                            <tr v-for="(item, index) in _.take(userInfo.ABSProjects, 3)" v-bind:key="index">
                                 <td class='text-left '>
                                     <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
                                     </td>
@@ -57,11 +57,9 @@
                                 <td class='text-right'>
                                     <div v-if="!editable" class="ep_overhide ep_lineHeight32">
                                           <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="absProjectEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
-                                        <!-- {{item.EndorseNum === 0 ? '' : item.EndorseNum}} -->
                                     </div>
                                   <div v-else  class="ep_overhide ep_lineHeight32">
                                         <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'"  v-bind:src="endorseImg(item.IsEndorse)" />
-                                        <!-- {{item.EndorseNum === 0 ? '' : item.EndorseNum}} -->
                                   </div>
                                 </td>
                             </tr>
@@ -85,9 +83,6 @@
                 <router-link v-if="userInfo.OtherProjects && userInfo.OtherProjects.length > 3" v-bind:to="routeUrls.ReadOtherProjectList" class="fr text_right_link">
                     更多
                 </router-link>  
-                <!-- <a v-if="userInfo.OtherProjects&&userInfo.OtherProjects.length>3" class="fr ep_color_grey ep_font24" v-bind:href="'/expert/expertuser/readProjectHistoryOtherList?UserId=' + queryString.UserId">
-                    更多 >
-                </a> -->
             </header>
             <div v-if="!isArrayEmpty(userInfo.OtherProjects)" v-cloak>
                  <div class='appH5_panel' style="padding-top:0px;">
@@ -98,7 +93,7 @@
                             <th class="text-center">类型</th>
                             <th class='text-right ep_width90'>点赞</th>
                         </tr>
-                        <tr v-for="item in _.take(userInfo.OtherProjects, 3)" v-bind:key="item.ProjectShortName">
+                        <tr v-for="(item, index) in _.take(userInfo.OtherProjects, 3)" v-bind:key="index">
                             <td class="ep_ellipsis text-left">
                                <div class="ep_ellipsis fl ep_width176">
                                     {{item.ProjectShortName}}
@@ -130,7 +125,7 @@
                             </div>
             </header>
             <div v-if="!isArrayEmpty(userInfo.WorkHistories)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.WorkHistories" v-bind:key="item.Position">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.WorkHistories" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width520 appH5_color_green">{{item.Position}}</span>
                         <!-- <span class="fr ep_color_grey2 ep_font28 ep_lineHeight32">机构已认证</span> -->
@@ -155,7 +150,7 @@
                 </div>
             </header>
             <div v-if="!isArrayEmpty(userInfo.OtherPosts)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.OtherPosts" v-bind:key="item.Name">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.OtherPosts" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width600">{{item.Name}}</span>
                     </div>
@@ -170,7 +165,7 @@
             </div>
             </header>
             <div v-if="!isArrayEmpty(userInfo.HonorAwards)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.HonorAwards" v-bind:key="item.Name">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.HonorAwards" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
                         <span class="ep_font24 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.Year}}</span>
@@ -183,18 +178,14 @@
         <section class="ep_part" id="activity">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.RecentActivities)?'':'ep_part_item_border']">
                  <div class='appH5_title fl' style='overflow:hidden;'>
-                <span class='fl'>近期活动</span>
+                    <span class='fl'>近期活动</span>
                  </div>
-                <!-- <a v-if="userInfo.RecentActivities&&userInfo.RecentActivities.length>3" class="fr ep_color_grey ep_font24" href="/expert/expertuser/readRecentActivitiesList">
-                    更多 >
-                </a> -->
-
                 <router-link v-if="userInfo.RecentActivities && userInfo.RecentActivities.length > 3" v-bind:to="routeUrls.ReadActivityList" class="fr text_right_link">
                     更多
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.RecentActivities)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.RecentActivities, 3)" v-bind:key="item.Name">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.RecentActivities, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
                         <span class="ep_font24 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">{{item.ActivityTime}}</span>
@@ -214,7 +205,7 @@
                     </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.Publishs, 3)" v-bind:key="item.Name">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.Publishs, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="fl ep_font28 appH5_color_green">《</span>
                         <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
@@ -273,7 +264,7 @@
                </div>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Educations)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.Educations" v-bind:key="item.School">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.Educations" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width400 appH5_color_green">{{item.School}}</span>
                         <span class="ep_font24 ep_ellipsis fr ep_color_grey2 ep_lineHeight32 ep_align_right ep_marginLeft15">
@@ -311,7 +302,8 @@
 import _ from "lodash";
 import axios from "axios";
 import * as webApi from "@/config/api";
-import getParams from "../../public/js/getParams";
+import util from "@/public/modules/expert/utils";
+//import getParams from "@/public/js/getParams";
 import dislikeImg from "@/public/image/unfollowicon.png";
 import likeImg from "@/public/image/followicon.png";
 
@@ -322,7 +314,6 @@ export default {
       _: {},
       userInfo: {},
       editable: false,
-      queryString: {}, //GetRequest(),
       userId: null,
       absProjectEndorseLock: false,
       otherProjectEndorseLock: false,
@@ -330,18 +321,23 @@ export default {
     };
   },
   created: function() {
-    this._ = _;
-    this.userId = getParams("UserId");
+      try {
+          this._ = _;
+          //getParams("UserId");
+          this.userId = util.getQueryString().UserId;
+      } catch (err) {
+          alert(err.name);
+          alert(err.message);
+      }
+    
     this.initData();
   },
   methods: {
     initData: function() {
-      axios
-        .post(webApi.Expert.getExpertDisplay, { UserId: this.userId })
-        .then(response => {
-          this.userInfo = response.data.data.UserInfo;
-          this.editable = response.data.data.Editable;
-        });
+      axios.post(webApi.Expert.getExpertDisplay, { UserId: this.userId }).then(response => {
+        this.userInfo = response.data.data.UserInfo;
+        this.editable = response.data.data.Editable;
+      });
     },
     endorseImg: function(isEndorse) {
       return isEndorse ? likeImg : dislikeImg;

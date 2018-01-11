@@ -63,7 +63,7 @@ export default new Router({
       component: BasicInfomation,
     },
     {
-      path: '/AbsHistory',
+      path: '/AbsHistory/:id?',
       name: 'AbsHistory',
       component: AbsHistory,
     },
