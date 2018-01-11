@@ -24,6 +24,7 @@ export const Trade = {
   detail: `${apiAddress}//motrade/gettradedata`,
   typeList: `${apiAddress}/motrade/getsecuritytypelist`,
   walbuckList: `${apiAddress}/moTrade/getwalbucketlist`, 
+  ratingList: `${apiAddress}/motrade/getratinglist`,
 };
 
 export const Expert = {
@@ -115,6 +116,8 @@ export const Expert = {
   getUserBasicInfo: `${apiAddress}/ExpertInfo/GetUserBasicInfo`,
   // 获取单个工作经历
   getWorkHistory: `${apiAddress}/ExpertInfo/GetWorkHistory`,
+  // 机构自动检索
+  orgSearch: `${apiAddress}/Search/OrganizationSearch`,
 };
 
 export const Demo = {

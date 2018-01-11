@@ -388,8 +388,13 @@ select{
 	padding-right:0.16rem;
 	float: left;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
+	/* 禁用长按手势 */
+	-webkit-touch-callout: none;
 }
-.router-link-exact-active .appH5_tab {
+.appH5_tab:hover {
+	color: #fff;
+}
+.router-link-active {
 	border-color: #ffc445;
 	border-bottom-width: 3px;
 	border-bottom-style: solid;

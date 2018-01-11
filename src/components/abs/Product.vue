@@ -69,7 +69,6 @@ export default {
       list: [],
       page: 1,
       pageSize:15,
-      direction:0,
       loading: false,
       ProductTypeVal: "0",
       DealTypeVal: "0",
@@ -85,18 +84,29 @@ export default {
   mounted() {
     this.isProductLoading = true;
     this.isComponentActive = true;
-    this.loadFirstPageProducts();
+    this.timer = setTimeout(() => {
+      this.loadFirstPageProducts();
+    }, 600);
   },
-
   activated() {
     this.loading = false;
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', false);
+    var productTypeParam = this.$route.params.productType;
+    if(productTypeParam!=null && productTypeParam!="0" )
+    {
+      this.ProductTypeVal= productTypeParam;
+      this.isProductLoading = true;
+      this.isComponentActive = true;
+      this.loadFirstPageProducts();
+    }
+
     if (this.isFetchProductsError) {
       this.loadFirstPageProducts();
     }
   },
   deactivated() {
+    this.timer && clearTimeout(this.timer);
     // 防止在其他组件滚动时 此组件调用loadMore方法
     this.loading = true;
   },
@@ -114,11 +124,7 @@ export default {
       this.loading = true;
       setTimeout(() => {
         this.fetchProducts(this.page,1, data => {
-          // if (this.page > 1) {
             this.list = this.list.concat(data);
-          // } else {
-          //   this.list = data;
-          // }
           this.page = this.page + 1;
           this.loading = false;
         });

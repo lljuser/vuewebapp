@@ -316,6 +316,7 @@
             }
         },
         watch:{
+
             organizationRoleModel: function (roleId) {
                 if (roleId === "") return;
 
@@ -328,7 +329,7 @@
                 var self = this;
 
                 if (self.projectHistory.OrganizationRoles === undefined) {
-                    Vue.set(this.projectHistory, 'OrganizationRoles', []);
+                   this.projectHistory.OrganizationRoles=[];
                 }
 
                 for (let item of this.organizationRoles) {
