@@ -84,9 +84,10 @@ export default {
   mounted() {
     this.isProductLoading = true;
     this.isComponentActive = true;
-    this.loadFirstPageProducts();
+    this.timer = setTimeout(() => {
+      this.loadFirstPageProducts();
+    }, 600);
   },
-
   activated() {
     this.loading = false;
     const busUtil = BusUtil.getInstance();
@@ -105,6 +106,7 @@ export default {
     }
   },
   deactivated() {
+    this.timer && clearTimeout(this.timer);
     // 防止在其他组件滚动时 此组件调用loadMore方法
     this.loading = true;
   },
