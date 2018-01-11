@@ -116,6 +116,12 @@ export const Expert = {
   getUserBasicInfo: `${apiAddress}/ExpertInfo/GetUserBasicInfo`,
   // 获取单个工作经历
   getWorkHistory: `${apiAddress}/ExpertInfo/GetWorkHistory`,
+  // 删除单个工作经历
+  deleteWorkHistory: `${apiAddress}/ExpertInfo/DeleteWorkHistory`,
+  // 添加单个工作经历
+  addWorkHistory: `${apiAddress}/ExpertInfo/AddWorkHistory`,
+  // 更新单个工作经历
+  updateWorkHistory: `${apiAddress}/ExpertInfo/UpdateWorkHistory`,
   // 机构自动检索
   orgSearch: `${apiAddress}/Search/OrganizationSearch`,
 };

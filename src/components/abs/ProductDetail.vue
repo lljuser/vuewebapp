@@ -14,7 +14,7 @@
                 <td>产品分类</td>
                 <td>
                     <div><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a></router-link></div>
-                    <div>&nbsp;└&nbsp;<router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div>
+                    <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div><!--+'/'+productDetail.Basic.DealTypeId-->
                     <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
                 </td>
                 </tr>
@@ -44,21 +44,20 @@
               <span>证券结构</span>
         </div>
         <div v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
-            <div style="text-align:center"><div v-html="noteConsTable" style="margin:0 auto;width:200px">{{noteConsTable}}</div></div>
+            <div style="text-align:center"><div v-html="noteConsTable" id="test" v-bind:style="'margin:0 auto;width:'+this.chartWidthPx+'px'">{{noteConsTable}}</div></div>
             <div style="text-align:center;height: 0.4rem;">
-                <div style="margin:0.25rem auto;" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
+                <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
                     <div class="backTablePic"></div>
                     <div style="float:left;font-size: 11px;">已偿付</div>
                     <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div>
                     <div style="float:left;font-size: 11px;">剩余</div>
                 </div>
             </div>
-            
         </div>
         <div v-else class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
     </div>
     <div class="appH5_panel appH5_panel_mb">
-        <div class="appH5_title" v-if="productDetail.NoteList != null && productDetail.Basic!=null&&productDetail.NoteList.length!=0">
+        <div class="appH5_title">
               <span>证券列表</span>
         </div>
         <div v-if="productDetail.NoteList != null && productDetail.Basic!=null&&productDetail.NoteList.length!=0">
@@ -131,7 +130,22 @@ export default {
         busUtil.bus.$emit('path', '/product');
     }, 
     mounted() {
-
+        
+    },
+    updated(){
+        var paidList=document.getElementsByClassName("divHasPaid");
+        for(var i=0;i<paidList.length;i++){
+            paidList[i].style.backgroundImage="url(/src/public/images/table_bg.png)";
+        }
+        var bgList=document.getElementsByClassName("structure_bg");
+        for(var i=0;i<bgList.length;i++){
+            bgList[i].style.backgroundColor="#B7AFA5";
+            var aList=bgList[i].getElementsByTagName('a');
+            for(var j=0;j<aList.length;j++){
+                aList[j].href="javascript:;";
+                aList[j].title="";
+            }
+        }
     },
     activated() {
         //clear all data cache
@@ -160,7 +174,16 @@ export default {
                 this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
             var resultId = data.ResultSetId;
             if(data.DealId!=null&&data.DealId>0){
-                this.fetchNoteConsTable(data.DealId,200,200);
+                if(data.NoteList!=null&&data.NoteList.length>0){
+                    if(data.NoteList.length>6){
+                        this.chartWidthPx=280;
+                    }else if(data.NoteList.length>4){
+                        this.chartWidthPx=200;
+                    }else{
+                        this.chartWidthPx=150;
+                    }
+                }
+                this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
             }
             if (data.ResultSetId != null && data.ResultSetId > 0) {
                 this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
@@ -184,16 +207,19 @@ export default {
           href: '',
           text: 'CNABS'
         },
-      }
+      },
+        chartWidthRem:3,
+        chartWidthPx:225,
     };
   },
   methods: {
     fetchNoteConsTable(dealId,width,height){
         axios("http://10.1.1.35/Dealreport/GetStructure?dealId="+dealId+"&w="+width+"&h="+height)
         .then((response)=>{
-            console.log(response);
+           // console.log(response);
             if(response!=null &&response!=""){
                 this.noteConsTable=response.data;
+                
             }
         });
 
