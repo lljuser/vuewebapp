@@ -143,9 +143,6 @@
         <section class="ep_part" id="workHistory">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.WorkHistories)?'':'ep_part_item_border']">
                 <span class='fl appH5_title'>工作经历</span>
-                <!-- <a class="fr" href="/expert/expertuser/workHistory">
-                    <img class="addBtn" src="../../public/images/add.png" />
-                </a> -->
                 <router-link to="/WorkHistory" class="fr">
                     <img class="addBtn" src="../../public/images/add.png" />
                 </router-link>
@@ -154,8 +151,7 @@
                 <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.WorkHistories" v-bind:key="item.Id">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width600 appH5_color_green">{{item.Position}}</span>
-                        <!-- <a v-bind:href="'/expert/expertuser/workHistory?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">编辑</a> -->
-                        <router-link to="/WorkHistory" class="ep_font24 ep_color_orange fr ep_lineHeight32">
+                        <router-link v-bind:to="'/WorkHistory/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">
                             编辑
                         </router-link>
                     </div>

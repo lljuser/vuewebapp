@@ -52,8 +52,7 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveWorkHistory">保存</span>
-                <span v-if="workHistory.Id === undefined" class="ep_cancelBtn fr">
-                    <!-- <a href="/expert/expertuser/editProfile#workHistory" class="ep_color_orange">取消</a> -->
+                <span v-if="!isValidElement(id)" class="ep_cancelBtn fr">
                     <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
@@ -88,6 +87,9 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
+
     export default {
         name: 'WorkHistory',
         data: function () {
@@ -145,17 +147,22 @@
                 getStartPicker: null,
                 getEndPicker: null,
                 submitPopupVisible: false,
-
-                queryString: {},//GetRequest(),
-                workHistory: {}
+                workHistory: {},
+                id: null
             }
         },
         created: function () {
+            this.id = this.$route.params.id;
             this.initData();
         },
         methods: {
             initData: function () {
-
+                axios.post(webApi.Expert.getWorkHistory, {id: this.id}).then(response => {
+                    this.workHistory = response.data.data;
+                    this.workHistory.OrganizationName = this.workHistory.Company;
+                    this.startTime = this.workHistory.StartTime.split('.')[0] + '年' + (this.workHistory.StartTime.split('.')[1].split('')[0] === '0' ? this.workHistory.StartTime.split('.')[1].split('')[1] : this.workHistory.StartTime.split('.')[1]) + '月';
+                    this.endTime = this.workHistory.EndTime === '至今' ? '至今' : (this.workHistory.EndTime.split('.')[0] + '年' + (this.workHistory.EndTime.split('.')[1].split('')[0] === '0' ? this.workHistory.EndTime.split('.')[1].split('')[1] : this.workHistory.EndTime.split('.')[1]) + '月');
+                });
             },
             setYears: function(start, end, hasNow) {
                 var yearArray = [];
