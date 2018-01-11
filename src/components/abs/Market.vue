@@ -92,13 +92,18 @@ export default {
     // this.fetchPost();
   },
   mounted() {
-    this.fetchMarketSummary();
+    this.fetchMarketSummary(data=>{
+        this.marketSummary=data;
+    });
     this.fetchChartData();
   },
   methods: {
-    fetchMarketSummary() {
+    fetchMarketSummary(callback) {
       axios.post(webApi.Market.list).then((response)=>{
-          this.marketSummary=response.data.data;
+          const data=response.data.data;
+          if(data){
+              callback(data);
+          }
       });
         // .then(response => response.json())
         // .then((json) => {
