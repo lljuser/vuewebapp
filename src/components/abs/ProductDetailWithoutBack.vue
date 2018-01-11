@@ -1,159 +1,108 @@
 <template>
-
-  <div class="appH5_body">
-    <div class="appH5_navbar_bg">
-      <mt-header title="产品信息">
-        <router-link to="/" slot="left">
-          <mt-button icon="back" @click.stop="goBack"></mt-button>
-        </router-link>
-      </mt-header>
-    </div>
-    <div>
-      <mt-header title="产品信息111111">
-        <router-link to="/" slot="left">
-          <mt-button icon="back" @click.stop="goBack">返回</mt-button>
-        </router-link>
-        <mt-button icon="more" slot="right"></mt-button>
-      </mt-header>
-    </div>
+  <div class="appH5_body" style="padding-top: 0px;">
     <div class="appH5_content">
       <div class="appH5_panel appH5_panel_mb">
           <div class="appH5_title">
               <span>产品要素</span>
           </div>
-          <table class="appH5_list_two">
-            <tr>
-              <td>产品名称</td>
-              <td>丰耀2017年第二期个人汽车抵押贷款资产支持证券</td>
-            </tr>
-            <tr>
-              <td>产品分类</td>
-              <td>
-                <div>信贷资产证券化</div>
-                <div>&nbsp;└&nbsp;汽车抵押贷款</div>
-                <div>&nbsp;&nbsp;&nbsp;└&nbsp;好一个三级分类</div>
-              </td>
-            </tr>
-            <tr>
-              <td>产品状态</td>
-              <td>存续期</td>
-            </tr>
-            <tr>
-              <td>成立日期</td>
-              <td>2017年11月11日</td>
-            </tr>
-            <tr>
-              <td>发起机构</td>
-              <td>丰田汽车金融(中国)有限公司</td>
-            </tr>
-            <tr>
-              <td>金额(亿)</td>
-              <td>30.00</td>
-            </tr>
+            <table class="appH5_list_two" v-if="productDetail.Basic!=null">
+                <tr>
+                <td>产品名称</td>
+                <td>{{productDetail.Basic.DealNameChinese}}</td>
+                </tr>
+                <tr>
+                <td>产品分类</td>
+                <td>
+                    <div><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a></router-link></div>
+                    <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div><!---->
+                    <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
+                </td>
+                </tr>
+                <tr>
+                <td>产品状态</td>
+                <td>{{productDetail.Basic.CurrentStatus}}</td>
+                </tr>
+                <tr>
+                <td>成立日期</td>
+                <td v-if="productDetail.Basic.ClosingDate!=null">{{publishDate.getFullYear()+"年"+publishDate.getMonth()+"月"+publishDate.getDate()+"日"}}</td>
+                <td v-else>-</td>
+                </tr>
+                <tr>
+                <td>发起机构</td>
+                <td>
+                    <div v-for="(item,index) in productDetail.Basic.DealOriginator"><span>{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                </td>
+                </tr>
+                <tr>
+                <td style="vertical-align: middle;">金额(亿)</td>
+                <td class="appH5_font_largest appH5_color_red">{{productDetail.Basic.TotalOffering}}</td>
+                </tr>
           </table>
-      </div>
-      <div class="appH5_panel appH5_panel_mb">
+    </div>
+    <div class="appH5_panel appH5_panel_mb">
         <div class="appH5_title">
               <span>证券结构</span>
-          </div>
-          <div style="padding-left:2.09333rem">
-<table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:171px;width:220px;background-color:#F2F2F2"><div style="height:18%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
-                                                                         <span title="证券: 17丰耀2A_bc
-初始本金: 2440000000
-分层占比: 81.33%
-剩余本金: 2013000000
-剩余占比: 67.10%" style="position: absolute;top:0px;left:0px;width:220px;height:171px;line-height:171px;">
-                                                                             <a href="../Deal/SecuritySummary.aspx?dealid=2342&amp;noteId=8628" target="_blank" title="证券: 17丰耀2A_bc
-初始本金: 2440000000
-分层占比: 81.33%
-剩余本金: 2013000000
-剩余占比: 67.10%" style="width:220px;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller">A</a>
-                                                                         </span>
-                                                                     </div></td></tr></tbody></table>
-																	 <table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:19px;width:220px;background-color:#F2F2F2"><div style="height:0%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
-                                                                         <span title="证券: 17丰耀2B_bc
-初始本金: 275000000
-分层占比: 9.17%
-剩余本金: 275000000
-剩余占比: 9.17%" style="position: absolute;top:0px;left:0px;width:220px;height:19px;line-height:19px;">
-                                                                             <a href="../Deal/SecuritySummary.aspx?dealid=2342&amp;noteId=8629" target="_blank" title="证券: 17丰耀2B_bc
-初始本金: 275000000
-分层占比: 9.17%
-剩余本金: 275000000
-剩余占比: 9.17%" style="width:220px;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller">B</a>
-                                                                         </span>
-                                                                     </div></td></tr></tbody></table>
-																	 <table class="table-structure" style="text-align:center; width:220px; margin-top:-2px; padding:0px;"><tbody><tr style="text-align:center; padding:0px;"><td style="padding:0px; position: relative; vertical-align:top;height:20px;width:220px;background-color:#F2F2F2"><div style="height:0%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;">
-                                                                         <span title="证券: 17丰耀2C_bc
-初始本金: 284999356.49
-分层占比: 9.50%
-剩余本金: 284999356.49
-剩余占比: 9.50%" style="position: absolute;top:0px;left:0px;width:220px;height:20px;line-height:20px;">
-                                                                             <a href="../Deal/SecuritySummary.aspx?dealid=2342&amp;noteId=8630" target="_blank" title="证券: 17丰耀2C_bc
-初始本金: 284999356.49
-分层占比: 9.50%
-剩余本金: 284999356.49
-剩余占比: 9.50%" style="width:220px;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller">sub</a>
-                                                                         </span>
-                                                                     </div></td></tr></tbody></table>
-          </div>
-          <div style="margin-bottom:0.25rem;margin-left:2.1rem">
-            <div style="float:left;margin: 4px 4px 4px 2px; width: 12px;height: 11px; background-image: url(&quot;/src/public/images/table_bg.png&quot;); background-repeat: repeat;"></div> 
-            <div style="float:left;font-size: 11px;">已偿付</div> 
-            <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: rgb(183, 175, 165);"></div> 
-            <div style="float:left;font-size: 11px;">剩余</div>
-          </div>
-      </div>
-      <div class="appH5_panel appH5_panel_mb">
-        <div class="appH5_title">
-              <span>证券偿付</span>
-          </div>
-          <div>
-            <highcharts :options='options'></highcharts>
-          </div>
-      </div>
-      <div class="appH5_panel">
+        </div>
+        <div v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
+            <div style="text-align:center"><div v-html="noteConsTable" id="test" v-bind:style="'margin:0 auto;width:'+this.chartWidthPx+'px'">{{noteConsTable}}</div></div>
+            <div style="text-align:center;height: 0.4rem;">
+                <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
+                    <div class="backTablePic"></div>
+                    <div style="float:left;font-size: 11px;">已偿付</div>
+                    <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div>
+                    <div style="float:left;font-size: 11px;">剩余</div>
+                </div>
+            </div>
+        </div>
+        <div v-else class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
+    </div>
+    <div class="appH5_panel appH5_panel_mb">
         <div class="appH5_title">
               <span>证券列表</span>
-          </div>
-          <div>
+        </div>
+        <div v-if="productDetail.NoteList != null && productDetail.Basic!=null&&productDetail.NoteList.length!=0">
             <table class="appH5_table">
-              <tr>
-                <th>证券简称</th>
-                <th style="text-align:center">发行金额(亿)<br/>还本方式</th>
-                <th style="text-align:center">发行利率<br/>评级1</th>
-                <th style="text-align:center">加权年限<br/>评级2</th>
-              </tr>
-              <tr>
-                <td>17康安1A</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">1.5</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.850%</span><br/><span class="appH5_color_details appH5_font_smaller">AAA</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">AAA</span></td>
-              </tr>
-              <tr>
-                <td>17康安1B</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">2.3</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.850%</span><br/><span class="appH5_color_details appH5_font_smaller">AA</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">AA-</span></td>
-              </tr>
-              <tr>
-                <td>17康安1C</td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">5.6</span><br/><span class="appH5_color_details appH5_font_smaller">过手型</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">4.850%</span><br/><span class="appH5_color_details appH5_font_smaller">NR</span></td>
-                <td class="text-right"><span class="appH5_color_red appH5_font_large">0.70</span><br/><span class="appH5_color_details appH5_font_smaller">NR</span></td>
-              </tr>
+                <tr>
+                    <th>证券简称</th>
+                    <th class="text-right">初始(亿)<br/>剩余(亿)</th>
+                    <th class="text-right">利率<br/>估值</th>
+                    <th class="text-right">期限<br/>类型</th>
+                    <th class="text-right">最新评级<br/>建议评级</th>
+                </tr>
+                <tr v-for="(item,index) in productDetail.NoteList">
+                    <td><div class="appH5_ellipsis" style="width:2.1rem;">{{item.Description}}</div></td>
+                    <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.Principal}}</span></td>
+                    <td class="text-right"><span>{{item.CurrentCoupon}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestYield}}</span></td>
+                    <td class="text-right"><span>{{item.CurrentWal}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.RepaymentOfPrincipal}}</span></td>
+                    <td class="text-right"><span>{{item.CurrentRatingCombineString}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestRatingCombineString}}</span></td>
+                </tr>
             </table>
-          </div>
-      </div>
+        </div>
+        <div v-else class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
     </div>
-    <!-- <h2>产品详情页</h2>
-    <h3>{{ productDetail && productDetail.Title }}</h3>
-    <p>{{ productDetail && productDetail.Content }}</p>
-    <p>{{ productDetail && productDetail.Time }}</p> -->
+        <div class="appH5_panel">
+            <div class="appH5_title">
+                <span>证券偿付</span>
+            </div>
+            <div>
+                <highcharts :options='options'></highcharts>
+            </div>
+        </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
+    .backTablePic{
+        float:left;
+        margin: 4px 4px 4px 2px; 
+        width: 12px;
+        height: 11px; 
+        background-image: url(/src/public/images/table_bg.png); 
+        background-repeat: repeat;
+    }
+</style>
+<style>
 
 </style>
 
@@ -162,45 +111,182 @@ import BusUtil from './BusUtil';
 import Vue from 'vue';
 import VueHighcharts from 'vue-highcharts';
 import Highcharts from 'highcharts';
+import getParams from '../../public/js/getParams';
 
 // some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
 import * as chartTheme from '@/public/js/chartTheme';
-Vue.use(VueHighcharts, { Highcharts }); 
+
+import * as webApi from '@/config/api';
+import axios from 'axios';
+
+Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
 
 export default {
-  name: 'productDetail',
-  mounted() {
-    const busUtil = BusUtil.getInstance();
-    this.id = this.$route.params.id;
-    setTimeout(() => {
-      this.fetchProductDetail(this.id);
-      this.fetchProductPaymentChart(440,28203);//(this.dealId, this.resultId);
-    }, 500);
-    
+    name: 'productDetailWithoutBack',
+    created() {
+        const busUtil = BusUtil.getInstance();
+        busUtil.bus.$emit('showHeader', true);
+        busUtil.bus.$emit('path', '/product');
+    }, 
+    mounted() {
+        //clear all data cache
+        this.productDetail = {};
+        this.publishDate = "";
+        this.noteConsTable="";
+        this.options =  {
+            title: {
+            text: '暂无数据'
+            },
+            credits: {
+            href: '',
+            text: 'CNABS'
+            },
+        };
+        window.scrollTo(0,0);
+        const productId = getParams("id");
+        if (productId) {
+        this.fetchProductDetail(productId,data=>{
+            console.log(data);
+            this.productDetail =data;
+            if(this.productDetail.Basic.ClosingDate!=null)
+                this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
+            var resultId = data.ResultSetId;
+            if(data.DealId!=null&&data.DealId>0){
+                if(data.NoteList!=null&&data.NoteList.length>0){
+                    if(data.NoteList.length>6){
+                        this.chartWidthPx=280;
+                    }else if(data.NoteList.length>4){
+                        this.chartWidthPx=200;
+                    }else{
+                        this.chartWidthPx=150;
+                    }
+                }
+                this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
+            }
+            if (data.ResultSetId != null && data.ResultSetId > 0) {
+                this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
+            }
+        });
+    }
     busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/product');
+    },
+    updated(){
+        var paidList=document.getElementsByClassName("divHasPaid");
+        for(var i=0;i<paidList.length;i++){
+            paidList[i].style.backgroundImage="url(/src/public/images/table_bg.png)";
+        }
+        var bgList=document.getElementsByClassName("structure_bg");
+        for(var i=0;i<bgList.length;i++){
+            bgList[i].style.backgroundColor="#B7AFA5";
+            var aList=bgList[i].getElementsByTagName('a');
+            for(var j=0;j<aList.length;j++){
+                aList[j].href="javascript:;";
+                aList[j].title="";
+            }
+        }
+    },
+    activated() {
+        //clear all data cache
+        this.productDetail = {};
+        this.publishDate = "";
+        this.noteConsTable="";
+        this.options =  {
+            title: {
+            text: '暂无数据'
+            },
+            credits: {
+            href: '',
+            text: 'CNABS'
+        },
+        };
+    window.scrollTo(0,0);
+    // const busUtil = BusUtil.getInstance();
+    // busUtil.bus.$emit('showHeader', true);
+    // busUtil.bus.$emit('path', '/product');
+    // this.id = this.$route.params.id;
+    const productId = getParams("id");
+    // if (productId) {
+    //   this.fetchProductDetail(productId);
+    // }
+
+    if (productId) {
+        this.fetchProductDetail(productId,data=>{
+            console.log(data);
+            this.productDetail =data;
+            if(this.productDetail.Basic.ClosingDate!=null)
+                this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
+            var resultId = data.ResultSetId;
+            if(data.DealId!=null&&data.DealId>0){
+                if(data.NoteList!=null&&data.NoteList.length>0){
+                    if(data.NoteList.length>6){
+                        this.chartWidthPx=280;
+                    }else if(data.NoteList.length>4){
+                        this.chartWidthPx=200;
+                    }else{
+                        this.chartWidthPx=150;
+                    }
+                }
+                this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
+            }
+            if (data.ResultSetId != null && data.ResultSetId > 0) {
+                this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
+            }
+        });
+    }
+    busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/product');
+ 
   },
   data() {
     return {
-      productDetail: null,
-      options: {}
+        productDetail: {},
+        publishDate:"",
+        noteConsTable:"",
+        options: {
+        title: {
+          text: '暂无数据'
+        },
+        credits: {
+          href: '',
+          text: 'CNABS'
+        },
+      },
+        chartWidthRem:3,
+        chartWidthPx:225,
     };
   },
   methods: {
-    fetchProductDetail(id) {
-      fetch(`http://10.1.1.35/Demo/DemoProduct/getitem/6`)
-      .then(response => response.json())
-      .then((json) => {
-        this.productDetail = json.data;
-      });
+    fetchNoteConsTable(dealId,width,height){
+        axios("http://10.1.1.35/Dealreport/GetStructure?dealId="+dealId+"&w="+width+"&h="+height)
+        .then((response)=>{
+           // console.log(response);
+            if(response!=null &&response!=""){
+                this.noteConsTable=response.data;
+                
+            }
+        });
+
+    },
+    fetchProductDetail(id,callback) {
+        // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
+        axios(webApi.Product.detail.concat(['',id].join('/')))
+        .then((response) => {
+            if (response.data.status == "ok") {
+              const data = response.data.data;
+              if(data){
+                callback(data);
+              }
+            }
+        });
     },
     fetchProductPaymentChart(dealId, resultId) {
-      fetch(`http://10.1.1.35/Demo/DemoProduct/getitem/5`)//../MoDeal/GetNoteCashflowChartData/440/28203
-      .then(response => response.json())
-      .then((json) => {
-        var jsons = JSON.parse('{"status":"ok","code":200,"data":{"ListLineSeries":[{"Data":{"Data":[{"X":1448928000000,"Y":100,"Tooltip":null},{"X":1453766400000,"Y":100,"Tooltip":null},{"X":1456444800000,"Y":100,"Tooltip":null},{"X":1459123200000,"Y":100,"Tooltip":null},{"X":1461628800000,"Y":100,"Tooltip":null},{"X":1464220800000,"Y":100,"Tooltip":null},{"X":1466985600000,"Y":100,"Tooltip":null},{"X":1469491200000,"Y":100,"Tooltip":null},{"X":1472169600000,"Y":100,"Tooltip":null},{"X":1474848000000,"Y":100,"Tooltip":null},{"X":1477440000000,"Y":100,"Tooltip":null},{"X":1480291200000,"Y":100,"Tooltip":null},{"X":1482710400000,"Y":0,"Tooltip":null},{"X":1485388800000,"Y":0,"Tooltip":null},{"X":1488153600000,"Y":0,"Tooltip":null},{"X":1490572800000,"Y":0,"Tooltip":null},{"X":1493164800000,"Y":0,"Tooltip":null},{"X":1495756800000,"Y":0,"Tooltip":null},{"X":1498435200000,"Y":0,"Tooltip":null},{"X":1501027200000,"Y":0,"Tooltip":null},{"X":1503878400000,"Y":0,"Tooltip":null},{"X":1506384000000,"Y":0,"Tooltip":null},{"X":1508976000000,"Y":0,"Tooltip":null},{"X":1511740800000,"Y":0,"Tooltip":null},{"X":1514246400000,"Y":0,"Tooltip":null},{"X":1516924800000,"Y":0,"Tooltip":null},{"X":1519603200000,"Y":0,"Tooltip":null},{"X":1522022400000,"Y":0,"Tooltip":null},{"X":1524700800000,"Y":0,"Tooltip":null},{"X":1527465600000,"Y":0,"Tooltip":null}]},"Name":"15和信2A1"},{"Data":{"Data":[{"X":1448928000000,"Y":100,"Tooltip":null},{"X":1453766400000,"Y":100,"Tooltip":null},{"X":1456444800000,"Y":100,"Tooltip":null},{"X":1459123200000,"Y":100,"Tooltip":null},{"X":1461628800000,"Y":100,"Tooltip":null},{"X":1464220800000,"Y":100,"Tooltip":null},{"X":1466985600000,"Y":100,"Tooltip":null},{"X":1469491200000,"Y":100,"Tooltip":null},{"X":1472169600000,"Y":100,"Tooltip":null},{"X":1474848000000,"Y":100,"Tooltip":null},{"X":1477440000000,"Y":100,"Tooltip":null},{"X":1480291200000,"Y":100,"Tooltip":null},{"X":1482710400000,"Y":100,"Tooltip":null},{"X":1485388800000,"Y":83.33,"Tooltip":null},{"X":1488153600000,"Y":66.66,"Tooltip":null},{"X":1490572800000,"Y":49.99,"Tooltip":null},{"X":1493164800000,"Y":33.32,"Tooltip":null},{"X":1495756800000,"Y":16.650000000000002,"Tooltip":null},{"X":1498435200000,"Y":0,"Tooltip":null},{"X":1501027200000,"Y":0,"Tooltip":null},{"X":1503878400000,"Y":0,"Tooltip":null},{"X":1506384000000,"Y":0,"Tooltip":null},{"X":1508976000000,"Y":0,"Tooltip":null},{"X":1511740800000,"Y":0,"Tooltip":null},{"X":1514246400000,"Y":0,"Tooltip":null},{"X":1516924800000,"Y":0,"Tooltip":null},{"X":1519603200000,"Y":0,"Tooltip":null},{"X":1522022400000,"Y":0,"Tooltip":null},{"X":1524700800000,"Y":0,"Tooltip":null},{"X":1527465600000,"Y":0,"Tooltip":null}]},"Name":"15和信2A2"},{"Data":{"Data":[{"X":1448928000000,"Y":100,"Tooltip":null},{"X":1453766400000,"Y":100,"Tooltip":null},{"X":1456444800000,"Y":100,"Tooltip":null},{"X":1459123200000,"Y":100,"Tooltip":null},{"X":1461628800000,"Y":100,"Tooltip":null},{"X":1464220800000,"Y":100,"Tooltip":null},{"X":1466985600000,"Y":100,"Tooltip":null},{"X":1469491200000,"Y":100,"Tooltip":null},{"X":1472169600000,"Y":100,"Tooltip":null},{"X":1474848000000,"Y":100,"Tooltip":null},{"X":1477440000000,"Y":100,"Tooltip":null},{"X":1480291200000,"Y":100,"Tooltip":null},{"X":1482710400000,"Y":90.92,"Tooltip":null},{"X":1485388800000,"Y":82.46,"Tooltip":null},{"X":1488153600000,"Y":74.87,"Tooltip":null},{"X":1490572800000,"Y":68.04,"Tooltip":null},{"X":1493164800000,"Y":59.919999999999995,"Tooltip":null},{"X":1495756800000,"Y":52.82,"Tooltip":null},{"X":1498435200000,"Y":46.12,"Tooltip":null},{"X":1501027200000,"Y":34.12,"Tooltip":null},{"X":1503878400000,"Y":23.94,"Tooltip":null},{"X":1506384000000,"Y":14.06,"Tooltip":null},{"X":1508976000000,"Y":5.7,"Tooltip":null},{"X":1511740800000,"Y":0,"Tooltip":null},{"X":1514246400000,"Y":0,"Tooltip":null},{"X":1516924800000,"Y":0,"Tooltip":null},{"X":1519603200000,"Y":0,"Tooltip":null},{"X":1522022400000,"Y":0,"Tooltip":null},{"X":1524700800000,"Y":0,"Tooltip":null},{"X":1527465600000,"Y":0,"Tooltip":null}]},"Name":"15和信2A3"},{"Data":{"Data":[{"X":1448928000000,"Y":100,"Tooltip":null},{"X":1453766400000,"Y":100,"Tooltip":null},{"X":1456444800000,"Y":100,"Tooltip":null},{"X":1459123200000,"Y":100,"Tooltip":null},{"X":1461628800000,"Y":100,"Tooltip":null},{"X":1464220800000,"Y":100,"Tooltip":null},{"X":1466985600000,"Y":100,"Tooltip":null},{"X":1469491200000,"Y":100,"Tooltip":null},{"X":1472169600000,"Y":100,"Tooltip":null},{"X":1474848000000,"Y":100,"Tooltip":null},{"X":1477440000000,"Y":100,"Tooltip":null},{"X":1480291200000,"Y":100,"Tooltip":null},{"X":1482710400000,"Y":100,"Tooltip":null},{"X":1485388800000,"Y":100,"Tooltip":null},{"X":1488153600000,"Y":100,"Tooltip":null},{"X":1490572800000,"Y":100,"Tooltip":null},{"X":1493164800000,"Y":100,"Tooltip":null},{"X":1495756800000,"Y":100,"Tooltip":null},{"X":1498435200000,"Y":100,"Tooltip":null},{"X":1501027200000,"Y":100,"Tooltip":null},{"X":1503878400000,"Y":100,"Tooltip":null},{"X":1506384000000,"Y":100,"Tooltip":null},{"X":1508976000000,"Y":100,"Tooltip":null},{"X":1511740800000,"Y":81.44,"Tooltip":null},{"X":1514246400000,"Y":6.510000000000001,"Tooltip":null},{"X":1516924800000,"Y":0,"Tooltip":null},{"X":1519603200000,"Y":0,"Tooltip":null},{"X":1522022400000,"Y":0,"Tooltip":null},{"X":1524700800000,"Y":0,"Tooltip":null},{"X":1527465600000,"Y":0,"Tooltip":null}]},"Name":"15和信2B"},{"Data":{"Data":[{"X":1448928000000,"Y":100,"Tooltip":null},{"X":1453766400000,"Y":100,"Tooltip":null},{"X":1456444800000,"Y":100,"Tooltip":null},{"X":1459123200000,"Y":100,"Tooltip":null},{"X":1461628800000,"Y":100,"Tooltip":null},{"X":1464220800000,"Y":100,"Tooltip":null},{"X":1466985600000,"Y":100,"Tooltip":null},{"X":1469491200000,"Y":100,"Tooltip":null},{"X":1472169600000,"Y":100,"Tooltip":null},{"X":1474848000000,"Y":100,"Tooltip":null},{"X":1477440000000,"Y":100,"Tooltip":null},{"X":1480291200000,"Y":100,"Tooltip":null},{"X":1482710400000,"Y":100,"Tooltip":null},{"X":1485388800000,"Y":100,"Tooltip":null},{"X":1488153600000,"Y":100,"Tooltip":null},{"X":1490572800000,"Y":100,"Tooltip":null},{"X":1493164800000,"Y":100,"Tooltip":null},{"X":1495756800000,"Y":100,"Tooltip":null},{"X":1498435200000,"Y":100,"Tooltip":null},{"X":1501027200000,"Y":100,"Tooltip":null},{"X":1503878400000,"Y":100,"Tooltip":null},{"X":1506384000000,"Y":100,"Tooltip":null},{"X":1508976000000,"Y":100,"Tooltip":null},{"X":1511740800000,"Y":100,"Tooltip":null},{"X":1514246400000,"Y":100,"Tooltip":null},{"X":1516924800000,"Y":71.5917670879813,"Tooltip":null},{"X":1519603200000,"Y":44.1169147520373,"Tooltip":null},{"X":1522022400000,"Y":22.256732513930398,"Tooltip":null},{"X":1524700800000,"Y":3.4377452440568,"Tooltip":null},{"X":1527465600000,"Y":5.0703352678069e-15,"Tooltip":null}]},"Name":"15和信2C"},{"Data":{"Data":[{"X":1448928000000,"Y":100,"Tooltip":null},{"X":1453766400000,"Y":100,"Tooltip":null},{"X":1456444800000,"Y":100,"Tooltip":null},{"X":1459123200000,"Y":100,"Tooltip":null},{"X":1461628800000,"Y":100,"Tooltip":null},{"X":1464220800000,"Y":100,"Tooltip":null},{"X":1466985600000,"Y":100,"Tooltip":null},{"X":1469491200000,"Y":100,"Tooltip":null},{"X":1472169600000,"Y":100,"Tooltip":null},{"X":1474848000000,"Y":100,"Tooltip":null},{"X":1477440000000,"Y":100,"Tooltip":null},{"X":1480291200000,"Y":100,"Tooltip":null},{"X":1482710400000,"Y":0,"Tooltip":null},{"X":1485388800000,"Y":0,"Tooltip":null},{"X":1488153600000,"Y":0,"Tooltip":null},{"X":1490572800000,"Y":0,"Tooltip":null},{"X":1493164800000,"Y":0,"Tooltip":null},{"X":1495756800000,"Y":0,"Tooltip":null},{"X":1498435200000,"Y":0,"Tooltip":null},{"X":1501027200000,"Y":0,"Tooltip":null},{"X":1503878400000,"Y":0,"Tooltip":null},{"X":1506384000000,"Y":0,"Tooltip":null},{"X":1508976000000,"Y":0,"Tooltip":null},{"X":1511740800000,"Y":0,"Tooltip":null},{"X":1514246400000,"Y":0,"Tooltip":null},{"X":1516924800000,"Y":0,"Tooltip":null},{"X":1519603200000,"Y":0,"Tooltip":null},{"X":1522022400000,"Y":0,"Tooltip":null},{"X":1524700800000,"Y":0,"Tooltip":null},{"X":1527465600000,"Y":0,"Tooltip":null},{"X":1529971200000,"Y":0,"Tooltip":null}]},"Name":"15和信2A1(说明书)"},{"Data":{"Data":[{"X":1448928000000,"Y":100,"Tooltip":null},{"X":1453766400000,"Y":100,"Tooltip":null},{"X":1456444800000,"Y":100,"Tooltip":null},{"X":1459123200000,"Y":100,"Tooltip":null},{"X":1461628800000,"Y":100,"Tooltip":null},{"X":1464220800000,"Y":100,"Tooltip":null},{"X":1466985600000,"Y":100,"Tooltip":null},{"X":1469491200000,"Y":100,"Tooltip":null},{"X":1472169600000,"Y":100,"Tooltip":null},{"X":1474848000000,"Y":100,"Tooltip":null},{"X":1477440000000,"Y":100,"Tooltip":null},{"X":1480291200000,"Y":100,"Tooltip":null},{"X":1482710400000,"Y":100,"Tooltip":null},{"X":1485388800000,"Y":83.33,"Tooltip":null},{"X":1488153600000,"Y":66.66,"Tooltip":null},{"X":1490572800000,"Y":49.99,"Tooltip":null},{"X":1493164800000,"Y":33.32,"Tooltip":null},{"X":1495756800000,"Y":16.650000000000002,"Tooltip":null},{"X":1498435200000,"Y":0,"Tooltip":null},{"X":1501027200000,"Y":0,"Tooltip":null},{"X":1503878400000,"Y":0,"Tooltip":null},{"X":1506384000000,"Y":0,"Tooltip":null},{"X":1508976000000,"Y":0,"Tooltip":null},{"X":1511740800000,"Y":0,"Tooltip":null},{"X":1514246400000,"Y":0,"Tooltip":null},{"X":1516924800000,"Y":0,"Tooltip":null},{"X":1519603200000,"Y":0,"Tooltip":null},{"X":1522022400000,"Y":0,"Tooltip":null},{"X":1524700800000,"Y":0,"Tooltip":null},{"X":1527465600000,"Y":0,"Tooltip":null},{"X":1529971200000,"Y":0,"Tooltip":null}]},"Name":"15和信2A2(说明书)"},{"Data":{"Data":[{"X":1448928000000,"Y":100,"Tooltip":null},{"X":1453766400000,"Y":100,"Tooltip":null},{"X":1456444800000,"Y":100,"Tooltip":null},{"X":1459123200000,"Y":100,"Tooltip":null},{"X":1461628800000,"Y":100,"Tooltip":null},{"X":1464220800000,"Y":100,"Tooltip":null},{"X":1466985600000,"Y":100,"Tooltip":null},{"X":1469491200000,"Y":100,"Tooltip":null},{"X":1472169600000,"Y":100,"Tooltip":null},{"X":1474848000000,"Y":100,"Tooltip":null},{"X":1477440000000,"Y":100,"Tooltip":null},{"X":1480291200000,"Y":100,"Tooltip":null},{"X":1482710400000,"Y":98.91916186540881,"Tooltip":null},{"X":1485388800000,"Y":97.72860529528302,"Tooltip":null},{"X":1488153600000,"Y":96.15858110880504,"Tooltip":null},{"X":1490572800000,"Y":94.73161229088049,"Tooltip":null},{"X":1493164800000,"Y":91.88437781194969,"Tooltip":null},{"X":1495756800000,"Y":87.04993200943396,"Tooltip":null},{"X":1498435200000,"Y":82.56057164999999,"Tooltip":null},{"X":1501027200000,"Y":71.99794379842768,"Tooltip":null},{"X":1503878400000,"Y":61.57070107704402,"Tooltip":null},{"X":1506384000000,"Y":45.124734017610066,"Tooltip":null},{"X":1508976000000,"Y":28.807073257547174,"Tooltip":null},{"X":1511740800000,"Y":15.688895726100627,"Tooltip":null},{"X":1514246400000,"Y":1.8970728845911948,"Tooltip":null},{"X":1516924800000,"Y":0,"Tooltip":null},{"X":1519603200000,"Y":0,"Tooltip":null},{"X":1522022400000,"Y":0,"Tooltip":null},{"X":1524700800000,"Y":0,"Tooltip":null},{"X":1527465600000,"Y":0,"Tooltip":null},{"X":1529971200000,"Y":0,"Tooltip":null}]},"Name":"15和信2A3(说明书)"},{"Data":{"Data":[{"X":1448928000000,"Y":100,"Tooltip":null},{"X":1453766400000,"Y":100,"Tooltip":null},{"X":1456444800000,"Y":100,"Tooltip":null},{"X":1459123200000,"Y":100,"Tooltip":null},{"X":1461628800000,"Y":100,"Tooltip":null},{"X":1464220800000,"Y":100,"Tooltip":null},{"X":1466985600000,"Y":100,"Tooltip":null},{"X":1469491200000,"Y":100,"Tooltip":null},{"X":1472169600000,"Y":100,"Tooltip":null},{"X":1474848000000,"Y":100,"Tooltip":null},{"X":1477440000000,"Y":100,"Tooltip":null},{"X":1480291200000,"Y":100,"Tooltip":null},{"X":1482710400000,"Y":100,"Tooltip":null},{"X":1485388800000,"Y":100,"Tooltip":null},{"X":1488153600000,"Y":100,"Tooltip":null},{"X":1490572800000,"Y":100,"Tooltip":null},{"X":1493164800000,"Y":100,"Tooltip":null},{"X":1495756800000,"Y":100,"Tooltip":null},{"X":1498435200000,"Y":100,"Tooltip":null},{"X":1501027200000,"Y":100,"Tooltip":null},{"X":1503878400000,"Y":100,"Tooltip":null},{"X":1506384000000,"Y":100,"Tooltip":null},{"X":1508976000000,"Y":100,"Tooltip":null},{"X":1511740800000,"Y":100,"Tooltip":null},{"X":1514246400000,"Y":100,"Tooltip":null},{"X":1516924800000,"Y":40.21778414624506,"Tooltip":null},{"X":1519603200000,"Y":0,"Tooltip":null},{"X":1522022400000,"Y":0,"Tooltip":null},{"X":1524700800000,"Y":0,"Tooltip":null},{"X":1527465600000,"Y":0,"Tooltip":null},{"X":1529971200000,"Y":0,"Tooltip":null}]},"Name":"15和信2B(说明书)"},{"Data":{"Data":[{"X":1448928000000,"Y":100,"Tooltip":null},{"X":1453766400000,"Y":100,"Tooltip":null},{"X":1456444800000,"Y":100,"Tooltip":null},{"X":1459123200000,"Y":100,"Tooltip":null},{"X":1461628800000,"Y":100,"Tooltip":null},{"X":1464220800000,"Y":100,"Tooltip":null},{"X":1466985600000,"Y":100,"Tooltip":null},{"X":1469491200000,"Y":100,"Tooltip":null},{"X":1472169600000,"Y":100,"Tooltip":null},{"X":1474848000000,"Y":100,"Tooltip":null},{"X":1477440000000,"Y":100,"Tooltip":null},{"X":1480291200000,"Y":100,"Tooltip":null},{"X":1482710400000,"Y":100,"Tooltip":null},{"X":1485388800000,"Y":100,"Tooltip":null},{"X":1488153600000,"Y":100,"Tooltip":null},{"X":1490572800000,"Y":100,"Tooltip":null},{"X":1493164800000,"Y":100,"Tooltip":null},{"X":1495756800000,"Y":100,"Tooltip":null},{"X":1498435200000,"Y":100,"Tooltip":null},{"X":1501027200000,"Y":100,"Tooltip":null},{"X":1503878400000,"Y":100,"Tooltip":null},{"X":1506384000000,"Y":100,"Tooltip":null},{"X":1508976000000,"Y":100,"Tooltip":null},{"X":1511740800000,"Y":100,"Tooltip":null},{"X":1514246400000,"Y":100,"Tooltip":null},{"X":1516924800000,"Y":100,"Tooltip":null},{"X":1519603200000,"Y":66.41040975136853,"Tooltip":null},{"X":1522022400000,"Y":30.26817767821191,"Tooltip":null},{"X":1524700800000,"Y":14.039088716446635,"Tooltip":null},{"X":1527465600000,"Y":1.0502974066286104,"Tooltip":null},{"X":1529971200000,"Y":0,"Tooltip":null}]},"Name":"15和信2C(说明书)"}],"PlotValue":1514246400000,"PlotLabel":"2017-12-26","HasLegalLine":true}}');
-        if (jsons.status == 'ok') {
-          var chartData = jsons.data;
+      axios(webApi.Product.chart.concat(['', dealId, resultId].join('/')))
+      .then((response) => {
+        const json = response.data;
+        if (json.status == "ok") {
+          var chartData = json.data;
           var o = [];
                 var hasLegal = chartData.HasLegalLine;
                 var colors = ["#2b908f", "#D8C46C", "#f45b5b", "#7798BF", "#FF1495", "#37FF14", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee", "#00FFFF", "#8B008B"]
@@ -249,7 +335,7 @@ export default {
                     s = chartData.PlotLabel;
                 var l = {
                     title: {
-                        text: '证券偿付图'
+                        text: ''
                     },
                     xAxis: {
                         type: "datetime",
@@ -277,7 +363,7 @@ export default {
                             }
                         }],
                         plotBands: [{
-                            color: "#514C44",
+                            color: "#333",
                             from: Date.UTC(2e3, 1, 1),
                             to: i
                         }]
@@ -285,7 +371,7 @@ export default {
                     yAxis: {
                         title: {
                             enabled: !0,
-                            text: "偿付百分比"
+                            text: ""
                         },
                         labels: {
                             format: "{value:.0f}%"
@@ -305,6 +391,15 @@ export default {
                                 e = new Date(this.x);
                             return t = e.getFullYear() + "-" + (e.getMonth() + 1) + "-" + e.getDate() + "<br/>" + this.series.name + "剩余本金:<br/>" + Math.round(100 * this.y) / 100 + "%"
                         }
+                    },
+                    legend : {
+                        style: {
+                            fontSize: '10px'
+                        }
+                    },
+                    credits: {
+                      href: '',
+                      text: 'CNABS'
                     },
                     series: o
                 };
