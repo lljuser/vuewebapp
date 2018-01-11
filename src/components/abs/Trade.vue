@@ -1,7 +1,7 @@
 <template>
 <div class="appH5_body">              
 <div class="appH5_panel">
-  <table class="appH5_select_div trade_select_div" cellspacing="0"  cellpadding="0" v-if="!isTradeLoading">
+  <table class="appH5_select_div trade_select_div" cellspacing="0"  cellpadding="0" v-if="isShowSelect">
      <tr>
        <td class="text-left">
         <select v-model="TradeRating" v-on:change="selectChange()">
@@ -80,6 +80,7 @@ export default {
       isTradeLoading:false,
       isComponentActive :false,
       isFetchTradesError:false,
+      isShowSelect:false,
     };
   },
    activated() {
@@ -138,6 +139,7 @@ export default {
       this.fetchTrades(1,0, data => {
         this.list = data;
         this.isTradeLoading = false;
+        this.isShowSelect=true;
       });
     },  
     fetchTrades(page, direction,callback) {
@@ -197,6 +199,7 @@ export default {
         this.fetchTrades(0, 1,data => {
           this.list = data;
           this.isTradeLoading = false;
+          this.isShowSelect=true;
         });
       }, 500);
     },
