@@ -3,9 +3,11 @@
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div">
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
+                <div class="ep_title_div">
                 <span class="fl ep_color_grey">产品类型</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <select class="ep_select fr ep_font32 ep_align_right personalRoleSelect" v-model="otherDealTypeModel" v-cloak>
+                   </div>
+                <select class="ep_select fl ep_font32 ep_align_right personalRoleSelect" v-model="otherDealTypeModel" v-cloak>
                     <option  value="">请选择</option>
                     <option v-for="item in otherDealTypes" v-bind:value="item.Type" v-bind:key="item.Type">{{item.Type}}</option>
                 </select>
