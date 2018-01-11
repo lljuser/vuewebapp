@@ -1,8 +1,11 @@
 <template>
 <div class="appH5_body">
   <div id="root" class="appH5_content">
-    <div class="appH5_panel  appH5_panel_mb">
-<div class="appH5_title"><span>市场概要</span></div>
+    <div class="product-spinner" v-if="isMarketLoading">
+      <mt-spinner type="triple-bounce"></mt-spinner>
+    </div>
+    <div class="appH5_panel  appH5_panel_mb" v-else>
+    <div class="appH5_title"><span>市场概要</span></div>
     <div>
       <table class="appH5_table">
         <tr>
@@ -11,7 +14,7 @@
           <th class="text-right">今年(亿)</th>
           <th class="text-right">累计(亿)</th>
         </tr>
-        <tr v-if="marketSummary.length!=null&&marketSummary.length!=0&&index!=4" v-for="(product,index) in marketSummary">
+        <tr v-if="marketSummary.length!=null&&marketSummary.length!=0&&index!=4" v-for="(product,index) in marketSummary" :key="index">
           <td > <router-link v-bind:to="'/product/'+product.ProductTypeId"> <a href="javascript:;" style="color:#FEC447">{{product.SimpleProductType}}</a></router-link></td>
           <td class="text-right">{{product.DealCountCurrentYear}}</td>
           <td class="text-right appH5_color_red">{{product.BalanceCurrentYear}}</td>
@@ -91,6 +94,7 @@ export default {
         },
       },
       marketSummary:[],
+      isMarketLoading: false,
     };
   },
   created() {
@@ -98,9 +102,11 @@ export default {
     // this.fetchPost();
   },
   mounted() {
+    this.isMarketLoading=true,
     this.timer = setTimeout(() => {
       this.fetchMarketSummary(data=>{
         this.marketSummary=data;
+        this.isMarketLoading=false;
         console.log(data);
       });
       this.fetchChartData();

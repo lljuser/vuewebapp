@@ -38,12 +38,12 @@ export default new Router({
       component: ReadProfile,
     },
     {
-      path: '/ReadAbsHistoryList',
+      path: '/ReadAbsHistoryList/:userId?',
       name: 'ReadAbsHistoryList',
       component: ReadAbsHistoryList,
     },
     {
-      path: '/ReadOtherProjectList',
+      path: '/ReadOtherProjectList/:userId?',
       name: 'ReadOtherProjectList',
       component: ReadOtherProjectList,
     },

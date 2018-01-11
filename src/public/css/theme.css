@@ -415,3 +415,12 @@ select{
     white-space: nowrap;
     overflow: hidden;
 }
+
+/* 产品和交易的select的div */
+.appH5_select_div{
+	table-layout: fixed;
+	width:100%;
+	margin: 0 0 0.32rem 0;
+	line-height: 0;
+	display: table;
+}

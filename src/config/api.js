@@ -126,12 +126,18 @@ export const Expert = {
   updateWorkHistory: `${apiAddress}/ExpertInfo/UpdateWorkHistory`,
   // 机构自动检索
   orgSearch: `${apiAddress}/Search/OrganizationSearch`,
+  // ABS产品自动检索
+  dealSearch: `${apiAddress}/Search/AbsDealSearch`,
   // 获取Abs项目经历机构角色以及个人职责
   getOrganizationRolesAndResponsibilities: `${apiAddress}/ExpertInfo/GetOrganizationRolesAndResponsibilities`,
   // 添加单个Abs项目经历
   addAbsProject: `${apiAddress}/ExpertInfo/AddAbsProject`,
   // 更新单个Abs项目经历
   updateAbsProject: `${apiAddress}/ExpertInfo/UpdateAbsProject`,
+  // 删除单个Abs项目经历
+  deleteAbsProject: `${apiAddress}/ExpertInfo/DeleteAbsProject`,
+  // 获取编辑页面的所有abs项目经历
+  getAbsProjectsByEditing: `${apiAddress}/ExpertInfo/GetAbsProjectsByEditing`,
 };
 
 export const Demo = {

@@ -1,19 +1,21 @@
 <template>
   <div id="app" class="cnabs-bg">
-    <div v-if="!showHeader" class="appH5_navbar">
-      <router-link to="/market" tag="div">
-        <a class="appH5_tab" href="javascript:;">市场</a>
-      </router-link>
-      <router-link to="/product" tag="div">
-        <a class="appH5_tab" href="javascript:;">产品</a>
-      </router-link>
-      <router-link to="/trade" tag="div">
-        <a class="appH5_tab" href="javascript:;">交易</a>
-      </router-link>
+    <div v-if="!showHeader" class="appH5_navbar_bg">
+      <div class="appH5_navbar" >
+        <router-link to="/market" tag="div">
+          <a class="appH5_tab" href="javascript:;">市场</a>
+        </router-link>
+        <router-link to="/product" tag="div">
+          <a class="appH5_tab" href="javascript:;">产品</a>
+        </router-link>
+        <router-link to="/trade" tag="div">
+          <a class="appH5_tab" href="javascript:;">交易</a>
+        </router-link>
+      </div>
     </div> 
 
     <div v-else class="appH5_navbar_bg">
-      <mt-header title="产品信息">
+      <mt-header :title="headTitle">
         <router-link :to="path" slot="left">
           <mt-button icon="back" @click.stop="clearPath"></mt-button>
         </router-link>
@@ -37,6 +39,7 @@ export default {
     return {
       showHeader: false,
       path: '',
+      headTitle:'产品信息',
     };
   },
   created() {
@@ -46,6 +49,9 @@ export default {
     });
     busUtil.bus.$on('path', (path) => {
       this.path = path;
+    });
+    busUtil.bus.$on('headTitle', (headTitle) => {
+      this.headTitle = headTitle;
     });
   },
   methods: {

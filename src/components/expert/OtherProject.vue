@@ -38,10 +38,10 @@
                     </select>
                 </div>
                 <div v-if="!isArrayEmpty(projectHistory.OrganizationRoles)">
-                    <div class="ep_font28 delete-Label ep_marginLeft15 ep_marginTop10" v-for="item in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole">
+                    <!-- <div class="ep_font28 delete-Label ep_marginLeft15 ep_marginTop10" v-for="item in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole">
                         <span>{{organizationRoleDisplay(item)}}</span>
                         <img class="followImg" src="../../public/image/deleteicon.png"  v-on:click="deleteOrganizationRole(item)" />
-                    </div>
+                    </div> -->
                      <!-- <div class="ep_multipleItem ep_font28 delete-Label" v-for="(item,index) in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole" v-bind:class="[index===projectHistory.OrganizationRoles-1?'ep_marginBottom30':'ep_marginBottom20']" v-cloak>
                         <span>债权人</span>
                         <img class="followImg" src="public/image/unfollowicon.png"  v-on:click="deleteOrganizationRole(item)" />
@@ -50,6 +50,14 @@
                     </div>
                      -->
                 </div>
+            </div>
+            <div v-if="!isArrayEmpty(projectHistory.OrganizationRoles)" class="ep_part_item_border ep_font32 ep_paddingBottom10 ">
+                  <div class="ep_overhide">
+                    <div class="ep_font28 delete-Label ep_marginLeft15 ep_marginTop10" v-for="item in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole">
+                    <span>{{organizationRoleDisplay(item)}}</span>
+                    <img class="followImg" src="../../public/image/deleteicon.png"  v-on:click="deleteOrganizationRole(item)" />
+                </div>
+                  </div>
             </div>
             <div class="clearBoth"></div>
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
@@ -82,7 +90,7 @@
                 <span v-else class="ep_removeBtn fr" v-on:click="removePopupVisible=true">删除本条</span>
             </div>
         </div>
-        <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
+             <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
             <div class="ep_color_grey ep_padding30">确定删除本条信息？</div>
             <div class="ep_padding30 ep_color_orange ep_marginTop2" v-on:click='removeContent'>确定</div>
             <div class="ep_padding30 ep_marginTop2 ep_marginBottom2" v-on:click="removePopupVisible=false">取消</div>

@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td class="appH5_white_space">证券类型</td>
-            <td class="appH5_color_link"><router-link to="/trade"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
+            <td class="appH5_color_link"><router-link :to="'/trade/'+gradeId+'/'+securityId"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
             <td class="appH5_white_space">评&#12288;&#12288;级</td>
             <td>{{detailInfo.Rating}}</td>
         </tr>
@@ -87,7 +87,7 @@
           </div>
           <div class="clearfix"></div>
     </div>
-    <a :href="'tel:'+contactItem.Telephone" class="fl fixedRight">
+    <a :href="'tel:'+cutStr(contactItem.Telephone)" class="fl fixedRight">
         <img class="phoneImg" src="../../public/images/phone.png"/>
     </a>
     <div class="clearfix"></div>
@@ -106,12 +106,14 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       detailInfo:[],
+      newContacts:[],
     };
   },
   created() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
+    busUtil.bus.$emit('headTitle', '交易信息');
   }, 
   mounted() {
   },
@@ -124,6 +126,9 @@ export default {
         }
       });
     }, 
+    cutStr(arr){
+        return arr.split("转")[0];
+    },
   },
   activated() {
     // 滚动到顶部
@@ -131,6 +136,7 @@ export default {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
+    busUtil.bus.$emit('headTitle', '交易信息');
     this.tradeId = this.$route.params.tradeId;
     this.noteId = this.$route.params.noteId;
     //debugger;

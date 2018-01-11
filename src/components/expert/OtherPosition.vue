@@ -21,10 +21,10 @@
                 <span v-else class="ep_removeBtn fr" v-on:click="removePopupVisible=true">删除本条</span>
             </div>
         </div>
-        <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_align_center ep_font32">
+    <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
             <div class="ep_color_grey ep_padding30">确定删除本条信息？</div>
-            <div class="ep_padding30" v-on:click='removeContent'>确定</div>
-            <div class="ep_padding30" v-on:click="removePopupVisible=false">取消</div>
+            <div class="ep_padding30 ep_color_orange ep_marginTop2" v-on:click='removeContent'>确定</div>
+            <div class="ep_padding30 ep_marginTop2 ep_marginBottom2" v-on:click="removePopupVisible=false">取消</div>
         </mt-popup>
         <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>

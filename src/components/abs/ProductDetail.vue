@@ -128,6 +128,7 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
+        busUtil.bus.$emit('headTitle', '产品信息');
     }, 
     mounted() {
         
@@ -165,6 +166,7 @@ export default {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/product');
+       busUtil.bus.$emit('headTitle', '产品信息');
     this.id = this.$route.params.id;
     if (this.id) {
         this.fetchProductDetail(this.id,data=>{
