@@ -11,7 +11,7 @@
           <th class="text-right">今年(亿)</th>
           <th class="text-right">累计(亿)</th>
         </tr>
-        <tr v-if="marketSummary.length!=null&&marketSummary.length!=0&&index!=4" v-for="(product,index) in marketSummary">
+        <tr v-if="marketSummary.length!=null&&marketSummary.length!=0&&index!=4" v-for="(product,index) in marketSummary" :key="index">
           <td > <router-link v-bind:to="'/product/'+product.ProductTypeId"> <a href="javascript:;" style="color:#FEC447">{{product.SimpleProductType}}</a></router-link></td>
           <td class="text-right">{{product.DealCountCurrentYear}}</td>
           <td class="text-right appH5_color_red">{{product.BalanceCurrentYear}}</td>
