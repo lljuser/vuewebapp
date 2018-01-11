@@ -5,7 +5,7 @@
         <div class='td_elips1'>{{item.SecurityName}}</div>
       </router-link>
     </td>
-    <td class="text-right appH5_font_larger appH5_color_red">{{item.TotalOffering}}</td>
+    <td class="text-right appH5_color_red">{{item.TotalOffering}}</td>
     <td class="text-right">{{item.Rating}}</td>
     <td class="text-right">{{item.WAL}}</td>
     <td class="text-right td_tworows" v-if="item.Coupon!=null && item.Coupon.split('~').length>1">{{item.Coupon.split('~')[0]}}<br><span>/</span>{{item.Coupon.split('~')[1]}}</td>
