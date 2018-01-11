@@ -85,9 +85,6 @@
                 <router-link v-if="userInfo.OtherProjects && userInfo.OtherProjects.length > 3" v-bind:to="routeUrls.ReadOtherProjectList" class="fr text_right_link">
                     更多
                 </router-link>  
-                <!-- <a v-if="userInfo.OtherProjects&&userInfo.OtherProjects.length>3" class="fr ep_color_grey ep_font24" v-bind:href="'/expert/expertuser/readProjectHistoryOtherList?UserId=' + queryString.UserId">
-                    更多 >
-                </a> -->
             </header>
             <div v-if="!isArrayEmpty(userInfo.OtherProjects)" v-cloak>
                  <div class='appH5_panel' style="padding-top:0px;">
@@ -311,7 +308,7 @@
 import _ from "lodash";
 import axios from "axios";
 import * as webApi from "@/config/api";
-import getParams from "../../public/js/getParams";
+import getParams from "@/public/js/getParams";
 import dislikeImg from "@/public/image/unfollowicon.png";
 import likeImg from "@/public/image/followicon.png";
 
@@ -322,7 +319,6 @@ export default {
       _: {},
       userInfo: {},
       editable: false,
-      queryString: {}, //GetRequest(),
       userId: null,
       absProjectEndorseLock: false,
       otherProjectEndorseLock: false,
