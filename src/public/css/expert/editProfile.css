@@ -85,6 +85,8 @@ body {
     border: none;
     -webkit-appearance: none;
     outline: none;
+    padding-left: 0.32rem;
+    padding-right: 0.32rem;
 }
 .ep_select option{
     background-color: #fff;

@@ -4,53 +4,50 @@
         <div class="ep_content_div">
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
                 <div class="ep_title_div">
-                <span class="fl ep_color_grey">产品类型</span>
-                <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                   </div>
-                <select class="ep_select fl ep_font32 ep_align_right personalRoleSelect" v-model="otherDealTypeModel" v-cloak>
-                    <option  value="">请选择</option>
+                    <span class="ep_marginLeft10">产品类型</span>
+                    <span class="ep_marginTop5">*</span>
+                </div>
+                <select v-bind:class="otherDealTypeModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32  personalRoleSelect" v-model="otherDealTypeModel" v-cloak>
+                    <option value="">请选择产品类型</option>
                     <option v-for="item in otherDealTypes" v-bind:value="item.Type" v-bind:key="item.Type">{{item.Type}}</option>
                 </select>
             </div>
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
-                <span class="fl ep_color_grey">国家</span>
-                <input class="ep_align_right ep_input fr ep_font32 ep_width200" type="text" placeholder="请输入" v-model="projectHistory.Nation" v-cloak />
+                   <div class="ep_title_div">
+                    <span class="ep_marginLeft10">国家</span>
+                </div>
+                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入" v-model="projectHistory.Nation" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
-                <span class="fl ep_color_grey">产品全称</span>
-                <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <input class="ep_align_right ep_input fr ep_font32 ep_width200" type="text" placeholder="请输入" v-model="projectHistory.ProjectName" v-cloak />
+                <div class="ep_title_div">
+                    <span class="ep_marginLeft10">产品全称</span>
+                    <span class="ep_marginTop5">*</span>
+                </div>
+                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入" v-model="projectHistory.ProjectName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
-                <span class="fl ep_color_grey">产品简称</span>
-                <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <input class="ep_align_right ep_input fr ep_font32 ep_width200" type="text" placeholder="请输入简称，例如：PE2007-02" v-model="projectHistory.ProjectShortName" v-cloak />
+                <div class="ep_title_div">
+                    <span class="ep_marginLeft10">产品简称</span>
+                    <span class="ep_marginTop5">*</span>
+                </div>
+                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入简称，例如：PE2007-02" v-model="projectHistory.ProjectShortName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
-                <span class="fl ep_color_grey">金额（人民币：亿）</span>
-                <input class="ep_align_right ep_input fr ep_font32 ep_width200" type="number" placeholder="请输入金额" v-model="projectHistory.TotalOffering" />
+                <div class="ep_title_div">
+                    <span class="ep_marginLeft10">金额(亿)</span>
+                </div>
+                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="number" placeholder="请输入金额" v-model="projectHistory.TotalOffering" />
             </div>
             <div class="ep_part_item_border ep_font32">
                 <div class="ep_part_item  ep_overhide">
-                    <span class="fl ep_color_grey">参与角色</span>
-                    <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                    <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fr ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel" v-cloak>
-                        <option disabled value="" style="color:#ccc !important">请选择</option>
+                    <div class="ep_title_div">
+                        <span class="ep_marginLeft10">参与角色</span>
+                        <span class="ep_marginTop5">*</span>
+                    </div>
+                    <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel" v-cloak>
+                        <option disabled value="" style="color:#ccc !important">请选择参与角色</option>
                         <option v-for="item in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="item.Id">{{item.Role}}</option>
                     </select>
-                </div>
-                <div v-if="!isArrayEmpty(projectHistory.OrganizationRoles)">
-                    <!-- <div class="ep_font28 delete-Label ep_marginLeft15 ep_marginTop10" v-for="item in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole">
-                        <span>{{organizationRoleDisplay(item)}}</span>
-                        <img class="followImg" src="../../public/image/deleteicon.png"  v-on:click="deleteOrganizationRole(item)" />
-                    </div> -->
-                     <!-- <div class="ep_multipleItem ep_font28 delete-Label" v-for="(item,index) in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole" v-bind:class="[index===projectHistory.OrganizationRoles-1?'ep_marginBottom30':'ep_marginBottom20']" v-cloak>
-                        <span>债权人</span>
-                        <img class="followImg" src="public/image/unfollowicon.png"  v-on:click="deleteOrganizationRole(item)" />
-                       <span class="fl">{{organizationRoleDisplay(item)}}</span>
-                        <span class="fr ep_font24 ep_deleteBtn" v-on:click="deleteOrganizationRole(item)">×</span>
-                    </div>
-                     -->
                 </div>
             </div>
             <div v-if="!isArrayEmpty(projectHistory.OrganizationRoles)" class="ep_part_item_border ep_font32 ep_paddingBottom10 ">
@@ -63,16 +60,20 @@
             </div>
             <div class="clearBoth"></div>
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
-                <span class="fl ep_color_grey">个人职责</span>
-                <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <select class="ep_select fr ep_font32 ep_align_right personalRoleSelect" type="text" v-model="personalResponsibilityModel" v-cloak>
+                <div class="ep_title_div">
+                    <span class="ep_marginLeft10">个人职责</span>
+                    <span class="ep_marginTop5">*</span>
+                </div>
+                <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' "  class="ep_select fl ep_font32  personalRoleSelect" type="text" v-model="personalResponsibilityModel" v-cloak>
                     <option disabled value="">请选择个人职责</option>
                     <option v-for="item in personalResponsibilities" v-bind:value="item.Id" v-bind:key="item.Id">{{item.Name}}</option>
                 </select>
             </div>
             <div>
                 <div class="ep_part_item ep_overhide">
-                    <span class="fl ep_color_grey">项目介绍</span>
+                    <div class="ep_title_div">
+                    <span class="ep_marginLeft10">项目介绍</span>
+                </div>
                 </div>
                 <div class="projectDescriptionOther">
                     <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入" v-model="projectHistory.Description"> </textarea>

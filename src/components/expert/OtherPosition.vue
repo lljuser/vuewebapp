@@ -3,9 +3,11 @@
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div">
             <div class="ep_part_item ep_part_item_border">
-                    <span class='fl ep_font32 ep_color_grey'>职务</span>
-                      <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                    <input class="ep_input fr ep_font32 ep_marginLeft15 ep_align_right" type="text" placeholder="请输入" v-model="otherPost.Name" />
+                  <div class="ep_title_div">
+                    <span class="ep_marginLeft10">职务</span>
+                    <span class="ep_marginTop5">*</span>
+                </div>
+                    <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model="otherPost.Name" />
                 </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">
                 <span class="fl ep_marginTop5">*</span>

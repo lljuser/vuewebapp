@@ -3,18 +3,23 @@
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div">
             <div class="ep_part_item ep_part_item_border ep_overhide">
-                <span class="fl ep_color_grey">获奖年份</span>
-                <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <div class="fr fr ep_font32 ep_align_right honorAwardYear" v-on:click="showYearPicker()" v-bind:class="[honorAward.Year=== undefined?'ep_color_grey':'']">{{honorAward.Year=== undefined ?'请选择':honorAward.Year}}</div>
+                    <div class="ep_title_div">
+                    <span class="ep_marginLeft10">获奖年份</span>
+                    <span class="ep_marginTop5">*</span>
+                </div>
+                <div class="fl ep_right_div ep_font32 ep_align_right honorAwardYear" v-on:click="showYearPicker()" v-bind:class="[honorAward.Year=== undefined?'ep_color_grey':'']">{{honorAward.Year=== undefined ?'请选择':honorAward.Year}}</div>
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
-                <span class="fl ep_color_grey">奖项名称</span>
-                <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <input class="ep_align_right ep_input fr ep_font32 ep_width200" type="text" placeholder="请输入" v-model="honorAward.Name" />
+                    <div class="ep_title_div">
+                    <span class="ep_marginLeft10">奖项名称</span>
+                </div>
+                <input class=" ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入" v-model="honorAward.Name" />
             </div>
             <div>
                 <div class="ep_part_item ep_overhide">
-                    <span class="fl ep_color_grey">奖项描述</span>
+                        <div class="ep_title_div">
+                    <span class="ep_marginLeft10">奖项描述</span>
+                </div>
                 </div>
                 <div>
                     <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入" v-model="honorAward.Description"> </textarea>

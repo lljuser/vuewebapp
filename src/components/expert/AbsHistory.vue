@@ -4,8 +4,8 @@
         <div class="ep_content_div">
             <div class="ep_part_item ep_part_item_border ep_overhide" style="overflow:visible;">
                 <div class="ep_title_div">
-                  <span class="fl ep_color_grey">产品名称</span>
-                  <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
+                  <span class="ep_marginLeft10">产品名称</span>
+                  <span class="ep_marginTop5">*</span>
                 </div>
                 <autocomplete ref="absHistoryItem" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealName" anchor="DealFullName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
                 </autocomplete>
@@ -14,31 +14,40 @@
             <div class="ep_part_item_border ep_font32">
                 <div class="ep_part_item  ep_overhide">
                     <div class="ep_title_div">
-                      <span class="fl ep_color_grey">参与角色</span>
-                      <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
+                      <span class="ep_marginLeft10">参与角色</span>
+                      <span class="ep_marginTop5">*</span>
                     </div>
                     <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel">
                         <option disabled value="">请选择参与角色</option>
                         <option v-for="item in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="item.Id">{{item.Role}}</option>
                     </select>
                 </div>
-                <div v-show="organizationRoleModel===24" class="ep_overhide ep_font32 ep_paddingLeft30 ep_paddingright30">
+                <!-- <div v-show="organizationRoleModel===24" class="ep_overhide ep_font32 ep_paddingLeft30 ep_paddingright30">
                     <input class="fl ep_input ep_multipleItem ep_width440 ep_font32 ep_heightAuto" type="text" placeholder="请输入" v-model="customizedOrganizationRole" />
                     <span class="fr ep_saveBtn ep_width176 ep_marginRight0" v-on:click="addcustomizedRole(organizationRoleModel)">添加</span>
-                </div>
-                <div v-if="!util.isArrayEmpty(projectHistory.OrganizationRoles)">
+                </div> -->
+                <!-- <div v-if="!util.isArrayEmpty(projectHistory.OrganizationRoles)">
                     <div class="ep_multipleItem" v-for="(item,index) in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole" v-bind:class="[index===projectHistory.OrganizationRoles.length-1?'ep_marginBottom30':'ep_marginBottom20']">
                         <span class="fl">{{organizationRoleDisplay(item)}}</span>
                         <span class="fr ep_font24 ep_deleteBtn" v-on:click="deleteOrganizationRole(item)">×</span>
                     </div>
-                </div>
+                </div> -->
             </div>
-            <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
-               <div class="ep_title_div">
-                  <span class="fl ep_color_grey">个人职责</span>
-                  <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
+              <div v-if="!util.isArrayEmpty(projectHistory.OrganizationRoles)" class="ep_part_item_border ep_font32 ep_paddingBottom10 ">
+                  <div class="ep_overhide">
+                    <div class="ep_font28 delete-Label ep_marginLeft15 ep_marginTop10" v-for="item in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole">
+                    <span>{{organizationRoleDisplay(item)}}</span>
+                    <img class="followImg" src="../../public/image/deleteicon.png"  v-on:click="deleteOrganizationRole(item)" />
                 </div>
-                <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 ep_align_right personalRoleSelect" type="text" v-model="personalResponsibilityModel">
+                  </div>
+            </div>
+            <div class="clearBoth"></div>
+            <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
+                <div class="ep_title_div">
+                    <span class="ep_marginLeft10">个人职责</span>
+                    <span class="ep_marginTop5">*</span>
+                </div>
+                <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32  personalRoleSelect" type="text" v-model="personalResponsibilityModel">
                     <option disabled value="">请选择个人职责</option>
                     <option v-for="item in personalResponsibilities" v-bind:value="item.Id" v-bind:key="item.Name">{{item.Name}}</option>
                 </select>
