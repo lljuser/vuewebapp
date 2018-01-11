@@ -4,8 +4,8 @@
         <div class="ep_content_div">
             <div class="ep_part_item ep_overhide">
                 <div class="ep_title_div">
-                    <span class="ep_marginTop5" style='float:left;'>*</span>
-                    <span class="ep_marginLeft10" style='float:left;'>个人简介</span>
+                    <span>个人简介</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
             </div>
             <div>
