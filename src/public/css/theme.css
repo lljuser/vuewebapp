@@ -394,7 +394,7 @@ select{
 .appH5_tab:hover {
 	color: #fff;
 }
-.router-link-exact-active .appH5_tab {
+.router-link-active {
 	border-color: #ffc445;
 	border-bottom-width: 3px;
 	border-bottom-style: solid;
