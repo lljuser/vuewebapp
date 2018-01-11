@@ -92,8 +92,8 @@ export default {
     var reLoadData=false;
     if(gradeIdParam!=null && gradeIdParam!="0" )
     {
-      //this.TradeRating= gradeIdParam;
-      //reLoadData=true;
+      this.TradeRating= gradeIdParam;
+      reLoadData=true;
     }
     if(securityIdParam!=null && securityIdParam!="0" )
     {
