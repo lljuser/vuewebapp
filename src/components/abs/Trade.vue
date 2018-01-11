@@ -5,7 +5,7 @@
      <tr>
        <td class="text-left">
         <select v-model="TradeRating" v-on:change="selectChange()">
-        <option>评级</option>
+        <option value="0">评级</option>
         <option v-for="item in ratingList"
         :value="item.Key"
         :key="item.Value">{{item.Value}}</option>
@@ -13,7 +13,7 @@
         </td>
        <td style="text-align:center">
          <select v-model="TradeType" v-on:change="selectChange()">
-          <option>证券类型</option>
+          <option value="0">证券类型</option>
           <option v-for="item in typeList"
           :value="item.Key"
           :key="item.Value">{{item.Value}}</option>
@@ -21,7 +21,7 @@
         </td>
        <td class="text-right"> 
          <select v-model="TradeWalbuck" v-on:change="selectChange()">
-          <option>期限</option>
+          <option value="0">期限</option>
           <option v-for="item in walbuckList" 
           :value="item.Key" 
           :key="item.Value">{{item.Value}}</option> 
@@ -108,6 +108,7 @@ export default {
     });
     this.getRatingList(data=>{
       this.ratingList=data;
+      
     })
     },
     loadFirstPageTrades(){
