@@ -34,6 +34,7 @@
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
 
+  <div v-else>
   <table id="tradeTableId" class="appH5_table" style="table-layout:fixed;">
     <tr>
       <th>证券简称</th>
@@ -51,6 +52,7 @@
           infinite-scroll-immediate-check="true"
           infinite-scroll-distance="55"/>    
   </table>
+ </div>
 </div>    
 </div>
 </template>
