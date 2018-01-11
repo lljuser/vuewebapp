@@ -7,7 +7,7 @@
                     <span class='ep_marginLeft10'>学校</span>
                     <span class="ep_marginTop5">*</span>
                 </div>
-                <input type="text" placeholder="请输入" v-model="education.School" />
+                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model="education.School" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
@@ -35,13 +35,15 @@
                     <span class="ep_marginLeft10">毕业时间</span>
                     <span class="ep_marginTop5">*</span>
                 </div>
-                <div class="fl ep_font32 ep_align_right endTime" v-on:click="showDatePicker('endTime')" v-bind:class="[education.ToYear === undefined ? 'ep_color_grey' : '']">
+                <div class="fl ep_font32 ep_align_right endTime ep_right_div" v-on:click="showDatePicker('endTime')" v-bind:class="[education.ToYear === undefined ? 'ep_color_grey' : '']">
                     {{education.ToYear === undefined ? '请选择' : education.ToYear}}
                 </div>
             </div>
             <div>
                 <div class="ep_part_item ep_overhide">
-                    <span class="fl ep_color_grey">描述</span>
+                    <div class="ep_title_div">
+                       <span>描述</span>
+                    </div>
                 </div>
                 <div>
                     <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入" v-model="education.Description"> </textarea>
