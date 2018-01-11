@@ -47,7 +47,7 @@
                 </div>
             </td>
         </tr>
-        <tr v-if="detailInfo.AbsProjectUsers !== null && detailInfo.AbsProjectUsers.length > 0">
+        <tr v-if="detailInfo.AbsProjectUsers !== undefined &&detailInfo.AbsProjectUsers !== null && detailInfo.AbsProjectUsers.length > 0">
             <td colspan="4">
                 <span class="fl mr5">参与专家</span>
                 <div class="fl" style="max-width: 6.9rem;">
@@ -56,7 +56,7 @@
                 <div class="clearfix"></div>
             </td>
             </tr>
-        <tr v-if="detailInfo.Contacts !== null && detailInfo.Contacts.length > 0">
+        <tr v-if="detailInfo.Contacts !== undefined && detailInfo.Contacts !== null && detailInfo.Contacts.length > 0">
             <td colspan="4">
                 <div class="fl mr5">联&nbsp;系&nbsp;人&nbsp;</div>
                 <div class="fl">
