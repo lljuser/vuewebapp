@@ -1,7 +1,7 @@
 <template>
 <div class="appH5_body">
   <div class="appH5_panel">
-    <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0">
+    <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0" v-if="!isProductLoading">
       <tr>
         <td class="text-left">
           <select v-model="ProductTypeVal" v-on:change="selectChange()" >
