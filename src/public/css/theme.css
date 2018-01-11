@@ -391,7 +391,10 @@ select{
 	/* 禁用长按手势 */
 	-webkit-touch-callout: none;
 }
-.router-link-exact-active .appH5_tab {
+.appH5_tab:hover {
+	color: #fff;
+}
+.router-link-active {
 	border-color: #ffc445;
 	border-bottom-width: 3px;
 	border-bottom-style: solid;

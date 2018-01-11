@@ -40,7 +40,7 @@
       <th>证券简称</th>
       <th class="text-right">金额(亿)</th>
       <th class="text-center">评级</th>
-      <th class="text-right">期限(年)</th>
+      <th class="text-right">期限(Y)</th>
       <th class="text-right">利率(%)</th>
     </tr>
         <TradeItem 
@@ -236,5 +236,17 @@ a {
 .trade_select_div select {
   width:90%;
   border-radius: 0;
+}
+#tradeTableId th:nth-of-type(2){
+width: 18%;
+}
+#tradeTableId th:nth-of-type(3){
+width: 15%;
+}
+#tradeTableId th:nth-of-type(4){
+width: 18%;
+}
+#tradeTableId th:nth-of-type(5){
+width: 20%;
 }
 </style>

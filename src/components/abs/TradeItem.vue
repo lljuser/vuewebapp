@@ -8,7 +8,7 @@
     <td class="tradeTotall text-right">{{item.TotalOffering}}</td>
     <td class="tradeRating">{{item.Rating}}</td>
     <td class="text-right">{{item.WAL}}</td>
-    <td class="text-right" v-if="item.Coupon!=null && item.Coupon.split('~').length>1">{{item.Coupon.split('~')[0]}}<br><span>/</span>{{item.Coupon.split('~')[1]}}</td>
+    <td class="text-right td_tworows" v-if="item.Coupon!=null && item.Coupon.split('~').length>1">{{item.Coupon.split('~')[0]}}<br><span>/</span>{{item.Coupon.split('~')[1]}}</td>
     <td class="text-right" v-else>{{item.Coupon}}</td>
 
   </tr>
@@ -35,9 +35,12 @@ export default {
   text-align: center;
 }
 .td_elips1 {
-   width:70px;
+   width:100%;
    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+ }
+ .td_tworows{
+   padding:0 0.32rem 0 0;
  }
 </style>
