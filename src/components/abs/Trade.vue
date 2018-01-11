@@ -1,7 +1,7 @@
 <template>
 <div class="appH5_body">              
 <div class="appH5_panel">
-  <table class="trade_select_div">
+  <table class="trade_select_div"  cellspacing="0"  cellpadding="0">
      <tr>
        <td class="text-left">
         <select v-model="TradeRating" v-on:change="selectChange()">
@@ -168,20 +168,11 @@ li {
 a {
   color: #ffc446;
 }
-.trade_select_div select{
-  min-width: 2.6rem;
-}
-.trade_select_div {
-  display: table;
-  width: 100%;
-  margin-top:-6px;
-  margin-bottom: 12px;
-}
 
 .trade_select_div {
   table-layout: fixed;
   width: 100%;
-  margin: 0 0 12px 0;
+  margin: 0 0 0.32rem 0;
   line-height: 0;
 }
 
