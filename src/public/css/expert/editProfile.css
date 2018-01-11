@@ -902,18 +902,11 @@ ul.articleDetail li {
 select
 {
     color: #fff !important;
-    border: solid 1px #000  !important;
-    -moz-appearance:none;
-    -webkit-appearance:none;
     border: none;
 }
 select option
 {
     background-color: #535352 !important;
-    border: none !important;
-    border: solid 1px #000  !important;
-    -moz-appearance:none;
-    -webkit-appearance:none;
     border: none;
 }
 select option：hover
