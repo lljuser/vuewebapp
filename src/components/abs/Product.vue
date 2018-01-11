@@ -1,7 +1,7 @@
 <template>
 <div class="appH5_body">
   <div class="appH5_panel">
-    <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0">
+    <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0" v-if="isShowSelect">
       <tr>
         <td class="text-left">
           <select v-model="ProductTypeVal" v-on:change="selectChange()" >
@@ -79,6 +79,7 @@ export default {
       isProductLoading: false,
       isComponentActive: false,
       isFetchProductsError: false,
+      isShowSelect:false,
     };
   },
   mounted() {
@@ -126,6 +127,7 @@ export default {
         this.fetchProducts(1,0, data => {
           this.list = data;
           this.isProductLoading = false;
+          this.isShowSelect=true;
         });
       }, 600);
     },
@@ -170,6 +172,7 @@ export default {
     selectChange(){
       this.isProductLoading = true;
       this.isComponentActive = true;
+      this.isShowSelect=true;
       this.page=1;
       setTimeout(() => {
         this.fetchProducts(0, 0,data => {

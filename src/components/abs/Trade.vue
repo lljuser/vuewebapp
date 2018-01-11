@@ -1,11 +1,11 @@
 <template>
 <div class="appH5_body">              
 <div class="appH5_panel">
-  <table class="appH5_select_div trade_select_div" cellspacing="0"  cellpadding="0">
+  <table class="appH5_select_div trade_select_div" cellspacing="0"  cellpadding="0" v-if="isShowSelect">
      <tr>
        <td class="text-left">
         <select v-model="TradeRating" v-on:change="selectChange()">
-        <option value="0" v-if="!isTradeLoading">评级</option>
+        <option value="0">评级</option>
         <option v-for="item in ratingList"
         :value="item.Key"
         :key="item.Value">{{item.Value}}</option>
@@ -13,7 +13,7 @@
         </td>
        <td style="text-align:center">
          <select v-model="TradeType" v-on:change="selectChange()">
-          <option value="0" v-if="!isTradeLoading">证券类型</option>
+          <option value="0">证券类型</option>
           <option v-for="item in typeList"
           :value="item.Key"
           :key="item.Value">{{item.Value}}</option>
@@ -21,7 +21,7 @@
         </td>
        <td class="text-right"> 
          <select v-model="TradeWalbuck" v-on:change="selectChange()">
-          <option value="0" v-if="!isTradeLoading">期限</option>
+          <option value="0">期限</option>
           <option v-for="item in walbuckList" 
           :value="item.Key" 
           :key="item.Value">{{item.Value}}</option> 
@@ -80,6 +80,7 @@ export default {
       isTradeLoading:false,
       isComponentActive :false,
       isFetchTradesError:false,
+      isShowSelect:false,
     };
   },
    activated() {
@@ -92,8 +93,8 @@ export default {
     var reLoadData=false;
     if(gradeIdParam!=null && gradeIdParam!="0" )
     {
-      //this.TradeRating= gradeIdParam;
-      //reLoadData=true;
+      this.TradeRating= gradeIdParam;
+      reLoadData=true;
     }
     if(securityIdParam!=null && securityIdParam!="0" )
     {
@@ -138,6 +139,7 @@ export default {
       this.fetchTrades(1,0, data => {
         this.list = data;
         this.isTradeLoading = false;
+        this.isShowSelect=true;
       });
     },  
     fetchTrades(page, direction,callback) {
@@ -197,6 +199,7 @@ export default {
         this.fetchTrades(0, 1,data => {
           this.list = data;
           this.isTradeLoading = false;
+          this.isShowSelect=true;
         });
       }, 500);
     },
