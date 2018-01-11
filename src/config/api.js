@@ -24,6 +24,7 @@ export const Trade = {
   detail: `${apiAddress}//motrade/gettradedata`,
   typeList: `${apiAddress}/motrade/getsecuritytypelist`,
   walbuckList: `${apiAddress}/moTrade/getwalbucketlist`, 
+  ratingList: `${apiAddress}/motrade/getratinglist`,
 };
 
 export const Expert = {

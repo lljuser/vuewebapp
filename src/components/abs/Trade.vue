@@ -1,7 +1,7 @@
 <template>
 <div class="appH5_body">              
 <div class="appH5_panel">
-  <table class="trade_select_div"  cellspacing="0"  cellpadding="0">
+  <table class="trade_select_div" cellspacing="0"  cellpadding="0">
      <tr>
        <td class="text-left">
         <select v-model="TradeRating" v-on:change="selectChange()">
@@ -45,7 +45,11 @@
         <TradeItem 
           v-for="item in list" 
           :item="item"
-          :key="item"/>    
+          :key="item.Id"
+          v-infinite-scroll="loadMore"
+          infinite-scroll-disabled="loading"
+          infinite-scroll-immediate-check="true"
+          infinite-scroll-distance="55"/>    
   </table>
 </div>    
 </div>
@@ -64,52 +68,82 @@ export default {
       walbuckList:[],
       typeList:[],
       ratingList:[],
+      loading: false,
       TradeRating:"0",
       TradeType:"0",
       TradeWalbuck:"0",
       page: 1,
-      isTradeLoading:false
+      pageSize:15,
+      direction:0,
+      isTradeLoading:false,
+      isComponentActive :false,
+      isFetchTradesError:false,
     };
   },
-  created(){
-  },
-  activated() {
+   activated() {
+    this.loading = false;     
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', false);
+    if (this.isFetchTradesError) {
+      this.loadFirstPageTrades();
+    }    
   },
   mounted(){
     this.isTradeLoading = true;
-    setTimeout(() => {
-      this.fetchTrades(1, data => {
-        this.list = data;
-        this.page = this.page + 1;
-      });
-      this.fetchTrades(1, data => {
-        this.list = data;
-        this.page = this.page + 1;
-      });
-      this.getWalbuckList(data=>{
-        this.walbuckList = data;
-      });
-      this.getTypeList(data=>{
-        this.typeList=data;
-      });
-      this.getRatingList(data=>{
-        this.ratingList=data;
-      }); 
-      this.isTradeLoading = false;
-    }, 600);    
+    this.isComponentActive = true;
+    this.loadFirstPageTrades();
+    this.loadSelectOptions();
   },
-  methods:{
-    fetchTrades(page, callback) {
+  deactivated(){
+    //防止其他组件滚动时，此组件调用loadMore方法
+    this.loading=true;
+  },
+  methods:{ 
+    loadSelectOptions(){
+    this.getWalbuckList(data=>{
+      this.walbuckList = data;
+    });
+    this.getTypeList(data=>{
+      this.typeList=data;
+    });
+    this.getRatingList(data=>{
+      this.ratingList=data;
+    })
+    },
+    loadFirstPageTrades(){
+      setTimeout(() => {
+        this.fetchTrades(1,0, data => {
+          this.list = data;
+          this.isTradeLoading = false;
+        });
+      }, 600);      
+    },  
+
+    fetchTrades(page, direction,callback) {
       var url=webApi.Trade.list;
       url=url+"/"+this.TradeRating+"/"+this.TradeType+"/"+this.TradeWalbuck;
+      url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
       axios.post(url).then((response) => { 
         const data = response.data.data;
-        if (data && data.length > 0) {
+        if(data){
           callback(data);
         }
+      }).catch((error)=>{    
+        Toast('数据获取失败');    
+        this.loading = false;
+        this.isTradeLoading=false;
+        this.isFetchTradesError=true;
       });    
+   },
+   loadMore(){
+      this.loading = true;
+      setTimeout(() => {
+        this.fetchTrades(this.page, 1,data => {
+           this.list = this.list.concat(data);
+           this.page = this.page + 1;
+           this.loading = false;
+        });
+      }, 300);     
    },
    getWalbuckList(callback){ 
       axios.post(webApi.Trade.walbuckList).then((response) => { 
@@ -137,8 +171,9 @@ export default {
    },
     selectChange(){
       this.isTradeLoading = true;
+      this.isComponentActive = true;
       setTimeout(() => {
-        this.fetchTrades(0, 0,data => {
+        this.fetchTrades(0, 1,data => {
           this.list = data;
           this.isTradeLoading = false;
         });
@@ -168,11 +203,20 @@ li {
 a {
   color: #ffc446;
 }
+.trade_select_div select{
+  min-width: 2.6rem;
+}
+.trade_select_div {
+  display: table;
+  width: 100%;
+  margin-top:-6px;
+  margin-bottom: 12px;
+}
 
 .trade_select_div {
   table-layout: fixed;
   width: 100%;
-  margin: 0 0 0.32rem 0;
+  margin: 0 0 12px 0;
   line-height: 0;
 }
 
