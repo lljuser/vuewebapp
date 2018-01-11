@@ -35,7 +35,7 @@ export default {
   text-align: center;
 }
 .td_elips1 {
-   width:70px;
+   width:100%;
    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
