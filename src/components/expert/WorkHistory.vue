@@ -5,14 +5,15 @@
             <div class="ep_part_item ep_part_item_border ep_overhide" style="overflow:visible;">
                 <span class="fl ep_color_grey">机构名称</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <div class="fr ui fluid category search ep_divSearch">
+                <!-- <div class="fr ui fluid category search ep_divSearch">
                     <div class="ui icon fl ep_divSearchInput">
                         <input class="prompt ep_searchInput" type="text" name="dealName" v-model="workHistory.Company" />
-                        <i class="search icon"></i>
                     </div>
                     <div class="clearBoth"></div>
                     <div class="results ep_comResults"></div>
-                </div>
+                </div> -->
+                <autocomplete label="机构列表" anchor="Organizations"  v-bind:url="searchUrl" :debounce="250" param="keyword" placeholder="请输入机构名称">
+                </autocomplete>
             </div>
             <div class="clearBoth"></div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
@@ -89,9 +90,12 @@
 <script>
     import axios from "axios";
     import * as webApi from "@/config/api";
+    import Autocomplete from 'vue2-autocomplete-js';
+    import 'vue2-autocomplete-js/dist/style/vue2-autocomplete.css';
 
     export default {
         name: 'WorkHistory',
+        components: { Autocomplete },
         data: function () {
             return {
                 currentStartYear: '',
@@ -148,11 +152,13 @@
                 getEndPicker: null,
                 submitPopupVisible: false,
                 workHistory: {},
-                id: null
+                id: null,
+                searchUrl: null,
             }
         },
         created: function () {
             this.id = this.$route.params.id;
+            this.searchUrl = webApi.Expert.orgSearch;
             this.initData();
         },
         methods: {
@@ -383,7 +389,7 @@
             },
             isValidElement: function (item) {
                 return !(item === null || item === undefined || item === "");
-            },
+            }
         },
         watch: {
             startTime: function () {
