@@ -126,7 +126,7 @@ body {
     padding-right: 0.2rem;
     padding-top: 0.02rem;
     padding-bottom: 0.02rem;
-    font-size:17px;
+    font-size:15px;
 }
 .ep_greyEditBtn{
     border: 1px solid #E0E0E0;
@@ -319,14 +319,19 @@ width:1.7rem;
 .ep_marginTop60{
     margin-top:0.8rem;
 }
+
 .ep_marginTop5 {
     margin-top: 0.066667rem;
 }
-
+.ep_marginTop2 {
+    margin-top: 0.03333rem;
+}
 .ep_marginTop0 {
     margin-top: 0.0rem;
 }
-
+.ep_marginBottom2 {
+    margin-bottom: 0.03333rem;
+}
 .ep_marginBottom30 {
     margin-bottom: 0.4rem !important;
 }
@@ -418,8 +423,12 @@ pre {
     text-align: right;
 }
 
+.ep_color_white {
+    color: #fff !important;
+}
+
 .ep_color_grey {
-    color: #cccccc;
+    color: #cccccc !important;
 }
 .ep_color_grey2 {
     color: #ccc;
@@ -465,11 +474,11 @@ pre {
     padding-right:0.2rem;
     padding-bottom:0.02rem;
     padding-top:0.02rem;
-    border: 1px solid #EA4200;
+    border: 1px solid #ffc446;
     border-radius: 4px;
-    color: #EA4200;
-    font-size: 16px;
-    background:#fff;
+    color: #ffc446;
+    font-size: 15px;
+    background:#2b2a29;
 }
 
 .ep_errorTips {
@@ -548,7 +557,14 @@ pre {
 .ep_popup {
     width: 10rem;
 }
-
+.ep_delete_popup
+{
+    background-color:#2B2A29;
+}
+.ep_delete_popup div
+{
+    background-color:#535352;
+}
 .ep_submitPopup {
     background: transparent !important;
     width: 100%;
@@ -885,16 +901,43 @@ ul.articleDetail li {
 }
 select
 {
-    background-color: #000;
-}
-select option:first-child
-{
-    color: #ccc;
+    color: #fff !important;
+    border: solid 1px #000  !important;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    border: none;
 }
 select option
 {
-    background-color: #000;
-    color: #fff;
+    background-color: #535352 !important;
+    border: none !important;
+    border: solid 1px #000  !important;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    border: none;
+}
+select option：hover
+{
+    background-color: #000 !important;
+}
+.delete-Label
+{
+    background: #3F3F3E;
+    border-radius: 5px;
+    height: 28px;
+    line-height: 28px;
+    float: left;
+}
+.delete-Label span
+{
+    margin: 0 10px;
+}
+.delete-Label img
+{
+    width: 10px;
+    height: 10px;
+    margin-right: 0.32rem;
+    margin-top: 0.32rem;
 }
 
    

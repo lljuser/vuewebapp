@@ -69,7 +69,7 @@
                                 <th class='text-left'>名称</th>
                                 <th class='text-right'>金额(亿)</th>
                                 <th class='text-center'>类型</th>
-                                <th class='text-right'>操作</th>
+                                <th class='text-right ep_width90'>操作</th>
                             </tr>
                             <tr v-for="item in _.take(userInfo.ABSProjects, 3)" v-bind:key="item.DealName">
                                 <td class='text-left'>
@@ -116,7 +116,7 @@
                             <th class="text-left">简称</th>
                             <th class="text-right">金额(亿)</th>
                             <th class="text-center">类型</th>
-                            <th class="text-right">
+                            <th class="text-right ep_width90">
                                 操作
                             </th>
                         </tr>

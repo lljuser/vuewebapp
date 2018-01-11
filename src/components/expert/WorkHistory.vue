@@ -252,13 +252,14 @@
                 this.getStartPicker = picker;
             },
             onEndTimeChange: function (picker, values) {
+                var self=this;
                 if (values[0] === undefined) {
                     values[0] = this.endTime === '' ? (this.startTime === '' ? new Date().getFullYear() + '年' : this.startTime.split('年')[0] + '年') : (this.endTime === '至今' ? this.endTime : this.endTime.split('年')[0] + '年');
                 }
                 if (values[0] == '至今') {
                    picker.setSlotValues(1, []);
                 } else {
-                    picker.setSlotValues(1, this.setMonth(1, 12));
+                    picker.setSlotValues(1, self.setMonth(1, 12));
                     if (values[1]!=undefined){
                         if (new Date() < new Date(values[0].replace('年', '-') + values[1].replace('月', ''))) {
                             picker.setSlotValue(0, new Date().getFullYear() + '年');
@@ -295,21 +296,6 @@
 
                     this.$router.go(-1);
                 });
-                // appFrame.ajax("/expert/ExpertInfo/DeleteWorkHistory", {
-                //     data: {
-                //         id: this.workHistory.Id
-                //     },
-                //     success: function (res) {
-                //         if (res.status === "ok") {
-                //             window.location.href = '/expert/expertuser/editProfile#workHistory';
-                //         };
-
-                //         if (res.status === "fail") {
-                //             self.isShowError = true;
-                //             self.errorMessage = res.data;
-                //         };
-                //     }
-                // });
             },
             saveWorkHistory: function () {
                 //Front-end params check
