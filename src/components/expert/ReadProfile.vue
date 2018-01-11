@@ -15,6 +15,20 @@
                     <div class='ep_overhide ep_marginTop10'>
                         <span class="fl ep_color_grey2 ep_font28 ep_width470">{{userInfo.User && userInfo.User.Company}}</span>
                     </div>
+                    <div class='ep_overhide ep_marginTop10 ep_font30 ep_color_grey2'>
+                        <div class="fl ep_minWidth140">
+                            <span>粉丝</span>
+                            <span>80</span>
+                        </div>
+                        <div class="fl ep_marginLeft10 ep_minWidth140">
+                            <span>好友</span>
+                            <span>80</span>
+                        </div>
+                        <div class="fl ep_marginLeft10 ep_minWidth140">
+                            <span>关注</span>
+                            <span>80</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
