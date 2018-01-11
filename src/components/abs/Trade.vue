@@ -86,6 +86,26 @@ export default {
     this.loading = false;     
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', false);
+
+    var gradeIdParam = this.$route.params.gradeId;
+    var securityIdParam=this.$route.params.securityId;
+    var reLoadData=false;
+    if(gradeIdParam!=null && gradeIdParam!="0" )
+    {
+      //this.TradeRating= gradeIdParam;
+      //reLoadData=true;
+    }
+    if(securityIdParam!=null && securityIdParam!="0" )
+    {
+      this.TradeType= securityIdParam;
+      reLoadData=true;
+    }
+    if(reLoadData){
+      this.isProductLoading = true;
+      this.isComponentActive = true;
+      this.loadFirstPageTrades();
+    }
+
     if (this.isFetchTradesError) {
       this.loadFirstPageTrades();
     }    
