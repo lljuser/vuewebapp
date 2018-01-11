@@ -4,27 +4,37 @@
         <div class="ep_content_div">
             <section>
                 <div class="ep_part_item ep_part_item_border ep_paddingTop30">
-                    <span class='fl ep_font32 ep_color_grey'>头像</span>
+                    <div class="ep_title_div">
+                        <span class="ep_marginLeft10 ep_font32">头像</span>
+                    </div>
                     <div class="divUserAvatar fr" v-on:click="uploadUserAvatar">
                         <img v-bind:src="userInfo.Avatar" alt="用户头像"/>
                     </div>
                     <input id="expert-userAvatar" type="file" accept="image/*" style="display: none;" v-on:change="selectAvatar" />
                 </div>
                 <div class="ep_part_item ep_part_item_border">
-                    <span class='fl ep_font32 ep_color_grey'>姓名</span>
-                    <input class="ep_input fr ep_font32 ep_marginLeft15 ep_align_right" type="text" v-model="userInfo.Name" />
+                     <div class="ep_title_div">
+                        <span class="ep_marginLeft10 ep_font32">姓名</span>
+                    </div>
+                    <input class="ep_input fl ep_font32  ep_align_right" type="text" v-model="userInfo.Name" />
                 </div>
                 <div class="ep_part_item ep_part_item_border">
-                    <span class='fl ep_font32 ep_color_grey'>公司</span>
-                    <input class="ep_input fr ep_font32 ep_marginLeft15 ep_align_right" type="text" v-model="userInfo.Company" />
+                     <div class="ep_title_div">
+                        <span class="ep_marginLeft10 ep_font32">公司</span>
+                    </div>
+                    <input class="ep_input fl ep_font32  ep_align_right" type="text" v-model="userInfo.Company" />
                 </div>
                 <div class="ep_part_item ep_part_item_border">
-                    <span class='fl ep_font32 ep_color_grey'>手机号</span>
-                    <input class="ep_input fr ep_font32 ep_marginLeft15 ep_align_right" disabled="disabled" type="text" v-model="userInfo.Cellphone" />
+                     <div class="ep_title_div">
+                        <span class="ep_marginLeft10 ep_font32">手机号</span>
+                    </div>
+                    <input class="ep_input fl ep_font32  ep_align_right" disabled="disabled" type="text" v-model="userInfo.Cellphone" />
                 </div>
                 <div class="ep_part_item ep_part_item_border">
-                    <span class='fl ep_font32 ep_color_grey'>邮箱</span>
-                    <input class="ep_input fr ep_font32 ep_marginLeft15 ep_align_right" type="text" v-model="userInfo.Email" />
+                     <div class="ep_title_div">
+                        <span class="ep_marginLeft10 ep_font32">邮箱</span>
+                    </div>
+                    <input class="ep_input fl ep_font32  ep_align_right" type="text" v-model="userInfo.Email" />
                 </div>
             </section>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-cloak v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">
