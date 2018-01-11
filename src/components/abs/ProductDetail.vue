@@ -48,9 +48,9 @@
             <div style="text-align:center;height: 0.4rem;">
                 <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
                     <div class="backTablePic"></div>
-                    <div style="float:left;font-size: 11px;">已偿付</div>
+                    <div style="float:left;font-size: 11px;margin-top: 4px;">已偿付</div>
                     <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div>
-                    <div style="float:left;font-size: 11px;">剩余</div>
+                    <div style="float:left;font-size: 11px;margin-top: 4px;">剩余</div>
                 </div>
             </div>
         </div>
