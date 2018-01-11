@@ -1,13 +1,13 @@
 <template>
   <div id="app" class="cnabs-bg">
     <div v-if="!showHeader" class="appH5_navbar">
-      <router-link to="/market">
+      <router-link to="/market" tag="div">
         <a class="appH5_tab" href="javascript:;">市场</a>
       </router-link>
-      <router-link to="/product">
+      <router-link to="/product" tag="div">
         <a class="appH5_tab" href="javascript:;">产品</a>
       </router-link>
-      <router-link to="/trade">
+      <router-link to="/trade" tag="div">
         <a class="appH5_tab" href="javascript:;">交易</a>
       </router-link>
     </div> 

@@ -10,7 +10,7 @@
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">奖项名称</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <input class="ep_align_right ep_input fr ep_font32" type="text" placeholder="请输入" v-model="honorAward.Name" />
+                <input class="ep_align_right ep_input fr ep_font32 ep_width200" type="text" placeholder="请输入" v-model="honorAward.Name" />
             </div>
             <div>
                 <div class="ep_part_item ep_overhide">
