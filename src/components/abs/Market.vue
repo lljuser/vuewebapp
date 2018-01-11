@@ -11,13 +11,19 @@
           <th class="text-right">今年(亿)</th>
           <th class="text-right">累计(亿)</th>
         </tr>
-        <tr v-if="marketSummary.length!=0">
-          <td > <router-link to="/product/1"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[0].SimpleProductType}}</a></router-link></td>
-          <td class="text-right">{{marketSummary[0].DealCountCurrentYear}}</td>
-          <td class="text-right appH5_color_red">{{marketSummary[0].BalanceCurrentYear}}</td>
-          <td class="text-right">{{marketSummary[0].BalanceCumulative}}</td>
+        <tr v-if="marketSummary.length!=null&&marketSummary.length!=0&&index!=4" v-for="(product,index) in marketSummary">
+          <td > <router-link v-bind:to="'/product/'+product.ProductTypeId"> <a href="javascript:;" style="color:#FEC447">{{product.SimpleProductType}}</a></router-link></td>
+          <td class="text-right">{{product.DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red">{{product.BalanceCurrentYear}}</td>
+          <td class="text-right">{{product.BalanceCumulative}}</td>
         </tr>
-        <tr v-if="marketSummary.length!=0">
+        <tr v-if="marketSummary.length!=null&&marketSummary.length!=0">
+          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447;font-weight:bold">{{marketSummary[4].SimpleProductType}}</a></router-link></td>
+          <td class="text-right" style="font-weight:bold">{{marketSummary[4].DealCountCurrentYear}}</td>
+          <td class="text-right appH5_color_red" style="font-weight:bold">{{marketSummary[4].BalanceCurrentYear}}</td>
+          <td class="text-right" style="font-weight:bold">{{marketSummary[4].BalanceCumulative}}</td>
+        </tr>
+        <!-- <tr v-if="marketSummary.length!=0">
           <td > <router-link to="/product/2"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[1].SimpleProductType}}</a></router-link></td>
           <td class="text-right">{{marketSummary[1].DealCountCurrentYear}}</td>
           <td class="text-right appH5_color_red">{{marketSummary[1].BalanceCurrentYear}}</td>
@@ -40,7 +46,7 @@
           <td class="text-right" style="font-weight:bold">{{marketSummary[4].DealCountCurrentYear}}</td>
           <td class="text-right appH5_color_red" style="font-weight:bold">{{marketSummary[4].BalanceCurrentYear}}</td>
           <td class="text-right" style="font-weight:bold">{{marketSummary[4].BalanceCumulative}}</td>
-        </tr>
+        </tr> -->
       </table>
     </div>
   </div>
@@ -95,6 +101,7 @@ export default {
     this.timer = setTimeout(() => {
       this.fetchMarketSummary(data=>{
         this.marketSummary=data;
+        console.log(data);
       });
       this.fetchChartData();
     }, 600);
