@@ -73,6 +73,7 @@
 import $ from 'jquery';
 import axios from "axios";
 import * as webApi from "@/config/api";
+import '@/public/modules/expert/jquery.Jcrop.min';
 import '@/public/css/expert/jquery.Jcrop.min.css';
 
 export default {
@@ -84,7 +85,14 @@ export default {
             popupVisible: false,
             isShowError: false,
             errorMessage: '',
-            submitPopupVisible: false
+            submitPopupVisible: false,
+            jcrop_api: null,
+            boundx: null,
+            boundy: null,
+            xsize: null,
+            ysize: null,
+            fileType: null,
+            fileName: null,
         }
     },
     created: function () {
@@ -110,8 +118,8 @@ export default {
             if (file.size >= 6 * 1024 * 1024) {
                 self.$toast("请上传小于6M的图片");
             } else {
-                fileType = file.type;
-                fileName = file.name;
+                this.fileType = file.type;
+                this.fileName = file.name;
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     var image = new Image();
@@ -121,14 +129,14 @@ export default {
 
                         if (length < 400) {
                             var ratio = 400 / length;
-                            imgUrl = resizePicture(this, ratio);
+                            imgUrl = self.resizePicture(this, ratio);
                         }
 
                         $('#preview-pane .preview-container img').attr('src', imgUrl);
                         var img = $('#crop-avatar-target');
                         img.attr('src', this.src);
                         $('#avatar-crop-box').removeClass('hidden');
-                        initAvatarCrop($('#crop-avatar-target'));
+                        self.initAvatarCrop($('#crop-avatar-target'));
                         $(".jcrop-holder img").attr('src', imgUrl);
 
                         self.popupVisible = true;
@@ -144,10 +152,10 @@ export default {
             var srcImg = document.getElementById('crop-avatar-target');
             var height = srcImg.style.height.replace('px', '');
             var width = srcImg.style.width.replace('px', '');
-
             var previewImg = $('#preview-pane .preview-container img');
             var previewWidth = previewImg.css('width').replace('px', '');
             var previewHeight = previewImg.css('height').replace('px', '');
+
             var marginLeft = Math.abs(previewImg.css('marginLeft').replace('px', ''));
             var marginTop = Math.abs(previewImg.css('marginTop').replace('px', ''));
             var wRatio = width / previewWidth;
@@ -158,9 +166,10 @@ export default {
             canvas.width = 150 * hRatio;
             canvas.getContext("2d").drawImage(srcImg, marginLeft * wRatio, marginTop * hRatio, 150 * wRatio, 150 * hRatio, 0, 0, 150 * hRatio, 150 * hRatio);
 
-            var imgBase64Str = canvas.toDataURL(fileType);
+            var imgBase64Str = canvas.toDataURL(this.fileType);
+
             this.avatar.base64Str = imgBase64Str;
-            this.avatar.fileName = fileName;
+            this.avatar.fileName = this.fileName;
             $(".divUserAvatar img").attr("src", imgBase64Str);
 
             this.closepop();
@@ -169,27 +178,21 @@ export default {
             return (item === null || item === undefined || item === "");
         },
         updateUserBasicInfo: function () {
-            var self = this;
-
-            appFrame.ajax("/expert/ExpertInfo/UpdateUserBasicInfo", {
-                type: "post",
-                data: {
-                    Name: self.userInfo.Name,
-                    Company: self.userInfo.Company,
-                    Cellphone: self.userInfo.Cellphone,
-                    Email: self.userInfo.Email,
-                    AvatarFileCode: self.userInfo.AvatarFileCode
-                },
-                success: function (res) {
-                    if (res.status === "fail") {
-                        self.submitPopupVisible = false;
-                        self.isShowError = true;
-                        self.errorMessage = res.data;
-                        return;
-                    };
-
-                    window.location.href = '/expert/expertuser/editProfile#basicInformation';
+            axios.post(webApi.Expert.updateUserBasicInfo, { 
+                Name: this.userInfo.Name,
+                Company: this.userInfo.Company,
+                Cellphone: this.userInfo.Cellphone,
+                Email: this.userInfo.Email,
+                AvatarFileCode: this.userInfo.AvatarFileCode
+            }).then(response => {
+                if (response.data.status === 'fail') {
+                    this.submitPopupVisible = false;
+                    this.isShowError = true;
+                    this.errorMessage = response.data.data;
+                    return;
                 }
+
+                this.$router.go(-1);
             });
         },
         saveBasicInformation: function() {
@@ -220,29 +223,82 @@ export default {
 
             }
 
-            var emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
-            if (!this.isInvalidElement(this.userInfo.Email) && !emailReg.test(this.userInfo.Email)) {
+            var reg = new RegExp(/^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/);
+            if (!this.isInvalidElement(this.userInfo.Email) && !reg.test(this.userInfo.Email)) {
                 this.isShowError = true;
-                this.errorMessage = '邮箱格式有误(例:XXX@@XX.XXX)！';
+                this.errorMessage = '邮箱格式有误(例:XXX@XX.XXX)！';
                 return;
             }
 
-            var self = this;
             this.submitPopupVisible = true;
 
             if (this.avatar.base64Str !== "") {
-                appFrame.ajax(self.userInfo.UploadImgUrl, {
-                    type: "post",
-                    data: { base64Str: self.avatar.base64Str, fileName: self.avatar.fileName },
-                    success: function(data) {
-                        self.userInfo.AvatarFileCode = data[0].FileCode;
-                        self.updateUserBasicInfo();
-                    },
-                });
+                axios.post(webApi.Expert.uploadImgUrl, { 
+                    base64Str: this.avatar.base64Str,
+                    fileName: this.avatar.fileName 
+                }).then(response => {
+                    this.userInfo.AvatarFileCode = response.data.data[0].FileCode;
+                    this.updateUserBasicInfo();
+                }).catch(function (error) {
+                     console.log(error);
+                });;
+
                 return;
             }
 
-            self.updateUserBasicInfo();
+            this.updateUserBasicInfo();
+        },
+        resizePicture: function (image, ratio) {
+            var canvas = document.getElementById("canvas");
+            canvas.height = image.height * ratio;
+            canvas.width = image.width * ratio;
+            canvas.getContext('2d').drawImage(image, 0, 0, image.width * ratio, image.height * ratio);
+            return canvas.toDataURL();
+        },
+        initAvatarCrop: function (img) {
+            var self = this;
+            img.Jcrop({
+                onChange: self.updatePreviewPane,
+                onSelect: self.updatePreviewPane,
+                boxWidth: 400,
+                boxHeight: 300,
+                aspectRatio: self.xsize / self.ysize
+            }, function () {
+                var bounds = this.getBounds();
+                self.boundx = bounds[0];
+                self.boundy = bounds[1];
+
+                this.jcrop_api = this;
+                this.jcrop_api.setOptions({ allowSelect: false });
+                this.jcrop_api.setOptions({ allowMove: true });
+                this.jcrop_api.setOptions({ allowResize: true });
+                this.jcrop_api.setOptions({ aspectRatio: 1 });
+
+                var padding = 10;
+                var shortEdge = (self.boundx < self.boundy ? self.boundx : self.boundy) - padding;
+                var longEdge = self.boundx < self.boundy ? self.boundy : self.boundx;
+                var xCoord = longEdge / 2 - shortEdge / 2;
+                this.jcrop_api.animateTo([xCoord, padding, shortEdge, shortEdge]);
+
+                var pcnt = $('#preview-pane .preview-container');
+                self.xsize = pcnt.width();
+                self.ysize = pcnt.height();
+                $('#preview-pane').appendTo(this.jcrop_api.ui.holder);
+                this.jcrop_api.focus();
+            });
+        },
+        updatePreviewPane: function (c) {
+            if (parseInt(c.w) > 0) {
+                var rx = this.xsize / c.w;
+                var ry = this.ysize / c.h;
+
+                $('#preview-pane .preview-container img').css({
+                    width: Math.round(rx * this.boundx) + 'px',
+                    height: Math.round(ry * this.boundy) + 'px',
+                    marginLeft: '-' + Math.round(rx * c.x) + 'px',
+                    marginTop: '-' + Math.round(ry * c.y) + 'px'
+                });
+            }
         }
     }
 };

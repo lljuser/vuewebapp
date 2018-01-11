@@ -7,7 +7,7 @@
                   <span class="fl ep_color_grey">产品名称</span>
                   <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
                 </div>
-                <autocomplete ref="absHistoryItem" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealName" anchor="DealFullName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
+                <autocomplete :classes="{ input: 'searchInput'}" className="searchInput" ref="absHistoryItem" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealFullName" anchor="DealName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
                 </autocomplete>
             </div>
             <div class="clearBoth"></div>
@@ -175,10 +175,9 @@ export default {
 
       if (util.isValidElement(this.id) && !isNaN(this.id)) {
           axios.post(webApi.Expert.getAbsProject, {id: this.id}).then(response => {
-              console.log(response);
               this.projectHistory = response.data.data;
               this.personalResponsibilityModel = this.projectHistory.PersonalResponsibility.Id;
-              //this.$refs.absHistoryItem.setValue(this.projectHistory.DealName);
+              this.$refs.absHistoryItem.setValue(this.projectHistory.DealName);
           });
       }
     },
@@ -332,6 +331,7 @@ export default {
         });
     },
     getData: function (obj) {
+        console.log(obj);
       this.projectHistory.DealId = obj.DealId;
       this.projectHistory.DealName = obj.DealName;
     }
@@ -340,5 +340,8 @@ export default {
 </script>
 
 <style>
-
+    .searchInput {
+        background-color: #2b2a29;
+        width: 5.8rem;
+    }
 </style>
