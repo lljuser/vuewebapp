@@ -114,12 +114,6 @@ export default {
     busUtil.bus.$emit('path', '/trade');
   }, 
   mounted() {
-    this.tradeId = this.$route.params.tradeId;
-    this.noteId = this.$route.params.noteId;
-    //debugger;
-    this.fetchTradeDetail(this.tradeId,this.noteId,data => {   //59,9461,this.tradeId,this.noteId
-    this.detailInfo = data;
-    });
   },
   methods: {
    fetchTradeDetail(tradeId,noteId,callback) { 
@@ -137,6 +131,13 @@ export default {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
+  
+   this.tradeId = this.$route.params.tradeId;
+        this.noteId = this.$route.params.noteId;
+        //debugger;
+        this.fetchTradeDetail(this.tradeId,this.noteId,data => {   //59,9461,this.tradeId,this.noteId
+        this.detailInfo = data;
+        });
   },
 };
 </script>
