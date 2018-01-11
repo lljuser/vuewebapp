@@ -5,14 +5,8 @@
             <div class="ep_part_item ep_part_item_border ep_overhide" style="overflow:visible;">
                 <span class="fl ep_color_grey">产品名称</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <div class="fr ui fluid category search ep_divSearch">
-                    <div class="ui icon fl ep_divSearchInput">
-                        <input class="prompt ep_searchInput" v-bind:disabled="projectHistory.Id !== undefined" type="text" name="dealName" v-model="projectHistory.DealName" />
-                        <i class="search icon"></i>
-                    </div>
-                    <div class="clearBoth"></div>
-                    <div class="results ep_comResults"></div>
-                </div>
+                <autocomplete ref="absHistoryItem" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealName" anchor="DealFullName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
+                </autocomplete>
             </div>
             <div class="clearBoth"></div>
             <div class="ep_part_item_border ep_font32">
@@ -49,11 +43,10 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveProjectHistoryABS">保存</span>
-                <span v-if="queryString.id === undefined" class="ep_cancelBtn fr">
-                    <router-link to="/">
+                <span v-if="!util.isValidElement(id)" class="ep_cancelBtn fr">
+                    <router-link to="/EditProfile">
                         取消
                     </router-link>
-                    <!-- <a href="/expert/expertuser/editProfile#projectHistoryABS" class="ep_color_orange">取消</a> -->
                 </span>
                 <span v-else class="ep_removeBtn fr" v-on:click="removePopupVisible=true">删除本条</span>
             </div>
@@ -61,10 +54,10 @@
                 如果找不到您的ABS项目，请与我们联系：021-31156258
             </div>
         </div>
-        <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
-            <div class="ep_color_grey ep_padding30 ep_marginTop10">确定删除本条信息？</div>
-            <div class="ep_padding30 ep_color_orange ep_marginTop10" v-on:click='removeContent'>确定</div>
-            <div class="ep_padding30 ep_marginTop10" v-on:click="removePopupVisible=false">取消</div>
+            <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
+            <div class="ep_color_grey ep_padding30">确定删除本条信息？</div>
+            <div class="ep_padding30 ep_color_orange ep_marginTop2" v-on:click='removeContent'>确定</div>
+            <div class="ep_padding30 ep_marginTop2 ep_marginBottom2" v-on:click="removePopupVisible=false">取消</div>
         </mt-popup>
         <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
@@ -78,15 +71,16 @@ import axios from "axios";
 import * as webApi from "@/config/api";
 import Autocomplete from 'vue2-autocomplete-js';
 import 'vue2-autocomplete-js/dist/style/vue2-autocomplete.css';
+
 import util from "@/public/modules/expert/utils";
 
 export default {
   name: "AbsHistory",
+  components: { Autocomplete },
   data: function() {
     return {
       isShowError: false,
       errorMessage: "",
-      queryString: "", //GetRequest(),
       projectHistory: {},
       personalResponsibilityModel: "",
       organizationRoleModel: "",
@@ -97,11 +91,13 @@ export default {
       submitPopupVisible: false,
       util: {},
       id: null,
+      dealSearch: null,
     };
   },
   created: function() {
     this.util = util;
     this.id = this.$route.params.id;
+    this.dealSearch = webApi.Expert.dealSearch;
     this.initData();
   },
   watch: {
@@ -173,8 +169,10 @@ export default {
 
       if (util.isValidElement(this.id) && !isNaN(this.id)) {
           axios.post(webApi.Expert.getAbsProject, {id: this.id}).then(response => {
+              console.log(response);
               this.projectHistory = response.data.data;
               this.personalResponsibilityModel = this.projectHistory.PersonalResponsibility.Id;
+              //this.$refs.absHistoryItem.setValue(this.projectHistory.DealName);
           });
       }
     },
@@ -302,23 +300,34 @@ export default {
 
       if (this.projectHistory.Id === undefined) return;
 
-      appFrame.ajax("/expert/ExpertInfo/DeleteAbsProject", {
-        data: {
+      axios.post(webApi.Expert.deleteAbsProject, { 
           id: this.projectHistory.Id,
           dealId: this.projectHistory.DealId
-        },
-        success: function(res) {
-          if (res.status === "ok") {
-            window.location.href =
-              "/expert/expertuser/editProfile#projectHistoryABS";
+      }).then(response => {
+          if (response.data.status === 'fail') {
+              this.isShowError = true;
+              this.errorMessage = response.data.data;
+              return;
           }
-          //TODO - server error tip
-          if (res.status === "fail") {
-            self.isShowError = true;
-            self.errorMessage = res.data;
-          }
-        }
+
+          this.$router.go(-1);
       });
+    },
+    processJSON: function (json) {
+        return json.Deals;
+    },
+    // 处理focus的时候不触发autocomplete
+    focusCallBack: function (e) {
+        if (!util.isValidElement(e.target.value)) return;
+
+        axios.post(webApi.Expert.dealSearch, {keyword: e.target.value}).then(response => {
+            this.$refs.absHistoryItem.showList = true;
+            this.$refs.absHistoryItem.json = response.data.Deals;
+        });
+    },
+    getData: function (obj) {
+      this.projectHistory.DealId = obj.DealId;
+      this.projectHistory.DealName = obj.DealName;
     }
   }
 };

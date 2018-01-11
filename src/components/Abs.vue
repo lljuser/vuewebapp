@@ -15,7 +15,7 @@
     </div> 
 
     <div v-else class="appH5_navbar_bg">
-      <mt-header title="产品信息">
+      <mt-header :title="headTitle">
         <router-link :to="path" slot="left">
           <mt-button icon="back" @click.stop="clearPath"></mt-button>
         </router-link>
@@ -39,6 +39,7 @@ export default {
     return {
       showHeader: false,
       path: '',
+      headTitle:'产品信息',
     };
   },
   created() {
@@ -48,6 +49,9 @@ export default {
     });
     busUtil.bus.$on('path', (path) => {
       this.path = path;
+    });
+    busUtil.bus.$on('headTitle', (headTitle) => {
+      this.headTitle = headTitle;
     });
   },
   methods: {

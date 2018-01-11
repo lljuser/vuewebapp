@@ -1,11 +1,11 @@
 <template>
   <tr>
     <td class="text-left">
-      <router-link :to="`../productDetail/${ item.DealId}`" class="appH5_color_link" style=""  >
+      <router-link :to="`../../productDetail/${ item.DealId}`" class="appH5_color_link" style=""  >
        <div class='td_elips1'> {{ item.DealName }}</div>
       </router-link>
     </td>
-    <td class="text-right appH5_color_red appH5_font_larger" style="font-size:17px">{{item.TotalOffering}}</td>
+    <td class="text-right appH5_color_red" style="font-size:17px">{{item.TotalOffering}}</td>
     <td style="color:white" class="text-right td_elips2"><div style="width:100%;float:right"><div>{{ item.DealType }}</div></div></td>
   </tr>
 </template>
