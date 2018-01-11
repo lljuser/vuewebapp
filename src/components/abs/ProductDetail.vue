@@ -15,7 +15,7 @@
                 <td>
                     <div><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a></router-link></div>
                     <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div><!---->
-                    <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
+                    <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
                 </td>
                 </tr>
                 <tr>
@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                 <td>成立日期</td>
-                <td v-if="productDetail.Basic.ClosingDate!=null">{{publishDate.getFullYear()+"年"+publishDate.getMonth()+"月"+publishDate.getDate()+"日"}}</td>
+                <td v-if="productDetail.Basic.ClosingDate!=null">{{publishDate.getFullYear()+"年"+(publishDate.getMonth()+1)+"月"+publishDate.getDate()+"日"}}</td>
                 <td v-else>-</td>
                 </tr>
                 <tr>
@@ -170,10 +170,11 @@ export default {
     this.id = this.$route.params.id;
     if (this.id) {
         this.fetchProductDetail(this.id,data=>{
-            console.log(data);
             this.productDetail =data;
             if(this.productDetail.Basic.ClosingDate!=null)
                 this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
+            console.log(this.publishDate.getMonth());
+            
             var resultId = data.ResultSetId;
             if(data.DealId!=null&&data.DealId>0){
                 if(data.NoteList!=null&&data.NoteList.length>0){
