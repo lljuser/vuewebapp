@@ -19,7 +19,7 @@
                 <div class="ep_part_item  ep_overhide">
                     <span class="fl ep_color_grey">参与角色</span>
                     <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                    <select class="ep_select fr ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel">
+                    <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fr ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel">
                         <option disabled value="">请选择</option>
                         <option v-for="item in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="item.Id">{{item.Role}}</option>
                     </select>
@@ -38,7 +38,7 @@
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
                 <span class="fl ep_color_grey">个人职责</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <select class="ep_select fr ep_font32 ep_align_right personalRoleSelect" type="text" v-model="personalResponsibilityModel">
+                <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fr ep_font32 ep_align_right personalRoleSelect" type="text" v-model="personalResponsibilityModel">
                     <option disabled value="">请选择</option>
                     <option v-for="item in personalResponsibilities" v-bind:value="item.Id" v-bind:key="item.Name">{{item.Name}}</option>
                 </select>
@@ -61,10 +61,10 @@
                 如果找不到您的ABS项目，请与我们联系：021-31156258
             </div>
         </div>
-        <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_align_center ep_font32">
-            <div class="ep_color_grey ep_padding30">确定删除本条信息？</div>
-            <div class="ep_padding30" v-on:click='removeContent'>确定</div>
-            <div class="ep_padding30" v-on:click="removePopupVisible=false">取消</div>
+        <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
+            <div class="ep_color_grey ep_padding30 ep_marginTop10">确定删除本条信息？</div>
+            <div class="ep_padding30 ep_color_orange ep_marginTop10" v-on:click='removeContent'>确定</div>
+            <div class="ep_padding30 ep_marginTop10" v-on:click="removePopupVisible=false">取消</div>
         </mt-popup>
         <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>

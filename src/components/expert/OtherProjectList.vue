@@ -8,7 +8,7 @@
                             <th class="text-left">简称</th>
                             <th class="text-right">金额(亿)</th>
                             <th class="text-center">类型</th>
-                            <th class="text-right">
+                            <th class="text-right ep_width90">
                                 操作
                             </th>
                         </tr>
