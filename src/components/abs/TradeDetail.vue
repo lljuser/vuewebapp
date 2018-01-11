@@ -21,7 +21,8 @@
             <td class="appH5_white_space">证券类型</td>
             <td class="appH5_color_link"><router-link :to="`/trade/${detailInfo.RatingId}/${detailInfo.SecurityTypeId}`"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
             <td class="appH5_white_space">评&#12288;&#12288;级</td>
-            <td><router-link :to="`/trade/${detailInfo.RatingId}/${detailInfo.SecurityTypeId}`"><a href="javascript:;">{{detailInfo.Rating}}</a></router-link></td>
+            <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'"><router-link :to="`/trade/${detailInfo.RatingId}/${detailInfo.SecurityTypeId}`"><a href="javascript:;">{{detailInfo.Rating}}</a></router-link></td>
+            <td v-else>-</td>
         </tr>
         <tr>
             <td class="appH5_white_space">分层占比</td>
@@ -31,7 +32,8 @@
         </tr>
         <tr>
             <td class="appH5_white_space">利率(%)</td>
-            <td>{{detailInfo.Coupon}}</td>
+            <td v-if="detailInfo.Coupon !=null">{{detailInfo.Coupon}}</td>
+            <td v-else>-</td>
             <td class="appH5_white_space">交易场所</td>
             <td>{{detailInfo.Exchange}}</td>
         </tr>
@@ -39,7 +41,7 @@
             <td class="appH5_white_space" style="vertical-align: middle;">金额(亿)</td>
             <td  colspan="3" class="appH5_color_red appH5_font_largest">{{detailInfo.TotalOffering}}</td>
         </tr>
-        <tr>
+        <tr v-if="detailInfo.Description !== undefined &&detailInfo.Description !== null && detailInfo.Description.length > 0">
             <td colspan="4" class="txt_justify lineHight">
                 <span class="appH5_white_space">产品简介</span>
                 <div class="appH5_color_white appH5_margin_top_td_div" v-html="detailInfo.Description" style="word-break: break-all;">
