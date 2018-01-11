@@ -21,7 +21,6 @@
         <section class="ep_part" id="projectHistoryABS">
             <header class="ep_part_title">
                   <div class='appH5_title fl' style='overflow:hidden;'>
-                        <!-- <img class="ep_icon fl" src="../../public/images/projectHistory.png" /> -->
                         <span class='fl'>ABS项目</span>
                         <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
                             <span class="fl">(共</span>    
@@ -37,49 +36,46 @@
             </header>
             <div v-if="!isArrayEmpty(userInfo.ABSProjects)" v-cloak>
                  <div class='appH5_panel' style="padding-top:0px;">
-                        <table class="appH5_table">
-                            <tr>
-                                <th class='text-left ep_width176'>名称</th>
-                                <th class='text-right'>金额(亿)</th>
-                                <th class='text-center'>类型</th>
-                                <th class='text-right ep_width90'>点赞</th>
-                            </tr>
-                            <tr v-for="(item, index) in _.take(userInfo.ABSProjects, 3)" v-bind:key="index">
-                                <td class='text-left '>
-                                    <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
-                                    </td>
-                                <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
-                                <td class='text-center'>
-                                    <div class=" ep_ellipsis fl ep_width176">
-                                        {{item.DealType}}
-                                    </div>
-                                   </td>
-                                <td class='text-right'>
-                                    <div v-if="!editable" class="ep_overhide ep_lineHeight32">
-                                          <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="absProjectEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
-                                    </div>
-                                  <div v-else  class="ep_overhide ep_lineHeight32">
-                                        <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'"  v-bind:src="endorseImg(item.IsEndorse)" />
-                                  </div>
-                                </td>
-                            </tr>
-                        </table>
+                    <table class="appH5_table">
+                        <tr>
+                            <th class='text-left ep_width176'>名称</th>
+                            <th class='text-right'>金额(亿)</th>
+                            <th class='text-right'>类型</th>
+                            <th class='text-right ep_width90' v-if="!editable">点赞</th>
+                        </tr>
+                        <tr v-for="(item, index) in _.take(userInfo.ABSProjects, 3)" v-bind:key="index">
+                            <td class='text-left'>
+                                <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
+                            </td>
+                            <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
+                            <td class='text-right'>
+                                <div class=" ep_ellipsis fr ep_width176">
+                                    {{item.DealType}}
+                                </div>
+                            </td>
+                            <td class='text-right' v-if="!editable">
+                                <div  class="ep_overhide ep_lineHeight32">
+                                        <img class="followImg" v-bind:class="item.IsEndorse ? 'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="absProjectEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                  </div>
             </div>
             <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.ABSProjects)">暂无ABS项目</p>
         </section>
         <section class="ep_part" id="projectHistoryOther">
             <header class="ep_part_title">
-                      <div class='appH5_title fl' style='overflow:hidden;'>
-                <span class='fl'>其它项目</span>
-                <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.OtherProjects)">
+                <div class='appH5_title fl' style='overflow:hidden;'>
+                    <span class='fl'>其它项目</span>
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.OtherProjects)">
                     <span class="fl">(共</span>
                     <span class="appH5_color_green appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
                     <span class="fl">单，</span>
                     <span class="appH5_color_green appH5_font_larger fl">{{otherProjectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':otherProjectHistoriesSummary.totalOffering.toFixed(2)}}</span>
                     <span class="fl">亿)</span>
-                </span>
-                      </div>
+                    </span>
+                </div>
                 <router-link v-if="userInfo.OtherProjects && userInfo.OtherProjects.length > 3" v-bind:to="routeUrls.ReadOtherProjectList" class="fr text_right_link">
                     更多
                 </router-link>  
@@ -90,27 +86,25 @@
                         <tr>
                             <th class="text-left ep_width176">简称</th>
                             <th class="text-right">金额(亿)</th>
-                            <th class="text-center">类型</th>
-                            <th class='text-right ep_width90'>点赞</th>
+                            <th class="text-right">类型</th>
+                            <th class='text-right ep_width90' v-if="!editable">点赞</th>
                         </tr>
                         <tr v-for="(item, index) in _.take(userInfo.OtherProjects, 3)" v-bind:key="index">
                             <td class="ep_ellipsis text-left">
                                <div class="ep_ellipsis fl ep_width176">
                                     {{item.ProjectShortName}}
                                </div>
-                                </td>
+                            </td>
                             <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
-                            <td class='text-center'>
-                                <div class=" ep_ellipsis fl ep_width176">
-                                    {{item.DealType}}
-                                </div></td>
                             <td class='text-right'>
-                               <div v-if="!editable" class="ep_overhide ep_lineHeight32 ">
-                                <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="otherProjectEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
+                                <div class=" ep_ellipsis fr ep_width176">
+                                    {{item.DealType}}
                                 </div>
-                                 <div v-else class="ep_overhide ep_lineHeight32 ">
-                                <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'"  v-bind:src="endorseImg(item.IsEndorse)" />
-                                </div>
+                            </td>
+                            <td class='text-right' v-if="!editable">
+                               <div  class="ep_overhide ep_lineHeight32 ">
+                                    <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="otherProjectEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
+                               </div>
                             </td>
                         </tr>
                     </table>
@@ -303,7 +297,6 @@ import _ from "lodash";
 import axios from "axios";
 import * as webApi from "@/config/api";
 import util from "@/public/modules/expert/utils";
-//import getParams from "@/public/js/getParams";
 import dislikeImg from "@/public/image/unfollowicon.png";
 import likeImg from "@/public/image/followicon.png";
 
@@ -321,15 +314,8 @@ export default {
     };
   },
   created: function() {
-      try {
-          this._ = _;
-          //getParams("UserId");
-          this.userId = util.getQueryString().UserId;
-      } catch (err) {
-          alert(err.name);
-          alert(err.message);
-      }
-    
+    this._ = _;
+    this.userId = util.getQueryString().UserId;
     this.initData();
   },
   methods: {
