@@ -87,7 +87,7 @@
           </div>
           <div class="clearfix"></div>
     </div>
-    <a :href="'tel:'+contactItem.Telephone" class="fl fixedRight">
+    <a :href="'tel:'+cutStr(contactItem.Telephone)" class="fl fixedRight">
         <img class="phoneImg" src="../../public/images/phone.png"/>
     </a>
     <div class="clearfix"></div>
@@ -106,6 +106,7 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       detailInfo:[],
+      newContacts:[],
     };
   },
   created() {
@@ -124,6 +125,9 @@ export default {
         }
       });
     }, 
+    cutStr(arr){
+        return arr.split("转")[0];
+    },
   },
   activated() {
     // 滚动到顶部
