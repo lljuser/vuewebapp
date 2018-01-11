@@ -144,7 +144,7 @@ export default {
             },
         };
         window.scrollTo(0,0);
-        const productId = getParams("id");
+        const productId = getParams("dealId");
         if (productId) {
         this.fetchProductDetail(productId,data=>{
             console.log(data);
@@ -206,7 +206,7 @@ export default {
     // busUtil.bus.$emit('showHeader', true);
     // busUtil.bus.$emit('path', '/product');
     // this.id = this.$route.params.id;
-    const productId = getParams("id");
+    const productId = getParams("dealId");
     // if (productId) {
     //   this.fetchProductDetail(productId);
     // }
