@@ -35,7 +35,7 @@
     </div>
 
   <div v-else>
-  <table id="tradeTableId" class="appH5_table" style="table-layout:fixed;">
+  <table id="tradeTableId" class="appH5_table" style="table-layout:fixed;padding-top:032rem">
     <tr>
       <th>证券简称</th>
       <th class="text-right">金额(亿)</th>
@@ -217,7 +217,7 @@ a {
 .trade_select_div {
   table-layout: fixed;
   width: 100%;
-  margin: 0 0 12px 0;
+  margin: 0 0 0.32rem 0;
   line-height: 0;
 }
 
