@@ -41,7 +41,7 @@
             <td class="appH5_white_space" style="vertical-align: middle;">金额(亿)</td>
             <td  colspan="3" class="appH5_color_red appH5_font_largest">{{detailInfo.TotalOffering}}</td>
         </tr>
-        <tr>
+        <tr v-if="detailInfo.Description !== undefined &&detailInfo.Description !== null && detailInfo.Description.length > 0">
             <td colspan="4" class="txt_justify lineHight">
                 <span class="appH5_white_space">产品简介</span>
                 <div class="appH5_color_white appH5_margin_top_td_div" v-html="detailInfo.Description" style="word-break: break-all;">
