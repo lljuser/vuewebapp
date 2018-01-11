@@ -19,9 +19,9 @@
         </tr>
         <tr>
             <td class="appH5_white_space">证券类型</td>
-            <td class="appH5_color_link"><router-link :to="'/trade/${gradeId}/${securityId}'"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
+            <td class="appH5_color_link"><router-link :to="'/trade/${RatingId}/${SecurityTypeId}'"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
             <td class="appH5_white_space">评&#12288;&#12288;级</td>
-            <td><router-link :to="'/trade/${gradeId}/${securityId}'"><a href="javascript:;">{{detailInfo.Rating}}</a></router-link></td>
+            <td><router-link :to="'/trade/${RatingId}/${SecurityTypeId}'"><a href="javascript:;">{{detailInfo.Rating}}</a></router-link></td>
         </tr>
         <tr>
             <td class="appH5_white_space">分层占比</td>
