@@ -5,14 +5,7 @@
             <div class="ep_part_item ep_part_item_border ep_overhide" style="overflow:visible;">
                 <span class="fl ep_color_grey">机构名称</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <!-- <div class="fr ui fluid category search ep_divSearch">
-                    <div class="ui icon fl ep_divSearchInput">
-                        <input class="prompt ep_searchInput" type="text" name="dealName" v-model="workHistory.Company" />
-                    </div>
-                    <div class="clearBoth"></div>
-                    <div class="results ep_comResults"></div>
-                </div> -->
-                <autocomplete label="机构列表" anchor="Organizations"  v-bind:url="searchUrl" :debounce="250" param="keyword" placeholder="请输入机构名称">
+                <autocomplete ref="autocomplete" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="FullName" anchor="ShortName" v-bind:url="searchUrl" :debounce="250" param="keyword" placeholder="请输入机构名称">
                 </autocomplete>
             </div>
             <div class="clearBoth"></div>
@@ -163,12 +156,15 @@
         },
         methods: {
             initData: function () {
-                axios.post(webApi.Expert.getWorkHistory, {id: this.id}).then(response => {
-                    this.workHistory = response.data.data;
-                    this.workHistory.OrganizationName = this.workHistory.Company;
-                    this.startTime = this.workHistory.StartTime.split('.')[0] + '年' + (this.workHistory.StartTime.split('.')[1].split('')[0] === '0' ? this.workHistory.StartTime.split('.')[1].split('')[1] : this.workHistory.StartTime.split('.')[1]) + '月';
-                    this.endTime = this.workHistory.EndTime === '至今' ? '至今' : (this.workHistory.EndTime.split('.')[0] + '年' + (this.workHistory.EndTime.split('.')[1].split('')[0] === '0' ? this.workHistory.EndTime.split('.')[1].split('')[1] : this.workHistory.EndTime.split('.')[1]) + '月');
-                });
+                if (this.isValidElement(this.id) && !isNaN(this.id)) {
+                    axios.post(webApi.Expert.getWorkHistory, {id: this.id}).then(response => {
+                        this.workHistory = response.data.data;
+                        this.workHistory.OrganizationName = this.workHistory.Company;
+                        this.$refs.autocomplete.setValue(this.workHistory.Company);
+                        this.startTime = this.workHistory.StartTime.split('.')[0] + '年' + (this.workHistory.StartTime.split('.')[1].split('')[0] === '0' ? this.workHistory.StartTime.split('.')[1].split('')[1] : this.workHistory.StartTime.split('.')[1]) + '月';
+                        this.endTime = this.workHistory.EndTime === '至今' ? '至今' : (this.workHistory.EndTime.split('.')[0] + '年' + (this.workHistory.EndTime.split('.')[1].split('')[0] === '0' ? this.workHistory.EndTime.split('.')[1].split('')[1] : this.workHistory.EndTime.split('.')[1]) + '月');
+                    });
+                }
             },
             setYears: function(start, end, hasNow) {
                 var yearArray = [];
@@ -262,7 +258,7 @@
                 if (values[0] == '至今') {
                    picker.setSlotValues(1, []);
                 } else {
-                    picker.setSlotValues(1, setMonth(1, 12));
+                    picker.setSlotValues(1, this.setMonth(1, 12));
                     if (values[1]!=undefined){
                         if (new Date() < new Date(values[0].replace('年', '-') + values[1].replace('月', ''))) {
                             picker.setSlotValue(0, new Date().getFullYear() + '年');
@@ -285,24 +281,35 @@
             removeContent: function () {
                 if (this.workHistory.Id === undefined) return;
                 
-                var self = this;
                 this.removePopupVisible = false;
-                
-                appFrame.ajax("/expert/ExpertInfo/DeleteWorkHistory", {
-                    data: {
-                        id: this.workHistory.Id
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#workHistory';
-                        };
 
-                        if (res.status === "fail") {
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
+                axios.post(webApi.Expert.deleteWorkHistory, { 
+                    id: this.workHistory.Id
+                }).then(response => {
+                    if (response.data.status === 'fail') {
+                        this.submitPopupVisible = false;
+                        this.isShowError = true;
+                        this.errorMessage = response.data.data;
+                        return;
                     }
+
+                    this.$router.go(-1);
                 });
+                // appFrame.ajax("/expert/ExpertInfo/DeleteWorkHistory", {
+                //     data: {
+                //         id: this.workHistory.Id
+                //     },
+                //     success: function (res) {
+                //         if (res.status === "ok") {
+                //             window.location.href = '/expert/expertuser/editProfile#workHistory';
+                //         };
+
+                //         if (res.status === "fail") {
+                //             self.isShowError = true;
+                //             self.errorMessage = res.data;
+                //         };
+                //     }
+                // });
             },
             saveWorkHistory: function () {
                 //Front-end params check
@@ -328,67 +335,74 @@
                     this.workHistory.OrganizationId = null;
                 }
 
-                var self = this;
                 this.submitPopupVisible = true;
 
                 //添加工作经历
                 if (this.workHistory.Id === undefined) {
-                    appFrame.ajax("/expert/ExpertInfo/AddWorkHistory", {
-                        data: {
-                            Company: self.workHistory.Company,
-                            OrganizationId: self.workHistory.OrganizationId,
-                            Department: self.workHistory.Department,
-                            Position: self.workHistory.Position,
-                            StartTime: self.workHistory.StartTime,
-                            EndTime: self.workHistory.EndTime,
-                            Description: self.workHistory.Description
-                        },
-                        success: function (res) {
-                            if (res.status === "ok") {
-                                window.location.href = '/expert/expertuser/editProfile#workHistory';
-                            };
-
-                            if (res.status === "fail") {
-                                self.submitPopupVisible = false;
-                                self.isShowError = true;
-                                self.errorMessage = res.data;
-                            };
+                    axios.post(webApi.Expert.addWorkHistory, { 
+                        Company: this.workHistory.Company,
+                        OrganizationId: this.workHistory.OrganizationId,
+                        Department: this.workHistory.Department,
+                        Position: this.workHistory.Position,
+                        StartTime: this.workHistory.StartTime,
+                        EndTime: this.workHistory.EndTime,
+                        Description: this.workHistory.Description
+                    }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.submitPopupVisible = false;
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
                         }
-                    });
 
+                        this.$router.go(-1);
+                    });
                     return;
                 }
 
                 //更新工作经历
-                appFrame.ajax("/expert/ExpertInfo/UpdateWorkHistory", {
-                    data: {
-                        Id: self.workHistory.Id,
-                        Company: self.workHistory.Company,
-                        OrganizationId: self.workHistory.OrganizationId,
-                        Department: self.workHistory.Department,
-                        Position: self.workHistory.Position,
-                        StartTime: self.workHistory.StartTime,
-                        EndTime: self.workHistory.EndTime,
-                        Description: self.workHistory.Description
-                    },
-                    success: function (res) {
-                        if (res.status === "ok") {
-                            window.location.href = '/expert/expertuser/editProfile#workHistory';
-                        };
+                axios.post(webApi.Expert.updateWorkHistory, { 
+                        Id: this.workHistory.Id,
+                        Company: this.workHistory.Company,
+                        OrganizationId: this.workHistory.OrganizationId,
+                        Department: this.workHistory.Department,
+                        Position: this.workHistory.Position,
+                        StartTime: this.workHistory.StartTime,
+                        EndTime: this.workHistory.EndTime,
+                        Description: this.workHistory.Description
+                    }).then(response => {
+                        if (response.data.status === 'fail') {
+                            this.submitPopupVisible = false;
+                            this.isShowError = true;
+                            this.errorMessage = response.data.data;
+                            return;
+                        }
 
-                        if (res.status === "fail") {
-                            self.submitPopupVisible = false;
-                            self.isShowError = true;
-                            self.errorMessage = res.data;
-                        };
-                    }
-                });
+                        this.$router.go(-1);
+                    });
             },
             isArrayEmpty: function (arr) {
                 return (arr === null || arr === undefined || arr.length === 0);
             },
             isValidElement: function (item) {
                 return !(item === null || item === undefined || item === "");
+            },
+            processJSON: function (json) {
+                return json.Organizations;
+            },
+            // 处理focus的时候不触发autocomplete
+            focusCallBack: function (e) {
+                if (!this.isValidElement(e.target.value)) return;
+
+                axios.post(webApi.Expert.orgSearch, {keyword: e.target.value}).then(response => {
+                    this.$refs.autocomplete.showList = true;
+                    this.$refs.autocomplete.json = response.data.Organizations;
+                });
+            },
+            getData: function (obj) {
+                this.workHistory.Company = obj.FullName;
+                this.workHistory.OrganizationName = obj.FullName;
+                this.workHistory.OrganizationId = obj.Id;
             }
         },
         watch: {
