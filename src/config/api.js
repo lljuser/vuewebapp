@@ -32,8 +32,10 @@ export const Expert = {
   getExpert: `${apiAddress}/ExpertInfo/GetExpert`,
   // 获取专家展示页面数据
   getExpertDisplay: `${apiAddress}/ExpertInfo/GetExpertDisplay`,
-  // 获取ABS项目经历
+  // 获取所有ABS项目经历
   getAbsProjects: `${apiAddress}/ExpertInfo/GetAbsProjects`,
+  // 获取单个Abs项目经历
+  getAbsProject: `${apiAddress}/ExpertInfo/GetAbsProject`,
   // 取消ABS项目经历点赞
   deleteAbsProjectEndorse: `${apiAddress}/ExpertInfo/DeleteAbsProjectEndorse`,
   // 点赞ABS项目经历
@@ -124,6 +126,12 @@ export const Expert = {
   updateWorkHistory: `${apiAddress}/ExpertInfo/UpdateWorkHistory`,
   // 机构自动检索
   orgSearch: `${apiAddress}/Search/OrganizationSearch`,
+  // 获取Abs项目经历机构角色以及个人职责
+  getOrganizationRolesAndResponsibilities: `${apiAddress}/ExpertInfo/GetOrganizationRolesAndResponsibilities`,
+  // 添加单个Abs项目经历
+  addAbsProject: `${apiAddress}/ExpertInfo/AddAbsProject`,
+  // 更新单个Abs项目经历
+  updateAbsProject: `${apiAddress}/ExpertInfo/UpdateAbsProject`,
 };
 
 export const Demo = {

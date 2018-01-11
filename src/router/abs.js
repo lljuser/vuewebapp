@@ -29,6 +29,11 @@ export default new Router({
       component: Product,
     },
     {
+      path: '/product/:productType/:dealType',
+      name: 'product',
+      component: Product,
+    },
+    {
       path: '/market',
       name: 'market',
       component: Market,

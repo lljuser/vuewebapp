@@ -153,12 +153,12 @@
             },
             findOrganizationRoleIndex: function (arr, item) {
                 var itemIndex = -1;
-                // arr.forEach((role, index) => {
-                //     if (role.Id === item.OrganizationRoleId) {
-                //         itemIndex = index;
-                //         return false;
-                //     }
-                // });
+                arr.forEach((role, index) => {
+                    if (role.Id === item.OrganizationRoleId) {
+                        itemIndex = index;
+                        return false;
+                    }
+                });
                 
                 // $.each(arr, function (index, role) {
                 //     if (role.Id === item.OrganizationRoleId) {

@@ -74,15 +74,11 @@
 </template>
 
 <script>
-import $ from "jquery";
-//import jQuery from 'jquery';
-//import '@/public/modules/expert/flexible';
+import axios from "axios";
+import * as webApi from "@/config/api";
+import Autocomplete from 'vue2-autocomplete-js';
+import 'vue2-autocomplete-js/dist/style/vue2-autocomplete.css';
 import util from "@/public/modules/expert/utils";
-// import '@/scripts/expert/api.min.js';
-// import '@/scripts/expert/search.min.js';
-import "@/public/css/expert/reset.css";
-import "@/public/css/expert/editProfile.css";
-import "@/public/css/expert/search.css";
 
 export default {
   name: "AbsHistory",
@@ -99,33 +95,14 @@ export default {
       personalResponsibilities: [],
       customizedOrganizationRole: "",
       submitPopupVisible: false,
-      util: {}
+      util: {},
+      id: null,
     };
   },
-  mounted: function() {
+  created: function() {
     this.util = util;
+    this.id = this.$route.params.id;
     this.initData();
-  },
-  updated: function() {
-    var self = this;
-
-    $(".ui.search").search({
-      apiSettings: {
-        url: "http://10.1.3.60:43400/Search/AbsDealSearch/?keyword={query}"
-      },
-      searchDelay: 500,
-      fields: {
-        results: "Deals",
-        title: "DealName",
-        description: "DealFullName"
-      },
-      cache: false,
-      maxResults: 10,
-      onSelect: function(result, response) {
-        self.projectHistory.DealId = result.DealId;
-        self.projectHistory.DealName = result.DealName;
-      }
-    });
   },
   watch: {
     organizationRoleModel: function(roleId) {
@@ -146,80 +123,60 @@ export default {
         Vue.set(this.projectHistory, "OrganizationRoles", []);
       }
 
-      $.each(this.organizationRoles, function(index, item) {
-        if (item.Id === roleId) {
-          self.projectHistory.OrganizationRoles.push({
-            CustomizedOrganizationRole: null,
-            IsCustomizedOrganizationRole: false,
-            OrganizationRole: item.Role,
-            OrganizationRoleId: item.Id
-          });
-        }
-      });
+      for (let item of this.organizationRoles) {
+          if (item.Id === roleId) {
+              self.projectHistory.OrganizationRoles.push({
+                  CustomizedOrganizationRole: null,
+                  IsCustomizedOrganizationRole: false,
+                  OrganizationRole: item.Role,
+                  OrganizationRoleId: item.Id
+              });
+          }
+      }
 
       this.organizationRoleModel = "";
     },
     personalResponsibilityModel: function(id) {
       var self = this;
 
-      $.each(this.personalResponsibilities, function(index, item) {
-        if (item.Id === id) {
-          self.projectHistory.PersonalResponsibility = item;
-          return false;
-        }
-      });
+      for (let item of this.personalResponsibilities) {
+          if (item.Id === id) {
+              this.projectHistory.PersonalResponsibility = item;
+          }
+      }
     }
   },
   computed: {
     editingOrganizationRoles: function() {
-      var temp = $.extend(true, [], this.organizationRoles);
+      var temp = this.organizationRoles.concat();
 
       if (util.isArrayEmpty(this.projectHistory.OrganizationRoles)) return temp;
 
       var self = this;
-      $.each(this.projectHistory.OrganizationRoles, function(i, item) {
-        if (item.OrganizationRole !== "其它") {
-          var index = self.findOrganizationRoleIndex(temp, item);
-          temp.splice(index, 1);
-        }
-      });
+      for (let item of this.projectHistory.OrganizationRoles) {
+          if (item.OrganizationRole !== "其它") {
+              var index = self.findOrganizationRoleIndex(temp, item);
+
+              temp.splice(index, 1);
+          }
+      }
 
       return temp;
     }
   },
   methods: {
     initData: function() {
-      //TODO fetch organization roles and personal responsibility
-      this.organizationRoles = [
-        { Id: 19, Role: "财务顾问" },
-        { Id: 11, Role: "差额支付承诺人" },
-        { Id: 1, Role: "承销商" },
-        { Id: 12, Role: "担保人" },
-        { Id: 6, Role: "发起机构" },
-        { Id: 4, Role: "发行人" },
-        { Id: 8, Role: "会计师事务所" },
-        { Id: 2, Role: "计划管理人" },
-        { Id: 14, Role: "监管银行" },
-        { Id: 9, Role: "律师事务所" },
-        { Id: 26, Role: "评估机构" },
-        { Id: 10, Role: "评级机构" },
-        { Id: 5, Role: "受托机构" },
-        { Id: 20, Role: "税务顾问" },
-        { Id: 25, Role: "投资者" },
-        { Id: 13, Role: "托管机构" },
-        { Id: 23, Role: "委托机构" },
-        { Id: 17, Role: "项目安排人" },
-        { Id: 3, Role: "原始权益人" },
-        { Id: 7, Role: "资产服务机构" },
-        { Id: 15, Role: "资金保管机构" },
-        { Id: 24, Role: "其它" }
-      ];
-      this.personalResponsibilities = [
-        { Id: 1, Name: "部门负责人" },
-        { Id: 2, Name: "项目负责人" },
-        { Id: 3, Name: "项目参与人" },
-        { Id: 4, Name: "机构负责人" }
-      ];
+      axios.post(webApi.Expert.getOrganizationRolesAndResponsibilities).then(response => {
+          this.organizationRoles = response.data.data.OrganizationRoles;
+          this.personalResponsibilities = response.data.data.PersonalResponsibilities;
+      });
+
+      if (util.isValidElement(this.id) && !isNaN(this.id)) {
+          axios.post(webApi.Expert.getAbsProject, {id: this.id}).then(response => {
+              this.projectHistory = response.data.data;
+              this.personalResponsibilityModel = this.projectHistory.PersonalResponsibility.Id;
+          });
+      }
     },
     addcustomizedRole: function(roleId) {
       if (
@@ -251,11 +208,11 @@ export default {
     findOrganizationRoleIndex: function(arr, item) {
       var itemIndex = -1;
 
-      $.each(arr, function(index, role) {
-        if (role.Id === item.OrganizationRoleId) {
-          itemIndex = index;
-          return false;
-        }
+      arr.forEach((role, index) => {
+          if (role.Id === item.OrganizationRoleId) {
+              itemIndex = index;
+              return false;
+          }
       });
 
       return itemIndex;
@@ -304,50 +261,40 @@ export default {
       this.submitPopupVisible = true;
       //添加项目经历
       if (this.projectHistory.Id === undefined) {
-        appFrame.ajax("/expert/ExpertInfo/AddAbsProject", {
-          data: {
-            DealId: self.projectHistory.DealId,
-            DealName: self.projectHistory.DealName,
-            OrganizationRoles: self.projectHistory.OrganizationRoles,
-            PersonalResponsibility: self.projectHistory.PersonalResponsibility
-          },
-          success: function(res) {
-            if (res.status === "ok") {
-              window.location.href =
-                "/expert/expertuser/editProfile#projectHistoryABS";
-            }
-            //TODO - server error tip
-            if (res.status === "fail") {
-              self.submitPopupVisible = false;
-              self.isShowError = true;
-              self.errorMessage = res.data;
-            }
-          }
-        });
+        axios.post(webApi.Expert.addAbsProject, { 
+            DealId: this.projectHistory.DealId,
+            DealName: this.projectHistory.DealName,
+            OrganizationRoles: this.projectHistory.OrganizationRoles,
+            PersonalResponsibility: this.projectHistory.PersonalResponsibility
+          }).then(response => {
+              if (response.data.status === 'fail') {
+                  this.submitPopupVisible = false;
+                  this.isShowError = true;
+                  this.errorMessage = response.data.data;
+                  return;
+              }
+
+              this.$router.go(-1);
+          });
 
         return;
       }
 
-      appFrame.ajax("/expert/ExpertInfo/UpdateAbsProject", {
-        data: {
-          Id: self.projectHistory.Id,
-          DealId: self.projectHistory.DealId,
-          DealName: self.projectHistory.DealName,
-          OrganizationRoles: self.projectHistory.OrganizationRoles,
-          PersonalResponsibility: self.projectHistory.PersonalResponsibility
-        },
-        success: function(res) {
-          if (res.status === "ok") {
-            window.location.href =
-              "/expert/expertuser/editProfile#projectHistoryABS";
+      axios.post(webApi.Expert.updateAbsProject, { 
+        Id: this.projectHistory.Id,
+        DealId: this.projectHistory.DealId,
+        DealName: this.projectHistory.DealName,
+        OrganizationRoles: this.projectHistory.OrganizationRoles,
+        PersonalResponsibility: this.projectHistory.PersonalResponsibility
+      }).then(response => {
+          if (response.data.status === 'fail') {
+              this.submitPopupVisible = false;
+              this.isShowError = true;
+              this.errorMessage = response.data.data;
+              return;
           }
-          //TODO - server error tip
-          if (res.status === "fail") {
-            self.submitPopupVisible = false;
-            self.isShowError = true;
-            self.errorMessage = res.data;
-          }
-        }
+
+          this.$router.go(-1);
       });
     },
     removeContent: function() {
