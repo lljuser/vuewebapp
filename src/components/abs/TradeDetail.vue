@@ -47,7 +47,7 @@
                 </div>
             </td>
         </tr>
-        <tr>
+        <tr v-if="detailInfo.AbsProjectUsers !== null && detailInfo.AbsProjectUsers.length > 0">
             <td colspan="4">
                 <span class="fl mr5">参与专家</span>
                 <div class="fl" style="max-width: 6.9rem;">
@@ -56,7 +56,7 @@
                 <div class="clearfix"></div>
             </td>
             </tr>
-        <tr>
+        <tr v-if="detailInfo.Contacts !== null && detailInfo.Contacts.length > 0">
             <td colspan="4">
                 <div class="fl mr5">联&nbsp;系&nbsp;人&nbsp;</div>
                 <div class="fl">
@@ -131,14 +131,13 @@ export default {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
-  
-   this.tradeId = this.$route.params.tradeId;
-        this.noteId = this.$route.params.noteId;
-        //debugger;
-        this.fetchTradeDetail(this.tradeId,this.noteId,data => {   //59,9461,this.tradeId,this.noteId
-        this.detailInfo = data;
-        });
-  },
+    this.tradeId = this.$route.params.tradeId;
+    this.noteId = this.$route.params.noteId;
+    //debugger;
+    this.fetchTradeDetail(this.tradeId,this.noteId,data => {   //59,9461,this.tradeId,this.noteId
+    this.detailInfo = data;
+    });
+},
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

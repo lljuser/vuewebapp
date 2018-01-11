@@ -92,10 +92,12 @@ export default {
     // this.fetchPost();
   },
   mounted() {
-    this.fetchMarketSummary(data=>{
+    setTimeout(() => {
+      this.fetchMarketSummary(data=>{
         this.marketSummary=data;
-    });
-    this.fetchChartData();
+      });
+      this.fetchChartData();
+    }, 600);
   },
   methods: {
     fetchMarketSummary(callback) {

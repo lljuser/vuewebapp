@@ -24,12 +24,13 @@
                 </tr>
                 <tr>
                 <td>成立日期</td>
-                <td>{{publishDate.getFullYear()+"年"+publishDate.getMonth()+"月"+publishDate.getDate()+"日"}}</td>
+                <td v-if="productDetail.Basic.ClosingDate!=null">{{publishDate.getFullYear()+"年"+publishDate.getMonth()+"月"+publishDate.getDate()+"日"}}</td>
+                <td v-else>-</td>
                 </tr>
                 <tr>
                 <td>发起机构</td>
                 <td>
-                    <div v-for="(item,index) in productDetail.Basic.DealOriginator"><span>{{item}}</span><br v-if="index!=productDetail.Basic.length-1"></div>
+                    <div v-for="(item,index) in productDetail.Basic.DealOriginator"><span>{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
                 </td>
                 </tr>
                 <tr>
@@ -42,79 +43,68 @@
         <div class="appH5_title">
               <span>证券结构</span>
         </div>
-        <!-- <div v-if="productDetail!=null&&productDetail.NoteList.length!=0">
-            <table class="table-structure" style="text-align:center; width:90%; margin-top:-2px; padding:0px;">
-                <tbody>
-                    <tr style="text-align:center; padding:0px;">
-                        <td v-if="item.SecurityType=='优先级'&&index<6" class="consTableTd" style="" v-for="(item,index) in productDetail.NoteList">
-                            <div v-bind:style="'height:'+((item.Notional-item.Principal)*100/item.Notional)+'%;display:block;position:relative;background-image:url(/src/public/images/table_bg.png);background-repeat:repeat;vertical-align:top;'">
-                                <span v-bind:style="'position: absolute;top:0px;left:0px;width:'+(item.Notional*100/notionalA)+'%;height:171px;line-height:171px;'">
-                                    <a v-if="notionalA!=null&&notionalA!=undefined" href="javascript:;" target="_blank" v-bind:style="'width:'+(item.Notional*100/notionalA)+'%;word-break:break-all;color:#000000;font-weight:normal;font-size:smaller'">{{item.Name}}</a>
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
+            <div style="text-align:center"><div v-html="noteConsTable" style="margin:0 auto;width:200px">{{noteConsTable}}</div></div>
+            <div style="text-align:center;height: 0.4rem;">
+                <div style="margin:0.25rem auto;" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
+                    <div class="backTablePic"></div>
+                    <div style="float:left;font-size: 11px;">已偿付</div>
+                    <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div>
+                    <div style="float:left;font-size: 11px;">剩余</div>
+                </div>
+            </div>
+            
         </div>
-        <div style="margin-bottom:0.25rem;margin-left:2.1rem" v-if="productDetail!=null&&productDetail.NoteList.length!=0">
-            <div style="float:left;margin: 4px 4px 4px 2px; width: 12px;height: 11px; background-image: url(&quot;/src/public/images/table_bg.png&quot;); background-repeat: repeat;"></div>
-            <div style="float:left;font-size: 11px;">已偿付</div>
-            <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div>
-            <div style="float:left;font-size: 11px;">剩余</div>
-        </div> -->
+        <div v-else class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
     </div>
     <div class="appH5_panel appH5_panel_mb">
-        <div class="appH5_title">
+        <div class="appH5_title" v-if="productDetail.NoteList != null && productDetail.Basic!=null&&productDetail.NoteList.length!=0">
               <span>证券列表</span>
-          </div>
-          <div v-if="productDetail.Basic!=null&&productDetail.NoteList.length!=0">
+        </div>
+        <div v-if="productDetail.NoteList != null && productDetail.Basic!=null&&productDetail.NoteList.length!=0">
             <table class="appH5_table">
-              <tr>
-                <th>证券简称</th>
-                <th class="text-right">初始(亿)<br/>剩余(亿)</th>
-                <th class="text-right">利率<br/>估值</th>
-                <th class="text-right">期限<br/>类型</th>
-                <th class="text-right">最新评级<br/>建议评级</th>
-              </tr>
-              <tr v-for="(item,index) in productDetail.NoteList">
-                <td><div class="appH5_ellipsis" style="width:2.1rem;">{{item.Description}}</div></td>
-                <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.Principal}}</span></td>
-                <td class="text-right"><span>{{item.CurrentCoupon}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestYield}}</span></td>
-                <td class="text-right"><span>{{item.CurrentWal}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.RepaymentOfPrincipal}}</span></td>
-                <td class="text-right"><span>{{item.CurrentRatingCombineString}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestRatingCombineString}}</span></td>
-              </tr>
+                <tr>
+                    <th>证券简称</th>
+                    <th class="text-right">初始(亿)<br/>剩余(亿)</th>
+                    <th class="text-right">利率<br/>估值</th>
+                    <th class="text-right">期限<br/>类型</th>
+                    <th class="text-right">最新评级<br/>建议评级</th>
+                </tr>
+                <tr v-for="(item,index) in productDetail.NoteList">
+                    <td><div class="appH5_ellipsis" style="width:2.1rem;">{{item.Description}}</div></td>
+                    <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.Principal}}</span></td>
+                    <td class="text-right"><span>{{item.CurrentCoupon}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestYield}}</span></td>
+                    <td class="text-right"><span>{{item.CurrentWal}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.RepaymentOfPrincipal}}</span></td>
+                    <td class="text-right"><span>{{item.CurrentRatingCombineString}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestRatingCombineString}}</span></td>
+                </tr>
             </table>
-          </div>
-          <div v-else class="appH5_color_details appH5_font_smaller"> <span style="text-align:center">暂无数据</span> </div>
-      </div>
-      <div class="appH5_panel">
-        <div class="appH5_title">
-              <span>证券偿付</span>
-          </div>
-          <div>
-            <highcharts :options='options'></highcharts>
-          </div>
-      </div>
+        </div>
+        <div v-else class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
     </div>
-    <!-- <h2>产品详情页</h2>
-    <h3>{{ productDetail && productDetail.Title }}</h3>
-    <p>{{ productDetail && productDetail.Content }}</p>
-    <p>{{ productDetail && productDetail.Time }}</p> -->
+        <div class="appH5_panel">
+            <div class="appH5_title">
+                <span>证券偿付</span>
+            </div>
+            <div>
+                <highcharts :options='options'></highcharts>
+            </div>
+        </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-
+    .backTablePic{
+        float:left;
+        margin: 4px 4px 4px 2px; 
+        width: 12px;
+        height: 11px; 
+        background-image: url(/src/public/images/table_bg.png); 
+        background-repeat: repeat;
+    }
 </style>
 <style>
-.consTableTd{
-    padding:0px; 
-    position: relative; 
-    vertical-align:top;
-    height:171px;
-    background-color:#B7AFA5
-}
+
 </style>
 
 <script>
@@ -134,59 +124,58 @@ Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
 
 export default {
-  name: 'productDetail',
-  mounted() {
+    name: 'productDetail',
+    created() {
+        const busUtil = BusUtil.getInstance();
+        busUtil.bus.$emit('showHeader', true);
+        busUtil.bus.$emit('path', '/product');
+    }, 
+    mounted() {
+
+    },
+    activated() {
+        //clear all data cache
+        this.productDetail = {};
+        this.publishDate = "";
+        this.noteConsTable="";
+        this.options =  {
+            title: {
+            text: '暂无数据'
+            },
+            credits: {
+            href: '',
+            text: 'CNABS'
+        },
+        };
+    window.scrollTo(0,0);
     const busUtil = BusUtil.getInstance();
+    busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/product');
     this.id = this.$route.params.id;
     if (this.id) {
-      this.fetchProductDetail(this.id,data=>{
+        this.fetchProductDetail(this.id,data=>{
+            console.log(data);
             this.productDetail =data;
-            this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
-            let resultId = data.ResultSetId;
-            if (resultId != null && resultId > 0) {
-                this.fetchProductPaymentChart(data.DealId, resultId);
+            if(this.productDetail.Basic.ClosingDate!=null)
+                this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
+            var resultId = data.ResultSetId;
+            if(data.DealId!=null&&data.DealId>0){
+                this.fetchNoteConsTable(data.DealId,200,200);
             }
-      });
+            if (data.ResultSetId != null && data.ResultSetId > 0) {
+                this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
+            }
+        });
     }
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/product');
-
-    // url 传来的id
-    const productId = getParams("id");
-    if (productId) {
-      this.fetchProductDetail(productId,data=>{
-            this.productDetail =data;
-            this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
-            let resultId = data.ResultSetId;
-            if (resultId != null && resultId > 0) {
-                this.fetchProductPaymentChart(data.DealId, resultId);
-            }
-      });
-    }
-  },
-  activated() {
-
-    // // 滚动到顶部
-    // window.scrollTo(0,0);
-    // const busUtil = BusUtil.getInstance();
-    
-    // this.id = this.$route.params.id;
-    // if (this.id) {
-    //   this.fetchProductDetail(this.id);
-    // }
-    // busUtil.bus.$emit('showHeader', true);
-    // busUtil.bus.$emit('path', '/product');
-
-    // // url 传来的id
-    // const productId = getParams("id");
-    // if (productId) {
-    //   this.fetchProductDetail(productId);
-    // }
+ 
   },
   data() {
     return {
-        productDetail: [],
+        productDetail: {},
         publishDate:"",
+        noteConsTable:"",
         options: {
         title: {
           text: '暂无数据'
@@ -199,13 +188,25 @@ export default {
     };
   },
   methods: {
+    fetchNoteConsTable(dealId,width,height){
+        axios("http://10.1.1.35/Dealreport/GetStructure?dealId="+dealId+"&w="+width+"&h="+height)
+        .then((response)=>{
+            console.log(response);
+            if(response!=null &&response!=""){
+                this.noteConsTable=response.data;
+            }
+        });
+
+    },
     fetchProductDetail(id,callback) {
-        console.log(webApi.Product.detail.concat(['',id].join('/')));
+        // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
         axios(webApi.Product.detail.concat(['',id].join('/')))
         .then((response) => {
-            const data = response.data.data;
-            if(data){
+            if (response.data.status == "ok") {
+              const data = response.data.data;
+              if(data){
                 callback(data);
+              }
             }
         });
     },
