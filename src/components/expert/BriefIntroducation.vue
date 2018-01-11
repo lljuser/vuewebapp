@@ -3,8 +3,10 @@
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div">
             <div class="ep_part_item ep_overhide">
-                <span class="fl ep_color_grey">个人简介</span>
-                <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
+                <div class="ep_title_div">
+                    <span class="ep_marginTop5" style='float:left;'>*</span>
+                    <span class="ep_marginLeft10" style='float:left;'>个人简介</span>
+                </div>
             </div>
             <div>
                 <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入个人简介，最多500个字符" v-model="personalProfile"> </textarea>
