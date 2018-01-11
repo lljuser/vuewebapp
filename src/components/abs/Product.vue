@@ -1,7 +1,7 @@
 <template>
 <div class="appH5_body">
   <div class="appH5_panel">
-    <table class="select_div" cellspacing="0"  cellpadding="0">
+    <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0">
       <tr>
         <td class="text-left">
           <select v-model="ProductTypeVal" v-on:change="selectChange()" >
@@ -33,7 +33,7 @@
     </div>
 
     <div v-else>
-      <table class="appH5_table" style="padding-top:0.32rem;">
+      <table class="appH5_table">
         <tr>
           <th>产品名称</th>
           <th class="text-right">总额(亿)</th>
@@ -94,7 +94,7 @@ export default {
     busUtil.bus.$emit('showHeader', false);
     var productTypeParam = this.$route.params.productType;
     var dealTypeParam=this.$route.params.dealType;
-    var reLoadData=false;
+    var reLoadData=false;    
     if(productTypeParam!=null && productTypeParam!="0" )
     {
       this.ProductTypeVal= productTypeParam;
@@ -110,6 +110,7 @@ export default {
       this.isComponentActive = true;
       this.loadFirstPageProducts();
     }
+
     if (this.isFetchProductsError) {
       this.loadFirstPageProducts();
     }
@@ -188,12 +189,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.select_div {
-  table-layout: fixed;
-  width: 100%;
-  margin: 0 0 0.32rem 0;
-  line-height: 0;
-}
 
 .select_div div {
    width:33%;

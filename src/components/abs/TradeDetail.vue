@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td class="appH5_white_space">证券类型</td>
-            <td class="appH5_color_link"><router-link to="/trade"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
+            <td class="appH5_color_link"><router-link :to="'/trade/'+gradeId+'/'+securityId"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
             <td class="appH5_white_space">评&#12288;&#12288;级</td>
             <td>{{detailInfo.Rating}}</td>
         </tr>
@@ -113,6 +113,7 @@ export default {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
+    busUtil.bus.$emit('headTitle', '交易信息');
   }, 
   mounted() {
   },
@@ -135,6 +136,7 @@ export default {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
+    busUtil.bus.$emit('headTitle', '交易信息');
     this.tradeId = this.$route.params.tradeId;
     this.noteId = this.$route.params.noteId;
     //debugger;
