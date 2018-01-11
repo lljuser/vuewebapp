@@ -14,7 +14,7 @@
                 <td>产品分类</td>
                 <td>
                     <div><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a></router-link></div>
-                    <div>&nbsp;└&nbsp;<router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div>
+                    <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div><!--+'/'+productDetail.Basic.DealTypeId-->
                     <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
                 </td>
                 </tr>
@@ -168,7 +168,7 @@ export default {
     this.id = this.$route.params.id;
     if (this.id) {
         this.fetchProductDetail(this.id,data=>{
-           // console.log(data);
+            console.log(data);
             this.productDetail =data;
             if(this.productDetail.Basic.ClosingDate!=null)
                 this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
