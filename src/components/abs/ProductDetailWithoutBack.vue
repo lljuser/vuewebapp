@@ -98,7 +98,7 @@
         margin: 4px 4px 4px 2px; 
         width: 12px;
         height: 11px; 
-        background-image: url(/src/public/images/table_bg.png); 
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC); 
         background-repeat: repeat;
     }
 </style>
@@ -144,7 +144,7 @@ export default {
             },
         };
         window.scrollTo(0,0);
-        const productId = getParams("id");
+        const productId = getParams("dealId");
         if (productId) {
         this.fetchProductDetail(productId,data=>{
             console.log(data);
@@ -175,7 +175,7 @@ export default {
     updated(){
         var paidList=document.getElementsByClassName("divHasPaid");
         for(var i=0;i<paidList.length;i++){
-            paidList[i].style.backgroundImage="url(/src/public/images/table_bg.png)";
+            paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
         }
         var bgList=document.getElementsByClassName("structure_bg");
         for(var i=0;i<bgList.length;i++){
@@ -206,7 +206,7 @@ export default {
     // busUtil.bus.$emit('showHeader', true);
     // busUtil.bus.$emit('path', '/product');
     // this.id = this.$route.params.id;
-    const productId = getParams("id");
+    const productId = getParams("dealId");
     // if (productId) {
     //   this.fetchProductDetail(productId);
     // }

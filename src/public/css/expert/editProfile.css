@@ -443,6 +443,13 @@ pre {
 .ep_color_orange {
     color: #ffc446;
 }
+.ep_color_orange_important {
+    color: #ffc446 !important;
+}
+.ep_color_orange_important:hover
+{
+    color: #ffc446 !important;
+}
     .ep_color_orange:hover {
         color: #ffc446;
     }
@@ -774,8 +781,8 @@ ul.articleDetail li {
 /*readProfile CSS*/
 .basicInformationCard {
     padding: 0.533333rem 0.4rem 0.8rem 0.4rem;
-    border-bottom: 6px solid #ffc446;
-    /* border-bottom: 6px solid #F35B5B; */
+    /* border-bottom: 6px solid #ffc446; */
+     border-bottom: 6px solid #F35B5B; 
 }
 /*projectABSDetails CSS*/
 .projectABSDetailsNavbar {

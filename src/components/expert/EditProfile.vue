@@ -70,7 +70,7 @@
                     </table>
                 </div>
                 <div class="ep_font30 ep_align_center ep_padding30" style="padding-top:0;" v-if="userInfo.ABSProjects.length > 3">
-                    <router-link to="/AbsHistoryList">
+                    <router-link to="/AbsHistoryList" class="ep_color_orange_important">
                         查看更多
                     </router-link>
                 </div>
@@ -117,7 +117,7 @@
                     </table>
                </div>
                 <div class="ep_font30 ep_align_center ep_padding30" style="padding-top:0px;" v-if="userInfo.OtherProjects.length>3">
-                    <router-link to="/OtherProjectList">
+                    <router-link to="/OtherProjectList" class="ep_color_orange_important">
                         查看更多
                     </router-link>
                 </div>
@@ -215,7 +215,7 @@
                 </div>
                 <div class="ep_font30 ep_align_center ep_padding30" v-if="userInfo.RecentActivities.length > 3">
                     <!-- <a href="/expert/expertuser/recentActivitiesList">查看更多</a> -->
-                    <router-link to="/ActivityList">
+                    <router-link to="/ActivityList" class="ep_color_orange_important">
                         查看更多
                     </router-link>
                 </div>
@@ -263,7 +263,7 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span>作品网址：</span>
-                                <a class="fl ep_ellipsis ep_width400  ep_Link" v-bind:href="item.Link">{{item.Link}}</a>
+                                <a class="fl ep_ellipsis ep_width400 ep_color_orange_important ep_Link" v-bind:href="item.Link">{{item.Link}}</a>
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
                                 <span>作品文件：</span>
@@ -275,7 +275,7 @@
                     </div>
                 </div>
                 <div class="ep_font30 ep_align_center ep_padding30" v-if="userInfo.Publishs.length > 3">
-                    <router-link to="/ArticleList">
+                    <router-link to="/ArticleList" class="ep_color_orange_important">
                         查看更多
                     </router-link>
                 </div>
