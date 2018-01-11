@@ -72,21 +72,8 @@ export default {
     };
   },
   created(){
-    this.fetchTrades(1, data => {
-      this.list = data;
-      this.page = this.page + 1;
-    });
-    this.getWalbuckList(data=>{
-      this.walbuckList = data;
-    });
-    this.getTypeList(data=>{
-      this.typeList=data;
-    });
-    this.getRatingList(data=>{
-      this.ratingList=data;
-    })    
   },
-   activated() {
+  activated() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', false);
   },
@@ -96,8 +83,21 @@ export default {
       this.fetchTrades(1, data => {
         this.list = data;
         this.page = this.page + 1;
-        this.isTradeLoading = false;
       });
+      this.fetchTrades(1, data => {
+        this.list = data;
+        this.page = this.page + 1;
+      });
+      this.getWalbuckList(data=>{
+        this.walbuckList = data;
+      });
+      this.getTypeList(data=>{
+        this.typeList=data;
+      });
+      this.getRatingList(data=>{
+        this.ratingList=data;
+      }); 
+      this.isTradeLoading = false;
     }, 600);    
   },
   methods:{
