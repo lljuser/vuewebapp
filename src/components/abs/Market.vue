@@ -1,8 +1,11 @@
 <template>
 <div class="appH5_body">
   <div id="root" class="appH5_content">
-    <div class="appH5_panel  appH5_panel_mb">
-<div class="appH5_title"><span>市场概要</span></div>
+    <div class="product-spinner" v-if="isMarketLoading">
+      <mt-spinner type="triple-bounce"></mt-spinner>
+    </div>
+    <div class="appH5_panel  appH5_panel_mb" v-else>
+    <div class="appH5_title"><span>市场概要</span></div>
     <div>
       <table class="appH5_table">
         <tr>
@@ -91,6 +94,7 @@ export default {
         },
       },
       marketSummary:[],
+      isMarketLoading: false,
     };
   },
   created() {
@@ -98,9 +102,11 @@ export default {
     // this.fetchPost();
   },
   mounted() {
+    this.isMarketLoading=true,
     this.timer = setTimeout(() => {
       this.fetchMarketSummary(data=>{
         this.marketSummary=data;
+        this.isMarketLoading=false;
         console.log(data);
       });
       this.fetchChartData();
