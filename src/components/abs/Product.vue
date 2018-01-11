@@ -93,9 +93,19 @@ export default {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', false);
     var productTypeParam = this.$route.params.productType;
+    var dealTypeParam=this.$route.params.dealType;
+    var reLoadData=false;    
     if(productTypeParam!=null && productTypeParam!="0" )
     {
       this.ProductTypeVal= productTypeParam;
+      reLoadData=true;
+    }
+    if(dealTypeParam!=null && dealTypeParam!="0" )
+    {
+      this.DealTypeVal= dealTypeParam;
+      reLoadData=true;
+    }
+    if(reLoadData){
       this.isProductLoading = true;
       this.isComponentActive = true;
       this.loadFirstPageProducts();
