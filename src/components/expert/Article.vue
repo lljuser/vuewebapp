@@ -5,16 +5,16 @@
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">作者</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <input class="ep_align_right ep_input fr ep_font32" type="text" placeholder="请输入" v-model="publish.Author" />
+                <input class="ep_align_right ep_input fr ep_font32 ep_width200" type="text" placeholder="请输入" v-model="publish.Author" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">书名/文章标题</span>
                 <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <input class="ep_align_right ep_input fr ep_font32 ep_width400" type="text" placeholder="请输入" v-model="publish.Name" />
+                <input class="ep_align_right ep_input fr ep_font32 ep_width200" type="text" placeholder="请输入" v-model="publish.Name" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">出版社/期刊</span>
-                <input class="ep_align_right ep_input fr ep_font32" type="text" placeholder="请输入" v-model="publish.Publisher" />
+                <input class="ep_align_right ep_input fr ep_font32 ep_width200" type="text" placeholder="请输入" v-model="publish.Publisher" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">出版时间</span>
@@ -24,11 +24,11 @@
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">书号ISBN</span>
-                <input class="ep_align_right ep_input fr ep_font32" type="text" placeholder="请输入" v-model="publish.Isbn" />
+                <input class="ep_align_right ep_input fr ep_font32 ep_width200" type="text" placeholder="请输入" v-model="publish.Isbn" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">页数</span>
-                <input class="ep_align_right ep_input fr ep_font32" type="number" placeholder="请输入" v-model="publish.Pages" />
+                <input class="ep_align_right ep_input fr ep_font32 ep_width200" type="number" placeholder="请输入" v-model="publish.Pages" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <span class="fl ep_color_grey">作品网址</span>

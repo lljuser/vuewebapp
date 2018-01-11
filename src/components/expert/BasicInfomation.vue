@@ -73,8 +73,6 @@
 import $ from 'jquery';
 import axios from "axios";
 import * as webApi from "@/config/api";
-import '@/public/css/expert/reset.css';
-import '@/public/css/expert/editProfile.css';
 import '@/public/css/expert/jquery.Jcrop.min.css';
 
 export default {

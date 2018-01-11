@@ -176,7 +176,7 @@ export default {
 .select_div {
   table-layout: fixed;
   width: 100%;
-  margin: 0 0 12px 0;
+  margin: 0 0 0.32rem 0;
   line-height: 0;
 }
 
