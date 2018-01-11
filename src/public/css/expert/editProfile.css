@@ -57,7 +57,7 @@ body {
 .ep_input{
     height: 0.8rem;
     margin-top: 0.266667rem;
-    width: 6.3rem;
+    width: 5.8rem;
     background-color: #2b2a29;
     border: none;
     -webkit-appearance: none;
@@ -70,10 +70,17 @@ body {
     overflow: hidden;
     float: left;
 }
+.ep_title_div span{
+    float:right;
+    color:#57b489;
+}
+.ep_right_div{
+    padding-left: 0.32rem;
+}
 .ep_select {
     height: 0.8rem;
     margin-top: 0.266667rem;
-    width: 6.3rem;
+    width: 5.8rem;
     background-color: #2b2a29;
     border: none;
     -webkit-appearance: none;
