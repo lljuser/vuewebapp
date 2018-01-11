@@ -238,13 +238,13 @@ a {
   border-radius: 0;
 }
 #tradeTableId th:nth-of-type(2){
-width: 17%;
+width: 18%;
 }
 #tradeTableId th:nth-of-type(3){
 width: 15%;
 }
 #tradeTableId th:nth-of-type(4){
-width: 17%;
+width: 18%;
 }
 #tradeTableId th:nth-of-type(5){
 width: 20%;
