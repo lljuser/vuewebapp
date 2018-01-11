@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ProductDetail from './abs/ProductDetail';
+import ProductDetail from './abs/ProductDetailWithoutBack';
 import '@/public/css/theme.css';
 
 export default {

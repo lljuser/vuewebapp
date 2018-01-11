@@ -25,12 +25,12 @@ export default new Router({
     },
     {
       path: '/product/:productType',
-      name: 'product',
+      name: 'product1',
       component: Product,
     },
     {
       path: '/product/:productType/:dealType',
-      name: 'product',
+      name: 'product2',
       component: Product,
     },
     {
@@ -41,6 +41,16 @@ export default new Router({
     {
       path: '/trade',
       name: 'trade',
+      component: Trade,
+    },
+    {
+      path: '/trade/:gradeId',
+      name: 'trade1',
+      component: Trade,
+    },
+    {
+      path: '/trade/:gradeId/:securityId',
+      name: 'trade2',
       component: Trade,
     },
     {

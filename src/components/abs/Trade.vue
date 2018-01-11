@@ -1,7 +1,7 @@
 <template>
 <div class="appH5_body">              
 <div class="appH5_panel">
-  <table class="trade_select_div" cellspacing="0"  cellpadding="0">
+  <table class="appH5_select_div trade_select_div" cellspacing="0"  cellpadding="0" v-if="isShowSelect">
      <tr>
        <td class="text-left">
         <select v-model="TradeRating" v-on:change="selectChange()">
@@ -35,11 +35,11 @@
     </div>
 
   <div v-else>
-  <table id="tradeTableId" class="appH5_table" style="table-layout:fixed;padding-top:032rem">
+  <table id="tradeTableId" class="appH5_table" style="table-layout:fixed;">
     <tr>
       <th>证券简称</th>
       <th class="text-right">金额(亿)</th>
-      <th class="text-center">评级</th>
+      <th class="text-right">评级</th>
       <th class="text-right">期限(Y)</th>
       <th class="text-right">利率(%)</th>
     </tr>
@@ -80,12 +80,33 @@ export default {
       isTradeLoading:false,
       isComponentActive :false,
       isFetchTradesError:false,
+      isShowSelect:false,
     };
   },
    activated() {
     this.loading = false;     
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', false);
+
+    var gradeIdParam = this.$route.params.gradeId;
+    var securityIdParam=this.$route.params.securityId;
+    var reLoadData=false;
+    if(gradeIdParam!=null && gradeIdParam!="0" )
+    {
+      this.TradeRating= gradeIdParam;
+      reLoadData=true;
+    }
+    if(securityIdParam!=null && securityIdParam!="0" )
+    {
+      this.TradeType= securityIdParam;
+      reLoadData=true;
+    }
+    if(reLoadData){
+      this.isProductLoading = true;
+      this.isComponentActive = true;
+      this.loadFirstPageTrades();
+    }
+
     if (this.isFetchTradesError) {
       this.loadFirstPageTrades();
     }    
@@ -118,6 +139,7 @@ export default {
       this.fetchTrades(1,0, data => {
         this.list = data;
         this.isTradeLoading = false;
+        this.isShowSelect=true;
       });
     },  
     fetchTrades(page, direction,callback) {
@@ -177,6 +199,7 @@ export default {
         this.fetchTrades(0, 1,data => {
           this.list = data;
           this.isTradeLoading = false;
+          this.isShowSelect=true;
         });
       }, 500);
     },
@@ -207,30 +230,14 @@ a {
 .trade_select_div select{
   min-width: 2.6rem;
 }
-.trade_select_div {
-  display: table;
-  width: 100%;
-  margin-top:-6px;
-  margin-bottom: 12px;
-}
-
-.trade_select_div {
-  table-layout: fixed;
-  width: 100%;
-  margin: 0 0 0.32rem 0;
-  line-height: 0;
-}
-
 .trade_select_div div {
    width:33%;
    float: left;
 }
-
 .trade_select_div div:last-child {
     width:34%;
     text-align: right;
 }
-
 .trade_select_div select {
   width:90%;
   border-radius: 0;
@@ -239,10 +246,10 @@ a {
 width: 18%;
 }
 #tradeTableId th:nth-of-type(3){
-width: 15%;
+width: 14%;
 }
 #tradeTableId th:nth-of-type(4){
-width: 18%;
+width: 15%;
 }
 #tradeTableId th:nth-of-type(5){
 width: 20%;
