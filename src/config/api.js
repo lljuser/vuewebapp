@@ -138,6 +138,10 @@ export const Expert = {
   deleteAbsProject: `${apiAddress}/ExpertInfo/DeleteAbsProject`,
   // 获取编辑页面的所有abs项目经历
   getAbsProjectsByEditing: `${apiAddress}/ExpertInfo/GetAbsProjectsByEditing`,
+  // 更新个人资料
+  updateUserBasicInfo: `${apiAddress}/ExpertInfo/UpdateUserBasicInfo`,
+  // 图片上传接口
+  uploadImgUrl: `${apiAddress}/filestore/common/uploaddata/cnabs/`,
 };
 
 export const Demo = {
