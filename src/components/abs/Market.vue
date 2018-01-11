@@ -12,25 +12,25 @@
           <th class="text-right">累计(亿)</th>
         </tr>
         <tr v-if="marketSummary.length!=0">
-          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[0].SimpleProductType}}</a></router-link></td>
+          <td > <router-link to="/product/1"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[0].SimpleProductType}}</a></router-link></td>
           <td class="text-right">{{marketSummary[0].DealCountCurrentYear}}</td>
           <td class="text-right appH5_color_red">{{marketSummary[0].BalanceCurrentYear}}</td>
           <td class="text-right">{{marketSummary[0].BalanceCumulative}}</td>
         </tr>
         <tr v-if="marketSummary.length!=0">
-          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[1].SimpleProductType}}</a></router-link></td>
+          <td > <router-link to="/product/2"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[1].SimpleProductType}}</a></router-link></td>
           <td class="text-right">{{marketSummary[1].DealCountCurrentYear}}</td>
           <td class="text-right appH5_color_red">{{marketSummary[1].BalanceCurrentYear}}</td>
           <td class="text-right">{{marketSummary[1].BalanceCumulative}}</td>
         </tr>
         <tr v-if="marketSummary.length!=0">
-          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[2].SimpleProductType}}</a></router-link></td>
+          <td > <router-link to="/product/3"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[2].SimpleProductType}}</a></router-link></td>
           <td class="text-right">{{marketSummary[2].DealCountCurrentYear}}</td>
           <td class="text-right appH5_color_red">{{marketSummary[2].BalanceCurrentYear}}</td>
           <td class="text-right">{{marketSummary[2].BalanceCumulative}}</td>
         </tr>
         <tr v-if="marketSummary.length!=0">
-          <td > <router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[3].SimpleProductType}}</a></router-link></td>
+          <td > <router-link to="/product/4"> <a href="javascript:;" style="color:#FEC447">{{marketSummary[3].SimpleProductType}}</a></router-link></td>
           <td class="text-right">{{marketSummary[3].DealCountCurrentYear}}</td>
           <td class="text-right appH5_color_red">{{marketSummary[3].BalanceCurrentYear}}</td>
           <td class="text-right">{{marketSummary[3].BalanceCumulative}}</td>
