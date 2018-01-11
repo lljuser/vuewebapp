@@ -4,15 +4,15 @@
         <div class="ep_content_div">
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class='ep_title_div'>
-                    <span class="ep_marginLeft10">活动名称</span>
-                    <span class="ep_marginTop5">*</span>
+                    <span>活动名称</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model="activity.Name" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class='ep_title_div'>
-                    <span class="ep_marginLeft10">活动时间</span>
-                    <span class="ep_marginTop5">*</span>
+                    <span>活动时间</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <div class="fl ep_font32 ep_align_right ActivityTime ep_right_div" v-on:click="showYearMonthPicker()" v-bind:class="[activity.ActivityTime === undefined ? 'ep_color_grey' : '']">
                     {{activity.ActivityTime === undefined ? '请选择' : activity.ActivityTime}}
