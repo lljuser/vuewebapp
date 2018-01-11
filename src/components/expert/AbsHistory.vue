@@ -3,18 +3,22 @@
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div">
             <div class="ep_part_item ep_part_item_border ep_overhide" style="overflow:visible;">
-                <span class="fl ep_color_grey">产品名称</span>
-                <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
+                <div class="ep_title_div">
+                  <span class="fl ep_color_grey">产品名称</span>
+                  <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
+                </div>
                 <autocomplete ref="absHistoryItem" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealName" anchor="DealFullName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
                 </autocomplete>
             </div>
             <div class="clearBoth"></div>
             <div class="ep_part_item_border ep_font32">
                 <div class="ep_part_item  ep_overhide">
-                    <span class="fl ep_color_grey">参与角色</span>
-                    <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                    <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fr ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel">
-                        <option disabled value="">请选择</option>
+                    <div class="ep_title_div">
+                      <span class="fl ep_color_grey">参与角色</span>
+                      <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
+                    </div>
+                    <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel">
+                        <option disabled value="">请选择参与角色</option>
                         <option v-for="item in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="item.Id">{{item.Role}}</option>
                     </select>
                 </div>
@@ -30,10 +34,12 @@
                 </div>
             </div>
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
-                <span class="fl ep_color_grey">个人职责</span>
-                <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
-                <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fr ep_font32 ep_align_right personalRoleSelect" type="text" v-model="personalResponsibilityModel">
-                    <option disabled value="">请选择</option>
+               <div class="ep_title_div">
+                  <span class="fl ep_color_grey">个人职责</span>
+                  <span class="fl ep_marginTop5 ep_color_grey ep_marginLeft10">*</span>
+                </div>
+                <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 ep_align_right personalRoleSelect" type="text" v-model="personalResponsibilityModel">
+                    <option disabled value="">请选择个人职责</option>
                     <option v-for="item in personalResponsibilities" v-bind:value="item.Id" v-bind:key="item.Name">{{item.Name}}</option>
                 </select>
             </div>
