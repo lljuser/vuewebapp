@@ -308,7 +308,8 @@
 import _ from "lodash";
 import axios from "axios";
 import * as webApi from "@/config/api";
-import getParams from "@/public/js/getParams";
+import util from "@/public/modules/expert/utils";
+//import getParams from "@/public/js/getParams";
 import dislikeImg from "@/public/image/unfollowicon.png";
 import likeImg from "@/public/image/followicon.png";
 
@@ -327,11 +328,13 @@ export default {
   },
   created: function() {
     this._ = _;
-    this.userId = getParams("UserId");
+    //getParams("UserId");
+    this.userId = util.getQueryString().UserId;
     this.initData();
   },
   methods: {
     initData: function() {
+      
       axios
         .post(webApi.Expert.getExpertDisplay, { UserId: this.userId })
         .then(response => {
