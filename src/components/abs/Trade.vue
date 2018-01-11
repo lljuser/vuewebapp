@@ -93,8 +93,10 @@ export default {
   mounted(){
     this.isTradeLoading = true;
     this.isComponentActive = true;
-    this.loadFirstPageTrades();
-    this.loadSelectOptions();
+    setTimeout(() => {
+      this.loadFirstPageTrades();
+      this.loadSelectOptions();
+    }, 600);
   },
   deactivated(){
     //防止其他组件滚动时，此组件调用loadMore方法
@@ -102,26 +104,22 @@ export default {
   },
   methods:{ 
     loadSelectOptions(){
-    this.getWalbuckList(data=>{
-      this.walbuckList = data;
-    });
-    this.getTypeList(data=>{
-      this.typeList=data;
-    });
-    this.getRatingList(data=>{
-      this.ratingList=data;
-      
-    })
+      this.getWalbuckList(data=>{
+        this.walbuckList = data;
+      });
+      this.getTypeList(data=>{
+        this.typeList=data;
+      });
+      this.getRatingList(data=>{
+        this.ratingList=data;
+      });
     },
     loadFirstPageTrades(){
-      setTimeout(() => {
-        this.fetchTrades(1,0, data => {
-          this.list = data;
-          this.isTradeLoading = false;
-        });
-      }, 600);      
+      this.fetchTrades(1,0, data => {
+        this.list = data;
+        this.isTradeLoading = false;
+      });
     },  
-
     fetchTrades(page, direction,callback) {
       var url=webApi.Trade.list;
       url=url+"/"+this.TradeRating+"/"+this.TradeType+"/"+this.TradeWalbuck;
@@ -137,41 +135,41 @@ export default {
         this.isTradeLoading=false;
         this.isFetchTradesError=true;
       });    
-   },
-   loadMore(){
+    },
+    loadMore(){
       this.loading = true;
       setTimeout(() => {
         this.fetchTrades(this.page, 1,data => {
-           this.list = this.list.concat(data);
-           this.page = this.page + 1;
-           this.loading = false;
+          this.list = this.list.concat(data);
+          this.page = this.page + 1;
+          this.loading = false;
         });
-      }, 300);     
-   },
-   getWalbuckList(callback){ 
+      }, 300);
+    },
+    getWalbuckList(callback){ 
       axios.post(webApi.Trade.walbuckList).then((response) => { 
         const data = response.data.data;
         if(data && data.length > 0){
           callback(data);
         }
       });
-   },
-   getTypeList(callback){
+    },
+    getTypeList(callback){
       axios.post(webApi.Trade.typeList).then((response) => { 
         const data=response.data.data;
         if(data && data.length > 0 ){
           callback(data);          
         }
-      })
-   },
-   getRatingList(callback){
+      });
+    },
+    getRatingList(callback){
       axios.post(webApi.Trade.ratingList).then((response) => { 
         const data=response.data.data;        
         if(data && data.length > 0 ){
           callback(data);          
         }
-      })     
-   },
+      });
+    },
     selectChange(){
       this.isTradeLoading = true;
       this.isComponentActive = true;
@@ -181,10 +179,10 @@ export default {
           this.isTradeLoading = false;
         });
       }, 500);
-    }      
- },
-    components: {
-    TradeItem
+    },
+  },
+  components: {
+    TradeItem,
   }
 };
 </script>
