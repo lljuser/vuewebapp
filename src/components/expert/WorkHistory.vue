@@ -4,8 +4,8 @@
         <div class="ep_content_div">
             <div class="ep_part_item ep_part_item_border ep_overhide" style="overflow:visible;">
                  <div class="ep_title_div">
-                    <span class="ep_marginLeft10">机构名称</span>
-                    <span class="ep_marginTop5">*</span>
+                    <span>机构名称</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <autocomplete ref="autocomplete" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="FullName" anchor="ShortName" v-bind:url="searchUrl" :debounce="250" param="keyword" placeholder="请输入机构名称">
                 </autocomplete>
@@ -13,21 +13,21 @@
             <div class="clearBoth"></div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                  <div class="ep_title_div">
-                    <span class="ep_marginLeft10">部门</span>
+                    <span>部门</span>
                 </div>
                 <input class="ep_align_right ep_input fr ep_font32" type="text" placeholder="请输入" v-model="workHistory.Department" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                  <div class="ep_title_div">
-                    <span class="ep_marginLeft10">职位</span>
-                    <span class="ep_marginTop5">*</span>
+                    <span>职位</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <input class="ep_align_right ep_input fr ep_font32" type="text" placeholder="请输入" v-model="workHistory.Position" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                  <div class="ep_title_div">
-                    <span class="ep_marginLeft10">入职时间</span>
-                    <span class="ep_marginTop5">*</span>
+                    <span>入职时间</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <div class="fl  ep_font32 ep_align_right startTime ep_right_div" v-on:click="showDatePicker('startTime')" v-bind:class="[workHistory.StartTime === undefined ? 'ep_color_grey' : '']">
                     {{workHistory.StartTime === undefined ? '请选择入职时间' : workHistory.StartTime}}
@@ -35,8 +35,8 @@
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                  <div class="ep_title_div">
-                    <span class="ep_marginLeft10">离职时间</span>
-                    <span class="ep_marginTop5">*</span>
+                    <span>离职时间</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <div class="fl  ep_font32 ep_align_right endTime ep_right_div" v-on:click="showDatePicker('endTime')" v-bind:class="[workHistory.EndTime === undefined ? 'ep_color_grey' : '']">
                     {{workHistory.EndTime === undefined ? '请选择离职时间' : workHistory.EndTime}}
@@ -45,7 +45,7 @@
             <div>
                 <div class="ep_part_item ep_overhide">
                      <div class="ep_title_div">
-                    <span class="ep_marginLeft10">工作内容</span>
+                    <span>工作内容</span>
                 </div>
                 </div>
                 <div>

@@ -4,8 +4,8 @@
         <div class="ep_content_div">
             <div class="ep_part_item ep_part_item_border ep_overhide" style="overflow:visible;">
                 <div class="ep_title_div">
-                  <span class="ep_marginLeft10">产品名称</span>
-                  <span class="ep_marginTop5">*</span>
+                  <span>产品名称</span>
+                  <span class="ep_marginLeft10 ep_marginTop5">*</span>
                 </div>
                 <autocomplete :classes="{ input: 'searchInput'}" className="searchInput" ref="absHistoryItem" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealFullName" anchor="DealName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
                 </autocomplete>
@@ -14,8 +14,8 @@
             <div class="ep_part_item_border ep_font32">
                 <div class="ep_part_item  ep_overhide">
                     <div class="ep_title_div">
-                      <span class="ep_marginLeft10">参与角色</span>
-                      <span class="ep_marginTop5">*</span>
+                      <span>参与角色</span>
+                      <span class="ep_marginLeft10 ep_marginTop5">*</span>
                     </div>
                     <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel">
                         <option disabled value="">请选择参与角色</option>
@@ -34,8 +34,8 @@
             <div class="clearBoth"></div>
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
                 <div class="ep_title_div">
-                    <span class="ep_marginLeft10">个人职责</span>
-                    <span class="ep_marginTop5">*</span>
+                   <span>个人职责</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32  personalRoleSelect" type="text" v-model="personalResponsibilityModel">
                     <option disabled value="">请选择个人职责</option>

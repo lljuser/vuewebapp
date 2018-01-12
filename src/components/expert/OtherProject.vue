@@ -4,8 +4,8 @@
         <div class="ep_content_div">
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
                 <div class="ep_title_div">
-                    <span class="ep_marginLeft10">产品类型</span>
-                    <span class="ep_marginTop5">*</span>
+                    <span>产品类型</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <select v-bind:class="otherDealTypeModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32  personalRoleSelect" v-model="otherDealTypeModel" v-cloak>
                     <option value="">请选择产品类型</option>
@@ -14,35 +14,35 @@
             </div>
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
                    <div class="ep_title_div">
-                    <span class="ep_marginLeft10">国家</span>
+                    <span>国家</span>
                 </div>
                 <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入" v-model="projectHistory.Nation" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
-                    <span class="ep_marginLeft10">产品全称</span>
-                    <span class="ep_marginTop5">*</span>
+                    <span>产品全称</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入" v-model="projectHistory.ProjectName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
-                    <span class="ep_marginLeft10">产品简称</span>
-                    <span class="ep_marginTop5">*</span>
+                    <span>产品简称</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入简称，例如：PE2007-02" v-model="projectHistory.ProjectShortName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
-                    <span class="ep_marginLeft10">金额(亿)</span>
+                    <span>金额(亿)</span>
                 </div>
                 <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="number" placeholder="请输入金额" v-model="projectHistory.TotalOffering" />
             </div>
             <div class="ep_part_item_border ep_font32">
                 <div class="ep_part_item  ep_overhide">
                     <div class="ep_title_div">
-                        <span class="ep_marginLeft10">参与角色</span>
-                        <span class="ep_marginTop5">*</span>
+                        <span>参与角色</span>
+                        <span class="ep_marginTop5 ep_marginLeft10">*</span>
                     </div>
                     <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel" v-cloak>
                         <option disabled value="" style="color:#ccc !important">请选择参与角色</option>
@@ -61,8 +61,8 @@
             <div class="clearBoth"></div>
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
                 <div class="ep_title_div">
-                    <span class="ep_marginLeft10">个人职责</span>
-                    <span class="ep_marginTop5">*</span>
+                    <span>个人职责</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' "  class="ep_select fl ep_font32  personalRoleSelect" type="text" v-model="personalResponsibilityModel" v-cloak>
                     <option disabled value="">请选择个人职责</option>
@@ -72,7 +72,7 @@
             <div>
                 <div class="ep_part_item ep_overhide">
                     <div class="ep_title_div">
-                    <span class="ep_marginLeft10">项目介绍</span>
+                    <span>项目介绍</span>
                 </div>
                 </div>
                 <div class="projectDescriptionOther">
