@@ -40,7 +40,7 @@
                 <div class="ep_title_div">
                     <span>页数</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32" type="number" placeholder="请输入" v-model.trim="publish.Pages" />
+                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="publish.Pages" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
@@ -246,10 +246,16 @@
                     return;
                 }
 
+                if (this.isValidElement(this.publish.Isbn) && this.publish.Isbn.length > 50) {
+                    this.isShowError = true;
+                    this.errorMessage = "书号不超过50个字符!";
+                    return;
+                }
+
                 if (this.isValidElement(this.publish.Pages)) {
-                    if (!/^[1-9][0-9]*$/.test(this.publish.Pages)) {
+                    if (!this.isValidNum(this.publish.Pages)) {
                         this.isShowError = true;
-                        this.errorMessage = "页数须为非负数字!";
+                        this.errorMessage = "页数须为正整数!";
                         return;
                     }
 
@@ -284,6 +290,9 @@
             scrollRestore: function () {
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0; 
+            },
+            isValidNum: function (num) {
+                return /^[1-9]\d*$/.test(num);
             }
         }
     }

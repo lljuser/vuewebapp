@@ -237,7 +237,12 @@ export default {
                 this.isShowError = true;
                 this.errorMessage = '公司不能为空！';
                 return;
+            }
 
+            if (this.userInfo.Company.length > 50) {
+                this.isShowError = true;
+                this.errorMessage = '公司长度不大于40个字符！';
+                return;
             }
 
             var reg = new RegExp(/^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/);
