@@ -50,9 +50,14 @@
             :key="index"/>
         </tbody>
     </table>
-      <div class="spinner_div" >
-        <van-loading type="spinner" v-if="loading" color="white" class="spinner-circle"/>
+     <div class="spinner_div" v-if="list.length==0">
+        <span  class="nomore">暂无数据</span>
       </div>
+      <div class="spinner_div" v-else >
+        <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
+        <span v-if="noMore" class="nomore">没有更多了</span>
+      </div>
+     
     </div>
   </div>
 </div>
@@ -83,6 +88,7 @@ export default {
       isComponentActive: false,
       isFetchProductsError: false,
       isShowSelect:false,
+      noMore:false,
     };
   },
   mounted() {
@@ -126,20 +132,23 @@ export default {
   },
   methods: {
     loadFirstPageProducts() {
+    this.loading = false;
       setTimeout(() => {
         this.fetchProducts(1,0, data => {
           this.list = data;
           this.isProductLoading = false;
           this.isShowSelect=true;
+          this.page=1;
         });
       }, 600);
     },
 
     loadMore() {
       this.loading = true;
+      this.noMore=false;
       setTimeout(() => {
         this.fetchProducts(this.page,1, data => {
-            this.list = this.list.concat(data);
+          this.list = this.list.concat(data);
           this.page = this.page + 1;
           this.loading = false;
         });
@@ -162,7 +171,11 @@ export default {
             this.ProductType=data.ProductType;
             this.DealType=data.DealType;
             this.CurrentStatus=data.CurrentStatus;
-          callback(data.Deal);
+            callback(data.Deal);
+            if(data.Deal.length==0){ 
+              this.loading=true;
+              this.noMore=true;
+            }
         }
       }).catch((error) => {
         Toast('数据获取失败');
@@ -175,14 +188,15 @@ export default {
     selectChange(){
       this.isProductLoading = true;
       this.isComponentActive = true;
-      this.isShowSelect=true;
-      this.page=1;
-      setTimeout(() => {
-        this.fetchProducts(0, 0,data => {
-          this.list = data;
-          this.isProductLoading = false;
-        });
-      }, 500);
+      //this.isShowSelect=true;
+      //this.page=1;
+      this.loadFirstPageProducts();
+      // setTimeout(() => {
+      //   this.fetchProducts(0, 0,data => {
+      //     this.list = data;
+      //     this.isProductLoading = false;
+      //   });
+      // }, 500);
     }
 
      

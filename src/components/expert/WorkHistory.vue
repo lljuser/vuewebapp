@@ -29,7 +29,7 @@
                     <span>入职时间</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <div class="fl  ep_font32 ep_align_right startTime ep_right_div" v-on:click="showDatePicker('startTime')" v-bind:class="[workHistory.StartTime === undefined ? 'ep_color_grey' : '']">
+                <div class="fl  ep_font32 ep_align_left startTime ep_right_div" v-on:click="showDatePicker('startTime')" v-bind:class="[workHistory.StartTime === undefined ? 'ep_color_grey' : '']">
                     {{workHistory.StartTime === undefined ? '请选择入职时间' : workHistory.StartTime}}
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     <span>离职时间</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <div class="fl  ep_font32 ep_align_right endTime ep_right_div" v-on:click="showDatePicker('endTime')" v-bind:class="[workHistory.EndTime === undefined ? 'ep_color_grey' : '']">
+                <div class="fl  ep_font32 ep_align_left endTime ep_right_div" v-on:click="showDatePicker('endTime')" v-bind:class="[workHistory.EndTime === undefined ? 'ep_color_grey' : '']">
                     {{workHistory.EndTime === undefined ? '请选择离职时间' : workHistory.EndTime}}
                 </div>
             </div>
