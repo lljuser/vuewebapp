@@ -76,6 +76,7 @@ import axios from "axios";
 import * as webApi from "@/config/api";
 import Autocomplete from 'vue2-autocomplete-js';
 import 'vue2-autocomplete-js/dist/style/vue2-autocomplete.css';
+import BusUtil from '../abs/BusUtil';
 
 import util from "@/public/modules/expert/utils";
 
@@ -100,9 +101,15 @@ export default {
     };
   },
   created: function() {
+    this.scrollRestore();
     this.util = util;
     this.id = this.$route.params.id;
     this.dealSearch = webApi.Expert.dealSearch;
+
+    BusUtil.getInstance().bus.$on('dealSelect', function (deal) {
+        console.log(deal);
+    });
+
     this.initData();
   },
   watch: {
@@ -121,7 +128,6 @@ export default {
       var self = this;
 
       if (self.projectHistory.OrganizationRoles === undefined) {
-        //Vue.set(this.projectHistory, "OrganizationRoles", []);
         this.projectHistory.OrganizationRoles = [];
       }
 
@@ -206,7 +212,6 @@ export default {
       this.organizationRoleModel = "";
     },
     deleteOrganizationRole: function(item) {
-        console.log(item);
       this.arrayRemoveItem(this.projectHistory.OrganizationRoles, item);
     },
     findOrganizationRoleIndex: function(arr, item) {
@@ -335,21 +340,15 @@ export default {
     getData: function (obj) {
       this.projectHistory.DealId = obj.DealId;
       this.projectHistory.DealName = obj.DealName;
+    },
+    scrollRestore: function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0; 
     }
-  }
+  },
 };
 </script>
 
 <style>
-    .autocomplete ul {
-        font-family: sans-serif;
-        position: absolute;
-        list-style: none;
-        background: red;
-        padding: 10px 0;
-        margin: 0;
-        display: inline-block;
-        min-width: 15%;
-        margin-top: 10px;
-    }
+
 </style>
