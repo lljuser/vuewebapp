@@ -76,7 +76,6 @@ export default {
    font-size: 15px;
  }
  .tradeStatusHeight{
-   line-height: 13px;
    padding-bottom: 17px;
  }
 </style>

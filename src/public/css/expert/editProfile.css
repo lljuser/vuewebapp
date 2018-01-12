@@ -76,6 +76,7 @@ body {
 }
 .ep_right_div{
     padding-left: 0.32rem;
+    width: 5.8rem;
 }
 .ep_select {
     height: 0.8rem;
@@ -223,6 +224,12 @@ a.ep_editBtn:hover {
 .ep_width250{
     width:3.333333rem;
 }
+.ep_maxwidth250{
+    max-width:3.333333rem;
+}
+.ep_width225{
+    width:2.9rem;
+}
 .ep_width210{
     width:3.0rem;
 }
@@ -237,6 +244,9 @@ width:1.7rem;
 }
 .ep_width90{
     width:1.2rem;
+}
+.ep_width80{
+    width:1.066667rem;
 }
 .ep_maxWidth460 {
     max-width: 6.133333rem;

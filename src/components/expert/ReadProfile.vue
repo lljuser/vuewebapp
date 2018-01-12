@@ -52,20 +52,18 @@
                  <div class='appH5_panel' style="padding-top:0px;">
                     <table class="appH5_table">
                         <tr>
-                            <th class='text-left ep_width176'>名称</th>
+                            <th class='text-left ep_width225'>名称</th>
                             <th class='text-right'>金额(亿)</th>
                             <th class='text-right'>类型</th>
-                            <th class='text-right ep_width90' v-if="!editable">点赞</th>
+                            <th class='text-right' style="width:30px;" v-if="!editable">点赞</th>
                         </tr>
                         <tr v-for="(item, index) in _.take(userInfo.ABSProjects, 3)" v-bind:key="index">
                             <td class='text-left'>
-                                <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/abs.html#/productDetail/' + item.DealId">{{item.DealName}}</a>
+                                <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'/abs.html#/productDetail/' + item.DealId">{{item.DealName}}</a>
                             </td>
                             <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
-                            <td class='text-right'>
-                                <div class=" ep_ellipsis fr ep_width176">
-                                    {{item.DealType}}
-                                </div>
+                            <td class='text-right ep_ellipsis'>
+                                {{item.DealType}}
                             </td>
                             <td class='text-right' v-if="!editable">
                                 <div  class="ep_overhide ep_lineHeight32">
@@ -98,20 +96,20 @@
                  <div class='appH5_panel' style="padding-top:0px;">
                     <table class="appH5_table">
                         <tr>
-                            <th class="text-left ep_width176">简称</th>
+                            <th class="text-left ep_width225">简称</th>
                             <th class="text-right">金额(亿)</th>
                             <th class="text-right">类型</th>
                             <th class='text-right ep_width90' v-if="!editable">点赞</th>
                         </tr>
                         <tr v-for="(item, index) in _.take(userInfo.OtherProjects, 3)" v-bind:key="index">
                             <td class="ep_ellipsis text-left">
-                               <div class="ep_ellipsis fl ep_width176">
+                               <div class="ep_ellipsis fl ep_width225">
                                     {{item.ProjectShortName}}
                                </div>
                             </td>
                             <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
-                            <td class='text-right'>
-                                <div class=" ep_ellipsis fr ep_width176">
+                            <td class='text-right ep_ellipsis'>
+                                <div class=" fr ep_width176">
                                     {{item.DealType}}
                                 </div>
                             </td>
@@ -251,7 +249,7 @@
                             <li v-show="isValidElement(item.AttachmentFileCode)">
                                 <span class='article_title'>作品文件：</span>
                                 <div class="fl">《</div> 
-                                <span class="fl ep_ellipsis ep_width250">{{item.Name}}</span> 
+                                <span class="fl ep_ellipsis ep_maxwidth250">{{item.Name}}</span> 
                                 <div class="fl">》</div> 
                             </li>
                         </ul>
@@ -280,7 +278,7 @@
                     <ul class="ep_color_grey2 ep_font24 ep_decription educationDetail ep_marginTop10">
                         <li class="ep_overhide">
                             <span class="fl">学位：</span>
-                            <span class="fl ep_width600">{{item.Degree}}</span>
+                            <span class="fl ep_width440">{{item.Degree}}</span>
                         </li>
                         <li>
                             <pre class="ep_decription">{{item.Description}}</pre>

@@ -14,7 +14,7 @@
                     <span>活动时间</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <div class="fl ep_font32 ep_align_right ActivityTime ep_right_div" v-on:click="showYearMonthPicker()" v-bind:class="[activity.ActivityTime === undefined ? 'ep_color_grey' : '']">
+                <div class="fl ep_font32 ep_align_left ActivityTime ep_right_div" v-on:click="showYearMonthPicker()" v-bind:class="[activity.ActivityTime === undefined ? 'ep_color_grey' : '']">
                     {{activity.ActivityTime === undefined ? '请选择' : activity.ActivityTime}}
                 </div>
             </div>

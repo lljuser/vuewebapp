@@ -2,13 +2,13 @@
   <div id="app" class="cnabs-bg">
     <div v-if="!showHeader" class="appH5_navbar_bg">
       <div class="appH5_navbar" >
-        <router-link to="/market" tag="div">
+        <router-link to="/market" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">市场</a>
         </router-link>
-        <router-link to="/product" tag="div">
+        <router-link to="/product" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">产品</a>
         </router-link>
-        <router-link to="/trade" tag="div">
+        <router-link to="/trade" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">交易</a>
         </router-link>
       </div>
@@ -40,9 +40,14 @@ export default {
       showHeader: false,
       path: '',
       headTitle:'产品信息',
+      tabs: ['market', 'product', 'trade'],
+      startX: 0,
+      startY: 0,
+      isVertical: false
     };
   },
   created() {
+    var self = this;
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$on('showHeader', (showHeader) => {
       this.showHeader = showHeader;
@@ -53,11 +58,56 @@ export default {
     busUtil.bus.$on('headTitle', (headTitle) => {
       this.headTitle = headTitle;
     });
+
+    //checkout route by swipe
+    let isTouch = 'ontouchstart' in window;
+    let mouseEvents = isTouch ?
+        {
+            down: 'touchstart',
+            move: 'touchmove',
+            up: 'touchend',
+            over: 'touchstart',
+            out: 'touchend'
+        } :
+        {
+            down: 'mousedown',
+            move: 'mousemove',
+            up: 'mouseup',
+            over: 'mouseover',
+            out: 'mouseout'
+        };
+    document.addEventListener(mouseEvents.down, function (e) {
+      //记录手指按下的位置
+      self.startX = e.clientX || e.changedTouches[0].clientX; 
+      self.startY = e.clientY || e.changedTouches[0].clientY; 
+    }, false);
+    document.addEventListener(mouseEvents.up, function (e) {
+      //记录手指结束的位置
+       let nowX = e.clientX || e.changedTouches[0].clientX;
+       let nowY = e.clientY || e.changedTouches[0].clientY;
+       self.isVertical = Math.abs(nowY - self.startY) / Math.abs(nowX - self.startX) > (Math.sqrt(3) / 3);
+       if (!self.isVertical) {
+         var index = self.getRouterIndex()*1;
+        if ((nowX - self.startX) > 60) {
+          self.$router.push({ name: self.tabs[index - 1]});
+        } else if ((nowX - self.startX) < -60) {
+          self.$router.push({ name: self.tabs[index + 1]});
+        }
+      }
+    }, false);
   },
   methods: {
     clearPath() {
       this.showHeader = false;
       this.path = '';
+    },
+    getRouterIndex() {
+       var tabs = this.tabs;
+       for (var index in tabs) {
+         if (this.$route.path.indexOf(tabs[index]) != -1) {
+           return index;
+         }
+       }
     },
   },
 };

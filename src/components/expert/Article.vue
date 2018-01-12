@@ -26,7 +26,7 @@
                 <div class="ep_title_div">
                     <span>出版时间</span>
                 </div>
-                <div class="fl ep_font32 ep_align_right PublishTime ep_right_div" v-on:click="showYearPicker" v-bind:class="[!isValidElement(publish.PublishTime) ? 'ep_color_grey' : '']">
+                <div class="fl ep_font32 ep_align_left PublishTime ep_right_div" v-on:click="showYearPicker" v-bind:class="[!isValidElement(publish.PublishTime) ? 'ep_color_grey' : '']">
                     {{isValidElement(publish.PublishTime) ? publish.PublishTime : '请选择'}}
                 </div>
             </div>
