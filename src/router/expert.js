@@ -48,7 +48,7 @@ export default new Router({
       component: ReadOtherProjectList,
     },
     {
-      path: '/ReadArticleList',
+      path: '/ReadArticleList/:userId?',
       name: 'ReadArticleList',
       component: ReadArticleList,
     },
@@ -129,7 +129,7 @@ export default new Router({
     },
     
     {
-      path: '/ReadActivityList',
+      path: '/ReadActivityList/:userId?',
       name: 'ReadActivityList',
       component: ReadActivityList,
     },

@@ -206,11 +206,11 @@
         <section class="ep_part" id="article">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.Publishs)?'':'ep_part_item_border']">
                 <div class='appH5_title fl' style='overflow:hidden;'>
-                            <span class='fl'>著作与文章</span>
+                    <span class='fl'>著作与文章</span>
                 </div>
                 <router-link v-if="userInfo.Publishs && userInfo.Publishs.length > 3" v-bind:to="routeUrls.ReadArticleList"  class="fr text_right_link">
                    更多
-                    </router-link>
+                </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.Publishs, 3)" v-bind:key="index">
@@ -219,12 +219,8 @@
                         <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
                         <span class="fl ep_font28 appH5_color_green">》</span>
                         <div v-if="!editable" class="ep_overhide fr ep_lineHeight32 ">
-                                <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="publishEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
+                            <img class="followImg" v-bind:class="item.IsEndorse ? 'appH5_followIcon' : 'appH5_unfollowIcon'" v-on:click="publishEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
                         </div>
-                        <div v-else class="ep_overhide fr ep_lineHeight32 ">
-                                <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-bind:src="endorseImg(item.IsEndorse)" />
-                        </div>
-                        <!-- <span v-else class="fr ep_color_grey ep_font24 ep_lineHeight32">{{item.EndorseNum === 0 ? '' : item.EndorseNum+'人赞'}}</span> -->
                     </div>
                     <div class="divArticleDetail">
                         <ul class="ep_color_grey2 ep_font24 ep_decription articleDetail">
@@ -465,14 +461,10 @@ export default {
       return !(item === null || item === undefined || item === "");
     },
     sendAttachment: function(fileCode) {
-      var self = this;
-
-      appFrame.ajax("/AppDeal/SendPublish", {
-        data: { fileCode: fileCode },
-        success: function(res) {
-          self.$toast(res.data);
-        }
-      });
+        axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
+          .then(response => {
+            this.$toast(response.data.data);
+          });
     }
   },
   computed: {
