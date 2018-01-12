@@ -9,34 +9,34 @@
                 </div>
                 <select v-bind:class="otherDealTypeModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32  personalRoleSelect" v-model="otherDealTypeModel" v-cloak>
                     <option value="">请选择产品类型</option>
-                    <option v-for="item in otherDealTypes" v-bind:value="item.Type" v-bind:key="item.Type">{{item.Type}}</option>
+                    <option v-for="(item, index) in otherDealTypes" v-bind:value="item.Type" v-bind:key="index">{{item.Type}}</option>
                 </select>
             </div>
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
                    <div class="ep_title_div">
                     <span>国家</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入" v-model="projectHistory.Nation" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入" v-model="projectHistory.Nation" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>产品全称</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入" v-model="projectHistory.ProjectName" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入" v-model="projectHistory.ProjectName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>产品简称</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入简称，例如：PE2007-02" v-model="projectHistory.ProjectShortName" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入简称" v-model="projectHistory.ProjectShortName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>金额(亿)</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="number" placeholder="请输入金额" v-model="projectHistory.TotalOffering" />
+                <input class="ep_align_right ep_input fl ep_font32 " type="number" placeholder="请输入金额" v-model="projectHistory.TotalOffering" />
             </div>
             <div class="ep_part_item_border ep_font32">
                 <div class="ep_part_item  ep_overhide">
@@ -46,13 +46,13 @@
                     </div>
                     <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel" v-cloak>
                         <option disabled value="" style="color:#ccc !important">请选择参与角色</option>
-                        <option v-for="item in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="item.Id">{{item.Role}}</option>
+                        <option v-for="(item, index) in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="index">{{item.Role}}</option>
                     </select>
                 </div>
             </div>
             <div v-if="!isArrayEmpty(projectHistory.OrganizationRoles)" class="ep_part_item_border ep_font32 ep_paddingBottom10 ">
                   <div class="ep_overhide">
-                    <div class="ep_font28 delete-Label ep_marginLeft15 ep_marginTop10" v-for="item in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole">
+                    <div class="ep_font28 delete-Label ep_marginLeft15 ep_marginTop10" v-for="(item, index) in projectHistory.OrganizationRoles" v-bind:key="index">
                     <span>{{organizationRoleDisplay(item)}}</span>
                     <img class="followImg" src="../../public/image/deleteicon.png"  v-on:click="deleteOrganizationRole(item)" />
                 </div>
@@ -66,7 +66,7 @@
                 </div>
                 <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' "  class="ep_select fl ep_font32  personalRoleSelect" type="text" v-model="personalResponsibilityModel" v-cloak>
                     <option disabled value="">请选择个人职责</option>
-                    <option v-for="item in personalResponsibilities" v-bind:value="item.Id" v-bind:key="item.Id">{{item.Name}}</option>
+                    <option v-for="(item, index) in personalResponsibilities" v-bind:value="item.Id" v-bind:key="index">{{item.Name}}</option>
                 </select>
             </div>
             <div>
@@ -162,13 +162,6 @@
                         return false;
                     }
                 });
-                
-                // $.each(arr, function (index, role) {
-                //     if (role.Id === item.OrganizationRoleId) {
-                //         itemIndex = index;
-                //         return false;
-                //     }
-                // });
 
                 return itemIndex;
             },
@@ -327,7 +320,6 @@
             }
         },
         watch:{
-
             organizationRoleModel: function (roleId) {
                 if (roleId === "") return;
 
@@ -339,8 +331,8 @@
 
                 var self = this;
 
-                if (self.projectHistory.OrganizationRoles === undefined) {
-                   this.projectHistory.OrganizationRoles=[];
+                if (this.isArrayEmpty(this.projectHistory.OrganizationRoles)) {
+                   this.projectHistory.OrganizationRoles = [];
                 }
 
                 for (let item of this.organizationRoles) {

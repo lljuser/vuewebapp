@@ -143,6 +143,8 @@ export const Expert = {
   updateUserBasicInfo: `${apiAddress}/ExpertInfo/UpdateUserBasicInfo`,
   // 图片上传接口
   uploadImgUrl: `${apiAddress}/filestore/common/uploaddata/cnabs/`,
+  // 著作发送至邮箱Url
+  sendPublishUrl: `${apiAddress}/AppDeal/SendPublish`,
 };
 
 export const Demo = {

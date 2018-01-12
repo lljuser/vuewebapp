@@ -206,11 +206,11 @@
         <section class="ep_part" id="article">
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.Publishs)?'':'ep_part_item_border']">
                 <div class='appH5_title fl' style='overflow:hidden;'>
-                            <span class='fl'>著作与文章</span>
+                    <span class='fl'>著作与文章</span>
                 </div>
                 <router-link v-if="userInfo.Publishs && userInfo.Publishs.length > 3" v-bind:to="routeUrls.ReadArticleList"  class="fr text_right_link">
                    更多
-                    </router-link>
+                </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.Publishs, 3)" v-bind:key="index">
@@ -219,43 +219,39 @@
                         <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
                         <span class="fl ep_font28 appH5_color_green">》</span>
                         <div v-if="!editable" class="ep_overhide fr ep_lineHeight32 ">
-                                <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="publishEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
+                            <img class="followImg" v-bind:class="item.IsEndorse ? 'appH5_followIcon' : 'appH5_unfollowIcon'" v-on:click="publishEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
                         </div>
-                        <div v-else class="ep_overhide fr ep_lineHeight32 ">
-                                <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-bind:src="endorseImg(item.IsEndorse)" />
-                        </div>
-                        <!-- <span v-else class="fr ep_color_grey ep_font24 ep_lineHeight32">{{item.EndorseNum === 0 ? '' : item.EndorseNum+'人赞'}}</span> -->
                     </div>
                     <div class="divArticleDetail">
                         <ul class="ep_color_grey2 ep_font24 ep_decription articleDetail">
                             <li>
-                                <span>作者：</span>
-                                <span class="ep_ellipsis">{{item.Author}}</span>
+                                <span class='article_title'>作者：</span>
+                                <span class="ep_ellipsis ep_width300">{{item.Author}}</span>
                             </li>
                             <li v-if="isValidElement(item.Publisher)">
-                                <span>出版社：</span>
-                                <span class="ep_ellipsis">{{item.Publisher}}</span>
+                                <span class='article_title'>出版社：</span>
+                                <span class="ep_ellipsis ep_width300">{{item.Publisher}}</span>
                             </li>
                             <li v-if="isValidElement(item.PublishTime)">
-                                <span>出版时间：</span>
-                                <span class="ep_ellipsis">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
+                                <span class='article_title'>出版时间：</span>
+                                <span class="ep_ellipsis ep_width300">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
                             </li>
                             <li v-if="isValidElement(item.Isbn)">
-                                <span>书号ISBN：</span>
-                                <span class="ep_ellipsis">{{item.Isbn}}</span>
+                                <span class='article_title'>书号ISBN：</span>
+                                <span class="ep_ellipsis ep_width300">{{item.Isbn}}</span>
                             </li>
                             <li v-if="isValidElement(item.Pages)">
-                                <span>页数：</span>
-                                <span class="ep_ellipsis">{{item.Pages}}</span>
+                                <span class='article_title'>页数：</span>
+                                <span class="ep_ellipsis ep_width300">{{item.Pages}}</span>
                             </li>
                             <li v-if="isValidElement(item.Link)">
-                                <span>作品网址：</span>
+                                <span class='article_title'>作品网址：</span>
                                 <a class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important" v-bind:href="item.Link">{{item.Link}}</a>
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
-                                <span>作品文件：</span>
+                                <span class='article_title'>作品文件：</span>
                                 <div class="fl">《</div> 
-                                <span class="fl ep_ellipsis">{{item.Name}}</span> 
+                                <span class="fl ep_ellipsis ep_width250">{{item.Name}}</span> 
                                 <div class="fl">》</div> 
                             </li>
                         </ul>
@@ -465,14 +461,10 @@ export default {
       return !(item === null || item === undefined || item === "");
     },
     sendAttachment: function(fileCode) {
-      var self = this;
-
-      appFrame.ajax("/AppDeal/SendPublish", {
-        data: { fileCode: fileCode },
-        success: function(res) {
-          self.$toast(res.data);
-        }
-      });
+        axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
+          .then(response => {
+            this.$toast(response.data.data);
+          });
     }
   },
   computed: {
