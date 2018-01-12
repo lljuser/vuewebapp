@@ -7,7 +7,7 @@
                   <span>产品名称</span>
                   <span class="ep_marginLeft10 ep_marginTop5">*</span>
                 </div>
-                <autocomplete :classes="{ input: 'searchInput'}" className="searchInput" ref="absHistoryItem" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealFullName" anchor="DealName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
+                <autocomplete :classes="{ input: 'ep_align_right ep_input fr ep_font32', list: 'data-list', item: 'ep_font32'}" ref="absHistoryItem" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealFullName" anchor="DealName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
                 </autocomplete>
             </div>
             <div class="clearBoth"></div>
@@ -333,7 +333,6 @@ export default {
         });
     },
     getData: function (obj) {
-        console.log(obj);
       this.projectHistory.DealId = obj.DealId;
       this.projectHistory.DealName = obj.DealName;
     }
@@ -342,8 +341,15 @@ export default {
 </script>
 
 <style>
-    .searchInput {
-        background-color: #2b2a29;
-        width: 5.8rem;
+    .autocomplete ul {
+        font-family: sans-serif;
+        position: absolute;
+        list-style: none;
+        background: red;
+        padding: 10px 0;
+        margin: 0;
+        display: inline-block;
+        min-width: 15%;
+        margin-top: 10px;
     }
 </style>
