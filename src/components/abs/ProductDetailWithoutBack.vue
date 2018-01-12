@@ -24,7 +24,8 @@
                 </tr>
                 <tr>
                 <td>成立日期</td>
-                <td v-if="productDetail.Basic.ClosingDate!=null">{{publishDate.getFullYear()+"年"+publishDate.getMonth()+"月"+publishDate.getDate()+"日"}}</td>
+                <!-- <td v-if="productDetail.Basic.ClosingDate!=null">{{publishDate.getFullYear()+"年"+publishDate.getMonth()+"月"+publishDate.getDate()+"日"}}</td> -->
+                <td v-if="productDetail.Basic.ClosingDate!=null">{{productDetail.Basic.ClosingDate.toString() | moment("YYYY年MM月DD日")}}</td>
                 <td v-else>-</td>
                 </tr>
                 <tr>
