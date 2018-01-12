@@ -154,23 +154,18 @@ export default {
         this.isTradeLoading = false;
         this.isShowSelect=true;
         this.page=1;
-        // debugger;
-        // if( data.length!=0 && data.length<this.pageSize){
-        //     this.noMore=true;
-        // }
-        // else{
-        //   this.noMore=false;
-        // }
+        if(data.length<this.pageSize)
+        {
+          this.noMore=true;
+        }
       });
     },  
     fetchTrades(page, direction,callback) {
-      //debugger;
       var url=webApi.Trade.list;
       url=url+"/"+this.TradeRating+"/"+this.TradeType+"/"+this.TradeWalbuck;
       url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
       axios.post(url).then((response) => { 
         const data = response.data.data;
-        //debugger;
         callback(data);
         if(data.length==0){
           this.loading=true;
