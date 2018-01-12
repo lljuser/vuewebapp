@@ -39,17 +39,20 @@
           <th class="text-right">总额(亿)</th>
           <th class="text-right">产品分类</th>
         </tr>
-
-        <ProductItem 
-          v-for="(item, index) in list" 
-          :item="item"
-          :id="index"
-          :key="index"
-          v-infinite-scroll="loadMore"
+        <tbody  v-infinite-scroll="loadMore"
           infinite-scroll-disabled="loading"
           infinite-scroll-immediate-check="true"
-          infinite-scroll-distance="55"/>
-      </table>
+          infinite-scroll-distance="55">
+          <ProductItem 
+            v-for="(item, index) in list" 
+            :item="item"
+            :id="index"
+            :key="index"/>
+        </tbody>
+    </table>
+      <div class="spinner_div" >
+        <van-loading type="spinner" v-if="loading" color="white" class="spinner-circle"/>
+      </div>
     </div>
   </div>
 </div>
@@ -140,7 +143,7 @@ export default {
           this.page = this.page + 1;
           this.loading = false;
         });
-      }, 300);
+      }, 600);
     },
 
     fetchProducts(page,direction,callback) {
@@ -220,6 +223,7 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
+
 
 
 </style>

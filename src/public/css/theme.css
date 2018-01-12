@@ -420,3 +420,19 @@ select{
 	line-height: 0;
 	display: table;
 }
+
+.spinner_div{
+	height: 40px;
+	line-height: 40px;
+	justify-content: center;
+	display: flex;
+	padding-top: 0.2rem;
+}
+
+.spinner-circle{
+	font-size: 20px;
+}
+.spinner-circle .van-loading__spinner{
+	width: 20px;
+	height: 20px;
+}
