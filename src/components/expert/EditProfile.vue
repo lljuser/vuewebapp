@@ -7,12 +7,12 @@
                     <img class="fr editPencils" src="../../public/images/pencils.png" alt="">
                 </router-link>
             </header>
-            <div class="ep_part_item ep_part_item_border">
+            <!-- <div class="ep_part_item ep_part_item_border">
                 <span class='fl ep_font32 appH5_color_green'>头像</span>
                 <div class="divUserAvatar fr">
                     <img v-bind:src="userInfo.User && userInfo.User.Avatar" alt="用户头像">
                 </div>
-            </div>
+            </div> -->
             <div class="ep_part_item ep_part_item_border">
                 <span class='fl ep_font32 appH5_color_green'>姓名</span>
                 <span class=" fr ep_font32 ep_marginLeft15 ep_align_right ep_width200 ep_ellipsis">{{userInfo.User && userInfo.User.Name}}</span>

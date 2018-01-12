@@ -55,7 +55,6 @@ export default {
  .tradeStatusDiv{
    text-align: center;
    font-size: 10px; 
-   font-weight: lighter;  
    border-radius: 2px;
    padding: 0 5px;
    float: right;
@@ -65,8 +64,8 @@ export default {
    color: #26A1ff;   
  }
   .tradeStatusRed{
-   border: 1px solid #ff7272;
-   color: #ff7272;   
+   border: 1px solid #b778ff;
+   color: #b778ff;   
  }
   .tradeStatusGreen{
    border: 1px solid #2ce5ab;
