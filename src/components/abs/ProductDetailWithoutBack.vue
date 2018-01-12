@@ -151,11 +151,7 @@ export default {
         const productId = getParams("dealId");
         if (productId) {
           this.fetchProductDetail(productId,data=>{
-              console.log(data);
               this.productDetail =data;
-              if(this.productDetail.Basic.ClosingDate!=null)
-                  this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
-              var resultId = data.ResultSetId;
               if(data.DealId!=null&&data.DealId>0){
                   if(data.NoteList!=null&&data.NoteList.length>0){
                       if(data.NoteList.length>6){
@@ -262,12 +258,11 @@ export default {
   },
   methods: {
     fetchNoteConsTable(dealId,width,height){
-        axios(webApi.Product.structure+"?dealId="+dealId+"&w="+width+"&h="+height)
+        axios(webApi.Product.structure+"/"+dealId+"/"+width+"/"+height)
         .then((response)=>{
            // console.log(response);
-            if(response!=null &&response!=""){
-                this.noteConsTable=response.data;
-                
+           if(response.data.status=="ok"){
+                this.noteConsTable=response.data.data;
             }
         });
 
