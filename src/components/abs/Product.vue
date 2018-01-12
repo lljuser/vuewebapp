@@ -51,7 +51,8 @@
         </tbody>
     </table>
       <div class="spinner_div" >
-        <van-loading type="spinner" v-if="loading" color="white" class="spinner-circle"/>
+        <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
+        <span v-if="noMore" class="nomore">没有更多了</span>
       </div>
     </div>
   </div>
@@ -83,6 +84,7 @@ export default {
       isComponentActive: false,
       isFetchProductsError: false,
       isShowSelect:false,
+      noMore:false,
     };
   },
   mounted() {
@@ -137,6 +139,7 @@ export default {
 
     loadMore() {
       this.loading = true;
+      this.noMore=false;
       setTimeout(() => {
         this.fetchProducts(this.page,1, data => {
             this.list = this.list.concat(data);
@@ -162,7 +165,13 @@ export default {
             this.ProductType=data.ProductType;
             this.DealType=data.DealType;
             this.CurrentStatus=data.CurrentStatus;
-          callback(data.Deal);
+            if(data.Deal.length>0){ 
+              callback(data.Deal);
+            }
+            else{
+              this.loading=true;
+              this.noMore=true;
+            }
         }
       }).catch((error) => {
         Toast('数据获取失败');
