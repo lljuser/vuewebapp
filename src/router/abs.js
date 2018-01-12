@@ -64,8 +64,8 @@ export default new Router({
       component: ProductDetail,
     },
     {
-      path: '/productDetailBack/:id',
-      name: 'productDetailBack',
+      path: '/ProductDetailWithoutBack/:id',
+      name: 'ProductDetailWithoutBack',
       component: ProductDetailWithoutBack,
     },
     {

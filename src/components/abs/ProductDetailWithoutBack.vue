@@ -1,5 +1,8 @@
 <template>
-  <div class="appH5_body" style="padding-top: 0px;">
+  <div class="appH5_body" style="padding-top:0">
+    <!-- <div class="product-spinner" v-if="isProductLoading">
+      <mt-spinner type="triple-bounce"></mt-spinner>
+    </div> -->
     <div class="appH5_content">
       <div class="appH5_panel appH5_panel_mb">
           <div class="appH5_title">
@@ -49,9 +52,9 @@
             <div style="text-align:center;height: 0.4rem;">
                 <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
                     <div class="backTablePic"></div>
-                    <div style="float:left;font-size: 11px;margin-top: 4px;">已偿付</div>
+                    <div style="float:left;font-size: 11px;margin-top: 2px;">已偿付</div>
                     <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div>
-                    <div style="float:left;font-size: 11px;margin-top: 4px;">剩余</div>
+                    <div style="float:left;font-size: 11px;margin-top: 2px;">剩余</div>
                 </div>
             </div>
         </div>
@@ -126,18 +129,19 @@ Highcharts.setOptions(chartTheme);
 export default {
     name: 'productDetailWithoutBack',
     created() {
-        const busUtil = BusUtil.getInstance();
-        busUtil.bus.$emit('showHeader', true);
-        busUtil.bus.$emit('path', '/product');
+        // const busUtil = BusUtil.getInstance();
+        // busUtil.bus.$emit('showHeader', true);
+        // busUtil.bus.$emit('path', '/product');
     }, 
     mounted() {
-      const busUtil = BusUtil.getInstance();
-      busUtil.bus.$emit('showHeader', true);
-      busUtil.bus.$emit('path', '/product');
+      // const busUtil = BusUtil.getInstance();
+      // busUtil.bus.$emit('showHeader', true);
+      // busUtil.bus.$emit('path', '/product');
         //clear all data cache
         this.productDetail = {};
         this.publishDate = "";
         this.noteConsTable="";
+        
         this.options =  {
             title: {
             text: '暂无数据'
@@ -148,10 +152,12 @@ export default {
             },
         };
         window.scrollTo(0,0);
+        this.isProductLoading=true;
         const productId = getParams("dealId");
         if (productId) {
           this.fetchProductDetail(productId,data=>{
               this.productDetail =data;
+            //  this.isProductLoading=false;
               if(data.DealId!=null&&data.DealId>0){
                   if(data.NoteList!=null&&data.NoteList.length>0){
                       if(data.NoteList.length>6){
@@ -172,6 +178,7 @@ export default {
       
     },
     updated(){
+      
         var paidList=document.getElementsByClassName("divHasPaid");
         for(var i=0;i<paidList.length;i++){
             paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
@@ -243,6 +250,7 @@ export default {
         productDetail: {},
         publishDate:"",
         noteConsTable:"",
+        isProductLoading:false,
         options: {
         title: {
           text: '暂无数据'

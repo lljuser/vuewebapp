@@ -1,6 +1,9 @@
 <template>
   <div class="appH5_body">
-    <div class="appH5_content">
+    <div class="product-spinner" v-if="isProductLoading">
+      <mt-spinner type="triple-bounce"></mt-spinner>
+    </div>
+    <div class="appH5_content" v-else>
       <div class="appH5_panel appH5_panel_mb">
           <div class="appH5_title">
               <span>产品要素</span>
@@ -48,9 +51,9 @@
             <div style="text-align:center;height: 0.4rem;">
                 <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
                     <div class="backTablePic"></div>
-                    <div style="float:left;font-size: 11px;margin-top: 4px;">已偿付</div>
+                    <div style="float:left;font-size: 11px;margin-top: 2px;">已偿付</div>
                     <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div>
-                    <div style="float:left;font-size: 11px;margin-top: 4px;">剩余</div>
+                    <div style="float:left;font-size: 11px;margin-top: 2px;">剩余</div>
                 </div>
             </div>
         </div>
@@ -150,6 +153,7 @@ export default {
     },
     activated() {
         //clear all data cache
+        this.isProductLoading=true;
         this.productDetail = {};
         this.publishDate = "";
         this.noteConsTable="";
@@ -171,6 +175,7 @@ export default {
     if (this.id) {
         this.fetchProductDetail(this.id,data=>{
             this.productDetail =data;
+            this.isProductLoading=false;
             // if(this.productDetail.Basic.ClosingDate!=null)
             //     this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
             if(data.DealId!=null&&data.DealId>0){
@@ -199,6 +204,7 @@ export default {
         productDetail: {},
         publishDate:"",
         noteConsTable:"",
+        isProductLoading:false,
         options: {
         title: {
           text: '暂无数据'

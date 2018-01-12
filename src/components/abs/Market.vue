@@ -107,7 +107,6 @@ export default {
       this.fetchMarketSummary(data=>{
         this.marketSummary=data;
         this.isMarketLoading=false;
-        console.log(data);
       });
       this.fetchChartData();
     }, 600);
