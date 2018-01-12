@@ -13,7 +13,7 @@
                     <div class="ep_title_div">
                     <span>奖项名称</span>
                 </div>
-                <input class=" ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入" v-model="honorAward.Name" />
+                <input class=" ep_input fl ep_font32 " type="text" placeholder="请输入" v-model="honorAward.Name" />
             </div>
             <div>
                 <div class="ep_part_item ep_overhide">
@@ -31,12 +31,12 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveAwardsAndHonors">保存</span>
-                <span v-if="!isValidElement(id)" class="ep_cancelBtn fr">
+                <span class="ep_cancelBtn fr">
                     <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
                 </span>
-                <span v-else class="ep_removeBtn fr" v-on:click="removePopupVisible=true">删除本条</span>
+               <span v-if="isValidElement(id)" class="ep_removeBtn fl" v-on:click="removePopupVisible=true">删除本条信息</span>
             </div>
         </div>
         <mt-popup v-model="isShowYearPopup" position='bottom' modal=true class="ep_popup">

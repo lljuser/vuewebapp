@@ -3,6 +3,9 @@
 import Vue from 'vue';
 import MintUI from 'mint-ui';
 import axios from 'axios';
+import { Loading } from 'vant';
+import 'vant/lib/vant-css/index.css';
+
 // import 'mint-ui/lib/style.css';
 import router from './router/abs';
 import App from './components/Abs';
@@ -10,7 +13,9 @@ import App from './components/Abs';
 // cors doamin
 axios.defaults.withCredentials = true; 
 
+
 Vue.use(MintUI);
+Vue.use(Loading);
 Vue.use(require('vue-moment'));
  
 Vue.config.productionTip = false;

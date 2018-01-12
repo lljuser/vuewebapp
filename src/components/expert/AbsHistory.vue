@@ -7,7 +7,7 @@
                   <span>产品名称</span>
                   <span class="ep_marginLeft10 ep_marginTop5">*</span>
                 </div>
-                <autocomplete :classes="{ input: 'searchInput'}" className="searchInput" ref="absHistoryItem" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealFullName" anchor="DealName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
+                <autocomplete :classes="{ input: 'ep_align_right ep_input fr ep_font32', list: 'data-list', item: 'ep_font32'}" ref="absHistoryItem" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealFullName" anchor="DealName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
                 </autocomplete>
             </div>
             <div class="clearBoth"></div>
@@ -48,12 +48,12 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveProjectHistoryABS">保存</span>
-                <span v-if="!util.isValidElement(id)" class="ep_cancelBtn fr">
+                <span class="ep_cancelBtn fr">
                     <router-link to="/EditProfile">
                         取消
                     </router-link>
                 </span>
-                <span v-else class="ep_removeBtn fr" v-on:click="removePopupVisible=true">删除本条</span>
+                <span v-if="util.isValidElement(id)" class="ep_removeBtn fl" v-on:click="removePopupVisible=true">删除本条信息</span>
             </div>
             <div class="ep_paddingLeft30 ep_color_grey ep_font24">
                 如果找不到您的ABS项目，请与我们联系：021-31156258
@@ -333,7 +333,6 @@ export default {
         });
     },
     getData: function (obj) {
-        console.log(obj);
       this.projectHistory.DealId = obj.DealId;
       this.projectHistory.DealName = obj.DealName;
     }
@@ -342,8 +341,15 @@ export default {
 </script>
 
 <style>
-    .searchInput {
-        background-color: #2b2a29;
-        width: 5.8rem;
+    .autocomplete ul {
+        font-family: sans-serif;
+        position: absolute;
+        list-style: none;
+        background: red;
+        padding: 10px 0;
+        margin: 0;
+        display: inline-block;
+        min-width: 15%;
+        margin-top: 10px;
     }
 </style>

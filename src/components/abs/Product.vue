@@ -39,17 +39,21 @@
           <th class="text-right">总额(亿)</th>
           <th class="text-right">产品分类</th>
         </tr>
-
-        <ProductItem 
-          v-for="(item, index) in list" 
-          :item="item"
-          :id="index"
-          :key="index"
-          v-infinite-scroll="loadMore"
+        <tbody  v-infinite-scroll="loadMore"
           infinite-scroll-disabled="loading"
           infinite-scroll-immediate-check="true"
-          infinite-scroll-distance="55"/>
-      </table>
+          infinite-scroll-distance="55">
+          <ProductItem 
+            v-for="(item, index) in list" 
+            :item="item"
+            :id="index"
+            :key="index"/>
+        </tbody>
+    </table>
+      <div class="spinner_div" >
+        <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
+        <span v-if="noMore" class="nomore">没有更多了</span>
+      </div>
     </div>
   </div>
 </div>
@@ -80,6 +84,7 @@ export default {
       isComponentActive: false,
       isFetchProductsError: false,
       isShowSelect:false,
+      noMore:false,
     };
   },
   mounted() {
@@ -134,13 +139,14 @@ export default {
 
     loadMore() {
       this.loading = true;
+      this.noMore=false;
       setTimeout(() => {
         this.fetchProducts(this.page,1, data => {
             this.list = this.list.concat(data);
           this.page = this.page + 1;
           this.loading = false;
         });
-      }, 300);
+      }, 600);
     },
 
     fetchProducts(page,direction,callback) {
@@ -159,7 +165,13 @@ export default {
             this.ProductType=data.ProductType;
             this.DealType=data.DealType;
             this.CurrentStatus=data.CurrentStatus;
-          callback(data.Deal);
+            if(data.Deal.length>0){ 
+              callback(data.Deal);
+            }
+            else{
+              this.loading=true;
+              this.noMore=true;
+            }
         }
       }).catch((error) => {
         Toast('数据获取失败');
@@ -220,6 +232,7 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
+
 
 
 </style>

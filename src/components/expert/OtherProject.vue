@@ -16,27 +16,27 @@
                    <div class="ep_title_div">
                     <span>国家</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入" v-model="projectHistory.Nation" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入" v-model="projectHistory.Nation" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>产品全称</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入" v-model="projectHistory.ProjectName" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入" v-model="projectHistory.ProjectName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>产品简称</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入简称，例如：PE2007-02" v-model="projectHistory.ProjectShortName" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入简称" v-model="projectHistory.ProjectShortName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>金额(亿)</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 ep_width200" type="number" placeholder="请输入金额" v-model="projectHistory.TotalOffering" />
+                <input class="ep_align_right ep_input fl ep_font32 " type="number" placeholder="请输入金额" v-model="projectHistory.TotalOffering" />
             </div>
             <div class="ep_part_item_border ep_font32">
                 <div class="ep_part_item  ep_overhide">
@@ -85,12 +85,12 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveProjectHistoryOther">保存</span>
-                <span v-if="!isValidElement(id)" class="ep_cancelBtn fr">
-                    <router-link to="/" class="ep_color_orange">
+                <span class="ep_cancelBtn fr">
+                    <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
                 </span>
-                <span v-else class="ep_removeBtn fr" v-on:click="removePopupVisible=true">删除本条</span>
+                <span v-if="isValidElement(id)" class="ep_removeBtn fl" v-on:click="removePopupVisible=true">删除本条信息</span>
             </div>
         </div>
              <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">

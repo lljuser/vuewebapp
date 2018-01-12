@@ -15,7 +15,9 @@
             <td class="appH5_white_space">期限(年)</td>
             <td>{{detailInfo.WAL}}</td>
             <td class="appH5_white_space">交易类型</td>
-            <td>{{detailInfo.TradeType}}</td>
+            <td v-if="detailInfo.TradeType === '转让'">二级市场转让</td>
+            <td v-else-if="detailInfo.TradeType === '发行'">一级市场发行</td>
+            <td v-else>{{detailInfo.TradeType}}</td>
         </tr>
         <tr>
             <td class="appH5_white_space">证券类型</td>

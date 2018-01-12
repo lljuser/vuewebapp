@@ -118,7 +118,7 @@ body {
     border: 1px solid #0578D0;
 }
 
-.ep_cancelBtn, .ep_removeBtn {
+.ep_cancelBtn {
     color: #cccccc;
     width: 4.2rem;
     height: 1.173333rem;
@@ -128,9 +128,16 @@ body {
     font-size: 19px;
     border: 1px solid #CCCCCC;
 }
-.ep_cancelBtn a, .ep_removeBtn a{
+.ep_cancelBtn a{
     color: #cccccc!important;
 }
+.ep_removeBtn
+{
+    margin-top: 0.8rem;
+    font-size: 15px;
+    color: #ffc446!important;
+}
+
 .ep_editBtn {
     border: 1px solid #ffc446;
     border-radius: 4px;
@@ -671,9 +678,11 @@ ul.articleDetail li {
 
     ul.articleDetail li span:nth-of-type(2) {
         float: left;
-        max-width: 3.5rem;
+        /* max-width: 3.5rem; */
     }
-
+    ul.articleDetail .article_title {
+       width: 70px;
+    }
 .divArticleDetail {
     position: relative;
 }

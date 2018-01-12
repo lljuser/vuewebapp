@@ -43,7 +43,7 @@
         <div class="appH5_title">
               <span>证券结构</span>
         </div>
-        <div v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
+        <div v-if="noteConsTable.indexOf('table')!=-1">
             <div style="text-align:center"><div v-html="noteConsTable" id="test" v-bind:style="'margin:0 auto;width:'+this.chartWidthPx+'px'">{{noteConsTable}}</div></div>
             <div style="text-align:center;height: 0.4rem;">
                 <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
@@ -130,6 +130,9 @@ export default {
         busUtil.bus.$emit('path', '/product');
     }, 
     mounted() {
+      const busUtil = BusUtil.getInstance();
+      busUtil.bus.$emit('showHeader', true);
+      busUtil.bus.$emit('path', '/product');
         //clear all data cache
         this.productDetail = {};
         this.publishDate = "";
@@ -146,31 +149,30 @@ export default {
         window.scrollTo(0,0);
         const productId = getParams("dealId");
         if (productId) {
-        this.fetchProductDetail(productId,data=>{
-            console.log(data);
-            this.productDetail =data;
-            if(this.productDetail.Basic.ClosingDate!=null)
-                this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
-            var resultId = data.ResultSetId;
-            if(data.DealId!=null&&data.DealId>0){
-                if(data.NoteList!=null&&data.NoteList.length>0){
-                    if(data.NoteList.length>6){
-                        this.chartWidthPx=280;
-                    }else if(data.NoteList.length>4){
-                        this.chartWidthPx=200;
-                    }else{
-                        this.chartWidthPx=150;
-                    }
-                }
-                this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
-            }
-            if (data.ResultSetId != null && data.ResultSetId > 0) {
-                this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
-            }
-        });
-    }
-    busUtil.bus.$emit('showHeader', true);
-    busUtil.bus.$emit('path', '/product');
+          this.fetchProductDetail(productId,data=>{
+              console.log(data);
+              this.productDetail =data;
+              if(this.productDetail.Basic.ClosingDate!=null)
+                  this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
+              var resultId = data.ResultSetId;
+              if(data.DealId!=null&&data.DealId>0){
+                  if(data.NoteList!=null&&data.NoteList.length>0){
+                      if(data.NoteList.length>6){
+                          this.chartWidthPx=280;
+                      }else if(data.NoteList.length>4){
+                          this.chartWidthPx=200;
+                      }else{
+                          this.chartWidthPx=150;
+                      }
+                  }
+                  this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
+              }
+              if (data.ResultSetId != null && data.ResultSetId > 0) {
+                  this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
+              }
+            });
+          }
+      
     },
     updated(){
         var paidList=document.getElementsByClassName("divHasPaid");
@@ -189,54 +191,54 @@ export default {
     },
     activated() {
         //clear all data cache
-        this.productDetail = {};
-        this.publishDate = "";
-        this.noteConsTable="";
-        this.options =  {
-            title: {
-            text: '暂无数据'
-            },
-            credits: {
-            href: '',
-            text: 'CNABS'
-        },
-        };
-    window.scrollTo(0,0);
-    // const busUtil = BusUtil.getInstance();
+    //     this.productDetail = {};
+    //     this.publishDate = "";
+    //     this.noteConsTable="";
+    //     this.options =  {
+    //         title: {
+    //         text: '暂无数据'
+    //         },
+    //         credits: {
+    //         href: '',
+    //         text: 'CNABS'
+    //     },
+    //     };
+    // window.scrollTo(0,0);
+    // // const busUtil = BusUtil.getInstance();
+    // // busUtil.bus.$emit('showHeader', true);
+    // // busUtil.bus.$emit('path', '/product');
+    // // this.id = this.$route.params.id;
+    // const productId = getParams("dealId");
+    // // if (productId) {
+    // //   this.fetchProductDetail(productId);
+    // // }
+
+    // if (productId) {
+    //     this.fetchProductDetail(productId,data=>{
+    //         console.log(data);
+    //         this.productDetail =data;
+    //         if(this.productDetail.Basic.ClosingDate!=null)
+    //             this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
+    //         var resultId = data.ResultSetId;
+    //         if(data.DealId!=null&&data.DealId>0){
+    //             if(data.NoteList!=null&&data.NoteList.length>0){
+    //                 if(data.NoteList.length>6){
+    //                     this.chartWidthPx=280;
+    //                 }else if(data.NoteList.length>4){
+    //                     this.chartWidthPx=200;
+    //                 }else{
+    //                     this.chartWidthPx=150;
+    //                 }
+    //             }
+    //             this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
+    //         }
+    //         if (data.ResultSetId != null && data.ResultSetId > 0) {
+    //             this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
+    //         }
+    //     });
+    // }
     // busUtil.bus.$emit('showHeader', true);
     // busUtil.bus.$emit('path', '/product');
-    // this.id = this.$route.params.id;
-    const productId = getParams("dealId");
-    // if (productId) {
-    //   this.fetchProductDetail(productId);
-    // }
-
-    if (productId) {
-        this.fetchProductDetail(productId,data=>{
-            console.log(data);
-            this.productDetail =data;
-            if(this.productDetail.Basic.ClosingDate!=null)
-                this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
-            var resultId = data.ResultSetId;
-            if(data.DealId!=null&&data.DealId>0){
-                if(data.NoteList!=null&&data.NoteList.length>0){
-                    if(data.NoteList.length>6){
-                        this.chartWidthPx=280;
-                    }else if(data.NoteList.length>4){
-                        this.chartWidthPx=200;
-                    }else{
-                        this.chartWidthPx=150;
-                    }
-                }
-                this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
-            }
-            if (data.ResultSetId != null && data.ResultSetId > 0) {
-                this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
-            }
-        });
-    }
-    busUtil.bus.$emit('showHeader', true);
-    busUtil.bus.$emit('path', '/product');
  
   },
   data() {
@@ -259,7 +261,7 @@ export default {
   },
   methods: {
     fetchNoteConsTable(dealId,width,height){
-        axios("http://10.1.1.35/Dealreport/GetStructure?dealId="+dealId+"&w="+width+"&h="+height)
+        axios(webApi.Product.structure+"?dealId="+dealId+"&w="+width+"&h="+height)
         .then((response)=>{
            // console.log(response);
             if(response!=null &&response!=""){

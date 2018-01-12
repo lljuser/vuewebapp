@@ -30,7 +30,7 @@
                 <tr>
                 <td>发起机构</td>
                 <td>
-                    <div v-for="(item,index) in productDetail.Basic.DealOriginator"><span>{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                    <div v-for="(item,index) in productDetail.Basic.DealOriginator" v-bind:key='index'><span>{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
                 </td>
                 </tr>
                 <tr>
@@ -43,8 +43,8 @@
         <div class="appH5_title">
               <span>证券结构</span>
         </div>
-        <div v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
-            <div style="text-align:center"><div v-html="noteConsTable" id="test" v-bind:style="'margin:0 auto;width:'+this.chartWidthPx+'px'">{{noteConsTable}}</div></div>
+        <div v-if="noteConsTable.indexOf('table')!=-1">
+            <div style="text-align:center"><div v-html="noteConsTable" id="test" v-bind:style="'margin:0 auto;width:'+chartWidthPx+'px'">{{noteConsTable}}</div></div>
             <div style="text-align:center;height: 0.4rem;">
                 <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
                     <div class="backTablePic"></div>
@@ -69,8 +69,8 @@
                     <th class="text-right">期限<br/>类型</th>
                     <th class="text-right">最新评级<br/>建议评级</th>
                 </tr>
-                <tr v-for="(item,index) in productDetail.NoteList">
-                    <td><div class="appH5_ellipsis" style="width:2.1rem;">{{item.Description}}</div></td>
+                <tr v-for="(item,index) in productDetail.NoteList" v-bind:key='index'>
+                    <td><div class="appH5_ellipsis appH5_font_normal" style="width:2.1rem;">{{item.Description}}</div></td>
                     <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.Principal}}</span></td>
                     <td class="text-right"><span>{{item.CurrentCoupon}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestYield}}</span></td>
                     <td class="text-right"><span>{{item.CurrentWal}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.RepaymentOfPrincipal}}</span></td>
@@ -95,10 +95,10 @@
 <style scoped>
     .backTablePic{
         float:left;
-        margin: 4px 4px 4px 2px; 
+        margin: 4px 4px 4px 2px;
         width: 12px;
-        height: 11px; 
-        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC); 
+        height: 11px;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC);
         background-repeat: repeat;
     }
 </style>
@@ -129,9 +129,9 @@ export default {
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
         busUtil.bus.$emit('headTitle', '产品信息');
-    }, 
+    },
     mounted() {
-        
+
     },
     updated(){
         var paidList=document.getElementsByClassName("divHasPaid");
@@ -174,7 +174,7 @@ export default {
             if(this.productDetail.Basic.ClosingDate!=null)
                 this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
             console.log(this.publishDate.getMonth());
-            
+
             var resultId = data.ResultSetId;
             if(data.DealId!=null&&data.DealId>0){
                 if(data.NoteList!=null&&data.NoteList.length>0){
@@ -195,7 +195,7 @@ export default {
     }
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/product');
- 
+
   },
   data() {
     return {
@@ -217,12 +217,12 @@ export default {
   },
   methods: {
     fetchNoteConsTable(dealId,width,height){
-        axios("http://10.1.1.35/Dealreport/GetStructure?dealId="+dealId+"&w="+width+"&h="+height)
+        axios(webApi.Product.structure+"?dealId="+dealId+"&w="+width+"&h="+height)
         .then((response)=>{
            // console.log(response);
             if(response!=null &&response!=""){
                 this.noteConsTable=response.data;
-                
+
             }
         });
 
