@@ -52,20 +52,18 @@
                  <div class='appH5_panel' style="padding-top:0px;">
                     <table class="appH5_table">
                         <tr>
-                            <th class='text-left ep_width176'>名称</th>
+                            <th class='text-left ep_width225'>名称</th>
                             <th class='text-right'>金额(亿)</th>
                             <th class='text-right'>类型</th>
-                            <th class='text-right ep_width90' v-if="!editable">点赞</th>
+                            <th class='text-right' style="width:30px;" v-if="!editable">点赞</th>
                         </tr>
                         <tr v-for="(item, index) in _.take(userInfo.ABSProjects, 3)" v-bind:key="index">
                             <td class='text-left'>
-                                <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
+                                <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
                             </td>
                             <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
-                            <td class='text-right'>
-                                <div class=" ep_ellipsis fr ep_width176">
-                                    {{item.DealType}}
-                                </div>
+                            <td class='text-right ep_ellipsis'>
+                                {{item.DealType}}
                             </td>
                             <td class='text-right' v-if="!editable">
                                 <div  class="ep_overhide ep_lineHeight32">
@@ -98,20 +96,20 @@
                  <div class='appH5_panel' style="padding-top:0px;">
                     <table class="appH5_table">
                         <tr>
-                            <th class="text-left ep_width176">简称</th>
+                            <th class="text-left ep_width225">简称</th>
                             <th class="text-right">金额(亿)</th>
                             <th class="text-right">类型</th>
                             <th class='text-right ep_width90' v-if="!editable">点赞</th>
                         </tr>
                         <tr v-for="(item, index) in _.take(userInfo.OtherProjects, 3)" v-bind:key="index">
                             <td class="ep_ellipsis text-left">
-                               <div class="ep_ellipsis fl ep_width176">
+                               <div class="ep_ellipsis fl ep_width225">
                                     {{item.ProjectShortName}}
                                </div>
                             </td>
                             <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
-                            <td class='text-right'>
-                                <div class=" ep_ellipsis fr ep_width176">
+                            <td class='text-right ep_ellipsis'>
+                                <div class=" fr ep_width176">
                                     {{item.DealType}}
                                 </div>
                             </td>
