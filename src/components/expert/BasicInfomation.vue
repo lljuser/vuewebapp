@@ -7,7 +7,7 @@
                     <div class="ep_title_div">
                         <span class="ep_marginLeft10 ep_font32">头像</span>
                     </div>
-                    <div class="divUserAvatar fr" v-on:click="uploadUserAvatar">
+                    <div class="divUserAvatar fl" style="margin-left:0.32rem;" v-on:click="uploadUserAvatar">
                         <img v-bind:src="userInfo.Avatar" alt="用户头像"/>
                     </div>
                     <input id="expert-userAvatar" type="file" accept="image/*" style="display: none;" v-on:change="selectAvatar" />
