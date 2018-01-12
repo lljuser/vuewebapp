@@ -16,17 +16,27 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import * as webApi from "@/config/api";
+
     export default {
         name: 'ReadActivityList',
         data: function () {
             return {
-                recentActivities: []
+                recentActivities: [],
+                userId: null,
             }
         },
         created: function () {
-            this.recentActivities = [{"Id":106,"Name":"fffff","ActivityTime":"2018.01","Time":"0001-01-01 00:00:00","Description":null},{"Id":107,"Name":"aaaa","ActivityTime":"2018.01","Time":"0001-01-01 00:00:00","Description":null},{"Id":108,"Name":"xcxxxx","ActivityTime":"2018.01","Time":"0001-01-01 00:00:00","Description":null},{"Id":102,"Name":"sss","ActivityTime":"2017.12","Time":"0001-01-01 00:00:00","Description":null}];
+            this.userId = this.$route.params.userId;
+            this.initData();
         },
         methods: {
+            initData: function () {
+                axios.post(webApi.Expert.getRecentActivities, { UserId: this.userId }).then(response => {
+                    this.recentActivities = response.data.data;
+                });
+            },
             isArrayEmpty: function (arr) {
                 return (arr === null || arr === undefined || arr.length === 0);
             },
