@@ -43,15 +43,19 @@
       <th class="text-right">期限(Y)</th>
       <th class="text-right">利率(%)</th>
     </tr>
+    <tbody v-infinite-scroll="loadMore"
+          infinite-scroll-disabled="loading"
+          infinite-scroll-immediate-check="true"
+          infinite-scroll-distance="55">
         <TradeItem 
           v-for="item in list" 
           :item="item"
-          :key="item.Id"
-          v-infinite-scroll="loadMore"
-          infinite-scroll-disabled="loading"
-          infinite-scroll-immediate-check="true"
-          infinite-scroll-distance="55"/>    
+          :key="item.Id"/>    
+    </tbody>
   </table>
+  <div class="spinner_div" >
+      <van-loading type="spinner" v-if="loading" color="white" class="spinner-circle"/>
+  </div>
  </div>
 </div>    
 </div>
