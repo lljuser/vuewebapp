@@ -55,7 +55,7 @@
                             <th class='text-center'>类型</th>
                             <th class='text-right ep_width90'>操作</th>
                         </tr>
-                        <tr v-for="item in _.take(userInfo.ABSProjects, 3)" v-bind:key="item.DealName">
+                        <tr v-for="(item, index) in _.take(userInfo.ABSProjects, 3)" v-bind:key="index">
                             <td class='text-left'>
                                 <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
                             </td>
@@ -104,7 +104,7 @@
                                 操作
                             </th>
                         </tr>
-                        <tr v-for="item in _.take(userInfo.OtherProjects, 3)" v-bind:key="item.ProjectShortName">
+                        <tr v-for="(item, index) in _.take(userInfo.OtherProjects, 3)" v-bind:key="index">
                             <td class="ep_ellipsis text-left">{{item.ProjectShortName}}</td>
                             <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
                             <td class="ep_ellipsis text-center">{{item.DealType}}</td>
@@ -132,7 +132,7 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.WorkHistories)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.WorkHistories" v-bind:key="item.Id">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.WorkHistories" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width600 appH5_color_green">{{item.Position}}</span>
                         <router-link v-bind:to="'/WorkHistory/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">
@@ -160,7 +160,7 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.OtherPosts)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.OtherPosts" v-bind:key="item.Id">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.OtherPosts" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width600">{{item.Name}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/otherPosition?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">编辑</a> -->
@@ -180,7 +180,7 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.HonorAwards)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.HonorAwards" v-bind:key="item.Id">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.HonorAwards" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
                         <!-- <a v-bind:href="'/expert/expertuser/awardsAndHonors?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
@@ -202,10 +202,9 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.RecentActivities)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.RecentActivities, 3)" v-bind:key="item.Id">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.RecentActivities, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
-                        <!-- <a v-bind:href="'/expert/expertuser/activity?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
                         <router-link v-bind:to="'/Activity/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
@@ -214,7 +213,6 @@
                     <pre class="ep_decription ep_color_grey2 ep_font24">{{item.Description}}</pre>
                 </div>
                 <div class="ep_font30 ep_align_center ep_padding30" v-if="userInfo.RecentActivities.length > 3">
-                    <!-- <a href="/expert/expertuser/recentActivitiesList">查看更多</a> -->
                     <router-link to="/ActivityList" class="ep_color_orange_important">
                         查看更多
                     </router-link>
@@ -230,7 +228,7 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in _.take(userInfo.Publishs, 3)" v-bind:key="item.Id">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.Publishs, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="fl ep_font28">《</span>
                         <span class="ep_font28 ep_ellipsis fl ep_maxWidth460">{{item.Name}}</span>
@@ -291,7 +289,7 @@
                 </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.Educations)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="item in userInfo.Educations" v-bind:key="item.Id">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.Educations" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width400">{{item.School}}</span>
                         <router-link v-bind:to="'/Education/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
