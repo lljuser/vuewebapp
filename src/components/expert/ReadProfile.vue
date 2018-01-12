@@ -219,12 +219,11 @@
                         <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
                         <span class="fl ep_font28 appH5_color_green">》</span>
                         <div v-if="!editable" class="ep_overhide fr ep_lineHeight32 ">
-                                <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="publishEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
+                            <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="publishEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
                         </div>
                         <div v-else class="ep_overhide fr ep_lineHeight32 ">
-                                <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-bind:src="endorseImg(item.IsEndorse)" />
+                            <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-bind:src="endorseImg(item.IsEndorse)" />
                         </div>
-                        <!-- <span v-else class="fr ep_color_grey ep_font24 ep_lineHeight32">{{item.EndorseNum === 0 ? '' : item.EndorseNum+'人赞'}}</span> -->
                     </div>
                     <div class="divArticleDetail">
                         <ul class="ep_color_grey2 ep_font24 ep_decription articleDetail">

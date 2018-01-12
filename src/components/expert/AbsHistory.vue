@@ -19,27 +19,17 @@
                     </div>
                     <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel">
                         <option disabled value="">请选择参与角色</option>
-                        <option v-for="item in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="item.Id">{{item.Role}}</option>
+                        <option v-for="(item, index) in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="index">{{item.Role}}</option>
                     </select>
                 </div>
-                <!-- <div v-show="organizationRoleModel===24" class="ep_overhide ep_font32 ep_paddingLeft30 ep_paddingright30">
-                    <input class="fl ep_input ep_multipleItem ep_width440 ep_font32 ep_heightAuto" type="text" placeholder="请输入" v-model="customizedOrganizationRole" />
-                    <span class="fr ep_saveBtn ep_width176 ep_marginRight0" v-on:click="addcustomizedRole(organizationRoleModel)">添加</span>
-                </div> -->
-                <!-- <div v-if="!util.isArrayEmpty(projectHistory.OrganizationRoles)">
-                    <div class="ep_multipleItem" v-for="(item,index) in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole" v-bind:class="[index===projectHistory.OrganizationRoles.length-1?'ep_marginBottom30':'ep_marginBottom20']">
-                        <span class="fl">{{organizationRoleDisplay(item)}}</span>
-                        <span class="fr ep_font24 ep_deleteBtn" v-on:click="deleteOrganizationRole(item)">×</span>
-                    </div>
-                </div> -->
             </div>
               <div v-if="!util.isArrayEmpty(projectHistory.OrganizationRoles)" class="ep_part_item_border ep_font32 ep_paddingBottom10 ">
                   <div class="ep_overhide">
-                    <div class="ep_font28 delete-Label ep_marginLeft15 ep_marginTop10" v-for="item in projectHistory.OrganizationRoles" v-bind:key="item.IsCustomizedOrganizationRole">
+                    <div class="ep_font28 delete-Label ep_marginLeft15 ep_marginTop10" v-for="(item, index) in projectHistory.OrganizationRoles" v-bind:key="index">
                     <span>{{organizationRoleDisplay(item)}}</span>
                     <img class="followImg" src="../../public/image/deleteicon.png"  v-on:click="deleteOrganizationRole(item)" />
-                </div>
                   </div>
+              </div>
             </div>
             <div class="clearBoth"></div>
             <div class="ep_part_item ep_font32 ep_overhide ep_part_item_border">
@@ -49,7 +39,7 @@
                 </div>
                 <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32  personalRoleSelect" type="text" v-model="personalResponsibilityModel">
                     <option disabled value="">请选择个人职责</option>
-                    <option v-for="item in personalResponsibilities" v-bind:value="item.Id" v-bind:key="item.Name">{{item.Name}}</option>
+                    <option v-for="(item, index) in personalResponsibilities" v-bind:value="item.Id" v-bind:key="index">{{item.Name}}</option>
                 </select>
             </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">
@@ -131,7 +121,8 @@ export default {
       var self = this;
 
       if (self.projectHistory.OrganizationRoles === undefined) {
-        Vue.set(this.projectHistory, "OrganizationRoles", []);
+        //Vue.set(this.projectHistory, "OrganizationRoles", []);
+        this.projectHistory.OrganizationRoles = [];
       }
 
       for (let item of this.organizationRoles) {
@@ -215,6 +206,7 @@ export default {
       this.organizationRoleModel = "";
     },
     deleteOrganizationRole: function(item) {
+        console.log(item);
       this.arrayRemoveItem(this.projectHistory.OrganizationRoles, item);
     },
     findOrganizationRoleIndex: function(arr, item) {
@@ -230,6 +222,7 @@ export default {
       return itemIndex;
     },
     arrayRemoveItem: function(arr, item) {
+        console.log(arr);
       var index = arr.indexOf(item);
       arr.splice(index, 1);
 
