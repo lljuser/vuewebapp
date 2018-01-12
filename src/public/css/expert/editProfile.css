@@ -224,6 +224,9 @@ a.ep_editBtn:hover {
 .ep_width250{
     width:3.333333rem;
 }
+.ep_maxwidth250{
+    max-width:3.333333rem;
+}
 .ep_width210{
     width:3.0rem;
 }

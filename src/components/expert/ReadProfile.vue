@@ -251,7 +251,7 @@
                             <li v-show="isValidElement(item.AttachmentFileCode)">
                                 <span class='article_title'>作品文件：</span>
                                 <div class="fl">《</div> 
-                                <span class="fl ep_ellipsis ep_width250">{{item.Name}}</span> 
+                                <span class="fl ep_ellipsis ep_maxwidth250">{{item.Name}}</span> 
                                 <div class="fl">》</div> 
                             </li>
                         </ul>
@@ -280,7 +280,7 @@
                     <ul class="ep_color_grey2 ep_font24 ep_decription educationDetail ep_marginTop10">
                         <li class="ep_overhide">
                             <span class="fl">学位：</span>
-                            <span class="fl ep_width600">{{item.Degree}}</span>
+                            <span class="fl ep_width440">{{item.Degree}}</span>
                         </li>
                         <li>
                             <pre class="ep_decription">{{item.Description}}</pre>
