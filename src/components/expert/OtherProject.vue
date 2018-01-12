@@ -117,7 +117,6 @@
                 isShowError: false,
                 errorMessage: '',
                 removePopupVisible: false,
-                //queryString: {},//GetRequest(),
                 projectHistory: {},
                 organizationRoles: [],
                 personalResponsibilities: [],
@@ -129,6 +128,7 @@
             }
         },
         created: function () {
+            this.scrollRestore();
             this.id = this.$route.params.id;
             this.initData();
         },
@@ -189,11 +189,12 @@
                 });
             },
             isValidNum: function (num) {
+                var reg = new RegExp();
                 var result1 = /^[1-9]\d*\.\d*$/.test(num);
 
                 var result2 = /^[0]\.\d*$/.test(num);
 
-                var result3 = /^[1-9]\d*$/.test(num);
+                var result3 = /^[0-9]\d*$/.test(num);
 
                 return result1 || result2 || result3;
             },
@@ -299,6 +300,10 @@
 
                     this.$router.go(-1);
                 });
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
             }
         },
         computed: {

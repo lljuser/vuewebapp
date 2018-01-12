@@ -162,6 +162,7 @@
             }
         },
         created: function () {
+            this.scrollRestore();
             this.id = this.$route.params.id;
             this.searchUrl = webApi.Expert.orgSearch;
             this.initData();
@@ -401,6 +402,10 @@
                 this.workHistory.Company = obj.FullName;
                 this.workHistory.OrganizationName = obj.FullName;
                 this.workHistory.OrganizationId = obj.Id;
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
             }
         },
         watch: {

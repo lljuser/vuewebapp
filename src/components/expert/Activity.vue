@@ -102,6 +102,7 @@
             }
         },
         created: function () {
+            this.scrollRestore();
             this.id = this.$route.params.id;
             this.initData();
         },
@@ -188,7 +189,7 @@
 
                 if (!this.isValidElement(this.activity.ActivityTime)) {
                     this.isShowError = true;
-                    this.errorMessage = "活动时间不能为空，请填写!";
+                    this.errorMessage = "活动时间不能为空，请选择!";
                     return;
                 }
 
@@ -235,6 +236,10 @@
             },
             isValidElement: function (item) {
                 return !(item === null || item === undefined || item === "");
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
             }
         }
     }

@@ -33,7 +33,7 @@
     </div>
 
     <div v-else>
-      <table class="appH5_table">
+      <table id="productTableId" class="appH5_table">
         <tr>
           <th>产品名称</th>
           <th class="text-right">总额(亿)</th>
@@ -139,6 +139,10 @@ export default {
           this.isProductLoading = false;
           this.isShowSelect=true;
           this.page=1;
+          if(data.length<this.pageSize)
+          {
+            this.noMore=true;
+          }
         });
       }, 600);
     },
@@ -188,15 +192,7 @@ export default {
     selectChange(){
       this.isProductLoading = true;
       this.isComponentActive = true;
-      //this.isShowSelect=true;
-      //this.page=1;
       this.loadFirstPageProducts();
-      // setTimeout(() => {
-      //   this.fetchProducts(0, 0,data => {
-      //     this.list = data;
-      //     this.isProductLoading = false;
-      //   });
-      // }, 500);
     }
 
      
@@ -237,7 +233,16 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
+#productTableId{
+  table-layout: fixed;
+}
 
+#productTableId th:nth-of-type(2){
+width: 55px;
+}
+#productTableId th:nth-of-type(3){
+width: 35%;
+}
 
 
 </style>

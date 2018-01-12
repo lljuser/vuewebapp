@@ -28,7 +28,7 @@
                      <div class="ep_title_div">
                         <span class="ep_marginLeft10 ep_font32">手机号</span>
                     </div>
-                    <input class="ep_input fl ep_font32  ep_align_right" disabled="disabled" type="text" v-model="userInfo.Cellphone" />
+                    <input class="ep_input fl ep_font32  ep_align_right appH5_color_disabled" disabled="disabled" type="text" v-model="userInfo.Cellphone" />
                 </div>
                 <div class="ep_part_item ep_part_item_border">
                      <div class="ep_title_div">

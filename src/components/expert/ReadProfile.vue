@@ -297,6 +297,10 @@
             <pre v-if="isValidElement(userInfo.User.Introduction)" class="ep_part_description" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
             <p v-else class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey">暂无个人简介</p>
         </section>
+        <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
+            <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
+            <div class="ep_align_center ep_font30 ep_submitColor">发送中...</div>
+        </mt-popup>
     </div>
 </template>
 
@@ -318,7 +322,8 @@ export default {
       userId: null,
       absProjectEndorseLock: false,
       otherProjectEndorseLock: false,
-      publicEndorseLock: false
+      publicEndorseLock: false,
+      submitPopupVisible:false,
     };
   },
   created: function() {
@@ -459,8 +464,10 @@ export default {
       return !(item === null || item === undefined || item === "");
     },
     sendAttachment: function(fileCode) {
+        this.submitPopupVisible=true;
         axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
           .then(response => {
+            this.submitPopupVisible=false;
             this.$toast(response.data.data);
           });
     }

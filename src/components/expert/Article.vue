@@ -119,6 +119,7 @@
             }
         },
         created: function () {
+            this.scrollRestore();
             this.id = this.$route.params.id;
             this.initData();
         },
@@ -241,7 +242,7 @@
 
                 if (!this.isValidElement(this.publish.Name)) {
                     this.isShowError = true;
-                    this.errorMessage = "书名/文章标题不能为空，请填写!";
+                    this.errorMessage = "标题不能为空，请填写!";
                     return;
                 }
 
@@ -279,6 +280,10 @@
             },
             isValidElement: function (item) {
                 return !(item === null || item === undefined || item === "");
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
             }
         }
     }
