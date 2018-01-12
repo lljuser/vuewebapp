@@ -11,9 +11,6 @@
                         <div v-if="!editable" class="ep_overhide fr ep_lineHeight32 ">
                             <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="publishEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
                         </div>
-                        <!-- <div v-else class="ep_overhide fr ep_lineHeight32 ">
-                            <img class="followImg" v-bind:class="item.IsEndorse?'appH5_followIcon':'appH5_unfollowIcon'" v-bind:src="endorseImg(item.IsEndorse)" />
-                        </div> -->
                     </div>
                     <div class="divArticleDetail">
                         <ul class="ep_color_grey ep_font24 ep_decription articleDetail">
@@ -48,7 +45,7 @@
                                 <div class="fl">》</div> 
                             </li>
                         </ul>
-                        <span class="ep_sendMailBtn ep_font24" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>
+                        <span class="ep_sendMailBtn ep_font24" v-on:click="sendAttachment(item.AttachmentFileCode)" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>
                     </div>
                 </div>
             </div>
@@ -121,6 +118,12 @@
                     this.publicEndorseLock = false;
                 });
             },
+            sendAttachment: function(fileCode) {
+                axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
+                .then(response => {
+                    this.$toast(response.data.data);
+                });
+            }
         }
     }
 </script>

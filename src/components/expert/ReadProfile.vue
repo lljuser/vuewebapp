@@ -461,14 +461,10 @@ export default {
       return !(item === null || item === undefined || item === "");
     },
     sendAttachment: function(fileCode) {
-      var self = this;
-
-      appFrame.ajax("/AppDeal/SendPublish", {
-        data: { fileCode: fileCode },
-        success: function(res) {
-          self.$toast(res.data);
-        }
-      });
+        axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
+          .then(response => {
+            this.$toast(response.data.data);
+          });
     }
   },
   computed: {
