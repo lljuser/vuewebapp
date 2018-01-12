@@ -225,33 +225,33 @@
                     <div class="divArticleDetail">
                         <ul class="ep_color_grey2 ep_font24 ep_decription articleDetail">
                             <li>
-                                <span>作者：</span>
-                                <span class="ep_ellipsis">{{item.Author}}</span>
+                                <span class='article_title'>作者：</span>
+                                <span class="ep_ellipsis ep_width350">{{item.Author}}</span>
                             </li>
                             <li v-if="isValidElement(item.Publisher)">
-                                <span>出版社：</span>
-                                <span class="ep_ellipsis">{{item.Publisher}}</span>
+                                <span class='article_title'>出版社：</span>
+                                <span class="ep_ellipsis ep_width350">{{item.Publisher}}</span>
                             </li>
                             <li v-if="isValidElement(item.PublishTime)">
-                                <span>出版时间：</span>
-                                <span class="ep_ellipsis">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
+                                <span class='article_title'>出版时间：</span>
+                                <span class="ep_ellipsis ep_width350">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
                             </li>
                             <li v-if="isValidElement(item.Isbn)">
-                                <span>书号ISBN：</span>
-                                <span class="ep_ellipsis">{{item.Isbn}}</span>
+                                <span class='article_title'>书号ISBN：</span>
+                                <span class="ep_ellipsis ep_width350">{{item.Isbn}}</span>
                             </li>
                             <li v-if="isValidElement(item.Pages)">
-                                <span>页数：</span>
-                                <span class="ep_ellipsis">{{item.Pages}}</span>
+                                <span class='article_title'>页数：</span>
+                                <span class="ep_ellipsis ep_width350">{{item.Pages}}</span>
                             </li>
                             <li v-if="isValidElement(item.Link)">
-                                <span>作品网址：</span>
-                                <a class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important" v-bind:href="item.Link">{{item.Link}}</a>
+                                <span class='article_title'>作品网址：</span>
+                                <a class="fl ep_ellipsis ep_width350 ep_Link ep_color_orange_important" v-bind:href="item.Link">{{item.Link}}</a>
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
-                                <span>作品文件：</span>
+                                <span class='article_title'>作品文件：</span>
                                 <div class="fl">《</div> 
-                                <span class="fl ep_ellipsis">{{item.Name}}</span> 
+                                <span class="fl ep_ellipsis ep_width300">{{item.Name}}</span> 
                                 <div class="fl">》</div> 
                             </li>
                         </ul>

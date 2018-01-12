@@ -665,9 +665,11 @@ ul.articleDetail li {
 
     ul.articleDetail li span:nth-of-type(2) {
         float: left;
-        max-width: 3.5rem;
+        /* max-width: 3.5rem; */
     }
-
+    ul.articleDetail .article_title {
+       width: 70px;
+    }
 .divArticleDetail {
     position: relative;
 }
