@@ -89,9 +89,9 @@ export default {
        if (!self.isVertical) {
          var index = self.getRouterIndex()*1;
         if ((nowX - self.startX) > 60) {
-          self.$router.push({ name: self.tabs[index + 1]});
-        } else if ((nowX - self.startX) < -60) {
           self.$router.push({ name: self.tabs[index - 1]});
+        } else if ((nowX - self.startX) < -60) {
+          self.$router.push({ name: self.tabs[index + 1]});
         }
       }
     }, false);
