@@ -21,7 +21,7 @@
           <td class="text-right">{{product.BalanceCumulative}}</td>
         </tr>
         <tr v-if="marketSummary.length!=null&&marketSummary.length!=0">
-          <td><router-link to="/product"> <a href="javascript:;" style="color:#FEC447;font-weight:bold">{{marketSummary[4].SimpleProductType}}</a></router-link></td>
+          <td><router-link to="/product/0"> <a href="javascript:;" style="color:#FEC447;font-weight:bold">{{marketSummary[4].SimpleProductType}}</a></router-link></td>
           <td class="text-right" style="font-weight:bold">{{marketSummary[4].DealCountCurrentYear}}</td>
           <td class="text-right appH5_color_red" style="font-weight:bold">{{marketSummary[4].BalanceCurrentYear}}</td>
           <td class="text-right" style="font-weight:bold">{{marketSummary[4].BalanceCumulative}}</td>
