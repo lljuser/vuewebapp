@@ -43,8 +43,8 @@
         <div class="appH5_title">
               <span>证券结构</span>
         </div>
-        <div v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
-            <div style="text-align:center"><div v-html="noteConsTable" id="test" v-bind:style="'margin:0 auto;width:'+this.chartWidthPx+'px'">{{noteConsTable}}</div></div>
+        <div v-if="noteConsTable.indexOf('table')!=-1">
+            <div style="text-align:center"><div v-html="noteConsTable" id="test" v-bind:style="'margin:0 auto;width:'+chartWidthPx+'px'">{{noteConsTable}}</div></div>
             <div style="text-align:center;height: 0.4rem;">
                 <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
                     <div class="backTablePic"></div>
@@ -217,7 +217,7 @@ export default {
   },
   methods: {
     fetchNoteConsTable(dealId,width,height){
-        axios("http://10.1.1.35/Dealreport/GetStructure?dealId="+dealId+"&w="+width+"&h="+height)
+        axios(webApi.Product.structure+"?dealId="+dealId+"&w="+width+"&h="+height)
         .then((response)=>{
            // console.log(response);
             if(response!=null &&response!=""){
