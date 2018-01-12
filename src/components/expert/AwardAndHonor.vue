@@ -13,7 +13,7 @@
                     <div class="ep_title_div">
                     <span>奖项名称</span>
                 </div>
-                <input class=" ep_input fl ep_font32 ep_width200" type="text" placeholder="请输入" v-model="honorAward.Name" />
+                <input class=" ep_input fl ep_font32 " type="text" placeholder="请输入" v-model="honorAward.Name" />
             </div>
             <div>
                 <div class="ep_part_item ep_overhide">
