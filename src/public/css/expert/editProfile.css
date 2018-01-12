@@ -597,6 +597,19 @@ pre {
 
 .ep_popup {
     width: 10rem;
+    background-color:#535352;
+}
+.ep_popup .picker-item {
+    color: #cccccc;
+}
+
+.ep_popup .picker-selected {
+    color: #ffc446 !important;
+    background-color:#535352 !important;
+}
+.ep_popup .ep_popup_div_btn
+{
+    border-bottom: 0.03333rem solid #2B2A29;
 }
 .ep_delete_popup
 {

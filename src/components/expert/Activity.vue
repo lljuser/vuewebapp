@@ -43,9 +43,9 @@
             </div>
         </div>
         <mt-popup v-model="isShowYearMonthPopup" position='bottom' modal=true class="ep_popup">
-            <div class="ep_overhide ep_padding30">
-                <span class="fl ep_color_blue ep_down_popupBtn" v-on:click="saveYearMonth">确定</span>
-                <span class="fr ep_color_grey ep_down_popupBtn" v-on:click="hideYearMonthPicker">取消</span>
+            <div class="ep_overhide ep_padding30 ep_popup_div_btn">
+                <span class="fl ep_color_yellow ep_down_popupBtn" v-on:click="saveYearMonth">确定</span>
+                <span class="fr ep_color_white ep_down_popupBtn" v-on:click="hideYearMonthPicker">取消</span>
             </div>
             <mt-picker v-bind:slots="availableYearMonth" v-on:change="onYearMonthChange"></mt-picker>
         </mt-popup>
