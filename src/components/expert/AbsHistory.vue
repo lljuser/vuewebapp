@@ -17,10 +17,14 @@
                       <span>参与角色</span>
                       <span class="ep_marginLeft10 ep_marginTop5">*</span>
                     </div>
-                    <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel">
+                    <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 organizationRoleSelect" type="text" v-model.trim="organizationRoleModel">
                         <option disabled value="">请选择参与角色</option>
                         <option v-for="(item, index) in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="index">{{item.Role}}</option>
                     </select>
+                </div>
+                <div v-show="organizationRoleModel===24" class="ep_overhide ep_font32 ep_paddingLeft30 ep_paddingright30">
+                    <input class="fl ep_input ep_font32 ep_defineRoleInput" style="background:#fff;" type="text" placeholder="请输入" v-model.trim="customizedOrganizationRole" />
+                    <span class="fr appH5_btn_smaller_blue ep_width176 ep_marginRight0" v-on:click="addcustomizedRole(organizationRoleModel)" style="margin-top:0.1rem;">添加</span>
                 </div>
             </div>
               <div v-if="!util.isArrayEmpty(projectHistory.OrganizationRoles)" class="ep_part_item_border ep_font32 ep_paddingBottom10 ">
@@ -37,7 +41,7 @@
                    <span>个人职责</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32  personalRoleSelect" type="text" v-model="personalResponsibilityModel">
+                <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32  personalRoleSelect" type="text" v-model.trim="personalResponsibilityModel">
                     <option disabled value="">请选择个人职责</option>
                     <option v-for="(item, index) in personalResponsibilities" v-bind:value="item.Id" v-bind:key="index">{{item.Name}}</option>
                 </select>
@@ -59,12 +63,12 @@
                 如果找不到您的ABS项目，请与我们联系：021-31156258
             </div>
         </div>
-            <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
+            <mt-popup v-model.trim="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
             <div class="ep_color_grey ep_padding30">确定删除本条信息？</div>
             <div class="ep_padding30 ep_color_orange ep_marginTop2" v-on:click='removeContent'>确定</div>
             <div class="ep_padding30 ep_marginTop2 ep_marginBottom2" v-on:click="removePopupVisible=false">取消</div>
         </mt-popup>
-        <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
+        <mt-popup v-model.trim="submitPopupVisible" class="ep_submitPopup">
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
             <div class="ep_align_center ep_font30 ep_submitColor">提交中...</div>
         </mt-popup>
@@ -76,7 +80,8 @@ import axios from "axios";
 import * as webApi from "@/config/api";
 import Autocomplete from 'vue2-autocomplete-js';
 import 'vue2-autocomplete-js/dist/style/vue2-autocomplete.css';
-
+import BusUtil from '../abs/BusUtil';
+import Vue from 'vue';
 import util from "@/public/modules/expert/utils";
 
 export default {
@@ -100,9 +105,15 @@ export default {
     };
   },
   created: function() {
+    this.scrollRestore();
     this.util = util;
     this.id = this.$route.params.id;
     this.dealSearch = webApi.Expert.dealSearch;
+
+    BusUtil.getInstance().bus.$on('dealSelect', function (deal) {
+        console.log(deal);
+    });
+
     this.initData();
   },
   watch: {
@@ -121,8 +132,8 @@ export default {
       var self = this;
 
       if (self.projectHistory.OrganizationRoles === undefined) {
-        //Vue.set(this.projectHistory, "OrganizationRoles", []);
-        this.projectHistory.OrganizationRoles = [];
+        //this.projectHistory.OrganizationRoles = [];
+        Vue.set(this.projectHistory, 'OrganizationRoles', []);
       }
 
       for (let item of this.organizationRoles) {
@@ -175,6 +186,7 @@ export default {
 
       if (util.isValidElement(this.id) && !isNaN(this.id)) {
           axios.post(webApi.Expert.getAbsProject, {id: this.id}).then(response => {
+              console.log(response.data.data)
               this.projectHistory = response.data.data;
               this.personalResponsibilityModel = this.projectHistory.PersonalResponsibility.Id;
               this.$refs.absHistoryItem.setValue(this.projectHistory.DealName);
@@ -206,7 +218,6 @@ export default {
       this.organizationRoleModel = "";
     },
     deleteOrganizationRole: function(item) {
-        console.log(item);
       this.arrayRemoveItem(this.projectHistory.OrganizationRoles, item);
     },
     findOrganizationRoleIndex: function(arr, item) {
@@ -335,21 +346,15 @@ export default {
     getData: function (obj) {
       this.projectHistory.DealId = obj.DealId;
       this.projectHistory.DealName = obj.DealName;
+    },
+    scrollRestore: function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0; 
     }
-  }
+  },
 };
 </script>
 
 <style>
-    .autocomplete ul {
-        font-family: sans-serif;
-        position: absolute;
-        list-style: none;
-        background: red;
-        padding: 10px 0;
-        margin: 0;
-        display: inline-block;
-        min-width: 15%;
-        margin-top: 10px;
-    }
+
 </style>

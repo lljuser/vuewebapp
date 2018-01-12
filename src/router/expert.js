@@ -26,6 +26,7 @@ import ArticleList from '@/components/expert/ArticleList';
 import Education from '@/components/expert/Education';
 import BriefIntroducation from '@/components/expert/BriefIntroducation';
 import WorkHistory from '@/components/expert/WorkHistory';
+import DealSearch from '@/components/expert/DealSearch';
 
 Vue.use(Router);
 Vue.use(MintUI);
@@ -127,11 +128,15 @@ export default new Router({
       name: 'WorkHistory',
       component: WorkHistory,
     },
-    
     {
       path: '/ReadActivityList/:userId?',
       name: 'ReadActivityList',
       component: ReadActivityList,
+    },
+    {
+      path: '/DealSearch/:dealName?',
+      name: 'DealSearch',
+      component: DealSearch,
     },
   ],
 });

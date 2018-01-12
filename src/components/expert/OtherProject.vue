@@ -7,8 +7,8 @@
                     <span>产品类型</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <select v-bind:class="otherDealTypeModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32  personalRoleSelect" v-model="otherDealTypeModel" v-cloak>
-                    <option value="">请选择产品类型</option>
+                <select v-bind:class="otherDealTypeModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32  personalRoleSelect" v-model.trim="otherDealTypeModel" v-cloak>
+                    <option value="" disabled>请选择产品类型</option>
                     <option v-for="(item, index) in otherDealTypes" v-bind:value="item.Type" v-bind:key="index">{{item.Type}}</option>
                 </select>
             </div>
@@ -16,27 +16,27 @@
                    <div class="ep_title_div">
                     <span>国家</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入" v-model="projectHistory.Nation" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入" v-model.trim="projectHistory.Nation" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>产品全称</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入" v-model="projectHistory.ProjectName" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入" v-model.trim="projectHistory.ProjectName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>产品简称</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入简称" v-model="projectHistory.ProjectShortName" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入简称" v-model.trim="projectHistory.ProjectShortName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>金额(亿)</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 " type="number" placeholder="请输入金额" v-model="projectHistory.TotalOffering" />
+                <input class="ep_align_right ep_input fl ep_font32 " type="number" placeholder="请输入金额" v-model.trim="projectHistory.TotalOffering" />
             </div>
             <div class="ep_part_item_border ep_font32">
                 <div class="ep_part_item  ep_overhide">
@@ -44,7 +44,7 @@
                         <span>参与角色</span>
                         <span class="ep_marginTop5 ep_marginLeft10">*</span>
                     </div>
-                    <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 organizationRoleSelect" type="text" v-model="organizationRoleModel" v-cloak>
+                    <select v-bind:class="organizationRoleModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32 organizationRoleSelect" type="text" v-model.trim="organizationRoleModel" v-cloak>
                         <option disabled value="" style="color:#ccc !important">请选择参与角色</option>
                         <option v-for="(item, index) in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="index">{{item.Role}}</option>
                     </select>
@@ -64,7 +64,7 @@
                     <span>个人职责</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' "  class="ep_select fl ep_font32  personalRoleSelect" type="text" v-model="personalResponsibilityModel" v-cloak>
+                <select v-bind:class="personalResponsibilityModel === '' ?'ep_color_grey':'ep_color_white' "  class="ep_select fl ep_font32  personalRoleSelect" type="text" v-model.trim="personalResponsibilityModel" v-cloak>
                     <option disabled value="">请选择个人职责</option>
                     <option v-for="(item, index) in personalResponsibilities" v-bind:value="item.Id" v-bind:key="index">{{item.Name}}</option>
                 </select>
@@ -76,7 +76,7 @@
                 </div>
                 </div>
                 <div class="projectDescriptionOther">
-                    <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入" v-model="projectHistory.Description"> </textarea>
+                    <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入" v-model.trim="projectHistory.Description"> </textarea>
                 </div>
             </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-cloak v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">
@@ -93,12 +93,12 @@
                 <span v-if="isValidElement(id)" class="ep_removeBtn fl" v-on:click="removePopupVisible=true">删除本条信息</span>
             </div>
         </div>
-             <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
+             <mt-popup v-model.trim="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
             <div class="ep_color_grey ep_padding30">确定删除本条信息？</div>
             <div class="ep_padding30 ep_color_orange ep_marginTop2" v-on:click='removeContent'>确定</div>
             <div class="ep_padding30 ep_marginTop2 ep_marginBottom2" v-on:click="removePopupVisible=false">取消</div>
         </mt-popup>
-        <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
+        <mt-popup v-model.trim="submitPopupVisible" class="ep_submitPopup">
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
             <div class="ep_align_center ep_font30 ep_submitColor">提交中...</div>
         </mt-popup>
@@ -106,6 +106,7 @@
 </template>
 
 <script>
+    import Vue from 'vue';
     import axios from "axios";
     import * as webApi from "@/config/api";
 
@@ -117,7 +118,6 @@
                 isShowError: false,
                 errorMessage: '',
                 removePopupVisible: false,
-                //queryString: {},//GetRequest(),
                 projectHistory: {},
                 organizationRoles: [],
                 personalResponsibilities: [],
@@ -129,6 +129,7 @@
             }
         },
         created: function () {
+            this.scrollRestore();
             this.id = this.$route.params.id;
             this.initData();
         },
@@ -189,11 +190,12 @@
                 });
             },
             isValidNum: function (num) {
+                var reg = new RegExp();
                 var result1 = /^[1-9]\d*\.\d*$/.test(num);
 
                 var result2 = /^[0]\.\d*$/.test(num);
 
-                var result3 = /^[1-9]\d*$/.test(num);
+                var result3 = /^[0-9]\d*$/.test(num);
 
                 return result1 || result2 || result3;
             },
@@ -299,6 +301,10 @@
 
                     this.$router.go(-1);
                 });
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
             }
         },
         computed: {
@@ -332,7 +338,8 @@
                 var self = this;
 
                 if (this.isArrayEmpty(this.projectHistory.OrganizationRoles)) {
-                   this.projectHistory.OrganizationRoles = [];
+                   //this.projectHistory.OrganizationRoles = [];
+                   Vue.set(this.projectHistory, 'OrganizationRoles', []);
                 }
 
                 for (let item of this.organizationRoles) {

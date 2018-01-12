@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div>
-                <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入个人简介，最多500个字符" v-model="personalProfile"> </textarea>
+                <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入个人简介，最多500个字符" v-model.trim="personalProfile"> </textarea>
             </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">
                 <span class="fl ep_marginTop5">*</span>
@@ -24,7 +24,7 @@
                 </span>
                 <span></span>
             </div>
-            <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
+            <mt-popup v-model.trim="submitPopupVisible" class="ep_submitPopup">
                 <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
                 <div class="ep_align_center ep_font30 ep_submitColor">提交中...</div>
             </mt-popup>
@@ -48,6 +48,7 @@
             }
         },
         created: function () {
+            this.scrollRestore();
             this.initData();
         },
         methods: {
@@ -82,6 +83,10 @@
             },
             isValidElement: function (item) {
                 return !(item === null || item === undefined || item === "");
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
             }
         }
     }

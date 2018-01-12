@@ -268,10 +268,10 @@ a {
   border-radius: 0;
 }
 #tradeTableId th:nth-of-type(2){
-width: 20%;
+width: 55px;
 }
 #tradeTableId th:nth-of-type(3){
-width: 22%;
+width: 20%;
 }
 #tradeTableId th:nth-of-type(4){
 width: 22%;

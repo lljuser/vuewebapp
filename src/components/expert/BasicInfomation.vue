@@ -3,7 +3,7 @@
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div">
             <section>
-                <div class="ep_part_item ep_part_item_border ep_paddingTop30">
+                <!-- <div class="ep_part_item ep_part_item_border ep_paddingTop30">
                     <div class="ep_title_div">
                         <span class="ep_marginLeft10 ep_font32">头像</span>
                     </div>
@@ -11,7 +11,7 @@
                         <img v-bind:src="userInfo.Avatar" alt="用户头像"/>
                     </div>
                     <input id="expert-userAvatar" type="file" accept="image/*" style="display: none;" v-on:change="selectAvatar" />
-                </div>
+                </div> -->
                 <div class="ep_part_item ep_part_item_border">
                      <div class="ep_title_div">
                         <span class="ep_marginLeft10 ep_font32">姓名</span>
@@ -28,7 +28,7 @@
                      <div class="ep_title_div">
                         <span class="ep_marginLeft10 ep_font32">手机号</span>
                     </div>
-                    <input class="ep_input fl ep_font32  ep_align_right" disabled="disabled" type="text" v-model="userInfo.Cellphone" />
+                    <input class="ep_input fl ep_font32  ep_align_right appH5_color_disabled" disabled="disabled" type="text" v-model="userInfo.Cellphone" />
                 </div>
                 <div class="ep_part_item ep_part_item_border">
                      <div class="ep_title_div">
@@ -67,9 +67,16 @@
                     </div>
                 </div>
                 <div class="ep_overhide ep_btnGroup">
-                    <span class="ep_saveBtn fl" v-on:click="saveAvatar">保存</span>
-                    <span class="ep_cancelBtn fl" v-on:click="closepop">取消</span>
+                    <!-- <span class="ep_saveBtn fl" v-on:click="saveAvatar">保存</span>
+                    <span class="ep_cancelBtn fl" v-on:click="closepop">取消</span> -->
+                        <span class="ep_saveBtn fl" v-on:click="saveAvatar">保存</span>
+                <span class="ep_cancelBtn fr">
+                    <router-link to="/EditProfile" class="ep_color_orange">
+                        取消
+                    </router-link>
+                </span>
                 </div>
+                
             </mt-popup>
             <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
                 <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
@@ -230,7 +237,12 @@ export default {
                 this.isShowError = true;
                 this.errorMessage = '公司不能为空！';
                 return;
+            }
 
+            if (this.userInfo.Company.length > 50) {
+                this.isShowError = true;
+                this.errorMessage = '公司长度不大于40个字符！';
+                return;
             }
 
             var reg = new RegExp(/^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/);

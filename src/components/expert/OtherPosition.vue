@@ -7,7 +7,7 @@
                     <span>职务</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                    <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model="otherPost.Name" />
+                    <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="otherPost.Name" />
                 </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">
                 <span class="fl ep_marginTop5">*</span>
@@ -23,12 +23,12 @@
                 <span v-if="isValidElement(id)" class="ep_removeBtn fl" v-on:click="removePopupVisible=true">删除本条信息</span>
             </div>
         </div>
-    <mt-popup v-model="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
+    <mt-popup v-model.trim="removePopupVisible" position='bottom' modal=true class="ep_popup ep_delete_popup ep_align_center ep_font32">
             <div class="ep_color_grey ep_padding30">确定删除本条信息？</div>
             <div class="ep_padding30 ep_color_orange ep_marginTop2" v-on:click='removeContent'>确定</div>
             <div class="ep_padding30 ep_marginTop2 ep_marginBottom2" v-on:click="removePopupVisible=false">取消</div>
         </mt-popup>
-        <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
+        <mt-popup v-model.trim="submitPopupVisible" class="ep_submitPopup">
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
             <div class="ep_align_center ep_font30 ep_submitColor">提交中...</div>
         </mt-popup>
@@ -53,6 +53,7 @@
             }
         },
         created: function () {
+            this.scrollRestore();
             this.id = this.$route.params.id;
             this.initData();
         },
@@ -118,6 +119,10 @@
             },
             isValidElement: function (item) {
                 return !(item === null || item === undefined || item === "");
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
             },
         }
       }

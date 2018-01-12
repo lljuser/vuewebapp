@@ -41,14 +41,14 @@ export default {
  }
 
  .td_elips1 {
-   width:120px;
+   width:105%;
    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
  }
 
  .td_elips2 div{
-   width: 90px;
+   width: 100%;
    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
