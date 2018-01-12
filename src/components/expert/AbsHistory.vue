@@ -48,12 +48,12 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveProjectHistoryABS">保存</span>
-                <span v-if="!util.isValidElement(id)" class="ep_cancelBtn fr">
+                <span class="ep_cancelBtn fr">
                     <router-link to="/EditProfile">
                         取消
                     </router-link>
                 </span>
-                <span v-else class="ep_removeBtn fr" v-on:click="removePopupVisible=true">删除本条</span>
+                <span v-if="util.isValidElement(id)" class="ep_removeBtn fl" v-on:click="removePopupVisible=true">删除本条信息</span>
             </div>
             <div class="ep_paddingLeft30 ep_color_grey ep_font24">
                 如果找不到您的ABS项目，请与我们联系：021-31156258
