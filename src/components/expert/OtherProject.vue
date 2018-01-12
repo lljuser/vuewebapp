@@ -189,11 +189,12 @@
                 });
             },
             isValidNum: function (num) {
+                var reg = new RegExp();
                 var result1 = /^[1-9]\d*\.\d*$/.test(num);
 
                 var result2 = /^[0]\.\d*$/.test(num);
 
-                var result3 = /^[1-9]\d*$/.test(num);
+                var result3 = /^[0-9]\d*$/.test(num);
 
                 return result1 || result2 || result3;
             },

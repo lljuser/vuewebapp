@@ -188,7 +188,7 @@
 
                 if (!this.isValidElement(this.activity.ActivityTime)) {
                     this.isShowError = true;
-                    this.errorMessage = "活动时间不能为空，请填写!";
+                    this.errorMessage = "活动时间不能为空，请选择!";
                     return;
                 }
 

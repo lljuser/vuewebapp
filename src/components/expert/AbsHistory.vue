@@ -121,7 +121,6 @@ export default {
       var self = this;
 
       if (self.projectHistory.OrganizationRoles === undefined) {
-        //Vue.set(this.projectHistory, "OrganizationRoles", []);
         this.projectHistory.OrganizationRoles = [];
       }
 
@@ -206,7 +205,6 @@ export default {
       this.organizationRoleModel = "";
     },
     deleteOrganizationRole: function(item) {
-        console.log(item);
       this.arrayRemoveItem(this.projectHistory.OrganizationRoles, item);
     },
     findOrganizationRoleIndex: function(arr, item) {
@@ -341,7 +339,7 @@ export default {
 </script>
 
 <style>
-    .autocomplete ul {
+    /* .autocomplete ul {
         font-family: sans-serif;
         position: absolute;
         list-style: none;
@@ -351,5 +349,5 @@ export default {
         display: inline-block;
         min-width: 15%;
         margin-top: 10px;
-    }
+    } */
 </style>
