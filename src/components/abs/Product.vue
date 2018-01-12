@@ -139,6 +139,10 @@ export default {
           this.isProductLoading = false;
           this.isShowSelect=true;
           this.page=1;
+          if(data.length<this.pageSize)
+          {
+            this.noMore=true;
+          }
         });
       }, 600);
     },
@@ -188,15 +192,7 @@ export default {
     selectChange(){
       this.isProductLoading = true;
       this.isComponentActive = true;
-      //this.isShowSelect=true;
-      //this.page=1;
       this.loadFirstPageProducts();
-      // setTimeout(() => {
-      //   this.fetchProducts(0, 0,data => {
-      //     this.list = data;
-      //     this.isProductLoading = false;
-      //   });
-      // }, 500);
     }
 
      
