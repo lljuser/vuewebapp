@@ -56,14 +56,15 @@ body{
 }
 .appH5_navbar {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	background-color: #2c2a29;
-	width:300px;
-	margin: 0 auto;
 	z-index: 999999;
 	transform: translateZ(1px);
 	-webkit-transform: translateZ(1px);
 	perspective: 1000;
+}
+.navbar-item {
+	width: 100px;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
@@ -375,6 +376,7 @@ select{
 	padding-right: 0.72rem; 
 }
 .appH5_tab{
+	display: inline-block;
 	color:#fff;
 	font-size: 19px;
 	line-height: 19px;
@@ -382,7 +384,6 @@ select{
 	padding-bottom: 9.5px;
 	padding-left:0.16rem;
 	padding-right:0.16rem;
-	float: left;
 	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
 	/* 禁用长按手势 */
 	-webkit-touch-callout: none;
