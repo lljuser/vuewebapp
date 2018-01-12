@@ -23,8 +23,8 @@
                     </select>
                 </div>
                 <div v-show="organizationRoleModel===24" class="ep_overhide ep_font32 ep_paddingLeft30 ep_paddingright30">
-                    <input class="fl ep_input ep_multipleItem ep_width440 ep_font32 ep_heightAuto" type="text" placeholder="请输入" v-model.trim="customizedOrganizationRole" />
-                    <span class="fr ep_saveBtn ep_width176 ep_marginRight0" v-on:click="addcustomizedRole(organizationRoleModel)">添加</span>
+                    <input class="fl ep_input ep_font32 ep_defineRoleInput" style="background:#fff;" type="text" placeholder="请输入" v-model.trim="customizedOrganizationRole" />
+                    <span class="fr appH5_btn_smaller_blue ep_width176 ep_marginRight0" v-on:click="addcustomizedRole(organizationRoleModel)" style="margin-top:0.1rem;">添加</span>
                 </div>
             </div>
               <div v-if="!util.isArrayEmpty(projectHistory.OrganizationRoles)" class="ep_part_item_border ep_font32 ep_paddingBottom10 ">

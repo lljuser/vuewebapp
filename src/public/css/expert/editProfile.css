@@ -980,12 +980,16 @@ select option：hover
 {
     margin: 0 10px;
 }
-.delete-Label img
-{
+.delete-Label img{
     width: 10px;
     height: 10px;
     margin-right: 9px;
     margin-top: 9px;
 }
-
+.ep_defineRoleInput{
+    margin-top: 0px;
+    margin-bottom: 0.32rem;
+    width: 6.8rem;
+    color:#000;
+}
    
