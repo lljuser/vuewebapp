@@ -117,7 +117,6 @@
                 isShowError: false,
                 errorMessage: '',
                 removePopupVisible: false,
-                //queryString: {},//GetRequest(),
                 projectHistory: {},
                 organizationRoles: [],
                 personalResponsibilities: [],

@@ -241,7 +241,7 @@
 
                 if (!this.isValidElement(this.publish.Name)) {
                     this.isShowError = true;
-                    this.errorMessage = "书名/文章标题不能为空，请填写!";
+                    this.errorMessage = "标题不能为空，请填写!";
                     return;
                 }
 
