@@ -55,10 +55,14 @@
           :key="item.Id"/>    
     </tbody>
   </table>
-  <div class="spinner_div" >
+  <div class="spinner_div" v-if="list.length==0" >
+        <span class="nomore">暂无数据</span>
+   </div>
+  <div class="spinner_div" v-else>
       <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
       <span v-if="noMore" class="nomore">没有更多了</span>
   </div>
+
  </div>
 </div>    
 </div>
@@ -144,22 +148,31 @@ export default {
       });
     },
     loadFirstPageTrades(){
+      this.loading = false;
       this.fetchTrades(1,0, data => {
         this.list = data;
         this.isTradeLoading = false;
         this.isShowSelect=true;
+        this.page=1;
+        // debugger;
+        // if( data.length!=0 && data.length<this.pageSize){
+        //     this.noMore=true;
+        // }
+        // else{
+        //   this.noMore=false;
+        // }
       });
     },  
     fetchTrades(page, direction,callback) {
+      //debugger;
       var url=webApi.Trade.list;
       url=url+"/"+this.TradeRating+"/"+this.TradeType+"/"+this.TradeWalbuck;
       url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
       axios.post(url).then((response) => { 
         const data = response.data.data;
-        if(data.length>0){
-          callback(data);
-        }
-        else{
+        //debugger;
+        callback(data);
+        if(data.length==0){
           this.loading=true;
           this.noMore=true;
         }
@@ -208,13 +221,14 @@ export default {
     selectChange(){
       this.isTradeLoading = true;
       this.isComponentActive = true;
-      setTimeout(() => {
-        this.fetchTrades(0, 1,data => {
-          this.list = data;
-          this.isTradeLoading = false;
-          this.isShowSelect=true;
-        });
-      }, 500);
+      this.loadFirstPageTrades();
+      // setTimeout(() => {
+      //   this.fetchTrades(0, 1,data => {
+      //     this.list = data;
+      //     this.isTradeLoading = false;
+      //     this.isShowSelect=true;
+      //   });
+      // }, 500);
     },
   },
   components: {

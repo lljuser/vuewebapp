@@ -7,17 +7,19 @@
                         <tr>
                             <th class="text-left">简称</th>
                             <th class="text-right">金额(亿)</th>
-                            <th class="text-center">类型</th>
+                            <th class="text-right">类型</th>
                             <th class="text-right ep_width90">
                                 操作
                             </th>
                         </tr>
                         <tr v-for="item in projectHistories" v-bind:key="item.ProjectName">
-                            <td class="ep_ellipsis text-left">{{item.ProjectShortName}}</td>
+                            <td class="text-left">
+                                <span class="ep_width225 ep_ellipsis fl">{{item.ProjectShortName}}</span>
+                            </td>
                             <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
-                            <td class="ep_ellipsis text-center">{{item.DealType}}</td>
+                            <td class="ep_ellipsis text-right">{{item.DealType}}</td>
                             <td class="ep_ellipsis text-right">
-                                <router-link class="ep_font24 ep_color_orange fr ep_lineHeight32" to="/OtherProject">
+                                <router-link class="ep_font30 ep_color_orange fr ep_lineHeight32" to="/OtherProject">
                                     编辑
                                 </router-link>
                             </td>

@@ -5,22 +5,20 @@
             <div class='appH5_panel' style="padding-top:0px;">
                     <table class="appH5_table">
                         <tr>
-                            <th class="text-left ep_width176">简称</th>
+                            <th class="text-left ep_width225">简称</th>
                             <th class="text-right">金额(亿)</th>
                             <th class="text-right">类型</th>
                             <th class='text-right ep_width90' v-if="!editable">点赞</th>
                         </tr>
                         <tr v-for="item in projectHistories" v-bind:key="item.ProjectShortName">
                             <td class="ep_ellipsis text-left">
-                                <div class=" ep_ellipsis fl ep_width176">
+                                <div class=" ep_ellipsis fl ep_width225">
                                     {{item.ProjectShortName}}
                                 </div>
                               </td>
                             <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
                             <td class="ep_ellipsis text-right">
-                                <div class="ep_ellipsis fr ep_width176">
-                                    {{item.DealType}}
-                                </div>
+                                {{item.DealType}}
                             </td>
                             <td class='text-right' v-if="!editable">
                                <div v-if="!editable" class="ep_overhide ep_lineHeight32 ">
