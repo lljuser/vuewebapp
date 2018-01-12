@@ -33,7 +33,7 @@
     </div>
 
     <div v-else>
-      <table class="appH5_table">
+      <table id="productTableId" class="appH5_table">
         <tr>
           <th>产品名称</th>
           <th class="text-right">总额(亿)</th>
@@ -233,7 +233,16 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
+#productTableId{
+  table-layout: fixed;
+}
 
+#productTableId th:nth-of-type(2){
+width: 55px;
+}
+#productTableId th:nth-of-type(3){
+width: 35%;
+}
 
 
 </style>
