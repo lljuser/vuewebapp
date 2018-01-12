@@ -45,15 +45,20 @@
         </th>
       <th class="text-right">利率(%)</th>
     </tr>
+    <tbody v-infinite-scroll="loadMore"
+          infinite-scroll-disabled="loading"
+          infinite-scroll-immediate-check="true"
+          infinite-scroll-distance="55">
         <TradeItem 
           v-for="item in list" 
           :item="item"
-          :key="item.Id"
-          v-infinite-scroll="loadMore"
-          infinite-scroll-disabled="loading"
-          infinite-scroll-immediate-check="true"
-          infinite-scroll-distance="55"/>    
+          :key="item.Id"/>    
+    </tbody>
   </table>
+  <div class="spinner_div" >
+      <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
+      <span v-if="noMore" class="nomore">没有更多了</span>
+  </div>
  </div>
 </div>    
 </div>
@@ -83,6 +88,7 @@ export default {
       isComponentActive :false,
       isFetchTradesError:false,
       isShowSelect:false,
+      noMore:false
     };
   },
    activated() {
@@ -150,8 +156,12 @@ export default {
       url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
       axios.post(url).then((response) => { 
         const data = response.data.data;
-        if(data){
+        if(data.length>0){
           callback(data);
+        }
+        else{
+          this.loading=true;
+          this.noMore=true;
         }
       }).catch((error)=>{    
         Toast('数据获取失败');    
@@ -162,6 +172,7 @@ export default {
     },
     loadMore(){
       this.loading = true;
+      this.noMore=false;
       setTimeout(() => {
         this.fetchTrades(this.page, 1,data => {
           this.list = this.list.concat(data);

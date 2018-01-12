@@ -7,19 +7,21 @@
     </td>
     <td class="text-right td_tworows">
       <div class="appH5_color_red">{{item.TotalOffering}}</div>
+      <div class="tradeStatusHeight">
       <div v-if="item.TradeType=='转让'" class="tradeStatusDiv tradeStatusBlue">转让</div>
       <div v-if="item.TradeType=='发行'" class="tradeStatusDiv tradeStatusRed">发行</div>
       <div v-if="item.TradeType=='求购'" class="tradeStatusDiv tradeStatusGreen">求购</div>
+      </div>
     </td>
     <td class="text-right td_tworows">
       <div>{{item.WAL}}</div>
       <div class="appH5_color_details appH5_font_smaller">{{item.Rating}}</div>
     </td>
-    <td class="text-right td_tworows" v-if="item.Coupon!=null && item.Coupon.split('~').length>1">
+    <td class="text-right td_tworows tradeMiddleFont" v-if="item.Coupon!=null && item.Coupon.split('~').length>1">
       <div>{{item.Coupon.split('~')[0]}}</div>
       <div>~{{item.Coupon.split('~')[1]}}</div>
     </td>
-    <td class="text-right" v-else>{{item.Coupon}}</td>
+    <td class="text-right tradeMiddleFont" v-else>{{item.Coupon}}</td>
 
   </tr>
 </template>
@@ -54,23 +56,27 @@ export default {
    text-align: center;
    font-size: 10px; 
    font-weight: lighter;  
-   border-radius: 3px;
+   border-radius: 2px;
    padding: 0 5px;
    float: right;
  }
  .tradeStatusBlue{
-   background-color: rgba(38, 161, 255, 0.24);
    border: 1px solid #26A1ff;
    color: #26A1ff;   
  }
   .tradeStatusRed{
-   background-color: rgba(255, 114, 114, 0.24);
    border: 1px solid #ff7272;
    color: #ff7272;   
  }
   .tradeStatusGreen{
-   background-color: rgba(44, 229, 171, 0.24);
    border: 1px solid #2ce5ab;
    color: #2ce5ab;   
+ }
+ .tradeMiddleFont{
+   font-size: 15px;
+ }
+ .tradeStatusHeight{
+   line-height: 13px;
+   padding-bottom: 17px;
  }
 </style>

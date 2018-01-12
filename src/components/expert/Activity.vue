@@ -34,12 +34,12 @@
             </div>
             <div class="ep_overhide ep_btnGroup">
                 <span class="ep_saveBtn fl" v-on:click="saveActivity">保存</span>
-                <span v-if="!isValidElement(id)" class="ep_cancelBtn fl">
+                <span class="ep_cancelBtn fr">
                     <router-link to="/EditProfile" class="ep_color_orange">
                         取消
                     </router-link>
                 </span>
-                <span v-else class="ep_removeBtn fr" v-on:click="removePopupVisible=true">删除本条</span>
+               <span v-if="isValidElement(id)" class="ep_removeBtn fl" v-on:click="removePopupVisible=true">删除本条信息</span>
             </div>
         </div>
         <mt-popup v-model="isShowYearMonthPopup" position='bottom' modal=true class="ep_popup">
