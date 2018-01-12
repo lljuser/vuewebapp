@@ -602,9 +602,7 @@ pre {
 .ep_popup .picker-item {
     color: #cccccc;
 }
-.ep_popup .picker-item:hover {
-    color: #ffc446 !important;
-}
+
 .ep_popup .picker-selected {
     color: #ffc446 !important;
     background-color:#535352 !important;
