@@ -420,7 +420,8 @@ pre {
 .ep_part_description {
     width: 9.2rem;
     padding: 0.22rem 0.4rem;
-    font-size: 0.426667rem;
+    /* font-size: 0.426667rem; */
+    font-size:15px;
 }
 
 .ep_overhide {
