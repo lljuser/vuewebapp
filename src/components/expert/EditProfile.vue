@@ -8,25 +8,25 @@
                 </router-link>
             </header>
             <div class="ep_part_item ep_part_item_border">
-                <span class='fl ep_font32 ep_color_grey'>头像</span>
+                <span class='fl ep_font32 appH5_color_green'>头像</span>
                 <div class="divUserAvatar fr">
                     <img v-bind:src="userInfo.User && userInfo.User.Avatar" alt="用户头像">
                 </div>
             </div>
             <div class="ep_part_item ep_part_item_border">
-                <span class='fl ep_font32 ep_color_grey'>姓名</span>
+                <span class='fl ep_font32 appH5_color_green'>姓名</span>
                 <span class=" fr ep_font32 ep_marginLeft15 ep_align_right ep_width200 ep_ellipsis">{{userInfo.User && userInfo.User.Name}}</span>
             </div>
             <div class="ep_part_item ep_part_item_border">
-                <span class='fl ep_font32 ep_color_grey'>公司</span>
+                <span class='fl ep_font32 appH5_color_green'>公司</span>
                 <span class="fr ep_font32 ep_marginLeft15 ep_align_right ep_width460 ep_ellipsis">{{userInfo.User && userInfo.User.Company}}</span>
             </div>
             <div class="ep_part_item ep_part_item_border">
-                <span class='fl ep_font32 ep_color_grey'>手机号</span>
+                <span class='fl ep_font32 appH5_color_green'>手机号</span>
                 <span class="fr ep_font32 ep_marginLeft15 ep_align_right">{{userInfo.User && userInfo.User.Cellphone}}</span>
             </div>
             <div class="ep_part_item ep_part_item_border">
-                <span class='fl ep_font32 ep_color_grey'>邮箱</span>
+                <span class='fl ep_font32 appH5_color_green'>邮箱</span>
                 <span class="fr ep_font32 ep_marginLeft15 ep_align_right">{{userInfo.User && userInfo.User.Email}}</span>
             </div>
         </section>
@@ -52,15 +52,15 @@
                         <tr>
                             <th class='text-left'>名称</th>
                             <th class='text-right'>金额(亿)</th>
-                            <th class='text-center'>类型</th>
+                            <th class='text-right'>类型</th>
                             <th class='text-right ep_width90'>操作</th>
                         </tr>
                         <tr v-for="(item, index) in _.take(userInfo.ABSProjects, 3)" v-bind:key="index">
                             <td class='text-left'>
-                                <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/expert/expertuser/projectABSDetails?dealId=' + item.DealId">{{item.DealName}}</a>
+                                <a class="ep_font32 ep_ellipsis fl ep_width176 ep_color_yellow" v-bind:href="'/abs.html#/productDetail/' + item.DealId">{{item.DealName}}</a>
                             </td>
                             <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
-                            <td class='text-center ep_ellipsis'>{{item.DealType}}</td>
+                            <td class='text-right ep_ellipsis'>{{item.DealType}}</td>
                             <td>
                                 <router-link v-bind:to="'/AbsHistory/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">
                                     编辑
@@ -99,7 +99,7 @@
                         <tr>
                             <th class="text-left">简称</th>
                             <th class="text-right">金额(亿)</th>
-                            <th class="text-center">类型</th>
+                            <th class="text-right">类型</th>
                             <th class="text-right ep_width90">
                                 操作
                             </th>
@@ -107,7 +107,7 @@
                         <tr v-for="(item, index) in _.take(userInfo.OtherProjects, 3)" v-bind:key="index">
                             <td class="ep_ellipsis text-left">{{item.ProjectShortName}}</td>
                             <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
-                            <td class="ep_ellipsis text-center">{{item.DealType}}</td>
+                            <td class="ep_ellipsis text-right">{{item.DealType}}</td>
                             <td class="ep_ellipsis text-right">
                                 <router-link class="ep_font24 ep_color_orange fr ep_lineHeight32" v-bind:to="'/OtherProject/' + item.Id">
                                     编辑
@@ -231,7 +231,7 @@
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.Publishs, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="fl ep_font28 appH5_color_green">《</span>
-                        <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
+                        <span class="ep_font28 appH5_color_green ep_ellipsis fl ep_maxWidth460">{{item.Name}}</span>
                         <span class="fl ep_font28 appH5_color_green">》</span>
                         <router-link v-bind:to="'/Article/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
@@ -240,33 +240,33 @@
                     <div class="divArticleDetail">
                         <ul class="ep_color_grey2 ep_font24 ep_decription articleDetail">
                             <li>
-                                <span>作者：</span>
-                                <span class="ep_ellipsis">{{item.Author}}</span>
+                                <span class='article_title'>作者：</span>
+                                <span class="ep_ellipsis ep_width440">{{item.Author}}</span>
                             </li>
                             <li v-if="isValidElement(item.Publisher)">
-                                <span>出版社：</span>
-                                <span class="ep_ellipsis">{{item.Publisher}}</span>
+                                <span class='article_title'>出版社：</span>
+                                <span class="ep_ellipsis ep_width440">{{item.Publisher}}</span>
                             </li>
                             <li v-if="isValidElement(item.PublishTime)">
-                                <span>出版时间：</span>
-                                <span class="ep_ellipsis">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
+                                <span class='article_title'>出版时间：</span>
+                                <span class="ep_ellipsis ep_width440">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
                             </li>
                             <li v-if="isValidElement(item.Isbn)">
-                                <span>书号ISBN：</span>
-                                <span class="ep_ellipsis">{{item.Isbn}}</span>
+                                <span class='article_title'>书号ISBN：</span>
+                                <span class="ep_ellipsis ep_width440">{{item.Isbn}}</span>
                             </li>
                             <li v-if="isValidElement(item.Pages)">
-                                <span>页数：</span>
-                                <span class="ep_ellipsis">{{item.Pages}}</span>
+                                <span class='article_title'>页数：</span>
+                                <span class="ep_ellipsis ep_width440">{{item.Pages}}</span>
                             </li>
                             <li v-if="isValidElement(item.Link)">
-                                <span>作品网址：</span>
-                                <a class="fl ep_ellipsis ep_width400 ep_color_orange_important ep_Link" v-bind:href="item.Link">{{item.Link}}</a>
+                                <span class='article_title'>作品网址：</span>
+                                <a class="fl ep_ellipsis ep_width440 ep_color_orange_important ep_Link" v-bind:href="item.Link">{{item.Link}}</a>
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
-                                <span>作品文件：</span>
+                                <span class='article_title'>作品文件：</span>
                                 <div class="fl">《</div>
-                                <span class="fl ep_ellipsis">{{item.Name}}</span>
+                                <span class="fl ep_ellipsis ep_width400">{{item.Name}}</span>
                                 <div class="fl">》</div>
                             </li>
                         </ul>
