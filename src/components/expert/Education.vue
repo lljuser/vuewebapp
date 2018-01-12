@@ -26,7 +26,7 @@
                     <span>入学时间</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <div class="fl ep_font32 ep_align_right startTime ep_right_div" v-on:click="showDatePicker('startTime')" v-bind:class="[education.FromYear === undefined ? 'ep_color_grey' : '']">
+                <div class="fl ep_font32 ep_align_left startTime ep_right_div" v-on:click="showDatePicker('startTime')" v-bind:class="[education.FromYear === undefined ? 'ep_color_grey' : '']">
                     {{education.FromYear === undefined ? '请选择' : education.FromYear}}
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     <span>毕业时间</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <div class="fl ep_font32 ep_align_right endTime ep_right_div" v-on:click="showDatePicker('endTime')" v-bind:class="[education.ToYear === undefined ? 'ep_color_grey' : '']">
+                <div class="fl ep_font32 ep_align_left endTime ep_right_div" v-on:click="showDatePicker('endTime')" v-bind:class="[education.ToYear === undefined ? 'ep_color_grey' : '']">
                     {{education.ToYear === undefined ? '请选择' : education.ToYear}}
                 </div>
             </div>

@@ -7,11 +7,12 @@
                     <span>获奖年份</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <div class="fl ep_right_div ep_font32 ep_align_right honorAwardYear" v-on:click="showYearPicker()" v-bind:class="[honorAward.Year=== undefined?'ep_color_grey':'']">{{honorAward.Year=== undefined ?'请选择':honorAward.Year}}</div>
+                <div class="fl ep_right_div ep_font32 ep_align_left honorAwardYear" v-on:click="showYearPicker()" v-bind:class="[honorAward.Year=== undefined?'ep_color_grey':'']">{{honorAward.Year=== undefined ?'请选择':honorAward.Year}}</div>
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                     <div class="ep_title_div">
                     <span>奖项名称</span>
+                    <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <input class=" ep_input fl ep_font32 " type="text" placeholder="请输入" v-model="honorAward.Name" />
             </div>
