@@ -8,7 +8,7 @@
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <select v-bind:class="otherDealTypeModel === '' ?'ep_color_grey':'ep_color_white' " class="ep_select fl ep_font32  personalRoleSelect" v-model="otherDealTypeModel" v-cloak>
-                    <option value="">请选择产品类型</option>
+                    <option value="" disabled>请选择产品类型</option>
                     <option v-for="(item, index) in otherDealTypes" v-bind:value="item.Type" v-bind:key="index">{{item.Type}}</option>
                 </select>
             </div>
@@ -106,6 +106,7 @@
 </template>
 
 <script>
+    import Vue from 'vue';
     import axios from "axios";
     import * as webApi from "@/config/api";
 
@@ -337,7 +338,8 @@
                 var self = this;
 
                 if (this.isArrayEmpty(this.projectHistory.OrganizationRoles)) {
-                   this.projectHistory.OrganizationRoles = [];
+                   //this.projectHistory.OrganizationRoles = [];
+                   Vue.set(this.projectHistory, 'OrganizationRoles', []);
                 }
 
                 for (let item of this.organizationRoles) {

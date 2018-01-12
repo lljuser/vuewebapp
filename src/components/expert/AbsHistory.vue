@@ -22,6 +22,10 @@
                         <option v-for="(item, index) in editingOrganizationRoles" v-bind:value="item.Id" v-bind:key="index">{{item.Role}}</option>
                     </select>
                 </div>
+                <div v-show="organizationRoleModel===24" class="ep_overhide ep_font32 ep_paddingLeft30 ep_paddingright30">
+                    <input class="fl ep_input ep_multipleItem ep_width440 ep_font32 ep_heightAuto" type="text" placeholder="请输入" v-model="customizedOrganizationRole" />
+                    <span class="fr ep_saveBtn ep_width176 ep_marginRight0" v-on:click="addcustomizedRole(organizationRoleModel)">添加</span>
+                </div>
             </div>
               <div v-if="!util.isArrayEmpty(projectHistory.OrganizationRoles)" class="ep_part_item_border ep_font32 ep_paddingBottom10 ">
                   <div class="ep_overhide">
@@ -77,7 +81,7 @@ import * as webApi from "@/config/api";
 import Autocomplete from 'vue2-autocomplete-js';
 import 'vue2-autocomplete-js/dist/style/vue2-autocomplete.css';
 import BusUtil from '../abs/BusUtil';
-
+import Vue from 'vue';
 import util from "@/public/modules/expert/utils";
 
 export default {
@@ -128,7 +132,8 @@ export default {
       var self = this;
 
       if (self.projectHistory.OrganizationRoles === undefined) {
-        this.projectHistory.OrganizationRoles = [];
+        //this.projectHistory.OrganizationRoles = [];
+        Vue.set(this.projectHistory, 'OrganizationRoles', []);
       }
 
       for (let item of this.organizationRoles) {
@@ -181,6 +186,7 @@ export default {
 
       if (util.isValidElement(this.id) && !isNaN(this.id)) {
           axios.post(webApi.Expert.getAbsProject, {id: this.id}).then(response => {
+              console.log(response.data.data)
               this.projectHistory = response.data.data;
               this.personalResponsibilityModel = this.projectHistory.PersonalResponsibility.Id;
               this.$refs.absHistoryItem.setValue(this.projectHistory.DealName);
