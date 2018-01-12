@@ -96,7 +96,7 @@ export default {
     var productTypeParam = this.$route.params.productType;
     var dealTypeParam=this.$route.params.dealType;
     var reLoadData=false;    
-    if(productTypeParam!=null && productTypeParam!="0" )
+    if(productTypeParam!=null )
     {
       this.ProductTypeVal= productTypeParam;
       reLoadData=true;
