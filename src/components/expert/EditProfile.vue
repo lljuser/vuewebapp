@@ -40,7 +40,7 @@
                         <span class="fl">单，</span>
                         <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
                         <span class="fl">亿)</span>
-                    </span> 
+                    </span>
                 </div>
                 <router-link to="/AbsHistory" class="fr">
                     <img class="addBtn" src="../../public/images/add.png" />
@@ -57,7 +57,7 @@
                         </tr>
                         <tr v-for="(item, index) in _.take(userInfo.ABSProjects, 3)" v-bind:key="index">
                             <td class='text-left'>
-                                <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'/abs.html#/productDetail/' + item.DealId">{{item.DealName}}</a>
+                                <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'../abs.html#/productDetail/' + item.DealId">{{item.DealName}}</a>
                             </td>
                             <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
                             <td class='text-right ep_ellipsis'>{{item.DealType}}</td>
@@ -87,7 +87,7 @@
                         <span class="fl">单，</span>
                         <span class="appH5_color_green appH5_font_larger fl">{{otherProjectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':otherProjectHistoriesSummary.totalOffering.toFixed(2)}}</span>
                         <span class="fl">亿)</span>
-                    </span> 
+                    </span>
                 </div>
                 <router-link to="/OtherProject" class="fr">
                     <img class="addBtn" src="../../public/images/add.png" />

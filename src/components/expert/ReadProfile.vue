@@ -37,11 +37,11 @@
                   <div class='appH5_title fl' style='overflow:hidden;'>
                         <span class='fl'>ABS项目</span>
                         <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
-                            <span class="fl">(共</span>    
+                            <span class="fl">(共</span>
                             <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
-                            <span class="fl">单，</span>  
+                            <span class="fl">单，</span>
                             <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
-                            <span class="fl">亿)</span>  
+                            <span class="fl">亿)</span>
                         </span>
                   </div>
                 <router-link v-if="userInfo.ABSProjects && userInfo.ABSProjects.length > 3" v-bind:to="routeUrls.ReadAbsHistoryList" class="fr text_right_link">
@@ -59,7 +59,7 @@
                         </tr>
                         <tr v-for="(item, index) in _.take(userInfo.ABSProjects, 3)" v-bind:key="index">
                             <td class='text-left'>
-                                <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'/abs.html#/productDetail/' + item.DealId">{{item.DealName}}</a>
+                                <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'../abs.html#/productDetail/' + item.DealId">{{item.DealName}}</a>
                             </td>
                             <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
                             <td class='text-right ep_ellipsis'>
@@ -90,7 +90,7 @@
                 </div>
                 <router-link v-if="userInfo.OtherProjects && userInfo.OtherProjects.length > 3" v-bind:to="routeUrls.ReadOtherProjectList" class="fr text_right_link">
                     更多
-                </router-link>  
+                </router-link>
             </header>
             <div v-if="!isArrayEmpty(userInfo.OtherProjects)" v-cloak>
                  <div class='appH5_panel' style="padding-top:0px;">
@@ -248,9 +248,9 @@
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
                                 <span class='article_title'>作品文件：</span>
-                                <div class="fl">《</div> 
-                                <span class="fl ep_ellipsis ep_maxwidth250">{{item.Name}}</span> 
-                                <div class="fl">》</div> 
+                                <div class="fl">《</div>
+                                <span class="fl ep_ellipsis ep_maxwidth250">{{item.Name}}</span>
+                                <div class="fl">》</div>
                             </li>
                         </ul>
                         <span class="ep_sendMailBtn ep_font24" v-on:click="sendAttachment(item.AttachmentFileCode)" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>

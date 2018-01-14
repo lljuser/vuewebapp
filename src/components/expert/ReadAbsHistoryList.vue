@@ -12,11 +12,11 @@
                     </tr>
                     <tr v-for="item in projectHistories" v-bind:key="item.DealId">
                         <td class='text-left'>
-                            <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'/abs.html#/productDetail/' + item.DealId">{{item.DealName}}</a>
+                            <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'../abs.html#/productDetail/' + item.DealId">{{item.DealName}}</a>
                         </td>
 
                         <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
-                        <td class='text-right ep_ellipsis'>  
+                        <td class='text-right ep_ellipsis'>
                             {{item.DealType}}
                         </td>
                         <td class='text-right' v-if="!editable">
@@ -87,7 +87,7 @@
 
                 //取消点赞
                 if (absProject.IsEndorse) {
-                    axios.post(webApi.Expert.deleteAbsProjectEndorse, { 
+                    axios.post(webApi.Expert.deleteAbsProjectEndorse, {
                         userId: this.userId,
                         dealId: absProject.DealId
                     }).then(response => {
@@ -99,7 +99,7 @@
                 }
 
                 //点赞
-                axios.post(webApi.Expert.addAbsProjectEndorse, { 
+                axios.post(webApi.Expert.addAbsProjectEndorse, {
                         userId: this.userId,
                         dealId: absProject.DealId
                     }).then(response => {
