@@ -8,7 +8,7 @@
                         <span class="fl ep_font28 appH5_color_green">《</span>
                         <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
                         <span class="fl ep_font28 appH5_color_green">》</span>
-                        <router-link v-bind:to="'/Article/' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
+                        <router-link :to="`/Article/${item.Id}`" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
                     </div>
