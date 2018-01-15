@@ -1,7 +1,12 @@
 <template>
 <div class="appH5_body">
+  
+  <div class="product-spinner" v-if="isProductLoading">
+    <mt-spinner type="triple-bounce"></mt-spinner>
+  </div>
+  <div v-else>
   <div class="appH5_panel">
-    <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0" v-if="isShowSelect">
+    <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0" >
       <tr>
         <td class="text-left">
           <select v-model="ProductTypeVal" v-on:change="selectChange()" >
@@ -26,13 +31,9 @@
         </td>
       </tr>
     </table>
-    
-  
-    <div class="product-spinner" v-if="isProductLoading">
-      <mt-spinner type="triple-bounce"></mt-spinner>
-    </div>
+ 
 
-    <div v-else>
+
       <table id="productTableId" class="appH5_table">
         <tr>
           <th>产品名称</th>
@@ -85,15 +86,12 @@ export default {
       DealType:[],
       CurrentStatus:[],
       isProductLoading: false,
-      isComponentActive: false,
       isFetchProductsError: false,
-      isShowSelect:false,
       noMore:false,
     };
   },
   mounted() {
     this.isProductLoading = true;
-    this.isComponentActive = true;
     this.timer = setTimeout(() => {
       this.loadFirstPageProducts();
     }, 600);
@@ -116,8 +114,6 @@ export default {
       reLoadData=true;
     }
     if(reLoadData){
-      this.isProductLoading = true;
-      this.isComponentActive = true;
       this.loadFirstPageProducts();
     }
 
@@ -132,12 +128,12 @@ export default {
   },
   methods: {
     loadFirstPageProducts() {
-    this.loading = false;
+      this.loading = false;
+      this.isProductLoading = true;
       setTimeout(() => {
         this.fetchProducts(1,0, data => {
           this.list = data;
           this.isProductLoading = false;
-          this.isShowSelect=true;
           this.page=1;
           if(data.length<this.pageSize)
           {
@@ -180,18 +176,24 @@ export default {
               this.loading=true;
               this.noMore=true;
             }
+            this.isFetchProductsError = false;
+        }
+        else{
+           this.doCatch();
         }
       }).catch((error) => {
+        this.doCatch();
+      });
+    }, 
+
+    doCatch(){
         Toast('数据获取失败');
         this.loading = false;
         this.isProductLoading = false;
         this.isFetchProductsError = true;
-      });
-    }, 
+    },
 
     selectChange(){
-      this.isProductLoading = true;
-      this.isComponentActive = true;
       this.loadFirstPageProducts();
     }
 

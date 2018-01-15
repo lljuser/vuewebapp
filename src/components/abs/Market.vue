@@ -4,7 +4,8 @@
     <div class="product-spinner" v-if="isMarketLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
-    <div class="appH5_panel  appH5_panel_mb" v-else>
+    <div v-else>
+    <div class="appH5_panel  appH5_panel_mb" >
     <div class="appH5_title"><span>市场概要</span></div>
     <div>
       <table class="appH5_table">
@@ -59,7 +60,7 @@
       <highcharts :options='options'></highcharts>
     </div>
   </div>
-
+    </div>
   </div>
 
 </div>
@@ -71,6 +72,7 @@ import Vue from 'vue';
 import VueHighcharts from 'vue-highcharts';
 import Highcharts from 'highcharts';
 import axios from 'axios';
+import { Toast } from 'mint-ui';
 // load these modules as your need
 import * as chartTheme from '@/public/js/chartTheme';
 import * as webApi from '@/config/api';
@@ -95,47 +97,57 @@ export default {
       },
       marketSummary:[],
       isMarketLoading: false,
+      isFetchMarketError: false,
     };
   },
   created() {
-   // this.fetchMarketSummary();
-    // this.fetchPost();
   },
   mounted() {
-    this.isMarketLoading=true,
-    this.timer = setTimeout(() => {
-      this.fetchMarketSummary(data=>{
-        this.marketSummary=data;
-        this.isMarketLoading=false;
-      });
-      this.fetchChartData();
-    }, 600);
+     this.loadfirstMarket();
   },
+
+  activated() {
+    if (this.isFetchMarketError) {
+      this.loadfirstMarket();
+    }
+  },
+
   deactivated() {
     this.timer && clearTimeout(this.timer);
   },
   methods: {
+    loadfirstMarket(){
+      this.isMarketLoading=true,
+      this.timer = setTimeout(() => {
+        this.fetchMarketSummary(data=>{
+          this.marketSummary=data;
+          this.isMarketLoading=false;
+          this.isFetchMarketError=false;
+        });
+        this.fetchChartData();
+      }, 600);
+    },
+
     fetchMarketSummary(callback) {
       axios.post(webApi.Market.list).then((response)=>{
           const data=response.data.data;
           if(data){
               callback(data);
           }
+          else{
+              this.doCatch();
+          }
+      }).catch((error) => {
+        this.doCatch();
       });
-        // .then(response => response.json())
-        // .then((json) => {
-        //   this.marketSummary = json.data;
-        //   console.log(json.data);
-        // });
     },
-    // fetchPost() {
-    //   fetch(webApi.Market.list)
-    //     .then(response => response.json())
-    //     .then((json) => {
-    //       this.list = json.data;
-    //     });
-    // },
-    //
+
+    doCatch(){
+        Toast('数据获取失败');
+        this.isMarketLoading = false;
+        this.isFetchMarketError=true;
+    },
+
     fetchChartData() {
       axios.post(webApi.Market.chart)
         .then((response) => {

@@ -17,7 +17,7 @@
                             <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
                             <td class='text-right ep_ellipsis'>{{item.DealType}}</td>
                             <td>
-                                <router-link v-bind:to="'/AbsHistory/' + item.Id" class="ep_font30 ep_color_orange fr ep_lineHeight32">
+                                <router-link :to="`/AbsHistory/${item.Id}`" class="ep_font30 ep_color_orange fr ep_lineHeight32">
                                     编辑
                                 </router-link>
                             </td>

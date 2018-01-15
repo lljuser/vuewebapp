@@ -1,11 +1,11 @@
 <template>
-    <div class="divAutocomplete">
+  <div class="divAutocomplete">
         <div class="fl">
-        <autocomplete :initValue="dealName" :classes="{ input: 'ep_align_right ep_input ep_font32'}" ref="deal" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealFullName" anchor="DealName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
+        <autocomplete :initValue="orgName" :classes="{ input: 'ep_align_right ep_input ep_font32'}" ref="organization" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="FullName" anchor="ShortName" v-bind:url="orgSearch" :debounce="250" param="keyword" placeholder="请输入机构名称">
         </autocomplete>
         </div>
         <span class="fr ep_font30 cancelBtn" v-on:click="cancel">取消</span>
-    </div>
+   </div>
 </template>
 
 <script>
@@ -15,63 +15,58 @@ import Autocomplete from 'vue2-autocomplete-js';
 import 'vue2-autocomplete-js/dist/style/vue2-autocomplete.css';
 
 export default {
-  name: 'DealSearch',
+  name: 'OrganizationSearch',
   components: { Autocomplete },
   data: function () {
     return {
-        dealSearch: webApi.Expert.dealSearch,
-        dealName: '',
+        orgSearch: webApi.Expert.orgSearch,
+        orgName: '',
     }
   },
   created: function () {
-      this.dealName = this.$route.params.dealName;
+      this.orgName = this.$route.params.orgName;
   },
   methods: {
     processJSON: function (json) {
-        return json.Deals;
+        return json.Organizations;
     },
     isValidElement: function (item) {
         return !(item === null || item === undefined || item === "");
     },
     // 处理focus的时候触发autocomplete
     focusCallBack: function () {
-        if (!this.isValidElement(this.dealName)) return;
+        if (!this.isValidElement(this.orgName)) return;
 
-        axios.post(webApi.Expert.dealSearch, {keyword: this.dealName}).then(response => {
-            this.$refs.deal.showList = true;
-            this.$refs.deal.json = response.data.Deals;
+        axios.post(webApi.Expert.orgSearch, {keyword: this.orgName}).then(response => {
+            this.$refs.organization.showList = true;
+            this.$refs.organization.json = response.data.Organizations;
         });
     },
     getData: function (obj) {
-        const deal = {
-            DealId: obj.DealId,
-            DealName: obj.DealName,
+        const organization = {
+            OrganizationName: obj.FullName,
+            OrganizationId: obj.Id,
         };
 
-        if (this.isValidElement(this.$route.params.absHistoryId)) {
-            this.$router.push({name: 'AbsHistory', params: {
-                  id: this.$route.params.absHistoryId,
-                  Deal: deal
+        if (this.isValidElement(this.$route.params.workHistoryId)) {
+            this.$router.push({name: 'WorkHistory', params: {
+                  id: this.$route.params.workHistoryId,
+                  Organization: organization
                 }
             });
             return;
         }
 
-        this.$router.push({name: 'AbsHistory', params: { Deal: deal }});
+        this.$router.push({name: 'WorkHistory', params: { Organization: organization }});
     },
     cancel: function () {
         this.$router.go(-1);
     }
-  },
-  watch: {
-      dealName: function (model) {
-          this.focusCallBack();
-      }
   }
 }
 </script>
 
-<style> 
+<style>
     body{
         background:#2a2b29;
         font-family: "Microsoft YaHei","\5FAE\8F6F\96C5\9ED1","SimSun","\5B8B\4F53","arial"!important;

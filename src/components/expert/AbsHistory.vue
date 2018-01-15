@@ -7,8 +7,7 @@
                   <span>产品名称</span>
                   <span class="ep_marginLeft10 ep_marginTop5">*</span>
                 </div>
-                <autocomplete :classes="{ input: 'ep_align_right ep_input fr ep_font32', list: 'data-list', item: 'ep_font32'}" ref="absHistoryItem" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealFullName" anchor="DealName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
-                </autocomplete>
+                <input v-on:click="selectDeal" class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="projectHistory.DealName" v-bind:disabled="util.isValidElement(id)" />
             </div>
             <div class="clearBoth"></div>
             <div class="ep_part_item_border ep_font32">
@@ -80,7 +79,6 @@ import axios from "axios";
 import * as webApi from "@/config/api";
 import Autocomplete from 'vue2-autocomplete-js';
 import 'vue2-autocomplete-js/dist/style/vue2-autocomplete.css';
-import BusUtil from '../abs/BusUtil';
 import Vue from 'vue';
 import util from "@/public/modules/expert/utils";
 
@@ -99,20 +97,14 @@ export default {
       personalResponsibilities: [],
       customizedOrganizationRole: "",
       submitPopupVisible: false,
-      util: {},
+      util: util,
       id: null,
-      dealSearch: null,
+      dealSearch: webApi.Expert.dealSearch,
     };
   },
   created: function() {
     this.scrollRestore();
-    this.util = util;
     this.id = this.$route.params.id;
-    this.dealSearch = webApi.Expert.dealSearch;
-
-    BusUtil.getInstance().bus.$on('dealSelect', function (deal) {
-        console.log(deal);
-    });
 
     this.initData();
   },
@@ -132,7 +124,6 @@ export default {
       var self = this;
 
       if (self.projectHistory.OrganizationRoles === undefined) {
-        //this.projectHistory.OrganizationRoles = [];
         Vue.set(this.projectHistory, 'OrganizationRoles', []);
       }
 
@@ -186,12 +177,14 @@ export default {
 
       if (util.isValidElement(this.id) && !isNaN(this.id)) {
           axios.post(webApi.Expert.getAbsProject, {id: this.id}).then(response => {
-              console.log(response.data.data)
               this.projectHistory = response.data.data;
               this.personalResponsibilityModel = this.projectHistory.PersonalResponsibility.Id;
-              this.$refs.absHistoryItem.setValue(this.projectHistory.DealName);
+              this.initSelectDeal();
           });
+          return;
       }
+
+      this.initSelectDeal();
     },
     addcustomizedRole: function(roleId) {
       if (
@@ -233,7 +226,6 @@ export default {
       return itemIndex;
     },
     arrayRemoveItem: function(arr, item) {
-        console.log(arr);
       var index = arr.indexOf(item);
       arr.splice(index, 1);
 
@@ -290,7 +282,7 @@ export default {
                   return;
               }
 
-              this.$router.go(-1);
+              this.$router.push({name: 'EditProfile'});
           });
 
         return;
@@ -310,7 +302,7 @@ export default {
               return;
           }
 
-          this.$router.go(-1);
+          this.$router.push({name: 'EditProfile'});
       });
     },
     removeContent: function() {
@@ -331,25 +323,27 @@ export default {
           this.$router.go(-1);
       });
     },
-    processJSON: function (json) {
-        return json.Deals;
-    },
-    // 处理focus的时候不触发autocomplete
-    focusCallBack: function (e) {
-        if (!util.isValidElement(e.target.value)) return;
-
-        axios.post(webApi.Expert.dealSearch, {keyword: e.target.value}).then(response => {
-            this.$refs.absHistoryItem.showList = true;
-            this.$refs.absHistoryItem.json = response.data.Deals;
-        });
-    },
-    getData: function (obj) {
-      this.projectHistory.DealId = obj.DealId;
-      this.projectHistory.DealName = obj.DealName;
-    },
     scrollRestore: function () {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0; 
+    },
+    selectDeal: function () {
+        if (util.isValidElement(this.id)) {
+            this.$toast("不能修改产品名称!");
+            return;
+        }
+
+        this.$router.push({ name: 'DealSearch', params: { 
+            dealName: this.projectHistory.DealName, 
+            absHistoryId: this.id
+            } 
+        });
+    },
+    initSelectDeal: function () {
+        if (util.isValidElement(this.$route.params.Deal)) {
+            this.projectHistory.DealName = this.$route.params.Deal.DealName;
+            this.projectHistory.DealId = this.$route.params.Deal.DealId;
+        }
     }
   },
 };

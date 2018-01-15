@@ -1,7 +1,11 @@
 <template>
 <div class="appH5_body">              
 <div class="appH5_panel">
-  <table class="appH5_select_div trade_select_div" cellspacing="0"  cellpadding="0" v-if="isShowSelect">
+  <div class="product-spinner" v-if="isTradeLoading">
+    <mt-spinner type="triple-bounce"></mt-spinner>
+  </div>
+  <div v-else>
+  <table class="appH5_select_div trade_select_div" cellspacing="0"  cellpadding="0">
      <tr>
        <td class="text-left">
         <select v-model="TradeRating" v-on:change="selectChange()">
@@ -30,11 +34,6 @@
     </tr>    
   </table>
 
-    <div class="product-spinner" v-if="isTradeLoading">
-      <mt-spinner type="triple-bounce"></mt-spinner>
-    </div>
-
-  <div v-else>
   <table id="tradeTableId" class="appH5_table" style="table-layout:fixed;">
     <tr>
       <th>证券简称</th>
@@ -72,6 +71,7 @@ import BusUtil from './BusUtil';
 import * as webApi from '@/config/api';
 import TradeItem from "./TradeItem";
 import axios from 'axios';  
+import { Toast } from 'mint-ui';
 
 export default {
   name: "trade",
@@ -89,9 +89,7 @@ export default {
       pageSize:15,
       direction:0,
       isTradeLoading:false,
-      isComponentActive :false,
       isFetchTradesError:false,
-      isShowSelect:false,
       noMore:false
     };
   },
@@ -114,8 +112,6 @@ export default {
       reLoadData=true;
     }
     if(reLoadData){
-      this.isProductLoading = true;
-      this.isComponentActive = true;
       this.loadFirstPageTrades();
     }
 
@@ -125,7 +121,6 @@ export default {
   },
   mounted(){
     this.isTradeLoading = true;
-    this.isComponentActive = true;
     setTimeout(() => {
       this.loadFirstPageTrades();
       this.loadSelectOptions();
@@ -148,17 +143,19 @@ export default {
       });
     },
     loadFirstPageTrades(){
+      this.isTradeLoading = true;
       this.loading = false;
-      this.fetchTrades(1,0, data => {
-        this.list = data;
-        this.isTradeLoading = false;
-        this.isShowSelect=true;
-        this.page=1;
-        if(data.length<this.pageSize)
-        {
-          this.noMore=true;
-        }
-      });
+      setTimeout(() => {
+        this.fetchTrades(1,0, data => {
+          this.list = data;
+          this.isTradeLoading = false;
+          this.page=1;
+          if(data.length<this.pageSize)
+          {
+            this.noMore=true;
+          }
+        });
+      }, 600);
     },  
     fetchTrades(page, direction,callback) {
       var url=webApi.Trade.list;
@@ -166,18 +163,29 @@ export default {
       url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
       axios.post(url).then((response) => { 
         const data = response.data.data;
-        callback(data);
-        if(data.length==0){
-          this.loading=true;
-          this.noMore=true;
+        if (data) {
+          callback(data);
+          if(data.length==0){
+            this.loading=true;
+            this.noMore=true;
+          }
+          this.isFetchTradesError=false;
+        }
+        else{
+          this.doCatch();
         }
       }).catch((error)=>{    
+        this.doCatch();
+      });    
+    },
+
+    doCatch(){
         Toast('数据获取失败');    
         this.loading = false;
         this.isTradeLoading=false;
         this.isFetchTradesError=true;
-      });    
     },
+
     loadMore(){
       this.loading = true;
       this.noMore=false;
@@ -214,16 +222,7 @@ export default {
       });
     },
     selectChange(){
-      this.isTradeLoading = true;
-      this.isComponentActive = true;
       this.loadFirstPageTrades();
-      // setTimeout(() => {
-      //   this.fetchTrades(0, 1,data => {
-      //     this.list = data;
-      //     this.isTradeLoading = false;
-      //     this.isShowSelect=true;
-      //   });
-      // }, 500);
     },
   },
   components: {

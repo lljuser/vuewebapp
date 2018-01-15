@@ -19,7 +19,7 @@
                             <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
                             <td class="ep_ellipsis text-right">{{item.DealType}}</td>
                             <td class="ep_ellipsis text-right">
-                                <router-link class="ep_font30 ep_color_orange fr ep_lineHeight32" to="/OtherProject">
+                                <router-link class="ep_font30 ep_color_orange fr ep_lineHeight32" :to="`/OtherProject/${item.Id}`">
                                     编辑
                                 </router-link>
                             </td>
