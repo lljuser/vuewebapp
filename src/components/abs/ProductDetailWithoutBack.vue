@@ -1,8 +1,8 @@
 <template>
   <div class="appH5_body" style="padding-top:0">
-    <!-- <div class="product-spinner" v-if="isProductLoading">
+    <div class="product-spinner" v-if="isProductLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
-    </div> -->
+    </div>
     <div class="appH5_content">
       <div class="appH5_panel appH5_panel_mb">
           <div class="appH5_title">
@@ -157,7 +157,7 @@ export default {
         if (productId) {
           this.fetchProductDetail(productId,data=>{
               this.productDetail =data;
-            //  this.isProductLoading=false;
+              this.isProductLoading=false;
               if(data.DealId!=null&&data.DealId>0){
                   if(data.NoteList!=null&&data.NoteList.length>0){
                       if(data.NoteList.length>6){

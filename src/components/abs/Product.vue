@@ -69,7 +69,7 @@ import * as webApi from '@/config/api';
 import ProductItem from './ProductItem';
 import axios from 'axios';
 import { Toast } from 'mint-ui';
-
+import 'mint-ui/lib/style.css'
 export default {
   name: "product",
   data() {
