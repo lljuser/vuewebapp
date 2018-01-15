@@ -1,10 +1,10 @@
 <template>
-<div class="appH5_body">              
-<div class="appH5_panel">
+<div class="appH5_body"> 
   <div class="product-spinner" v-if="isTradeLoading">
     <mt-spinner type="triple-bounce"></mt-spinner>
   </div>
-  <div v-else>
+  <div v-else>             
+<div class="appH5_panel">
   <table class="appH5_select_div trade_select_div" cellspacing="0"  cellpadding="0">
      <tr>
        <td class="text-left">
