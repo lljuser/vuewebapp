@@ -180,7 +180,7 @@ export default {
     },
 
     doCatch(){
-        Toast('数据获取失败');    
+        Toast('服务器繁忙，请重试！');    
         this.loading = false;
         this.isTradeLoading=false;
         this.isFetchTradesError=true;
