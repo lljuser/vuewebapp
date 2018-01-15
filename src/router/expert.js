@@ -27,6 +27,7 @@ import Education from '@/components/expert/Education';
 import BriefIntroducation from '@/components/expert/BriefIntroducation';
 import WorkHistory from '@/components/expert/WorkHistory';
 import DealSearch from '@/components/expert/DealSearch';
+import OrganizationSearch from '@/components/expert/OrganizationSearch';
 
 Vue.use(Router);
 Vue.use(MintUI);
@@ -137,6 +138,12 @@ export default new Router({
       path: '/DealSearch/:dealName?',
       name: 'DealSearch',
       component: DealSearch,
+    },
+    //
+    {
+      path: '/OrganizationSearch/:orgName?',
+      name: 'OrganizationSearch',
+      component: OrganizationSearch,
     },
   ],
 });

@@ -79,7 +79,6 @@ import axios from "axios";
 import * as webApi from "@/config/api";
 import Autocomplete from 'vue2-autocomplete-js';
 import 'vue2-autocomplete-js/dist/style/vue2-autocomplete.css';
-import BusUtil from '../abs/BusUtil';
 import Vue from 'vue';
 import util from "@/public/modules/expert/utils";
 
@@ -181,7 +180,6 @@ export default {
               this.projectHistory = response.data.data;
               this.personalResponsibilityModel = this.projectHistory.PersonalResponsibility.Id;
               this.initSelectDeal();
-              console.log(this.projectHistory);
           });
           return;
       }
