@@ -165,7 +165,6 @@
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.OtherPosts" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width600">{{item.Name}}</span>
-                        <!-- <a v-bind:href="'/expert/expertuser/otherPosition?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32">编辑</a> -->
                         <router-link v-bind:to="'/OtherPosition/' + item.Id" class="ep_font30 ep_color_orange fr ep_lineHeight32">
                             编辑
                         </router-link>
@@ -185,7 +184,6 @@
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.HonorAwards" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
-                        <!-- <a v-bind:href="'/expert/expertuser/awardsAndHonors?id=' + item.Id" class="ep_font24 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">编辑</a> -->
                         <router-link v-bind:to="'/AwardAndHonor/' + item.Id" class="ep_font30 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
                         </router-link>
@@ -322,9 +320,6 @@
                 <router-link to="/BriefIntroducation">
                     <img class="fr editPencils" src="../../public/images/pencils.png" alt="">
                 </router-link>
-                <!-- <a href="/expert/expertuser/personalProfile">
-                    <img class="fr editPencils" src="../../public/images/pencils.png" alt="">
-                </a> -->
             </header>
             <pre v-if="isValidElement(userInfo.User.Introduction)" class="ep_part_description" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
             <p v-else class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey">暂无个人简介</p>
