@@ -1,5 +1,5 @@
  
-const apiAddress = 'http://10.1.1.35';
+const apiAddress = process.env.API_ADDRESS;
 export default apiAddress;
 
 export const Market = {
@@ -23,7 +23,7 @@ export const Trade = {
   list: `${apiAddress}/motrade/gettradelist`,
   // /{tradeId}/{noteId}/{tradeType}
   detail: `${apiAddress}//motrade/gettradedata`,
-  typeList: `${apiAddress}/motrade/getsecuritytypelist`,
+  typeList: `${apiAddress}/motrade/getsecuritytypelist`, 
   walbuckList: `${apiAddress}/moTrade/getwalbucketlist`, 
   ratingList: `${apiAddress}/motrade/getratinglist`,
 };
