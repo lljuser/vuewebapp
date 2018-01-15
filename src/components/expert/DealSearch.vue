@@ -4,7 +4,7 @@
         <autocomplete :initValue="dealName" :classes="{ input: 'ep_align_right ep_input ep_font32'}" ref="deal" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealFullName" anchor="DealName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
         </autocomplete>
         </div>
-        <span class="fr ep_font30 cancelBtn">取消</span>
+        <span class="fr ep_font30 cancelBtn" v-on:click="cancel">取消</span>
     </div>
 </template>
 
@@ -20,16 +20,12 @@ export default {
   components: { Autocomplete },
   data: function () {
     return {
-        dealSearch: null,
+        dealSearch: webApi.Expert.dealSearch,
         dealName: '',
-        deal: {},
-        searchResults: []
     }
   },
   created: function () {
-      this.dealSearch = webApi.Expert.dealSearch;
       this.dealName = this.$route.params.dealName;
-      console.log(this.$refs.deal);
   },
   methods: {
     processJSON: function (json) {
@@ -38,33 +34,39 @@ export default {
     isValidElement: function (item) {
         return !(item === null || item === undefined || item === "");
     },
-    // 处理focus的时候不触发autocomplete
-    focusCallBack: function (e) {
-        if (!this.isValidElement(e.target.value)) return;
-        console.log(this.$refs.deal);
+    // 处理focus的时候触发autocomplete
+    focusCallBack: function () {
+        if (!this.isValidElement(this.dealName)) return;
 
-        axios.post(webApi.Expert.dealSearch, {keyword: e.target.value}).then(response => {
+        axios.post(webApi.Expert.dealSearch, {keyword: this.dealName}).then(response => {
             this.$refs.deal.showList = true;
             this.$refs.deal.json = response.data.Deals;
         });
     },
     getData: function (obj) {
-      BusUtil.getInstance().bus.$emit('dealSelect', {
-          DealId: obj.DealId,
-          DealName: obj.DealName
-      });
+        const deal = {
+            DealId: obj.DealId,
+            DealName: obj.DealName,
+        };
 
-      this.$router.push({name: 'AbsHistory'});
+        if (this.isValidElement(this.$route.params.absHistoryId)) {
+            this.$router.push({name: 'AbsHistory', params: {
+                  id: this.$route.params.absHistoryId,
+                  Deal: deal
+                }
+            });
+            return;
+        }
+
+        this.$router.push({name: 'AbsHistory', params: { Deal: deal }});
+    },
+    cancel: function () {
+        this.$router.go(-1);
     }
   },
-  updated: function () {
-      console.log("test");
-      console.log($refs.deal);
-  },
   watch: {
-      '$refs.deal': function (obj) {
-          console.log("test");
-
+      dealName: function (model) {
+          this.focusCallBack();
       }
   }
 }
