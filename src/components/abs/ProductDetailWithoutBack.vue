@@ -71,7 +71,7 @@
                     <th class="text-right">初始(亿)<br/>剩余(亿)</th>
                     <th class="text-right">利率<br/>估值</th>
                     <th class="text-right">期限<br/>类型</th>
-                    <th class="text-right">最新评级<br/>建议评级</th>
+                    <th class="text-right">公开评级<br/>量化评级</th>
                 </tr>
                 <tr v-for="(item,index) in productDetail.NoteList">
                     <td><div class="appH5_ellipsis" style="width:2.1rem;">{{item.Description}}</div></td>
