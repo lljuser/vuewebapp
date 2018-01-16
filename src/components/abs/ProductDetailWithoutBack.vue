@@ -128,15 +128,30 @@ Highcharts.setOptions(chartTheme);
 
 export default {
     name: 'productDetailWithoutBack',
+    data() {
+        return {
+            productDetail: {},
+            publishDate:"",
+            noteConsTable:"",
+            isProductLoading:false,
+            options: {
+                title: {
+                    text: '暂无数据'
+                },
+                credits: {
+                    href: '',
+                    text: 'CNABS'
+                },
+            },
+            chartWidthRem:3,
+            chartWidthPx:225,
+            isFetchDetailError:false,
+        };
+    },
     created() {
-        // const busUtil = BusUtil.getInstance();
-        // busUtil.bus.$emit('showHeader', true);
-        // busUtil.bus.$emit('path', '/product');
+        
     }, 
     mounted() {
-      // const busUtil = BusUtil.getInstance();
-      // busUtil.bus.$emit('showHeader', true);
-      // busUtil.bus.$emit('path', '/product');
         //clear all data cache
         this.productDetail = {};
         this.publishDate = "";
@@ -155,25 +170,26 @@ export default {
         this.isProductLoading=true;
         const productId = getParams("dealId");
         if (productId) {
-          this.fetchProductDetail(productId,data=>{
-              this.productDetail =data;
-              this.isProductLoading=false;
-              if(data.DealId!=null&&data.DealId>0){
-                  if(data.NoteList!=null&&data.NoteList.length>0){
-                      if(data.NoteList.length>6){
-                          this.chartWidthPx=280;
-                      }else if(data.NoteList.length>4){
-                          this.chartWidthPx=200;
-                      }else{
-                          this.chartWidthPx=150;
-                      }
-                  }
-                  this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
-              }
-              if (data.ResultSetId != null && data.ResultSetId > 0) {
-                  this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
-              }
-            });
+            setTimeout(()=>{
+                this.fetchProductDetail(productId,data=>{
+                this.productDetail =data;
+                this.isProductLoading=false;
+                if(data.DealId!=null&&data.DealId>0){
+                    if(data.NoteList!=null&&data.NoteList.length>0){
+                        if(data.NoteList.length>6){
+                            this.chartWidthPx=280;
+                        }else if(data.NoteList.length>4){
+                            this.chartWidthPx=200;
+                        }else{
+                            this.chartWidthPx=150;
+                        }
+                    }
+                    this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
+                }
+                if (data.ResultSetId != null && data.ResultSetId > 0) {
+                    this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
+                }
+            })},600);
           }
       
     },
@@ -194,225 +210,168 @@ export default {
         }
     },
     activated() {
-        //clear all data cache
-    //     this.productDetail = {};
-    //     this.publishDate = "";
-    //     this.noteConsTable="";
-    //     this.options =  {
-    //         title: {
-    //         text: '暂无数据'
-    //         },
-    //         credits: {
-    //         href: '',
-    //         text: 'CNABS'
-    //     },
-    //     };
-    // window.scrollTo(0,0);
-    // // const busUtil = BusUtil.getInstance();
-    // // busUtil.bus.$emit('showHeader', true);
-    // // busUtil.bus.$emit('path', '/product');
-    // // this.id = this.$route.params.id;
-    // const productId = getParams("dealId");
-    // // if (productId) {
-    // //   this.fetchProductDetail(productId);
-    // // }
-
-    // if (productId) {
-    //     this.fetchProductDetail(productId,data=>{
-    //         console.log(data);
-    //         this.productDetail =data;
-    //         if(this.productDetail.Basic.ClosingDate!=null)
-    //             this.publishDate=new Date(this.productDetail.Basic.ClosingDate.toString());
-    //         var resultId = data.ResultSetId;
-    //         if(data.DealId!=null&&data.DealId>0){
-    //             if(data.NoteList!=null&&data.NoteList.length>0){
-    //                 if(data.NoteList.length>6){
-    //                     this.chartWidthPx=280;
-    //                 }else if(data.NoteList.length>4){
-    //                     this.chartWidthPx=200;
-    //                 }else{
-    //                     this.chartWidthPx=150;
-    //                 }
-    //             }
-    //             this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
-    //         }
-    //         if (data.ResultSetId != null && data.ResultSetId > 0) {
-    //             this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
-    //         }
-    //     });
-    // }
-    // busUtil.bus.$emit('showHeader', true);
-    // busUtil.bus.$emit('path', '/product');
  
-  },
-  data() {
-    return {
-        productDetail: {},
-        publishDate:"",
-        noteConsTable:"",
-        isProductLoading:false,
-        options: {
-        title: {
-          text: '暂无数据'
-        },
-        credits: {
-          href: '',
-          text: 'CNABS'
-        },
-      },
-        chartWidthRem:3,
-        chartWidthPx:225,
-    };
-  },
-  methods: {
-    fetchNoteConsTable(dealId,width,height){
-        axios(webApi.Product.structure+"/"+dealId+"/"+width+"/"+height)
-        .then((response)=>{
-           // console.log(response);
-           if(response.data.status=="ok"){
-                this.noteConsTable=response.data.data;
-            }
-        });
+    },
+  
+    methods: {
+        fetchNoteConsTable(dealId,width,height){
+            axios(webApi.Product.structure+"/"+dealId+"/"+width+"/"+height)
+            .then((response)=>{
+            // console.log(response);
+            if(response.data.status=="ok"){
+                    this.noteConsTable=response.data.data;
+                }
+            });
 
-    },
-    fetchProductDetail(id,callback) {
-        // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
-        axios(webApi.Product.detail.concat(['',id].join('/')))
+        },
+        fetchProductDetail(id,callback) {
+            // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
+            axios(webApi.Product.detail.concat(['',id].join('/')))
+            .then((response) => {
+                if (response.data.status == "ok") {
+                    const data = response.data.data;
+                    if(data){
+                        callback(data);
+                    }else{
+                        this.doCatch();
+                    }
+                }
+            }).catch((error) => {
+                this.doCatch();
+            });
+        },
+        doCatch(){
+            Toast('服务器繁忙，请重试！');
+            this.loading = false;
+            this.isProductLoading = false;
+            this.isFetchProductsError = true;
+        },
+        fetchProductPaymentChart(dealId, resultId) {
+        axios(webApi.Product.chart.concat(['', dealId, resultId].join('/')))
         .then((response) => {
-            if (response.data.status == "ok") {
-              const data = response.data.data;
-              if(data){
-                callback(data);
-              }
-            }
-        });
-    },
-    fetchProductPaymentChart(dealId, resultId) {
-      axios(webApi.Product.chart.concat(['', dealId, resultId].join('/')))
-      .then((response) => {
-        const json = response.data;
-        if (json.status == "ok") {
-          var chartData = json.data;
-          var o = [];
-                var hasLegal = chartData.HasLegalLine;
-                var colors = ["#2b908f", "#D8C46C", "#f45b5b", "#7798BF", "#FF1495", "#37FF14", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee", "#00FFFF", "#8B008B"]
-                var seriesLength = chartData.ListLineSeries.length / 2;
-                for (var j = 0; j < Math.floor((hasLegal ? seriesLength : 2 * seriesLength) / colors.length); j++)
-                    colors = colors.concat(colors);
-                var i = 0;
-                chartData.ListLineSeries.forEach(
-                    function (e) {
-                        var a = [];
-                        e.Data.Data.forEach(
-                            function (e) {
-                                a.push([e.X, e.Y]);
-                            });
-                        if (hasLegal == true) {
-                            if (i < seriesLength) {
-                                o.push({
-                                    name: e.Name,
-                                    data: a,
-                                    type: 'line',
-                                    step: true,
-                                    color: colors[i]
+            const json = response.data;
+            if (json.status == "ok") {
+            var chartData = json.data;
+            var o = [];
+                    var hasLegal = chartData.HasLegalLine;
+                    var colors = ["#2b908f", "#D8C46C", "#f45b5b", "#7798BF", "#FF1495", "#37FF14", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee", "#00FFFF", "#8B008B"]
+                    var seriesLength = chartData.ListLineSeries.length / 2;
+                    for (var j = 0; j < Math.floor((hasLegal ? seriesLength : 2 * seriesLength) / colors.length); j++)
+                        colors = colors.concat(colors);
+                    var i = 0;
+                    chartData.ListLineSeries.forEach(
+                        function (e) {
+                            var a = [];
+                            e.Data.Data.forEach(
+                                function (e) {
+                                    a.push([e.X, e.Y]);
                                 });
+                            if (hasLegal == true) {
+                                if (i < seriesLength) {
+                                    o.push({
+                                        name: e.Name,
+                                        data: a,
+                                        type: 'line',
+                                        step: true,
+                                        color: colors[i]
+                                    });
+                                }
+                                else {
+                                    o.push({
+                                        name: e.Name,
+                                        data: a,
+                                        dashStyle: 'Dot',
+                                        step: true,
+                                        color: colors[i - seriesLength]
+                                    });
+                                }
+                                i++;
                             }
                             else {
                                 o.push({
                                     name: e.Name,
                                     data: a,
-                                    dashStyle: 'Dot',
-                                    step: true,
-                                    color: colors[i - seriesLength]
+                                    type: 'spline',
                                 });
                             }
-                            i++;
-                        }
-                        else {
-                            o.push({
-                                name: e.Name,
-                                data: a,
-                                type: 'spline',
-                            });
-                        }
 
-                    });
-                var i = chartData.PlotValue,
-                    s = chartData.PlotLabel;
-                var l = {
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {
-                        type: "datetime",
-                        dateTimeLabelFormats: {
-                            second: "%Y-%m-%d %H:%M:%S",
-                            minute: "%Y-%m-%d %H:%M",
-                            hour: "%Y-%m-%d %H:%M",
-                            day: "%Y-%m-%d",
-                            week: "%Y年%m月",
-                            month: "%Y年",
-                            year: "%Y年"
+                        });
+                    var i = chartData.PlotValue,
+                        s = chartData.PlotLabel;
+                    var l = {
+                        title: {
+                            text: ''
                         },
-                        plotLines: [{
-                            color: "white",
-                            width: .8,
-                            value: i,
-                            dashStyle: "dash",
-                            label: {
-                                text: s,
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                style: {
-                                    color: "#E0E0E3"
+                        xAxis: {
+                            type: "datetime",
+                            dateTimeLabelFormats: {
+                                second: "%Y-%m-%d %H:%M:%S",
+                                minute: "%Y-%m-%d %H:%M",
+                                hour: "%Y-%m-%d %H:%M",
+                                day: "%Y-%m-%d",
+                                week: "%Y年%m月",
+                                month: "%Y年",
+                                year: "%Y年"
+                            },
+                            plotLines: [{
+                                color: "white",
+                                width: .8,
+                                value: i,
+                                dashStyle: "dash",
+                                label: {
+                                    text: s,
+                                    verticalAlign: "middle",
+                                    textAlign: "left",
+                                    style: {
+                                        color: "#E0E0E3"
+                                    }
+                                }
+                            }],
+                            plotBands: [{
+                                color: "#333",
+                                from: Date.UTC(2e3, 1, 1),
+                                to: i
+                            }]
+                        },
+                        yAxis: {
+                            title: {
+                                enabled: !0,
+                                text: ""
+                            },
+                            labels: {
+                                format: "{value:.0f}%"
+                            },
+                            max: 100
+                        },
+                        plotOptions: {
+                            series: {
+                                marker: {
+                                    enabled: !1
                                 }
                             }
-                        }],
-                        plotBands: [{
-                            color: "#333",
-                            from: Date.UTC(2e3, 1, 1),
-                            to: i
-                        }]
-                    },
-                    yAxis: {
-                        title: {
-                            enabled: !0,
-                            text: ""
                         },
-                        labels: {
-                            format: "{value:.0f}%"
-                        },
-                        max: 100
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: !1
+                        tooltip: {
+                            formatter: function () {
+                                var t,
+                                    e = new Date(this.x);
+                                return t = e.getFullYear() + "-" + (e.getMonth() + 1) + "-" + e.getDate() + "<br/>" + this.series.name + "剩余本金:<br/>" + Math.round(100 * this.y) / 100 + "%"
                             }
-                        }
-                    },
-                    tooltip: {
-                        formatter: function () {
-                            var t,
-                                e = new Date(this.x);
-                            return t = e.getFullYear() + "-" + (e.getMonth() + 1) + "-" + e.getDate() + "<br/>" + this.series.name + "剩余本金:<br/>" + Math.round(100 * this.y) / 100 + "%"
-                        }
-                    },
-                    legend : {
-                        style: {
-                            fontSize: '10px'
-                        }
-                    },
-                    credits: {
-                      href: '',
-                      text: 'CNABS'
-                    },
-                    series: o
-                };
-        this.options = l;
+                        },
+                        legend : {
+                            style: {
+                                fontSize: '10px'
+                            }
+                        },
+                        credits: {
+                        href: '',
+                        text: 'CNABS'
+                        },
+                        series: o
+                    };
+            this.options = l;
+            }
+        });
         }
-      });
-    }
-  },
+    },
 };
 </script>
