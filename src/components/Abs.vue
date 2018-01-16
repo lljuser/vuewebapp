@@ -116,7 +116,6 @@ export default {
     needSwipeAction(path, arrays) {
       var rlt = false;
       arrays.forEach(function (item) {
-        console.log(item);
           var cons = path.indexOf(item, path.length - item.length) !== -1; //endwith the specail array
           var flg = path.indexOf('/' + item + '/') !== -1; // the specail filter
           if (cons || flg) {
