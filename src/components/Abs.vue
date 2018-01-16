@@ -88,11 +88,15 @@ export default {
        self.isVertical = Math.abs(nowY - self.startY) / Math.abs(nowX - self.startX) > (Math.sqrt(3) / 3);
        if (!self.isVertical) {
          var index = self.getRouterIndex()*1;
-        if ((nowX - self.startX) > 60) {
-          self.$router.push({ name: self.tabs[index - 1]});
-        } else if ((nowX - self.startX) < -60) {
-          self.$router.push({ name: self.tabs[index + 1]});
-        }
+         //var ff = this.$route.path;
+         var flag = self.needSwipeAction(this.URL, self.tabs);
+         if (flag) {
+           if ((nowX - self.startX) > 60) {
+             self.$router.push({ name: self.tabs[index - 1]});
+           } else if ((nowX - self.startX) < -60) {
+           self.$router.push({ name: self.tabs[index + 1]});
+           }
+         }
       }
     }, false);
   },
@@ -109,6 +113,18 @@ export default {
          }
        }
     },
+    needSwipeAction(path, arrays) {
+      var rlt = false;
+      arrays.forEach(function (item) {
+        console.log(item);
+          var cons = path.indexOf(item, path.length - item.length) !== -1; //endwith the specail array
+          var flg = path.indexOf('/' + item + '/') !== -1; // the specail filter
+          if (cons || flg) {
+            rlt = true;
+          }
+      });
+      return rlt;
+    }
   },
 };
 </script>
