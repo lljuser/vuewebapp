@@ -27,7 +27,8 @@
               <td class="appH5_white_space">证券类型</td>
               <td class="appH5_color_link"><router-link :to="`/trade/${detailInfo.RatingId}/${detailInfo.SecurityTypeId}`"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
               <td class="appH5_white_space">评&#12288;&#12288;级</td>
-              <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'"><router-link :to="`/trade/${detailInfo.RatingId}/${detailInfo.SecurityTypeId}`"><a href="javascript:;">{{detailInfo.Rating}}</a></router-link></td>
+              <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'">{{detailInfo.Rating}}</td>
+              <!-- <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'"><router-link :to="`/trade/${detailInfo.RatingId}/${detailInfo.SecurityTypeId}`"><a href="javascript:;">{{detailInfo.Rating}}</a></router-link></td> -->
               <td v-else>-</td>
           </tr>
           <tr>
@@ -134,11 +135,22 @@ export default {
         const data = response.data.data;
         if(data){
             callback(data);
+        }else{
+          this.doCatch();
         }
-      });
+      }).catch((error)=>{    
+        this.doCatch();
+      }); 
     }, 
     cutStr(arr){
         return arr.split("转")[0];
+    },
+    
+    doCatch(){
+        Toast('服务器繁忙，请重试！');    
+        this.loading = false;
+        this.isTradeLoading=false;
+        this.isFetchTradesError=true;
     },
   },
   activated() {

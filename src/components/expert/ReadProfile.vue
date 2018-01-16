@@ -2,7 +2,7 @@
   <div class="editProfileContent" v-cloak>
         <section class="ep_part ep_overhide" id="basicInformation">
             <div class="ep_overhide basicInformationCard">
-                <div class="fl ep_divAvatar">
+                <div class="fl ep_divAvatar" v-show="userInfo.User && userInfo.User.Avatar">
                     <img style="width:1.866667rem;" v-bind:src="userInfo.User && userInfo.User.Avatar" alt="用户头像">
                 </div>
                 <div class="fl ep_marginLeft30 ep_width517" v-cloak>
@@ -132,7 +132,7 @@
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.WorkHistories" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width520 appH5_color_green">{{item.Position}}</span>
-                        <!-- <span class="fr ep_color_grey2 ep_font28 ep_lineHeight32">机构已认证</span> -->
+                        <span v-if="item.IsAuthenticated" class="fr ep_color_grey2 ep_font28 ep_lineHeight32">机构已认证</span>
                     </div>
                     <div class="ep_font24 ep_color_grey2 ep_marginTop10 ep_overhide">
                         <span class="fl ep_maxWidth400 ep_ellipsis">{{item.Company}}</span>
@@ -296,6 +296,7 @@
 </template>
 
 <script>
+
 import _ from "lodash";
 import axios from "axios";
 import * as webApi from "@/config/api";
@@ -318,9 +319,9 @@ export default {
     };
   },
   created: function() {
-    this._ = _;
-    this.userId = util.getQueryString().UserId;
-    this.initData();
+      this._ = _;
+      this.userId = util.getQueryString().UserId;
+      this.initData();
   },
   methods: {
     initData: function() {
