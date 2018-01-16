@@ -32,23 +32,23 @@
                 </div>
             </div>
         </section>
-        <section class="ep_part" id="projectHistoryABS">
+        <section class="ep_part" id="projectHistoryABS" v-if="!isArrayEmpty(userInfo.ABSProjects)" v-cloak>
             <header class="ep_part_title">
-                  <div class='appH5_title fl' style='overflow:hidden;'>
-                        <span class='fl'>ABS项目</span>
-                        <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
-                            <span class="fl">(共</span>
-                            <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
-                            <span class="fl">单，</span>
-                            <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
-                            <span class="fl">亿)</span>
-                        </span>
-                  </div>
+                <div class='appH5_title fl' style='overflow:hidden;'>
+                    <span class='fl'>ABS项目</span>
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
+                        <span class="fl">(共</span>
+                        <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
+                        <span class="fl">单，</span>
+                        <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
+                        <span class="fl">亿)</span>
+                    </span>
+                </div>
                 <router-link v-if="userInfo.ABSProjects && userInfo.ABSProjects.length > 3" v-bind:to="routeUrls.ReadAbsHistoryList" class="fr text_right_link">
                     更多
                 </router-link>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.ABSProjects)" v-cloak>
+            <div>
                  <div class='appH5_panel' style="padding-top:0px;">
                     <table class="appH5_table">
                         <tr>
@@ -66,17 +66,16 @@
                                 {{item.DealType}}
                             </td>
                             <td class='text-right' v-if="!editable">
-                                <div  class="ep_overhide ep_lineHeight32">
-                                        <img class="followImg" v-bind:class="item.IsEndorse ? 'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="absProjectEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
+                                <div class="ep_overhide ep_lineHeight32">
+                                  <img class="followImg" v-bind:class="item.IsEndorse ? 'appH5_followIcon':'appH5_unfollowIcon'" v-on:click="absProjectEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
                                 </div>
                             </td>
                         </tr>
                     </table>
                  </div>
             </div>
-            <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.ABSProjects)">暂无ABS项目</p>
         </section>
-        <section class="ep_part" id="projectHistoryOther">
+        <section class="ep_part" id="projectHistoryOther" v-if="!isArrayEmpty(userInfo.OtherProjects)" v-cloak>
             <header class="ep_part_title">
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>其它项目</span>
@@ -92,7 +91,7 @@
                     更多
                 </router-link>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.OtherProjects)" v-cloak>
+            <div>
                  <div class='appH5_panel' style="padding-top:0px;">
                     <table class="appH5_table">
                         <tr>
@@ -122,15 +121,14 @@
                     </table>
                </div>
             </div>
-            <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.OtherProjects)">暂无其它项目</p>
         </section>
-        <section class="ep_part" id="workHistory">
-            <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.WorkHistories)?'':'ep_part_item_border']">
-                            <div class='appH5_title fl' style='overflow:hidden;'>
-                <span class='fl'>工作经历</span>
-                            </div>
+        <section class="ep_part" id="workHistory" v-if="!isArrayEmpty(userInfo.WorkHistories)" v-cloak>
+            <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.WorkHistories) ? '' : 'ep_part_item_border']">
+                <div class='appH5_title fl' style='overflow:hidden;'>
+                    <span class='fl'>工作经历</span>
+                </div>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.WorkHistories)" v-cloak>
+            <div>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.WorkHistories" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width520 appH5_color_green">{{item.Position}}</span>
@@ -147,30 +145,28 @@
                     </div>
                 </div>
             </div>
-            <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.WorkHistories)">暂无工作经历</p>
         </section>
-        <section class="ep_part" id="otherPosition">
+        <section class="ep_part" id="otherPosition" v-if="!isArrayEmpty(userInfo.OtherPosts)" v-cloak>
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.OtherPosts)?'':'ep_part_item_border']">
                 <div class='appH5_title fl' style='overflow:hidden;'>
-                <span class='fl'>其它职务</span>
+                    <span class='fl'>其它职务</span>
                 </div>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.OtherPosts)" v-cloak>
+            <div>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.OtherPosts" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width600">{{item.Name}}</span>
                     </div>
                 </div>
             </div>
-            <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.OtherPosts)">暂无其它职务</p>
         </section>
-        <section class="ep_part" id="awardsAndHonors">
+        <section class="ep_part" id="awardsAndHonors" v-if="!isArrayEmpty(userInfo.HonorAwards)" v-cloak>
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.HonorAwards)?'':'ep_part_item_border']">
             <div class='appH5_title fl' style='overflow:hidden;'>
                 <span class='fl'>奖项与荣誉</span>
             </div>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.HonorAwards)" v-cloak>
+            <div>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.HonorAwards" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
@@ -179,9 +175,8 @@
                     <pre class="ep_decription ep_color_grey2 ep_font24">{{item.Description}}</pre>
                 </div>
             </div>
-            <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.HonorAwards)">暂无奖项与荣誉</p>
         </section>
-        <section class="ep_part" id="activity">
+        <section class="ep_part" id="activity" v-if="!isArrayEmpty(userInfo.RecentActivities)" v-cloak>
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.RecentActivities)?'':'ep_part_item_border']">
                  <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>近期活动</span>
@@ -190,7 +185,7 @@
                     更多
                 </router-link>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.RecentActivities)" v-cloak>
+            <div>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.RecentActivities, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
@@ -199,9 +194,8 @@
                     <pre class="ep_decription ep_color_grey2 ep_font24">{{item.Description}}</pre>
                 </div>
             </div>
-            <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.RecentActivities)">暂无近期活动</p>
         </section>
-        <section class="ep_part" id="article">
+        <section class="ep_part" id="article" v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.Publishs)?'':'ep_part_item_border']">
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>著作与文章</span>
@@ -210,7 +204,7 @@
                    更多
                 </router-link>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
+            <div>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.Publishs, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="fl ep_font28 appH5_color_green">《</span>
@@ -257,15 +251,14 @@
                     </div>
                 </div>
             </div>
-            <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.Publishs)">暂无著作与文章</p>
         </section>
-        <section class="ep_part" id="educationHistory">
+        <section class="ep_part" id="educationHistory" v-if="!isArrayEmpty(userInfo.Educations)" v-cloak>
             <header class="ep_part_title" v-bind:class="[isArrayEmpty(userInfo.Educations)?'':'ep_part_item_border']">
                <div class='appH5_title fl' style='overflow:hidden;'>
                 <span class='fl'>教育经历</span>
                </div>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.Educations)" v-cloak>
+            <div>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.Educations" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width400 appH5_color_green">{{item.School}}</span>
@@ -286,16 +279,14 @@
                     </ul>
                 </div>
             </div>
-            <p class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey" v-if="isArrayEmpty(userInfo.Educations)">暂无教育经历</p>
         </section>
-        <section class="ep_part" id="personalProfile" v-if="isValidElement(userInfo.User)">
+        <section class="ep_part" id="personalProfile" v-if="isValidElement(userInfo.User) && isValidElement(userInfo.User.Introduction)">
             <header class="ep_part_title" v-bind:class="[isValidElement(userInfo.User.Introduction)?'ep_part_item_border':'']">
             <div class='appH5_title fl' style='overflow:hidden;'>
                 <span class='fl'>个人简介</span>
             </div>
             </header>
-            <pre v-if="isValidElement(userInfo.User.Introduction)" class="ep_part_description" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
-            <p v-else class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey">暂无个人简介</p>
+            <pre class="ep_part_description" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
         </section>
         <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
@@ -323,7 +314,7 @@ export default {
       absProjectEndorseLock: false,
       otherProjectEndorseLock: false,
       publicEndorseLock: false,
-      submitPopupVisible:false,
+      submitPopupVisible: false
     };
   },
   created: function() {
@@ -333,10 +324,12 @@ export default {
   },
   methods: {
     initData: function() {
-      axios.post(webApi.Expert.getExpertDisplay, { UserId: this.userId }).then(response => {
-        this.userInfo = response.data.data.UserInfo;
-        this.editable = response.data.data.Editable;
-      });
+      axios
+        .post(webApi.Expert.getExpertDisplay, { UserId: this.userId })
+        .then(response => {
+          this.userInfo = response.data.data.UserInfo;
+          this.editable = response.data.data.Editable;
+        });
     },
     endorseImg: function(isEndorse) {
       return isEndorse ? likeImg : dislikeImg;
@@ -464,12 +457,13 @@ export default {
       return !(item === null || item === undefined || item === "");
     },
     sendAttachment: function(fileCode) {
-        this.submitPopupVisible=true;
-        axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
-          .then(response => {
-            this.submitPopupVisible=false;
-            this.$toast(response.data.data);
-          });
+      this.submitPopupVisible = true;
+      axios
+        .post(webApi.Expert.sendPublishUrl, { fileCode: fileCode })
+        .then(response => {
+          this.submitPopupVisible = false;
+          this.$toast(response.data.data);
+        });
     }
   },
   computed: {
