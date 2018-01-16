@@ -134,11 +134,22 @@ export default {
         const data = response.data.data;
         if(data){
             callback(data);
+        }else{
+          this.doCatch();
         }
-      });
+      }).catch((error)=>{    
+        this.doCatch();
+      }); 
     }, 
     cutStr(arr){
         return arr.split("转")[0];
+    },
+    
+    doCatch(){
+        Toast('服务器繁忙，请重试！');    
+        this.loading = false;
+        this.isTradeLoading=false;
+        this.isFetchTradesError=true;
     },
   },
   activated() {
