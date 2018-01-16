@@ -33,7 +33,9 @@ a {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
 }  
-a:active {star:expression(this.onFocus=this.blur());}
+/* a:active {
+    star: expression(this.onFocus = this.blur());
+} */
 li,dd,dt,span,h3{ cursor:default;}
 
  /* 设置页面文字等在拖动鼠标选中情况下的背景色与文字颜色 */ 

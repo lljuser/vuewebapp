@@ -144,7 +144,7 @@
                     <div class="ep_font24 ep_color_grey2 ep_marginTop10 ep_overhide">
                         <span class="fl ep_maxWidth400 ep_ellipsis">{{item.Company}}</span>
                         <span class="fl ep_marginLeft24 ep_width250 ep_ellipsis">{{item.Department}}</span>
-                        <span v-if="item.IsAuthenticated" class="fr ep_color_grey2 ep_font28 ep_lineHeight32">机构已认证</span>
+                        <!-- <span v-if="item.IsAuthenticated" class="fr ep_color_grey2 ep_font28 ep_lineHeight32">机构已认证</span> -->
                     </div>
                     <div class="ep_font24 ep_color_grey2 ep_marginTop10">
                         <span>{{item.StartTime}}</span>
