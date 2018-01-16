@@ -21,7 +21,10 @@
       <div>{{item.Coupon.split('~')[0]}}</div>
       <div>~{{item.Coupon.split('~')[1]}}</div>
     </td>
-    <td class="text-right tradeMiddleFont" v-else>{{item.Coupon}}</td>
+    <td class="text-right tradeMiddleFont" v-else>
+      <div v-if="item.Coupon!=null">{{item.Coupon}}</div>
+      <div v-if="item.Coupon==null">-</div>
+    </td>
 
   </tr>
 </template>
