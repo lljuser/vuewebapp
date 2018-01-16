@@ -5,6 +5,7 @@ import 'mint-ui/lib/style.css';
 import '@/public/modules/expert/flexible';
 import '@/public/css/expert/reset.css';
 import '@/public/css/expert/editProfile.css';
+import '@/public/css/theme.css';
 
 import ReadProfile from '@/components/expert/ReadProfile';
 import ReadAbsHistoryList from '@/components/expert/ReadAbsHistoryList';

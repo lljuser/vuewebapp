@@ -2,7 +2,7 @@
   <div class="editProfileContent" v-cloak>
         <section class="ep_part ep_overhide" id="basicInformation">
             <div class="ep_overhide basicInformationCard">
-                <div class="fl ep_divAvatar">
+                <div class="fl ep_divAvatar" v-show="userInfo.User && userInfo.User.Avatar">
                     <img style="width:1.866667rem;" v-bind:src="userInfo.User && userInfo.User.Avatar" alt="用户头像">
                 </div>
                 <div class="fl ep_marginLeft30 ep_width517" v-cloak>
@@ -296,6 +296,7 @@
 </template>
 
 <script>
+
 import _ from "lodash";
 import axios from "axios";
 import * as webApi from "@/config/api";
@@ -318,9 +319,9 @@ export default {
     };
   },
   created: function() {
-    this._ = _;
-    this.userId = util.getQueryString().UserId;
-    this.initData();
+      this._ = _;
+      this.userId = util.getQueryString().UserId;
+      this.initData();
   },
   methods: {
     initData: function() {
