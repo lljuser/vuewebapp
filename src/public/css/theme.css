@@ -65,6 +65,7 @@ body{
 }
 .navbar-item {
 	width: 100px;
+	line-height: 0px;
 }
 .appH5_navbar_bg {
 	background-color: #2c2a29;
