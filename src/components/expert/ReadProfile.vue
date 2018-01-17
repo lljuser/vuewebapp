@@ -38,9 +38,9 @@
                     <span class='fl'>ABS项目</span>
                     <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
                         <span class="fl">(共</span>
-                        <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
+                        <span class="appH5_color_red appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
                         <span class="fl">单，</span>
-                        <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
+                        <span class="appH5_color_red appH5_font_larger fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
                         <span class="fl">亿)</span>
                     </span>
                 </div>
@@ -81,9 +81,9 @@
                     <span class='fl'>其它项目</span>
                     <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.OtherProjects)">
                     <span class="fl">(共</span>
-                    <span class="appH5_color_green appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
+                    <span class="appH5_color_red appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
                     <span class="fl">单，</span>
-                    <span class="appH5_color_green appH5_font_larger fl">{{otherProjectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':otherProjectHistoriesSummary.totalOffering.toFixed(2)}}</span>
+                    <span class="appH5_color_red appH5_font_larger fl">{{otherProjectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':otherProjectHistoriesSummary.totalOffering.toFixed(2)}}</span>
                     <span class="fl">亿)</span>
                     </span>
                 </div>
@@ -131,7 +131,7 @@
             <div>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.WorkHistories" v-bind:key="index">
                     <div class="ep_overhide">
-                        <span class="ep_font28 ep_ellipsis fl ep_width520 appH5_color_green">{{item.Position}}</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_width510 appH5_color_green">{{item.Position}}</span>
                         <span v-if="item.IsAuthenticated" class="fr ep_color_grey2 ep_font28 ep_lineHeight32">机构已认证</span>
                     </div>
                     <div class="ep_font24 ep_color_grey2 ep_marginTop10 ep_overhide">
@@ -141,7 +141,11 @@
                     <div class="ep_font24 ep_color_grey2 ep_marginTop10">
                         <span>{{item.StartTime}}</span>
                         <span>-</span>
-                        <span>{{item.EndTime}}</span>
+                        <span>{{item.EndTime}}；</span>
+                        <span>{{item.TimeSpan}}</span>
+                    </div>
+                    <div class="ep_font24 ep_color_grey2 ep_marginTop10">
+                        <span>{{item.Description}}</span>
                     </div>
                 </div>
             </div>
@@ -301,8 +305,10 @@ import _ from "lodash";
 import axios from "axios";
 import * as webApi from "@/config/api";
 import util from "@/public/modules/expert/utils";
-import dislikeImg from "@/public/image/unfollowicon.png";
-import likeImg from "@/public/image/followicon.png";
+
+import dislikeImg from '@/public/images/dislike.png';
+import likeImg from '@/public/images/like.png';
+import defaultAvatar from '@/public/images/defaultavatar.png';
 
 export default {
   name: "ReadProfile",
@@ -330,6 +336,10 @@ export default {
         .then(response => {
           this.userInfo = response.data.data.UserInfo;
           this.editable = response.data.data.Editable;
+
+          if (!this.isValidElement(this.userInfo.User.Avatar)) {
+              this.userInfo.User.Avatar = defaultAvatar;
+          }
         });
     },
     endorseImg: function(isEndorse) {

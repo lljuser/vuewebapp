@@ -34,7 +34,8 @@
                 <tr>
                 <td>发起机构</td>
                 <td>
-                    <div v-for="(item,index) in productDetail.Basic.DealOriginator"><span>{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                    <div v-if="productDetail.Basic.DealOriginator!==null"><span v-for="(item,index) in productDetail.Basic.DealOriginator" style="display:block">{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                    <div v-else>-</div>
                 </td>
                 </tr>
                 <tr>
@@ -67,18 +68,20 @@
         <div v-if="productDetail.NoteList != null && productDetail.Basic!=null&&productDetail.NoteList.length!=0">
             <table class="appH5_table">
                 <tr>
-                    <th>证券简称</th>
-                    <th class="text-right">初始(亿)<br/>剩余(亿)</th>
-                    <th class="text-right">利率<br/>估值</th>
-                    <th class="text-right">期限<br/>类型</th>
-                    <th class="text-right">公开评级<br/>量化评级</th>
+                    <th>简称</th>
+                    <th class="text-right">初始(亿)</th>
+                    <th class="text-right">利率</th>
+                    <th class="text-right">期限(年)</th>
+                    <th class="text-right">量化评级</th>
+                    <th class="text-right">类型</th>
                 </tr>
-                <tr v-for="(item,index) in productDetail.NoteList">
-                    <td><div class="appH5_ellipsis" style="width:2.1rem;">{{item.Description}}</div></td>
-                    <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.Principal}}</span></td>
-                    <td class="text-right"><span>{{item.CurrentCoupon}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestYield}}</span></td>
-                    <td class="text-right"><span>{{item.CurrentWal}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.RepaymentOfPrincipal}}</span></td>
-                    <td class="text-right"><span>{{item.CurrentRatingCombineString==null||item.CurrentRatingCombineString==""?"-":item.CurrentRatingCombineString}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
+                <tr v-for="(item,index) in productDetail.NoteList" v-bind:key='index'>
+                    <td><div class="appH5_ellipsis appH5_font_normal" style="width:0.8rem;">{{item.Name}}</div></td>
+                    <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
+                    <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
+                    <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentWal}}</span></td>
+                    <td class="text-center"><span class="appH5_color_skyblue">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
+                    <td class="text-center"><span>{{item.RepaymentOfPrincipal.replace("型","")}}</span></td>
                 </tr>
             </table>
         </div>
@@ -207,6 +210,15 @@ export default {
                 aList[j].href="javascript:;";
                 aList[j].title="";
             }
+        }
+        var nameList=document.getElementsByClassName("str_n");
+        for(var k=0;k<nameList.length;k++){
+            nameList[k].style.color="black";
+        }
+        var pctList=document.getElementsByClassName("str_npct");
+        for(var x=0;x<pctList.length;x++){
+            pctList[x].style.color="black";
+            pctList[x].style.fontSize="8px";
         }
     },
     activated() {

@@ -7,7 +7,7 @@
                     <span>活动名称</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="activity.Name" />
+                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入活动名称" v-model.trim="activity.Name" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class='ep_title_div'>
@@ -15,7 +15,7 @@
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
                 <div class="fl ep_font32 ep_align_left ActivityTime ep_right_div" v-on:click="showYearMonthPicker()" v-bind:class="[activity.ActivityTime === undefined ? 'ep_color_grey' : '']">
-                    {{activity.ActivityTime === undefined ? '请选择' : activity.ActivityTime}}
+                    {{activity.ActivityTime === undefined ? '请选择活动时间' : activity.ActivityTime}}
                 </div>
             </div>
             <div>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div>
-                    <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入" v-model.trim="activity.Description"> </textarea>
+                    <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入活动描述" v-model.trim="activity.Description"> </textarea>
                 </div>
             </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">
