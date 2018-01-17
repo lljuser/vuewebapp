@@ -239,7 +239,7 @@ export default {
 .fixedLeft{
   width: 65%;
   height: 1.6rem;
-  background-color: #47423c;
+  background-color: #2B2B2B;
   color: #fff;
 }
 .fixedRight{
@@ -278,6 +278,9 @@ export default {
     }
     .appH5_content table tr td:nth-child(4){
         width: 40%;
+    }
+    .appH5_font_larger {
+       font-size: 17px!important;
     }
 }
 </style>
