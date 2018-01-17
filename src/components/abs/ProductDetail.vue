@@ -10,7 +10,7 @@
           </div>
             <table class="appH5_list_two" v-if="productDetail.Basic!=null">
                 <tr>
-                    <td>简称</td>
+                    <td>产品名称</td>
                     <td>{{productDetail.Basic.DealNameChinese}}</td>
                 </tr>
                 <tr>
