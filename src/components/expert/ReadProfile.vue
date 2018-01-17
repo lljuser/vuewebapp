@@ -128,7 +128,7 @@
                     <span class='fl'>工作经历</span>
                 </div>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom"> 
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.WorkHistories" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width510 appH5_color_green">{{item.Position}}</span>
@@ -156,7 +156,7 @@
                     <span class='fl'>其它职务</span>
                 </div>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom">
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.OtherPosts" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width600">{{item.Name}}</span>
@@ -170,7 +170,7 @@
                 <span class='fl'>奖项与荣誉</span>
             </div>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom">
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.HonorAwards" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
@@ -189,7 +189,7 @@
                     更多
                 </router-link>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom">
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.RecentActivities, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
@@ -208,7 +208,7 @@
                    更多
                 </router-link>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom">
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.Publishs, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="fl ep_font28 appH5_color_green">《</span>
@@ -262,7 +262,7 @@
                 <span class='fl'>教育经历</span>
                </div>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom">
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.Educations" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width400 appH5_color_green">{{item.School}}</span>
@@ -290,7 +290,7 @@
                 <span class='fl'>个人简介</span>
             </div>
             </header>
-            <pre class="ep_part_description" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
+            <pre class="ep_part_description ep_panel_padding_bottom" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
         </section>
         <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
