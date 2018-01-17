@@ -40,15 +40,12 @@ build_developer:
   - yarn install
   - echo "==>install success-----------------------"  
   script: 
-  - echo "==>Run yarn test build------------------------------"
+  - chcp 850 
+  after_script: 
+  - echo "==>Run yarn test------------------------------"
   - chcp 850
   - yarn test
-  - echo "==>test build success--------------------------"  
-  after_script: 
-  - echo "==>Run yarn test deploy------------------------------"
-  - chcp 850
-  - yarn testdeploy
-  - echo "==>test deploy success--------------------------"    
+  - echo "==>test success--------------------------"    
   only: 
   - schedules
   - web  
