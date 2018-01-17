@@ -1,9 +1,6 @@
 stages:    
   - build 
-  - auto_test 
-cache:
-    paths:
-    - node_modules/    
+  - auto_test  
   
 build_master:
   stage: build 
