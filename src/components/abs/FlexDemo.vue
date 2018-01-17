@@ -45,14 +45,29 @@
 		       <span>产品要素</span>
 	        </div>
 	        <table class="appH5_list_four">
+				<tr>
+	        		<td colspan="4" class="appH5_color_white appH5_word_break">这是一个产品名称，这是一个产品名称，这是一个产品名称</td>
+	        	</tr>
+				<tr>
+	        		<td class='appH5_color_red' colspan="2" rowspan="2">
+						<span class="appH5_font_largest">253.8</span>
+						<span>亿</span>
+					</td>
+	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>5%~6%</td>
+	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>3.83年</td>
+	        	</tr>
+				<tr>
+					<td class='appH5_color_skyblue appH5_font_larger appH5_white_space'>AAA</td>
+					<td class='appH5_color_skyblue appH5_font_larger appH5_white_space'>应收账款</td>
+				</tr>
 	        	<tr>
-	        		<td class='appH5_white_space'>产品名称</td>
+	        		<td class='appH5_white_space'>产品描述</td>
 	        		<td colspan="3">这是一个产品名称，这是一个产品名称，这是一个产品名称</td>
 	        	</tr>
 	        	<tr>
 	        		<td class='appH5_white_space'>证券类型</td>
-	        		<td>夹层级</td>
-	        		<td class='appH5_white_space'>评级</td>
+	        		<td class="appH5_color_link">夹层级</td>
+	        		<td class='appH5_white_space'>评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级</td>
 	        		<td>AAA</td>
 	        	</tr>
 	        	<tr>
@@ -62,10 +77,12 @@
 	        		<td>A应收账款</td>
 	        	</tr>
 	        	<tr>
-	        		<td colspan="4">项目描述</td>
-	        	</tr>
-	        	<tr>
-	        		<td colspan="4" class="appH5_color_white">支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述</td>
+	        		<td colspan="4">
+						<span>项目描述</span>
+						<div class="appH5_color_white appH5_margin_top_td_div">
+							支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述
+						</div>
+					</td>
 	        	</tr>
 	        </table>
 	    </div>
@@ -102,9 +119,9 @@
             <table class="appH5_table">
                 <tr>
                     <th class="text-left">名称</th>
-                    <th class="text-right">今年总数</th>
-                    <th class="text-right">今年总额(亿)</th>
-                    <th class="text-right">累计总额(亿)</th>
+                    <th class="text-right">今年(单)</th>
+                    <th class="text-right">今年(亿)</th>
+                    <th class="text-right">累计(亿)</th>
                 </tr>
                 <tr>
                     <td>信贷ABS</td>
