@@ -33,19 +33,19 @@ build_master:
 build_developer:
   stage: build 
   before_script:   
-  - echo "==>Run npm install---------------------------"
+  - echo "==>Run yarn install---------------------------"
   - chcp 850
-  - npm install --loglevel=error
-  - echo "==>npm install success-----------------------"  
+  - yarn install
+  - echo "==>install success-----------------------"  
   script: 
-  - echo "==>Run npm test------------------------------"
+  - echo "==>Run yarn test build------------------------------"
   - chcp 850
-  - npm run test
-  - echo "==>npm test success--------------------------"  
+  - yarn test
+  - echo "==>test build success--------------------------"  
   after_script: 
-  - echo "==>Run npm test deploy------------------------------"
+  - echo "==>Run yarn test deploy------------------------------"
   - chcp 850
-  - npm run testdeploy
+  - yarn testdeploy
   - echo "==>test deploy success--------------------------"    
   only: 
   - schedules
