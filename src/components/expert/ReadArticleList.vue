@@ -3,7 +3,7 @@
         <div class="ep_marginTop24"></div>
         <section class="ep_content_div">
             <div v-if="!isArrayEmpty(publishes)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in publishes" v-bind:key="item.Name" v-bind:class="[index === 0 ? 'ep_paddingTop46' : '']">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in publishes" v-bind:key="item.Name">
                     <div class=" ep_overhide">
                         <span class="fl ep_font28 appH5_color_green">《</span>
                         <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
@@ -57,7 +57,7 @@
     import axios from "axios";
     import * as webApi from "@/config/api";
     import dislikeImg from '@/public/images/dislike.png';
-    import likeImg from '@/public/images/like.png';
+    import likeImg from '@/public/image/followicon.png';
 
     export default {
         name: 'ReadArticleList',

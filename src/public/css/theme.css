@@ -24,7 +24,7 @@ body{
 	font-size: 24px;
 }
 .mint-header {
-	background-color: #2c2a29;
+	background-color: black;
 	height: 44px;
 }
 .mint-header-title {
@@ -160,6 +160,9 @@ a:hover, a:focus {
 }
 .appH5_color_skyblue{
 	color:#78bcff!important;
+}
+.appH5_color_blue{
+	color:#0066cc;
 }
 .appH5_color_white{
 	color:#fff!important;

@@ -140,17 +140,14 @@ body {
 }
 
 .ep_editBtn {
-    border: 1px solid #017afd;
+    border: 1px solid #ffc446;
     border-radius: 4px;
-    color: #017afd;
+    color: #ffc446;
     padding-left: 0.2rem;
     padding-right: 0.2rem;
     padding-top: 0.02rem;
     padding-bottom: 0.02rem;
     font-size:15px;
-}
-.ep_editBtn:hover{
-    color: #017afd!important;
 }
 .ep_greyEditBtn{
     border: 1px solid #E0E0E0;
@@ -388,6 +385,9 @@ width:1.7rem;
 }
 .ep_paddingBottom38{
     padding-bottom: 0.506667rem;
+}
+.ep_paddingBottom0{
+    padding-bottom: 0rem!important;
 }
 .editPencils {
     width: 19px;
@@ -997,5 +997,8 @@ select option：hover
     margin-bottom: 0.32rem;
     width: 6.8rem;
     color:#000;
+}
+.ep_panel_padding_bottom{
+    padding-bottom: 0.32rem;
 }
    
