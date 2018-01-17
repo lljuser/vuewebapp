@@ -9,23 +9,20 @@
      <tr>
        <td class="text-left">
         <select v-model="TradeRating" v-on:change="selectChange()">
-        <option value="0">评级</option>
         <option v-for="item in ratingList"
         :value="item.Key"
         :key="item.Value">{{item.Value}}</option>
         </select>
         </td>
        <td style="text-align:center">
-         <select v-model="TradeType" v-on:change="selectChange()">
-          <option value="0">证券类型</option>
-          <option v-for="item in typeList"
+         <select v-model="TradeCoupon" v-on:change="selectChange()">
+          <option v-for="item in couponList"
           :value="item.Key"
           :key="item.Value">{{item.Value}}</option>
         </select>
         </td>
        <td class="text-right"> 
          <select v-model="TradeWalbuck" v-on:change="selectChange()">
-          <option value="0">期限</option>
           <option v-for="item in walbuckList" 
           :value="item.Key" 
           :key="item.Value">{{item.Value}}</option> 
@@ -36,13 +33,10 @@
 
   <table id="tradeTableId" class="appH5_table" style="table-layout:fixed;">
     <tr>
+      <th></th>
       <th>证券简称</th>
       <th class="text-right">金额(亿)</th>
-      <th class="text-right th_tworows">
-        <div>期限(Y)</div>
-        <div>评级</div>
-        </th>
-      <th class="text-right">利率(%)</th>
+      <th class="text-right">资产类别</th>
     </tr>
     <tbody v-infinite-scroll="loadMore"
           infinite-scroll-disabled="loading"
@@ -79,11 +73,11 @@ export default {
     return {
       list: [],
       walbuckList:[],
-      typeList:[],
+      couponList:[],
       ratingList:[],
       loading: false,
       TradeRating:"0",
-      TradeType:"0",
+      TradeCoupon:"0",
       TradeWalbuck:"0",
       page: 1,
       pageSize:15,
@@ -99,16 +93,16 @@ export default {
     busUtil.bus.$emit('showHeader', false);
 
     var gradeIdParam = this.$route.params.gradeId;
-    var securityIdParam=this.$route.params.securityId;
+    var couponIdParam=this.$route.params.couponId;
     var reLoadData=false;
     if(gradeIdParam!=null && gradeIdParam!="0" )
     {
       this.TradeRating= gradeIdParam;
       reLoadData=true;
     }
-    if(securityIdParam!=null && securityIdParam!="0" )
+    if(couponIdParam!=null && couponIdParam!="0" )
     {
-      this.TradeType= securityIdParam;
+      this.TradeCoupon= couponIdParam;
       reLoadData=true;
     }
     if(reLoadData){
@@ -135,8 +129,8 @@ export default {
       this.getWalbuckList(data=>{
         this.walbuckList = data;
       });
-      this.getTypeList(data=>{
-        this.typeList=data;
+      this.getCouponList(data=>{
+        this.couponList=data;
       });
       this.getRatingList(data=>{
         this.ratingList=data;
@@ -159,7 +153,7 @@ export default {
     },  
     fetchTrades(page, direction,callback) {
       var url=webApi.Trade.list;
-      url=url+"/"+this.TradeRating+"/"+this.TradeType+"/"+this.TradeWalbuck;
+      url=url+"/"+this.TradeRating+"/"+this.TradeCoupon+"/"+this.TradeWalbuck;
       url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
       axios.post(url).then((response) => { 
         const data = response.data.data;
@@ -205,13 +199,13 @@ export default {
         }
       });
     },
-    getTypeList(callback){
-      axios.post(webApi.Trade.typeList).then((response) => { 
-        const data=response.data.data;
+    getCouponList(callback){
+      axios.post(webApi.Trade.couponList).then((response) => { 
+        const data=response.data.data;        
         if(data && data.length > 0 ){
           callback(data);          
         }
-      });
+      });      
     },
     getRatingList(callback){
       axios.post(webApi.Trade.ratingList).then((response) => { 
@@ -266,13 +260,13 @@ a {
   width:90%;
   border-radius: 0;
 }
-#tradeTableId th:nth-of-type(2){
-width: 55px;
+#tradeTableId th:nth-of-type(1){
+width: 8px;
 }
 #tradeTableId th:nth-of-type(3){
+width: 55px;
+}
+/* #tradeTableId th:nth-of-type(3){
 width: 20%;
-}
-#tradeTableId th:nth-of-type(4){
-width: 22%;
-}
+} */
 </style>
