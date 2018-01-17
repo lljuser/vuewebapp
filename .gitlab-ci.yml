@@ -1,0 +1,57 @@
+stages:    
+  - build 
+  - auto_test  
+  
+build_master:
+  stage: build 
+  before_script: 
+  - echo "==>Run yarn install---------------------------"
+  - chcp 850
+  - echo "==>yarn install success-----------------------"    
+  script: 
+  - echo "==>Run yarn test------------------------------"
+  - chcp 850
+  - echo "==>yarn test success--------------------------"  
+  after_script:
+  - echo "==>Unit test ..."   
+  - echo "==>Unit test success!!!" 
+  - echo "==>Deploy publish..."   
+  - echo "==>Deploy publish success!!!"  
+  - echo "==>Auto test...."
+  - echo "==>Auto test finish...."  
+  only:
+  - triggers
+  except:
+  - developer
+  - test 
+  - schedules 
+  - web
+  tags:
+  - master-runner  
+     
+  
+build_developer:
+  stage: build 
+  before_script:   
+  - echo "==>Run npm install---------------------------"
+  - chcp 850
+  - npm install
+  - echo "==>npm install success-----------------------"  
+  script: 
+  - chcp 850
+  after_script:
+  - echo "==>Run npm test------------------------------"
+  - chcp 850
+  - npm run test
+  - echo "==>npm test success--------------------------"   
+  only: 
+  - schedules
+  - web  
+  except:  
+  - test
+  tags:
+  - developer-runner
+  
+  
+ 
+   
