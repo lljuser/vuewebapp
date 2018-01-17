@@ -23,7 +23,7 @@
 	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>{{detailInfo.WAL}}年</td>
 	        	</tr>
 			  	<tr>
-            <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'" class='appH5_color_skyblue appH5_font_larger appH5_white_space'>{{detailInfo.Rating}}</td>
+            <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'" class='appH5_color_skyblue appH5_font_larger appH5_white_space appH5_vertical_middle'>{{detailInfo.Rating}}</td>
             <td v-else class="appH5_color_skyblue">-</td>
             <td class='appH5_color_skyblue appH5_font_larger appH5_white_space'>{{detailInfo.AssetType}}</td>
           </tr>
