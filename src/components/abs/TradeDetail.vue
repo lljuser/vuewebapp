@@ -14,16 +14,17 @@
           </tr>
            <tr>
 	        		<td class='appH5_color_red' colspan="2" rowspan="2">
-              <span class="appH5_font_largest">{{detailInfo.TotalOffering}}</span>
+              <span class="appH5_font_largest" v-if="detailInfo.TotalOffering>=10">{{Math.round(detailInfo.TotalOffering)}}</span>
+              <span class="appH5_font_largest" v-else>{{detailInfo.TotalOffering}}</span>
               <span>亿</span>
 					</td>
 	        		<td v-if="detailInfo.Coupon !=null" class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>{{detailInfo.Coupon}}</td>
-              <td v-else>-</td>
+              <td v-else class="appH5_color_skyblue">-</td>
 	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>{{detailInfo.WAL}}年</td>
 	        	</tr>
 			  	<tr>
             <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'" class='appH5_color_skyblue appH5_font_larger appH5_white_space'>{{detailInfo.Rating}}</td>
-            <td v-else>-</td>
+            <td v-else class="appH5_color_skyblue">-</td>
             <td class='appH5_color_skyblue appH5_font_larger appH5_white_space'>{{detailInfo.AssetType}}</td>
           </tr>
           <tr>
@@ -140,6 +141,9 @@ export default {
         return arr.split("转")[0];
     },
     
+    // cutRate(arr){
+    //     return arr.split("~")[0];
+    // },
     doCatch(){
         Toast('服务器繁忙，请重试！');    
         this.loading = false;
