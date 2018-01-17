@@ -7,7 +7,7 @@ const publishDir = 'd:\\release\\chineseabs\\webapp';
 
 deploy();
 
-function deploy() {
+export function deploy() {
     console.log('clear project.................');
     //fs.emptyDirSync(publishDir);
     console.log('clear finish.................');
