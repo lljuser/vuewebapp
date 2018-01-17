@@ -39,11 +39,7 @@ build_developer:
   - echo "==>npm install success-----------------------"  
   script: 
   - chcp 850
-  after_script:
-  - echo "==>Run npm test------------------------------"
-  - chcp 850
-  - npm run test
-  - echo "==>npm test success--------------------------"  
+  after_script: 
   - echo "==>Run npm test deploy------------------------------"
   - chcp 850
   - npm run testdeploy
