@@ -126,61 +126,62 @@
                 </tr>
             </table>
         </div>
-		<h2>示例表格（每行含两子行）</h2>
+		<h2>证券示例表格</h2>
         <div class="appH5_panel appH5_panel_mb">
 			<table class="appH5_table">
 				<tr>
-					<th>证券简称</th> 
+					<th>简称</th> 
 					<th class="text-right">
-						初始(亿)<br>剩余(亿)
+						初始(亿)
 					</th>
 					<th class="text-right">
-						利率<br>估值
+						利率
 					</th> 
 					<th class="text-right">
-						期限<br>类型
+						期限(年)
 					</th> 
+					<th class="text-center">
+						量化评级
+					</th>
 					<th class="text-right">
-						最新评级<br>建议评级
+						类型
 					</th>
 				</tr> 
 				<tr>
-					<td>17康安1A</td>
-					<td class="text-right">
-						<span class="appH5_color_red">1.50</span><br>
-						<span class="appH5_color_details appH5_font_smaller">1.50</span>
+					<td>A</td>
+					<td class="text-right appH5_color_red">
+						1.50
 					</td> 
-					<td class="text-right">
-						<span>4.85</span><br>
-						<span class="appH5_color_green appH5_font_smaller">4.85</span>
+					<td class="text-right appH5_color_skyblue">
+						4.85
                     </td> 
-					<td class="text-right">
-						<span>0.70</span><br>
-						<span class="appH5_color_details appH5_font_smaller">过手型</span>
+					<td class="text-right appH5_color_skyblue">
+						0.70
 					</td> 
-					<td class="text-right">
-						<span>AAA/AAA</span><br>
-						<span data-v-6719a154="" class="appH5_color_green appH5_font_smaller">AAA</span>
+					<td class="text-right text-center appH5_color_skyblue">
+						AAA
 					</td>
+					<td class="text-right">
+						过手
+					</td> 
 			    </tr>
 				<tr>
-					<td>17康安1A</td>
-					<td class="text-right">
-						<span class="appH5_color_red">1.50</span><br>
-						<span class="appH5_color_details appH5_font_smaller">1.50</span>
+					<td>A</td>
+					<td class="text-right appH5_color_red">
+						1.50
 					</td> 
-					<td class="text-right">
-						<span>4.85</span><br>
-						<span class="appH5_color_green appH5_font_smaller">4.85</span>
+					<td class="text-right appH5_color_skyblue">
+						4.85
                     </td> 
-					<td class="text-right">
-						<span>0.70</span><br>
-						<span class="appH5_color_details appH5_font_smaller">过手型</span>
+					<td class="text-right appH5_color_skyblue">
+						0.70
 					</td> 
-					<td class="text-right">
-						<span>AAA/AAA</span><br>
-						<span data-v-6719a154="" class="appH5_color_green appH5_font_smaller">AAA</span>
+					<td class="text-right text-center appH5_color_skyblue">
+						AAA
 					</td>
+					<td class="text-right">
+						过手
+					</td> 
 			    </tr>
 			</table>
 		</div>
