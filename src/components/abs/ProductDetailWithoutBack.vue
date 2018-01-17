@@ -34,7 +34,7 @@
                 <tr>
                 <td>发起机构</td>
                 <td>
-                    <div v-if="productDetail.Basic.DealOriginator!==null"><span v-for="(item,index) in productDetail.Basic.DealOriginator" style="display:block">{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                    <div v-if="productDetail.Basic.DealOriginator!==null"><span v-for="(item,index) in productDetail.Basic.DealOriginator" style="display:block">{{item}}</span></div>
                     <div v-else>-</div>
                 </td>
                 </tr>
@@ -179,13 +179,13 @@ export default {
                 this.isProductLoading=false;
                 if(data.DealId!=null&&data.DealId>0){
                     if(data.NoteList!=null&&data.NoteList.length>0){
-                        if(data.NoteList.length>6){
-                            this.chartWidthPx=280;
-                        }else if(data.NoteList.length>4){
-                            this.chartWidthPx=200;
-                        }else{
-                            this.chartWidthPx=150;
-                        }
+                         if(data.NoteList.length>5){
+                                this.chartWidthPx=320;
+                            }else if(data.NoteList.length>3){
+                                this.chartWidthPx=240;
+                            }else{
+                                this.chartWidthPx=200;
+                            }
                     }
                     this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
                 }
@@ -217,8 +217,7 @@ export default {
         }
         var pctList=document.getElementsByClassName("str_npct");
         for(var x=0;x<pctList.length;x++){
-            pctList[x].style.color="black";
-            pctList[x].style.fontSize="8px";
+            pctList[x].style.color="#06c";
         }
     },
     activated() {

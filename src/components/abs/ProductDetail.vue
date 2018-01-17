@@ -33,7 +33,7 @@
                 <tr>
                 <td>发起机构</td>
                 <td>
-                    <div v-if="productDetail.Basic.DealOriginator!==null"><span v-for="(item,index) in productDetail.Basic.DealOriginator" style="display:block">{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                    <div v-if="productDetail.Basic.DealOriginator!==null"><span v-for="(item,index) in productDetail.Basic.DealOriginator" style="display:block">{{item}}</span></div>
                     <div v-else>-</div>
                 </td>
                 </tr>
@@ -203,8 +203,7 @@ export default {
         }
         var pctList=document.getElementsByClassName("str_npct");
         for(var x=0;x<pctList.length;x++){
-            pctList[x].style.color="black";
-            pctList[x].style.fontSize="8px";
+            pctList[x].style.color="#06c";
         }
     },
     activated() {
@@ -231,7 +230,6 @@ export default {
         if (this.id) {
             setTimeout(()=>{
                     this.fetchProductDetail(this.id,data=>{
-                        console.log(data);
                     this.productDetail =data;
                     this.isProductLoading=false;
                     if(data.DealId!=null&&data.DealId>0){
