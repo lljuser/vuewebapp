@@ -9,7 +9,7 @@ deploy();
 
 function deploy() {
     console.log('clear project.................');
-    fs.emptyDirSync(publishDir);
+    //fs.emptyDirSync(publishDir);
     console.log('clear finish.................');
     console.log('publish project.................');
     fs.copySync(sourceDir, publishDir);
