@@ -3,9 +3,7 @@ const fs = require('fs-extra');
 
 const appDirectory = fs.realpathSync(process.cwd());
 const sourceDir = path.resolve(appDirectory, 'dist');
-const publishDir = 'd:\\release\\chineseabs\\webapp';
-
-deploy();
+const publishDir = 'd:\\release\\chineseabs\\webapp'; 
 
 function deploy() {
     console.log('clear project.................');
@@ -15,5 +13,7 @@ function deploy() {
     fs.copySync(sourceDir, publishDir);
     console.log('publish finish.................');
 }
+
+module.exports = deploy;
 
  
