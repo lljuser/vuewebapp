@@ -53,7 +53,7 @@
               <td colspan="4" class="padtop1">
                   <span class="fl mr5">参与专家</span>
                   <div style="max-width: 6.9rem;">
-                    <a href="javascript:;"  v-for="item in detailInfo.AbsProjectUsers" class="fl" style="display:inline-block;">
+                    <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}`"  v-for="item in detailInfo.AbsProjectUsers" class="fl" style="display:inline-block;">
                       <img class="touxiang" :src="item.AvatarPath"/>
                     </a>
                   </div>
@@ -77,7 +77,7 @@
     </div>
     <div class="fixedMain appH5_font_normal" v-if="contactItem.IsPrimary" v-for="contactItem in detailInfo.Contacts">
         <div class="fl fixedLeft">
-              <a href="javascript:;"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
+              <a v-bind:href="`/webapp/expert.html?UserId=${contactItem.UserId}`"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
                 <img class="touxiang" :src="contactItem.AvatarPath"/>
               </a>
               <div class="fl txtLeft" style="margin: .1rem 0 0 0; display: table; height: 1.3rem;">
