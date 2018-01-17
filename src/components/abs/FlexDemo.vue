@@ -50,15 +50,15 @@
 	        	</tr>
 				<tr>
 	        		<td class='appH5_color_red' colspan="2" rowspan="2">
-						<span class="appH5_font_largest">253.8</span>
+						<span class="appH5_font_largest">253</span>
 						<span>亿</span>
 					</td>
-	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>5%~6%</td>
+	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>5~6%</td>
 	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>3.83年</td>
 	        	</tr>
 				<tr>
-					<td class='appH5_color_skyblue appH5_font_larger appH5_white_space'>AAA</td>
-					<td class='appH5_color_skyblue appH5_font_larger appH5_white_space'>应收账款</td>
+					<td class='appH5_color_skyblue appH5_font_larger appH5_white_space appH5_vertical_middle'>AAA</td>
+					<td class='appH5_color_skyblue appH5_font_larger appH5_white_space'>收费收益权</td>
 				</tr>
 	        	<tr>
 	        		<td class='appH5_white_space'>产品描述</td>
