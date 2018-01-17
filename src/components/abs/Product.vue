@@ -1,52 +1,230 @@
 <template>
-  <div class="hello">
-    <h1>产品页</h1>
-    <a href="javascript:;"></a>
+<div class="appH5_body">
+  
+  <div class="product-spinner" v-if="isProductLoading">
+    <mt-spinner type="triple-bounce"></mt-spinner>
+  </div>
+  <div v-else>
+  <div class="appH5_panel">
+    <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0" >
+      <tr>
+        <td class="text-left">
+          <select v-model="ProductTypeVal" v-on:change="selectChange()" >
+             <option v-for="option in ProductType" :value="option.Value" :key="option.Value" selected="option.Selected">
+              {{ option.Text }}
+              </option>
+          </select>
+        </td>
+        <td style="text-align:center">
+          <select v-model="DealTypeVal" v-on:change="selectChange()">
+             <option v-for="option in DealType" :value="option.Value" :key="option.Value" selected="option.Selected">
+              {{ option.Text }}
+              </option>
+          </select>
+        </td>
+        <td class="text-right"> 
+          <select v-model="CurrentStatusVal" v-on:change="selectChange()">
+           <option v-for="option in CurrentStatus" :value="option.Value" :key="option.Value" selected="option.Selected">
+              {{ option.Text }}
+              </option>
+            </select>
+        </td>
+      </tr>
+    </table>
+ 
 
-    <div v-for="item in list" :key="item.index">
-      <ProductItem :item="item" />
+
+      <table id="productTableId" class="appH5_table">
+        <tr>
+          <th>产品名称</th>
+          <th class="text-right">总额(亿)</th>
+          <th class="text-right">产品分类</th>
+        </tr>
+        <tbody  v-infinite-scroll="loadMore"
+          infinite-scroll-disabled="loading"
+          infinite-scroll-immediate-check="true"
+          infinite-scroll-distance="55">
+          <ProductItem 
+            v-for="(item, index) in list" 
+            :item="item"
+            :id="index"
+            :key="index"/>
+        </tbody>
+    </table>
+     <div class="spinner_div" v-if="list.length==0">
+        <span  class="nomore">暂无数据</span>
+      </div>
+      <div class="spinner_div" v-else >
+        <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
+        <span v-if="noMore" class="nomore">没有更多了</span>
+      </div>
+     
     </div>
   </div>
+</div>
 </template>
 
-<script>
+<script> 
+import BusUtil from './BusUtil';
+import * as webApi from '@/config/api';
 import ProductItem from './ProductItem';
-
+import axios from 'axios';
+import { Toast } from 'mint-ui';
+import 'mint-ui/lib/style.css'
 export default {
-  name: 'Product',
+  name: "product",
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      // list: [
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '5%~6%', index: 1 },
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '6.00%', index: 2 },
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '7.50%', index: 3 },
-      //   { name: '17逸锟1A1', raking: 'AAA', year: 1, rate: '3%~4%', index: 4 },
-      // ],
       list: [],
+      page: 1,
+      pageSize:15,
+      loading: false,
+      ProductTypeVal: "0",
+      DealTypeVal: "0",
+      CurrentStatusVal: "0",
+      ProductType:[],
+      DealType:[],
+      CurrentStatus:[],
+      isProductLoading: false,
+      isFetchProductsError: false,
+      noMore:false,
     };
   },
-  created() {
-    this.fetchProducts();
+  mounted() {
+    this.isProductLoading = true;
+    this.timer = setTimeout(() => {
+      this.loadFirstPageProducts();
+    }, 600);
+  },
+  activated() {
+    this.loading = false;
+    const busUtil = BusUtil.getInstance();
+    busUtil.bus.$emit('showHeader', false);
+    var productTypeParam = this.$route.params.productType;
+    var dealTypeParam=this.$route.params.dealType;
+    var reLoadData=false;    
+    if(productTypeParam!=null )
+    {
+      this.ProductTypeVal= productTypeParam;
+      reLoadData=true;
+    }
+    if(dealTypeParam!=null && dealTypeParam!="0" )
+    {
+      this.DealTypeVal= dealTypeParam;
+      reLoadData=true;
+    }
+    if(reLoadData){
+      this.loadFirstPageProducts();
+    }
+
+    if (this.isFetchProductsError) {
+      this.loadFirstPageProducts();
+    }
+  },
+  deactivated() {
+    this.timer && clearTimeout(this.timer);
+    // 防止在其他组件滚动时 此组件调用loadMore方法
+    this.loading = true;
   },
   methods: {
-    fetchProducts() {
-      fetch('http://10.1.1.35/Demo/DemoProduct/getlist')
-      .then(response => response.json())
-      .then((json) => {
-        this.list = json.data;
-      });
+    loadFirstPageProducts() {
+      this.loading = false;
+      this.isProductLoading = true;
+      setTimeout(() => {
+        this.fetchProducts(1,0, data => {
+          this.list = data;
+          this.isProductLoading = false;
+          this.page=1;
+          if(data.length<this.pageSize)
+          {
+            this.noMore=true;
+          }
+        });
+      }, 600);
     },
+
+    loadMore() {
+      this.loading = true;
+      this.noMore=false;
+      setTimeout(() => {
+        this.fetchProducts(this.page,1, data => {
+          this.list = this.list.concat(data);
+          this.page = this.page + 1;
+          this.loading = false;
+        });
+      }, 600);
+    },
+
+    fetchProducts(page,direction,callback) {
+      var url=webApi.Product.list;
+      url=url+"/"+this.ProductTypeVal+"/"+this.DealTypeVal+"/"+this.CurrentStatusVal;
+      url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
+      axios.post(url).then((response) => { 
+        const data = response.data.data;
+        if (data) {
+            var productTypeSel=data.ProductType.filter(x=>x.Selected==true);
+            this.ProductTypeVal=productTypeSel.length>0?productTypeSel[0].Value:"";
+            var dealTypeSel=data.DealType.filter(x=>x.Selected==true)
+            this.DealTypeVal=dealTypeSel.length>0?dealTypeSel[0].Value:"";
+            var currentStatusSel=data.CurrentStatus.filter(x=>x.Selected==true);
+            this.CurrentStatusVal=currentStatusSel.length>0?currentStatusSel[0].Value:"";
+            this.ProductType=data.ProductType;
+            this.DealType=data.DealType;
+            this.CurrentStatus=data.CurrentStatus;
+            callback(data.Deal);
+            if(data.Deal.length==0){ 
+              this.loading=true;
+              this.noMore=true;
+            }
+            this.isFetchProductsError = false;
+        }
+        else{
+           this.doCatch();
+        }
+      }).catch((error) => {
+        this.doCatch();
+      });
+    }, 
+
+    doCatch(){
+        Toast('服务器繁忙，请重试！');
+        this.loading = false;
+        this.isProductLoading = false;
+        this.isFetchProductsError = true;
+    },
+
+    selectChange(){
+      this.loadFirstPageProducts();
+    }
+
+     
   },
   components: {
-    ProductItem,
-  },
+    ProductItem
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+
+.select_div div {
+   width:33%;
+   float: left;
+}
+
+.select_div div:last-child {
+    width:34%;
+    text-align: right;
+}
+
+.select_div select {
+  width:90%;
+  border-radius: 0;
+}
+
+h1,
+h2 {
   font-weight: normal;
 }
 ul {
@@ -57,7 +235,16 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
+#productTableId{
+  table-layout: fixed;
 }
+
+#productTableId th:nth-of-type(2){
+width: 55px;
+}
+#productTableId th:nth-of-type(3){
+width: 35%;
+}
+
+
 </style>

@@ -1,13 +1,13 @@
 <template>
-  <div class="item">
-    <p class="name">
-      <router-link :to="`ProductDetail/${item.index}`">
-        {{ item.title }}
+  <tr>
+    <td class="text-left">
+      <router-link :to="`../../productDetail/${ item.DealId}`" class="appH5_color_link" style=""  >
+       <div class='td_elips1'> {{ item.DealName }}</div>
       </router-link>
-    </p>
-    <p class="raking">{{ item.Content }}</p>
-    <p class="year">{{ item.Time }}</p>
-  </div>
+    </td>
+    <td class="text-right appH5_color_red" style="font-size:17px">{{item.TotalOffering}}</td>
+    <td style="color:white" class="text-right td_elips2"><div style="width:100%;float:right"><div>{{ item.DealType }}</div></div></td>
+  </tr>
 </template>
 
 <script>
@@ -16,7 +16,7 @@ import { Toast } from 'mint-ui';
 export default {
   name: 'productItem',
   props: ['id', 'item'],
-  created() {
+  mounted() {
   },
   data() {
     return {
@@ -36,12 +36,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.item {
-  display: flex;
-  flex-direction: 'row';
-  justify-content: center;
-}
-.item p {
-  margin-right: 38px;
-}
+ .table_td_number{
+   font-size: 17px;
+ }
+
+ .td_elips1 {
+   width:105%;
+   text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+ }
+
+ .td_elips2 div{
+   width: 100%;
+   text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    float: right;
+ }
 </style>
