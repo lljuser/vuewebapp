@@ -239,7 +239,7 @@ export default {
 .fixedLeft{
   width: 65%;
   height: 1.6rem;
-  background-color: #47423c;
+  background-color: #2B2B2B;
   color: #fff;
 }
 .fixedRight{
