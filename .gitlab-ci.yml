@@ -43,7 +43,11 @@ build_developer:
   - echo "==>Run npm test------------------------------"
   - chcp 850
   - npm run test
-  - echo "==>npm test success--------------------------"   
+  - echo "==>npm test success--------------------------"  
+   - echo "==>Run npm test deploy------------------------------"
+  - chcp 850
+  - npm run testdeploy
+  - echo "==>test deploy success--------------------------"    
   only: 
   - schedules
   - web  
