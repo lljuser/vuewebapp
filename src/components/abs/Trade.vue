@@ -34,6 +34,7 @@
     </tr>    
   </table>
 
+  <mt-loadmore :top-method="loadTop"  ref="loadmore">
   <table id="tradeTableId" class="appH5_table" style="table-layout:fixed;">
     <tr>
       <th>证券简称</th>
@@ -53,14 +54,21 @@
           :item="item"
           :key="item.Id"/>    
     </tbody>
+    <tfoot>
+       <tr>
+            <td colspan="4" style="border-bottom:none">
+              <div class="spinner_div" v-if="list.length==0" >
+                    <span class="nomore">暂无数据</span>
+              </div>
+              <div class="spinner_div" v-else>
+                  <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
+                  <span v-if="noMore" class="nomore">没有更多了</span>
+              </div>
+            </td>
+       </tr>
+    </tfoot>
   </table>
-  <div class="spinner_div" v-if="list.length==0" >
-        <span class="nomore">暂无数据</span>
-   </div>
-  <div class="spinner_div" v-else>
-      <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
-      <span v-if="noMore" class="nomore">没有更多了</span>
-  </div>
+  </mt-loadmore>
 
  </div>
 </div>    
@@ -90,7 +98,8 @@ export default {
       direction:0,
       isTradeLoading:false,
       isFetchTradesError:false,
-      noMore:false
+      noMore:false,
+      isLoadTop:false
     };
   },
    activated() {
@@ -142,8 +151,9 @@ export default {
         this.ratingList=data;
       });
     },
-    loadFirstPageTrades(){
+    loadFirstPageTrades(showSpinnerLoad){
       this.isTradeLoading = true;
+      if(showSpinnerLoad!=null)this.isTradeLoading = false;
       this.loading = false;
       setTimeout(() => {
         this.fetchTrades(1,0, data => {
@@ -154,6 +164,7 @@ export default {
           {
             this.noMore=true;
           }
+          if(showSpinnerLoad!=null) this.$refs.loadmore.onTopLoaded();
         });
       }, 600);
     },  
@@ -170,6 +181,7 @@ export default {
             this.noMore=true;
           }
           this.isFetchTradesError=false;
+          this.isLoadTop=false;
         }
         else{
           this.doCatch();
@@ -184,6 +196,19 @@ export default {
         this.loading = false;
         this.isTradeLoading=false;
         this.isFetchTradesError=true;
+        if(this.isLoadTop){
+          setTimeout(() => {
+            this.$refs.loadmore.onTopLoaded();
+          }, 4000);
+        }
+    },
+
+    loadTop(){
+      this.isLoadTop=true;
+      this.timer = setTimeout(() => {
+        this.loadFirstPageTrades(true);
+        this.loadSelectOptions();
+      }, 600);   
     },
 
     loadMore(){
