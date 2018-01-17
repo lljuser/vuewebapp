@@ -86,7 +86,7 @@
         </div>
         <div v-else class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
     </div>
-        <div class="appH5_panel">
+        <div class="appH5_panel" v-if="showChart">
             <div class="appH5_title">
                 <span>证券偿付</span>
             </div>
@@ -147,6 +147,7 @@ export default {
             },
             chartWidthRem:3,
             chartWidthPx:225,
+            showChart: true,
             isFetchDetailError: false,
         };
     },
@@ -246,7 +247,10 @@ export default {
                         this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
                     }
                     if (data.ResultSetId != null && data.ResultSetId > 0) {
+                        this.showChart = true;
                         this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
+                    } else {
+                        this.showChart = false;
                     }
                 });
             },600);
