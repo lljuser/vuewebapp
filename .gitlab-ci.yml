@@ -33,15 +33,15 @@ build_master:
 build_developer:
   stage: build 
   before_script:   
-  - echo "==>Run yarn install---------------------------"
+  - echo "==>Run npm install---------------------------"
   - chcp 850
   - npm install
-  - echo "==>yarn install success-----------------------"  
+  - echo "==>npm install success-----------------------"  
   script:
-  - echo "==>Run yarn test------------------------------"
+  - echo "==>Run npm test------------------------------"
   - chcp 850
-  - npm test
-  - echo "==>yarn test success--------------------------"  
+  - npm run test
+  - echo "==>npm test success--------------------------"  
   after_script:
   - echo "==>Unit test ..."   
   - echo "==>Unit test success!!!" 
