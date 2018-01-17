@@ -33,7 +33,8 @@
                 <tr>
                 <td>发起机构</td>
                 <td>
-                    <div v-for="(item,index) in productDetail.Basic.DealOriginator" v-bind:key='index'><span>{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                    <div v-if="productDetail.Basic.DealOriginator!==null"><span v-for="(item,index) in productDetail.Basic.DealOriginator" style="display:block">{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                    <div v-else>-</div>
                 </td>
                 </tr>
                 <tr>
@@ -229,6 +230,7 @@ export default {
         if (this.id) {
             setTimeout(()=>{
                     this.fetchProductDetail(this.id,data=>{
+                        console.log(data);
                     this.productDetail =data;
                     this.isProductLoading=false;
                     if(data.DealId!=null&&data.DealId>0){
