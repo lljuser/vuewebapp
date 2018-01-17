@@ -165,7 +165,7 @@ a:hover, a:focus {
 	color:#fff!important;
 }
 .appH5_bg_pink{
-	color:#ff6666;
+	background:#ff6666;
 }
 .appH5_bg_blue{
 	background:#0066cc;
@@ -408,15 +408,15 @@ select{
 	color: #fff;
 }
 .router-link-active .appH5_tab {
-	border-color: #f98909;
+	border-color: #ffc446;
 	border-bottom-width: 3px;
 	border-bottom-style: solid;
-	color: #f98909;
+	color: #ffc446;
 }
 .appH5_select_tab{
-	color:#f98909;
+	color:#ffc446;
 	font-size: 19px;
-	border-bottom: 3px solid #f98909;
+	border-bottom: 3px solid #ffc446;
 	padding-left:0.16rem;
 	padding-right:0.16rem;
 	padding-top: 0.346667rem;
