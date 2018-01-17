@@ -52,8 +52,8 @@
           <tr v-if="detailInfo.AbsProjectUsers !== undefined &&detailInfo.AbsProjectUsers !== null && detailInfo.AbsProjectUsers.length > 0">
               <td colspan="4" class="padtop1">
                   <span class="fl mr5">参与专家</span>
-                  <div style="max-width: 6.9rem;">
-                    <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}`"  v-for="item in detailInfo.AbsProjectUsers" class="fl" style="display:inline-block;">
+                  <div class="fl" style="max-width: 6.9rem;">
+                    <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}`"  v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
                       <img class="touxiang" :src="item.AvatarPath"/>
                     </a>
                   </div>
@@ -228,7 +228,7 @@ export default {
 }
 .appH5_content table .touxiang{
   display: inline-block;
-  margin-right: .05rem;
+  margin-right: .2rem;
 }
 .fixedMain{
   position: fixed;
