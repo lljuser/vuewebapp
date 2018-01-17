@@ -35,18 +35,17 @@ build_developer:
   before_script:   
   - echo "==>Run npm install---------------------------"
   - chcp 850
-  - npm install
+  - yarn install
   - echo "==>npm install success-----------------------"  
   script: 
-  - chcp 850
-  after_script:
   - echo "==>Run npm test------------------------------"
   - chcp 850
-  - npm run test
+  - yarn run test
   - echo "==>npm test success--------------------------"  
-   - echo "==>Run npm test deploy------------------------------"
+  after_script: 
+  - echo "==>Run npm test deploy------------------------------"
   - chcp 850
-  - npm run testdeploy
+  - yarn run testdeploy
   - echo "==>test deploy success--------------------------"    
   only: 
   - schedules
