@@ -44,7 +44,7 @@ build_developer:
   - chcp 850
   - npm run test
   - echo "==>npm test success--------------------------"  
-   - echo "==>Run npm test deploy------------------------------"
+  - echo "==>Run npm test deploy------------------------------"
   - chcp 850
   - npm run testdeploy
   - echo "==>test deploy success--------------------------"    
