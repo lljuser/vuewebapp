@@ -149,7 +149,8 @@
                     <div class="ep_font24 ep_color_grey2 ep_marginTop10">
                         <span>{{item.StartTime}}</span>
                         <span>-</span>
-                        <span>{{item.EndTime}}</span>
+                        <span>{{item.EndTime}}；</span>
+                        <span>{{item.TimeSpan}}</span>
                     </div>
                     <div class="ep_font24 ep_color_grey2 ep_marginTop10">
                         <span>{{item.Description}}</span>

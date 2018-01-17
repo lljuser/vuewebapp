@@ -34,7 +34,8 @@
                 <tr>
                 <td>发起机构</td>
                 <td>
-                    <div v-for="(item,index) in productDetail.Basic.DealOriginator"><span>{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                    <div v-if="productDetail.Basic.DealOriginator!==null"><span v-for="(item,index) in productDetail.Basic.DealOriginator" style="display:block">{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                    <div v-else>-</div>
                 </td>
                 </tr>
                 <tr>
@@ -80,7 +81,7 @@
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentWal}}</span></td>
                     <td class="text-center"><span class="appH5_color_skyblue">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
-                    <td class="text-center"><span>{{item.RepaymentOfPrincipal.replace("型","")}}</span></td>
+                    <td class="text-right"><span>{{item.RepaymentOfPrincipal.replace("型","")}}</span></td>
                 </tr>
             </table>
         </div>

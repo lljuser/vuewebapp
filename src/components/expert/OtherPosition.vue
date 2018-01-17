@@ -7,7 +7,7 @@
                     <span>职务</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                    <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="otherPost.Name" />
+                    <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入职务名称" v-model.trim="otherPost.Name" />
                 </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">
                 <span class="fl ep_marginTop5">*</span>

@@ -8,9 +8,9 @@
         <router-link to="/product" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">产品</a>
         </router-link>
-        <!-- <router-link to="/trade" tag="div" class="navbar-item">
+        <router-link to="/trade" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">交易</a>
-        </router-link> -->
+        </router-link>
       </div>
     </div> 
 
@@ -40,7 +40,7 @@ export default {
       showHeader: false,
       path: '',
       headTitle:'产品信息',
-      tabs: ['market', 'product'],
+      tabs: ['market', 'product', 'trade'],
       startX: 0,
       startY: 0,
       isVertical: false

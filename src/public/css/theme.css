@@ -470,3 +470,7 @@ select{
 	word-break: break-word;
 	word-wrap: break-word;
 }
+
+.mint-loadmore-top{
+	font-size: 12px;
+}

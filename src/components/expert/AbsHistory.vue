@@ -7,7 +7,7 @@
                   <span>产品名称</span>
                   <span class="ep_marginLeft10 ep_marginTop5">*</span>
                 </div>
-                <input v-on:click="selectDeal" class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="projectHistory.DealName" v-bind:disabled="util.isValidElement(id)" />
+                <input v-on:click="selectDeal" class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入产品名称" v-model.trim="projectHistory.DealName" v-bind:disabled="util.isValidElement(id)" />
             </div>
             <div class="clearBoth"></div>
             <div class="ep_part_item_border ep_font32">
