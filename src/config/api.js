@@ -26,7 +26,7 @@ export const Trade = {
   typeList: `${apiAddress}/motrade/getsecuritytypelist`, 
   walbuckList: `${apiAddress}/moTrade/getwalbucketlist`, 
   ratingList: `${apiAddress}/motrade/getratinglist`,
-  allotedList: `${apiAddress}/motrade/getcouponlist`,
+  couponList: `${apiAddress}/motrade/getcouponlist`,
 };
 
 export const Expert = {
