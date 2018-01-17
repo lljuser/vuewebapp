@@ -76,9 +76,9 @@
                 <tr v-for="(item,index) in productDetail.NoteList" v-bind:key='index'>
                     <td><div class="appH5_ellipsis appH5_font_normal" style="width:0.8rem;">{{item.Name}}</div></td>
                     <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
-                    <td class="text-right"><span>{{item.CurrentCoupon}}</span></td>
-                    <td class="text-right"><span>{{item.CurrentWal}}</span></td>
-                    <td class="text-center"><span>{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
+                    <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
+                    <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentWal}}</span></td>
+                    <td class="text-center"><span class="appH5_color_skyblue">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
                     <td class="text-center"><span>{{item.RepaymentOfPrincipal.replace("型","")}}</span></td>
                 </tr>
             </table>
