@@ -298,7 +298,7 @@ export default {
                 var chartData = json.data;
                 var o = [];
                         var hasLegal = chartData.HasLegalLine;
-                        var colors = ['#FF3333', '#2F97FF', '#00FC00', '#FFA20B', '#FF33CC', '#33FFCC', '#9933FF', '#FFE40C', '#69FB69'];
+                        var colors = ['#2F97FF', '#00FC00', '#FF33CC', '#33FFCC', '#FF3333', '#9933FF', '#FFA20B',  '#69FB69', '#FFE40C'];
                         var seriesLength = chartData.ListLineSeries.length / 2;
                         for (var j = 0; j < Math.floor((hasLegal ? seriesLength : 2 * seriesLength) / colors.length); j++)
                             colors = colors.concat(colors);
