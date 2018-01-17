@@ -1,5 +1,5 @@
 module.exports = {
-  colors: ['#2F97FF', '#00FC00', '#FF33CC', '#33FFCC', '#FF3333', '#9933FF', '#FFA20B',  '#69FB69', '#FFE40C'],
+  colors: ['#2F97FF', '#00FC00', '#FF33CC', '#33FFCC', '#FF3333', '#9933FF', '#FFA20B', '#69FB69', '#FFE40C'],
   chart: {
     backgroundColor: {
       linearGradient: {

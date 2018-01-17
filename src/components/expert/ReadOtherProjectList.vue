@@ -37,7 +37,7 @@
     import * as webApi from "@/config/api";
     import util from '@/public/modules/expert/utils';
     import dislikeImg from '@/public/images/dislike.png';
-    import likeImg from '@/public/images/like.png';
+    import likeImg from '@/public/image/followicon.png';
 
     export default {
         name: 'ReadOtherProjectList',
