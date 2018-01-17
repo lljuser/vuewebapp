@@ -16,21 +16,21 @@
                    <div class="ep_title_div">
                     <span>国家</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入" v-model.trim="projectHistory.Nation" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入国家" v-model.trim="projectHistory.Nation" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>产品全称</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入" v-model.trim="projectHistory.ProjectName" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入产品全称" v-model.trim="projectHistory.ProjectName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>产品简称</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入简称" v-model.trim="projectHistory.ProjectShortName" v-cloak />
+                <input class="ep_align_right ep_input fl ep_font32 " type="text" placeholder="请输入产品简称" v-model.trim="projectHistory.ProjectShortName" v-cloak />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
@@ -76,7 +76,7 @@
                 </div>
                 </div>
                 <div class="projectDescriptionOther">
-                    <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入" v-model.trim="projectHistory.Description"> </textarea>
+                    <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入项目介绍" v-model.trim="projectHistory.Description"> </textarea>
                 </div>
             </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-cloak v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">

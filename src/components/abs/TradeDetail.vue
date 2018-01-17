@@ -8,59 +8,54 @@
       <div class="appH5_panel">
           <table class="appH5_list_four" border="0" cellspacing="0" cellpadding="0">
           <tr>
-              <td class="pdrSpecial appH5_vertical_Top appH5_white_space">
-              <span>产品名称</span>  
-              </td>
-              <td colspan="3">
-              <div class="fl txt_justify">{{detailInfo.DealFullName}}</div>
+              <td colspan="4" class="appH5_color_white appH5_word_break">
+                 <div class="fl txt_justify">{{detailInfo.DealFullName}}</div>
               </td>
           </tr>
+           <tr>
+	        		<td class='appH5_color_red' colspan="2" rowspan="2">
+              <span class="appH5_font_largest" v-if="detailInfo.TotalOffering>=10">{{Math.round(detailInfo.TotalOffering)}}</span>
+              <span class="appH5_font_largest" v-else>{{detailInfo.TotalOffering}}</span>
+              <span>亿</span>
+					</td>
+	        		<td v-if="detailInfo.Coupon !=null" class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>{{detailInfo.Coupon}}</td>
+              <td v-else class="appH5_color_skyblue">-</td>
+	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>{{detailInfo.WAL}}年</td>
+	        	</tr>
+			  	<tr>
+            <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'" class='appH5_color_skyblue appH5_font_larger appH5_white_space'>{{detailInfo.Rating}}</td>
+            <td v-else class="appH5_color_skyblue">-</td>
+            <td class='appH5_color_skyblue appH5_font_larger appH5_white_space'>{{detailInfo.AssetType}}</td>
+          </tr>
           <tr>
-              <td class="appH5_white_space">期限(年)</td>
-              <td>{{detailInfo.WAL}}</td>
-              <td class="appH5_white_space">交易类型</td>
-              <td v-if="detailInfo.TradeType === '转让'">二级市场转让</td>
+	        		<td class='appH5_white_space'>证券类型</td>
+	        		<td class="appH5_vertical_top">{{detailInfo.SecurityType}}</td>
+	        		<td class='appH5_white_space'>交易类型</td>
+	        		<td v-if="detailInfo.TradeType === '转让'">二级市场转让</td>
               <td v-else-if="detailInfo.TradeType === '发行'">一级市场发行</td>
               <td v-else>{{detailInfo.TradeType}}</td>
-          </tr>
-          <tr>
-              <td class="appH5_white_space">证券类型</td>
-              <td class="appH5_color_link"><router-link :to="`/trade/${detailInfo.RatingId}/${detailInfo.SecurityTypeId}`"><a href="javascript:;">{{detailInfo.SecurityType}}</a></router-link></td>
-              <td class="appH5_white_space">评&#12288;&#12288;级</td>
-              <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'">{{detailInfo.Rating}}</td>
-              <!-- <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'"><router-link :to="`/trade/${detailInfo.RatingId}/${detailInfo.SecurityTypeId}`"><a href="javascript:;">{{detailInfo.Rating}}</a></router-link></td> -->
-              <td v-else>-</td>
-          </tr>
-          <tr>
-              <td class="appH5_white_space">分层占比</td>
-              <td>{{detailInfo.NotionalPct}}%</td>
-              <td class="appH5_white_space">产品类型</td>
-              <td>{{detailInfo.AssetType}}</td>
-          </tr>
-          <tr>
-              <td class="appH5_white_space">利率(%)</td>
-              <td v-if="detailInfo.Coupon !=null">{{detailInfo.Coupon}}</td>
-              <td v-else>-</td>
-              <td class="appH5_white_space">交易场所</td>
-              <td>{{detailInfo.Exchange}}</td>
-          </tr>
-          <tr>
-              <td class="appH5_white_space" style="vertical-align: middle;">金额(亿)</td>
-              <td  colspan="3" class="appH5_color_red appH5_font_largest">{{detailInfo.TotalOffering}}</td>
-          </tr>
-          <tr v-if="detailInfo.Description !== undefined &&detailInfo.Description !== null && detailInfo.Description.length > 0">
-              <td colspan="4" class="txt_justify lineHight">
+	      </tr>
+	      <tr>
+	        		<td class='appH5_white_space'>分层占比</td>
+	        		<td>{{detailInfo.NotionalPct}}%</td>
+	        		<td class='appH5_white_space'>交易场所</td>
+	        		<td>{{detailInfo.Exchange}}</td>
+	      </tr>
+        <tr v-if="detailInfo.Description !== undefined &&detailInfo.Description !== null && detailInfo.Description.length > 0">
+              <td colspan="4" class="txt_justify lineHight introductionCont">
                   <span class="appH5_white_space">产品简介</span>
-                  <div class="appH5_color_white appH5_margin_top_td_div" v-html="detailInfo.Description" style="word-break: break-all;">
+                  <div class="appH5_margin_top_td_div" v-html="detailInfo.Description" style="word-break: break-all;color: #ccc;">
                   {{detailInfo.Description}}
                   </div>
               </td>
           </tr>
           <tr v-if="detailInfo.AbsProjectUsers !== undefined &&detailInfo.AbsProjectUsers !== null && detailInfo.AbsProjectUsers.length > 0">
-              <td colspan="4">
+              <td colspan="4" class="padtop1">
                   <span class="fl mr5">参与专家</span>
-                  <div class="fl" style="max-width: 6.9rem;">
-                  <img class="touxiang" v-for="item in detailInfo.AbsProjectUsers" :src="item.AvatarPath"/>
+                  <div style="max-width: 6.9rem;">
+                    <a href="javascript:;"  v-for="item in detailInfo.AbsProjectUsers" class="fl" style="display:inline-block;">
+                      <img class="touxiang" :src="item.AvatarPath"/>
+                    </a>
                   </div>
                   <div class="clearfix"></div>
               </td>
@@ -68,7 +63,7 @@
           <tr v-if="detailInfo.Contacts !== undefined && detailInfo.Contacts !== null && detailInfo.Contacts.length > 0">
               <td colspan="4">
                   <div class="fl mr5">联&nbsp;系&nbsp;人&nbsp;</div>
-                  <div class="fl">
+                  <div class="fl" style="padding-top: .12rem;">
                   <div class="mb08 appH5_color_white" v-for="contactItem in detailInfo.Contacts">{{contactItem.Name}}&nbsp;&nbsp;{{contactItem.Telephone}}</div>
                   </div>
               <div class="clearfix"></div>
@@ -82,9 +77,9 @@
     </div>
     <div class="fixedMain appH5_font_normal" v-if="contactItem.IsPrimary" v-for="contactItem in detailInfo.Contacts">
         <div class="fl fixedLeft">
-              <div class="fl" style="margin: .2rem .2rem 0 .32rem;">
+              <a href="javascript:;"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
                 <img class="touxiang" :src="contactItem.AvatarPath"/>
-              </div>
+              </a>
               <div class="fl txtLeft" style="margin: .1rem 0 0 0; display: table; height: 1.3rem;">
                   <div style="display: table-cell; vertical-align: middle;">
                     <div class="lxname">{{contactItem.Name}}</div>
@@ -96,7 +91,7 @@
               </div>
               <div class="clearfix"></div>
         </div>
-        <a :href="'tel:'+cutStr(contactItem.Telephone)" class="fl fixedRight">
+        <a :href="'tel:'+cutStr(contactItem.Telephone)" class="fl fixedRight appH5_bg_pink">
             <img class="phoneImg" src="../../public/images/phone.png"/>
         </a>
         <div class="clearfix"></div>
@@ -146,6 +141,9 @@ export default {
         return arr.split("转")[0];
     },
     
+    // cutRate(arr){
+    //     return arr.split("~")[0];
+    // },
     doCatch(){
         Toast('服务器繁忙，请重试！');    
         this.loading = false;
@@ -190,6 +188,10 @@ export default {
 }
 .mr5{
   margin-right: .5rem;
+  margin-top: 0.12rem;
+}
+.padtop1{
+  padding-top: .16rem;
 }
 .txt_justify{
     text-align: justify;
@@ -243,7 +245,6 @@ export default {
 .fixedRight{
   width: 35%;
   height: 1.6rem;
-  background-color: #ff7271;
   align-items:center;
   display: -webkit-box;
   display: flex;
@@ -261,13 +262,15 @@ export default {
   font-size: .3rem;
   color:#ccc;
 }
-.appH5_list_four td:nth-of-type(2n+1){
-    width: 22%;
-    padding-right: 0!important;
+.introductionCont{
+  padding-top: .3rem;
+}
+.introductionCont div{
+  padding-top: .08rem;
 }
 @media only screen and (min-width: 320px) and (max-width: 374px){
     .appH5_content table tr td:nth-child(1),.appH5_content table tr td:nth-child(3){
-        width: 19%;
+        width: 13%;
         padding-right: .2rem!important;
     }
     .appH5_content table tr td:nth-child(2){

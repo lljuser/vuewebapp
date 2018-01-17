@@ -7,14 +7,14 @@
                     <span>获奖年份</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <div class="fl ep_right_div ep_font32 ep_align_left honorAwardYear" v-on:click="showYearPicker()" v-bind:class="[honorAward.Year=== undefined?'ep_color_grey':'']">{{honorAward.Year=== undefined ?'请选择':honorAward.Year}}</div>
+                <div class="fl ep_right_div ep_font32 ep_align_left honorAwardYear" v-on:click="showYearPicker()" v-bind:class="[honorAward.Year=== undefined?'ep_color_grey':'']">{{honorAward.Year=== undefined ?'请选择年份':honorAward.Year}}</div>
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                     <div class="ep_title_div">
                     <span>奖项名称</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class=" ep_input fl ep_font32 " type="text" placeholder="请输入" v-model.trim="honorAward.Name" />
+                <input class=" ep_input fl ep_font32 " type="text" placeholder="请输入奖项名称" v-model.trim="honorAward.Name" />
             </div>
             <div>
                 <div class="ep_part_item ep_overhide">
@@ -23,7 +23,7 @@
                 </div>
                 </div>
                 <div>
-                    <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入" v-model.trim="honorAward.Description"> </textarea>
+                    <textarea class="ep_font32 ep_textarea" type="text" placeholder="请输入奖项描述" v-model.trim="honorAward.Description"> </textarea>
                 </div>
             </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-cloak v-show="isShowError" v-bind:class="[isShowError?'ep_paddingTop60':'']">
