@@ -37,11 +37,11 @@
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>ABS项目</span>
                     <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
-                        <span class="fl">(共</span>
+                        <span class="fl appH5_font_smaller">(共&nbsp;</span>
                         <span class="appH5_color_red appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
-                        <span class="fl">单，</span>
+                        <span class="fl appH5_font_smaller">&nbsp;单，</span>
                         <span class="appH5_color_red appH5_font_larger fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
-                        <span class="fl">亿)</span>
+                        <span class="fl appH5_font_smaller">&nbsp;亿)</span>
                     </span>
                 </div>
                 <router-link v-if="userInfo.ABSProjects && userInfo.ABSProjects.length > 3" v-bind:to="routeUrls.ReadAbsHistoryList" class="fr text_right_link">
@@ -80,11 +80,11 @@
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>其它项目</span>
                     <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.OtherProjects)">
-                    <span class="fl">(共</span>
+                    <span class="fl appH5_font_smaller">(共&nbsp;</span>
                     <span class="appH5_color_red appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
-                    <span class="fl">单，</span>
+                    <span class="fl appH5_font_smaller">&nbsp;单，</span>
                     <span class="appH5_color_red appH5_font_larger fl">{{otherProjectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':otherProjectHistoriesSummary.totalOffering.toFixed(2)}}</span>
-                    <span class="fl">亿)</span>
+                    <span class="fl appH5_font_smaller">&nbsp;亿)</span>
                     </span>
                 </div>
                 <router-link v-if="userInfo.OtherProjects && userInfo.OtherProjects.length > 3" v-bind:to="routeUrls.ReadOtherProjectList" class="fr text_right_link">
@@ -108,9 +108,7 @@
                             </td>
                             <td class="ep_ellipsis text-right appH5_color_red">{{item.TotalOffering.toFixed(2)}}</td>
                             <td class='text-right ep_ellipsis'>
-                                <div class=" fr ep_width176">
-                                    {{item.DealType}}
-                                </div>
+                                {{item.DealType}}
                             </td>
                             <td class='text-right' v-if="!editable">
                                <div  class="ep_overhide ep_lineHeight32 ">
@@ -132,7 +130,7 @@
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.WorkHistories" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width510 appH5_color_green">{{item.Position}}</span>
-                        <span v-if="item.IsAuthenticated" class="fr ep_color_grey2 ep_font28 ep_lineHeight32">机构已认证</span>
+                        <span v-if="item.IsAuthenticated" class="fr appH5_color_pink ep_font28 ep_lineHeight32">机构已认证</span>
                     </div>
                     <div class="ep_font24 ep_color_grey2 ep_marginTop10 ep_overhide">
                         <span class="fl ep_maxWidth400 ep_ellipsis">{{item.Company}}</span>
@@ -307,8 +305,8 @@ import * as webApi from "@/config/api";
 import util from "@/public/modules/expert/utils";
 
 import dislikeImg from '@/public/images/dislike.png';
-import likeImg from '@/public/images/like.png';
-import defaultAvatar from '@/public/images/defaultavatar.png';
+import likeImg from '@/public/image/followicon.png';
+import defaultAvatar from '@/public/image/unfollowicon.png';
 
 export default {
   name: "ReadProfile",
