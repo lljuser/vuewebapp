@@ -34,6 +34,24 @@
  
 
 
+      <!-- <table id="productTableId" class="appH5_table">
+        <tr>
+          <th>产品名称</th>
+          <th class="text-right">总额(亿)</th>
+          <th class="text-right">产品分类</th>
+        </tr>
+        <tbody  v-infinite-scroll="loadMore"
+          infinite-scroll-disabled="loading"
+          infinite-scroll-immediate-check="true"
+          infinite-scroll-distance="55">
+          <ProductItem 
+            v-for="(item, index) in list" 
+            :item="item"
+            :id="index"
+            :key="index"/>
+        </tbody>
+    </table> -->
+    <mt-loadmore :top-method="loadTop"  ref="loadmore">
       <table id="productTableId" class="appH5_table">
         <tr>
           <th>产品名称</th>
@@ -50,14 +68,24 @@
             :id="index"
             :key="index"/>
         </tbody>
-    </table>
-     <div class="spinner_div" v-if="list.length==0">
-        <span  class="nomore">暂无数据</span>
-      </div>
-      <div class="spinner_div" v-else >
-        <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
-        <span v-if="noMore" class="nomore">没有更多了</span>
-      </div>
+        <tfoot>
+          <tr>
+            <td colspan="3" style="border-bottom:none">
+              <div class="spinner_div" v-if="list.length==0">
+                <span  class="nomore">暂无数据</span>
+              </div>
+              <div class="spinner_div" v-else >
+                <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
+                <span v-if="noMore" class="nomore">没有更多了</span>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </mt-loadmore>
+
+
+    
      
     </div>
   </div>
@@ -88,6 +116,7 @@ export default {
       isProductLoading: false,
       isFetchProductsError: false,
       noMore:false,
+      isLoadTop:false
     };
   },
   mounted() {
@@ -127,9 +156,10 @@ export default {
     this.loading = true;
   },
   methods: {
-    loadFirstPageProducts() {
+    loadFirstPageProducts(showSpinnerLoad) {
       this.loading = false;
       this.isProductLoading = true;
+      if(showSpinnerLoad!=null)this.isProductLoading = false;
       setTimeout(() => {
         this.fetchProducts(1,0, data => {
           this.list = data;
@@ -139,8 +169,16 @@ export default {
           {
             this.noMore=true;
           }
+          if(showSpinnerLoad!=null) this.$refs.loadmore.onTopLoaded();
         });
       }, 600);
+    },
+
+    loadTop(){
+      this.isLoadTop=true;
+      this.timer = setTimeout(() => {
+        this.loadFirstPageProducts(true);
+      }, 600);   
     },
 
     loadMore() {
@@ -154,6 +192,7 @@ export default {
         });
       }, 600);
     },
+
 
     fetchProducts(page,direction,callback) {
       var url=webApi.Product.list;
@@ -177,6 +216,7 @@ export default {
               this.noMore=true;
             }
             this.isFetchProductsError = false;
+            this.isLoadTop=false;
         }
         else{
            this.doCatch();
@@ -191,6 +231,12 @@ export default {
         this.loading = false;
         this.isProductLoading = false;
         this.isFetchProductsError = true;
+        if(this.isLoadTop){
+          setTimeout(() => {
+            this.$refs.loadmore.onTopLoaded();
+          }, 4000);
+        }
+        //if(showSpinnerLoad!=null) this.$refs.loadmore.onTopLoaded();
     },
 
     selectChange(){

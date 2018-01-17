@@ -14,16 +14,17 @@
           </tr>
            <tr>
 	        		<td class='appH5_color_red' colspan="2" rowspan="2">
-              <span class="appH5_font_largest">{{detailInfo.TotalOffering}}</span>
+              <span class="appH5_font_largest" v-if="detailInfo.TotalOffering>=10">{{Math.round(detailInfo.TotalOffering)}}</span>
+              <span class="appH5_font_largest" v-else>{{detailInfo.TotalOffering}}</span>
               <span>亿</span>
 					</td>
 	        		<td v-if="detailInfo.Coupon !=null" class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>{{detailInfo.Coupon}}</td>
-              <td v-else>-</td>
+              <td v-else class="appH5_color_skyblue">-</td>
 	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>{{detailInfo.WAL}}年</td>
 	        	</tr>
 			  	<tr>
-            <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'" class='appH5_color_skyblue appH5_font_larger appH5_white_space'>{{detailInfo.Rating}}</td>
-            <td v-else>-</td>
+            <td v-if="detailInfo.Rating!=null&&detailInfo.Rating!='-'" class='appH5_color_skyblue appH5_font_larger appH5_white_space appH5_vertical_middle'>{{detailInfo.Rating}}</td>
+            <td v-else class="appH5_color_skyblue">-</td>
             <td class='appH5_color_skyblue appH5_font_larger appH5_white_space'>{{detailInfo.AssetType}}</td>
           </tr>
           <tr>
@@ -51,8 +52,8 @@
           <tr v-if="detailInfo.AbsProjectUsers !== undefined &&detailInfo.AbsProjectUsers !== null && detailInfo.AbsProjectUsers.length > 0">
               <td colspan="4" class="padtop1">
                   <span class="fl mr5">参与专家</span>
-                  <div style="max-width: 6.9rem;">
-                    <a href="javascript:;"  v-for="item in detailInfo.AbsProjectUsers" class="fl" style="display:inline-block;">
+                  <div class="fl" style="max-width: 6.9rem;">
+                    <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}`"  v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
                       <img class="touxiang" :src="item.AvatarPath"/>
                     </a>
                   </div>
@@ -76,7 +77,7 @@
     </div>
     <div class="fixedMain appH5_font_normal" v-if="contactItem.IsPrimary" v-for="contactItem in detailInfo.Contacts">
         <div class="fl fixedLeft">
-              <a href="javascript:;"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
+              <a v-bind:href="`/webapp/expert.html?UserId=${contactItem.UserId}`"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
                 <img class="touxiang" :src="contactItem.AvatarPath"/>
               </a>
               <div class="fl txtLeft" style="margin: .1rem 0 0 0; display: table; height: 1.3rem;">
@@ -140,6 +141,9 @@ export default {
         return arr.split("转")[0];
     },
     
+    // cutRate(arr){
+    //     return arr.split("~")[0];
+    // },
     doCatch(){
         Toast('服务器繁忙，请重试！');    
         this.loading = false;
@@ -224,7 +228,7 @@ export default {
 }
 .appH5_content table .touxiang{
   display: inline-block;
-  margin-right: .05rem;
+  margin-right: .2rem;
 }
 .fixedMain{
   position: fixed;
@@ -235,7 +239,7 @@ export default {
 .fixedLeft{
   width: 65%;
   height: 1.6rem;
-  background-color: #47423c;
+  background-color: #2B2B2B;
   color: #fff;
 }
 .fixedRight{
@@ -274,6 +278,9 @@ export default {
     }
     .appH5_content table tr td:nth-child(4){
         width: 40%;
+    }
+    .appH5_font_larger {
+       font-size: 17px!important;
     }
 }
 </style>
