@@ -279,5 +279,8 @@ export default {
     .appH5_content table tr td:nth-child(4){
         width: 40%;
     }
+    .appH5_font_larger {
+       font-size: 17px!important;
+    }
 }
 </style>
