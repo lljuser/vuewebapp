@@ -140,17 +140,14 @@ body {
 }
 
 .ep_editBtn {
-    border: 1px solid #017afd;
+    border: 1px solid #ffc446;
     border-radius: 4px;
-    color: #017afd;
+    color: #ffc446;
     padding-left: 0.2rem;
     padding-right: 0.2rem;
     padding-top: 0.02rem;
     padding-bottom: 0.02rem;
     font-size:15px;
-}
-.ep_editBtn:hover{
-    color: #017afd!important;
 }
 .ep_greyEditBtn{
     border: 1px solid #E0E0E0;
