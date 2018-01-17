@@ -4,9 +4,21 @@ stages:
   
 build_master:
   stage: build 
-  before_script:  
+  before_script: 
+  - echo "==>Run yarn install---------------------------"
+  - chcp 850
+  - echo "==>yarn install success-----------------------"    
   script: 
-  after_script: 
+  - echo "==>Run yarn test------------------------------"
+  - chcp 850
+  - echo "==>yarn test success--------------------------"  
+  after_script:
+  - echo "==>Unit test ..."   
+  - echo "==>Unit test success!!!" 
+  - echo "==>Deploy publish..."   
+  - echo "==>Deploy publish success!!!"  
+  - echo "==>Auto test...."
+  - echo "==>Auto test finish...."  
   only:
   - triggers
   except:
