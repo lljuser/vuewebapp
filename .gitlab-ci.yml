@@ -1,29 +1,31 @@
 stages:    
   - build 
-  - auto_test  
+  - auto_test 
+cache:
+    paths:
+    - node_modules/    
   
 build_master:
   stage: build 
   before_script: 
   - echo "==>Run yarn install---------------------------"
   - chcp 850
-  - echo "==>yarn install success-----------------------"    
+  - yarn install
+  - echo "==>install success-----------------------"    
   script: 
-  - echo "==>Run yarn test------------------------------"
+  - echo "==>Run yarn build------------------------------"
   - chcp 850
-  - echo "==>yarn test success--------------------------"  
+  - yarn build
+  - echo "==>build success--------------------------"  
   after_script:
-  - echo "==>Unit test ..."   
-  - echo "==>Unit test success!!!" 
-  - echo "==>Deploy publish..."   
-  - echo "==>Deploy publish success!!!"  
-  - echo "==>Auto test...."
-  - echo "==>Auto test finish...."  
+  - echo "==>Run yarn webdeploy------------------------------"
+  - chcp 850
+  - yarn webdeploy
+  - echo "==>web deploy success--------------------------"  
   only:
   - triggers
   except:
-  - developer
-  - test 
+  - developer 
   - schedules 
   - web
   tags:
@@ -35,18 +37,15 @@ build_developer:
   before_script:   
   - echo "==>Run yarn install---------------------------"
   - chcp 850
-  - yarn install --verbose  --har
+  - yarn install
   - echo "==>install success-----------------------"  
   script: 
-  - echo "==>Run yarn test build------------------------------"
+  - chcp 850 
+  after_script: 
+  - echo "==>Run yarn test------------------------------"
   - chcp 850
   - yarn test
-  - echo "==>test build success--------------------------"  
-  after_script: 
-  - echo "==>Run yarn test deploy------------------------------"
-  - chcp 850
-  - yarn testdeploy
-  - echo "==>test deploy success--------------------------"    
+  - echo "==>test success--------------------------"    
   only: 
   - schedules
   - web  

@@ -49,7 +49,7 @@ export default new Router({
       component: Trade,
     },
     {
-      path: '/trade/:gradeId/:securityId',
+      path: '/trade/:gradeId/:couponId',
       name: 'trade2',
       component: Trade,
     },
