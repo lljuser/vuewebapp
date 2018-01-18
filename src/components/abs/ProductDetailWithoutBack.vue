@@ -148,7 +148,7 @@ export default {
         }
       },
       chartWidthRem: 3,
-      chartWidthPx: 225,
+      chartWidthPx: 280,
       isFetchDetailError: false
     };
   },
@@ -178,16 +178,16 @@ export default {
           this.productDetail = data;
           this.isProductLoading = false;
           if (data.DealId != null && data.DealId > 0) {
-            if (data.NoteList != null && data.NoteList.length > 0) {
-              if (data.NoteList.length > 5) {
-                this.chartWidthPx = 320;
-              } else if (data.NoteList.length > 3) {
-                this.chartWidthPx = 240;
-              } else {
-                this.chartWidthPx = 200;
-              }
-            }
-            this.fetchNoteConsTable(data.DealId, this.chartWidthPx, 200);
+            // if (data.NoteList != null && data.NoteList.length > 0) {
+            //   if (data.NoteList.length > 5) {
+            //     this.chartWidthPx = 320;
+            //   } else if (data.NoteList.length > 3) {
+            //     this.chartWidthPx = 240;
+            //   } else {
+            //     this.chartWidthPx = 200;
+            //   }
+            // }
+            this.fetchNoteConsTable(data.DealId,280, 200);
           }
           if (data.ResultSetId != null && data.ResultSetId > 0) {
             this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
