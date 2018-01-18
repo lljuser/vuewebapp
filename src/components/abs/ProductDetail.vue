@@ -75,7 +75,7 @@
                     <th class="text-right">类型</th>
                 </tr>
                 <tr v-for="(item,index) in productDetail.NoteList" v-bind:key='index'>
-                    <td><div class="appH5_ellipsis appH5_font_normal" style="width:0.8rem;">{{item.Name}}</div></td>
+                    <td><div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">{{item.Name}}</div></td>
                     <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentWal}}</span></td>
