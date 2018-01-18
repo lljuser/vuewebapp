@@ -386,6 +386,9 @@ width:1.7rem;
 .ep_paddingBottom38{
     padding-bottom: 0.506667rem;
 }
+.ep_paddingBottom0{
+    padding-bottom: 0rem!important;
+}
 .editPencils {
     width: 19px;
     height:19px;
@@ -994,5 +997,8 @@ select option：hover
     margin-bottom: 0.32rem;
     width: 6.8rem;
     color:#000;
+}
+.ep_panel_padding_bottom{
+    padding-bottom: 0.32rem;
 }
    

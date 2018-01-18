@@ -1,7 +1,7 @@
 <template>
     <div class="projectHistoryABSListContent ep_font32">
         <div class="ep_marginTop24"></div>
-            <div class='appH5_panel' style="padding-top:0px;">
+            <div class='appH5_panel'>
                 <div class="ep_content_div" v-if="!isArrayEmpty(projectHistories)" v-cloak>
                     <table class="appH5_table">
                         <tr>

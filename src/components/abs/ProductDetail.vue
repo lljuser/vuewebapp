@@ -296,7 +296,7 @@ export default {
                 var chartData = json.data;
                 var o = [];
                         var hasLegal = chartData.HasLegalLine;
-                        var colors = ['#2F97FF', '#00FC00', '#FF33CC', '#33FFCC', '#FF3333', '#9933FF', '#FFA20B',  '#69FB69', '#FFE40C'];
+                        var colors = chartTheme.colors;
                         var seriesLength = chartData.ListLineSeries.length / 2;
                         for (var j = 0; j < Math.floor((hasLegal ? seriesLength : 2 * seriesLength) / colors.length); j++)
                             colors = colors.concat(colors);
@@ -309,7 +309,7 @@ export default {
                                         a.push([e.X, e.Y]);
                                     });
                                 if (hasLegal == true) {
-                                    if (i < seriesLength) {
+                                    if (!(e.Name.indexOf('说明书') != -1)) {
                                         o.push({
                                             name: e.Name,
                                             data: a,
