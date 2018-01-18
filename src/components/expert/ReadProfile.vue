@@ -36,7 +36,7 @@
             <header class="ep_part_title">
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>ABS项目</span>
-                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide ep_line_height22" v-if="!isArrayEmpty(userInfo.ABSProjects)">
                         <span class="fl appH5_font_smaller">(共&nbsp;</span>
                         <span class="appH5_color_red appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
                         <span class="fl appH5_font_smaller">&nbsp;单，</span>
@@ -79,7 +79,7 @@
             <header class="ep_part_title">
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>其它项目</span>
-                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.OtherProjects)">
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide ep_line_height22" v-if="!isArrayEmpty(userInfo.OtherProjects)">
                     <span class="fl appH5_font_smaller">(共&nbsp;</span>
                     <span class="appH5_color_red appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
                     <span class="fl appH5_font_smaller">&nbsp;单，</span>
