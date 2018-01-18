@@ -173,6 +173,9 @@ export default {
     };
   },
   created: function() {
+    
+  },
+  mounted: function() {
     this.scrollRestore();
     this.id = this.$route.params.id;
     this.searchUrl = webApi.Expert.orgSearch;

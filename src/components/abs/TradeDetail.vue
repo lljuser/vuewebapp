@@ -31,9 +31,9 @@
 	        		<td class='appH5_white_space'>证券类型</td>
 	        		<td class="appH5_vertical_top">{{detailInfo.SecurityType}}</td>
 	        		<td class='appH5_white_space'>交易类型</td>
-	        		<td v-if="detailInfo.TradeType === '转让'">二级市场转让</td>
-              <td v-else-if="detailInfo.TradeType === '发行'">一级市场发行</td>
-              <td v-else>{{detailInfo.TradeType}}</td>
+	        		<td v-if="detailInfo.TradeType === '转让'" class="appH5_white_space">二级市场转让</td>
+              <td v-else-if="detailInfo.TradeType === '发行'" class="appH5_white_space">一级市场发行</td>
+              <td v-else class="appH5_white_space">{{detailInfo.TradeType}}</td>
 	      </tr>
 	      <tr>
 	        		<td class='appH5_white_space'>分层占比</td>
@@ -281,6 +281,9 @@ export default {
     }
     .appH5_font_larger {
        font-size: 17px!important;
+    }
+    .mr5{
+      margin-right: 0;
     }
 }
 </style>

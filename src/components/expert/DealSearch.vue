@@ -1,7 +1,7 @@
 <template>
     <div class="divAutocomplete">
         <div class="fl">
-        <autocomplete :initValue="dealName" :classes="{ input: 'ep_align_right ep_input ep_font32'}" ref="deal" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="DealFullName" anchor="DealName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
+        <autocomplete :initValue="dealName" :classes="{ input: 'ep_align_right ep_input ep_font32 appH5_search_input'}" ref="deal" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON"  label="DealFullName" anchor="DealName" v-bind:url="dealSearch" :debounce="250" param="keyword" placeholder="请输入产品名称">
         </autocomplete>
         </div>
         <span class="fr ep_font30 cancelBtn" v-on:click="cancel">取消</span>
@@ -26,6 +26,9 @@ export default {
   created: function () {
       this.dealName = this.$route.params.dealName;
   },
+  mounted: function () {
+      this.focusCallBack();
+  },
   methods: {
     processJSON: function (json) {
         return json.Deals;
@@ -34,8 +37,13 @@ export default {
         return !(item === null || item === undefined || item === "");
     },
     // 处理focus的时候触发autocomplete
-    focusCallBack: function () {
+    focusCallBack: function (e) {
+        if (this.isValidElement(e)) {
+            this.dealName = e.target.value;
+        }
+        
         if (!this.isValidElement(this.dealName)) return;
+        
 
         axios.post(webApi.Expert.dealSearch, {keyword: this.dealName}).then(response => {
             this.$refs.deal.showList = true;
@@ -63,11 +71,12 @@ export default {
         this.$router.go(-1);
     }
   },
-  watch: {
-      dealName: function (model) {
-          this.focusCallBack();
-      }
-  }
+//   watch: {
+//       dealName: function (model) {
+//           if (!this.isValidElement(model)) return;
+//           //this.focusCallBack();
+//       }
+//   }
 }
 </script>
 
@@ -86,9 +95,9 @@ export default {
         font-size: 17px;
     }
     .divAutocomplete .ep_input{
-        width: 7.5rem;
+        width: 7rem;
         margin-left: 0.32rem;
-        background:#fff;
+        background-color: #fff;
         color:black;
     }
     .autocomplete-list ul{
