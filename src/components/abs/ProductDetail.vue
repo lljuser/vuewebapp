@@ -155,7 +155,7 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
-        busUtil.bus.$emit('headTitle', '产品信息');
+        busUtil.bus.$emit('headTitle', '');
     },
     mounted() {
         this.isProductLoading=true;
@@ -225,11 +225,12 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
-        busUtil.bus.$emit('headTitle', '产品信息');
+        busUtil.bus.$emit('headTitle', '');
         this.id = this.$route.params.id;
         if (this.id) {
             setTimeout(()=>{
                     this.fetchProductDetail(this.id,data=>{
+                    busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.productDetail =data;
                     this.isProductLoading=false;
                     if(data.DealId!=null&&data.DealId>0){
@@ -250,6 +251,7 @@ export default {
                     } else {
                         this.showChart = false;
                     }
+
                 });
             },600);
         }
