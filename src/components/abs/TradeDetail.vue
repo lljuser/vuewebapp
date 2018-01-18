@@ -1,6 +1,6 @@
 <template>
 <div class="appH5_body">
-  <div class="product-spinner" v-if="isTradeLoading">
+  <div class="product-spinner" v-if="isProductLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
   <div v-else>
