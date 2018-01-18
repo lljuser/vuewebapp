@@ -110,6 +110,7 @@ export default {
   },
 
   activated() {
+    document.body.scrollTop=0;
     if (this.isFetchMarketError) {
       this.loadfirstMarket();
     }
