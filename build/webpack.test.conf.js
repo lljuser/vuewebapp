@@ -166,7 +166,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
-        to: config.build.assetsSubDirectory,
+        to: config.build.assetsRoot,
         ignore: ['.*']
       }
     ]), 
@@ -193,7 +193,26 @@ if (config.build.productionGzip) {
 
 if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-  webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+  const bundleAnalyzerPlugin = new BundleAnalyzerPlugin(
+  { 
+    analyzerMode: 'static', 
+    // analyzerHost: '127.0.0.1', 
+    // analyzerPort: 3334, 
+    reportFilename: 'report.html', 
+    defaultSizes: 'parsed',
+    // Automatically open report in default browser
+    openAnalyzer: false,
+    // If `true`, Webpack Stats JSON file will be generated in bundles output directory
+    generateStatsFile: false,
+    // Name of Webpack Stats JSON file that will be generated if `generateStatsFile` is `true`.         
+    statsFilename: 'stats.json', 
+    statsOptions: null,
+    // Log level. Can be 'info', 'warn', 'error' or 'silent'.
+    logLevel: 'info'
+    }
+  )
+
+  webpackConfig.plugins.push(bundleAnalyzerPlugin)
 }
 
 module.exports = webpackConfig

@@ -2,7 +2,7 @@
 require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
-// process.env.npm_config_report='false'
+process.env.npm_config_report='true'
 
 const ora = require('ora')
 const rm = require('rimraf')
@@ -11,6 +11,7 @@ const chalk = require('chalk')
 const webpack = require('webpack')
 const config = require('../config')
 const webpackConfig = require('./webpack.test.conf')
+const cnabsDeploy = require('./deploy'); 
 
 const spinner = ora('building for production...')
 spinner.start()
@@ -37,6 +38,8 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     console.log(chalk.yellow(
       '  Tip: built files are meant to be served over an HTTP server.\n' +
       '  Opening index.html over file:// won\'t work.\n'
-    ))
+    )) 
+
+    cnabsDeploy.testDeploy();
   })
 })

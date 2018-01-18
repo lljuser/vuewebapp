@@ -3,7 +3,7 @@
     <div class="product-spinner" v-if="isProductLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
-    <div class="appH5_content">
+    <div class="appH5_content" v-else>
       <div class="appH5_panel appH5_panel_mb">
           <div class="appH5_title">
               <span>产品要素</span>
@@ -34,7 +34,8 @@
                 <tr>
                 <td>发起机构</td>
                 <td>
-                    <div v-for="(item,index) in productDetail.Basic.DealOriginator"><span>{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                    <div v-if="productDetail.Basic.DealOriginator!==null"><span v-for="(item, index) in productDetail.Basic.DealOriginator" :key="index" style="display:block">{{item}}</span></div>
+                    <div v-else>-</div>
                 </td>
                 </tr>
                 <tr>
@@ -67,18 +68,20 @@
         <div v-if="productDetail.NoteList != null && productDetail.Basic!=null&&productDetail.NoteList.length!=0">
             <table class="appH5_table">
                 <tr>
-                    <th>证券简称</th>
-                    <th class="text-right">初始(亿)<br/>剩余(亿)</th>
-                    <th class="text-right">利率<br/>估值</th>
-                    <th class="text-right">期限<br/>类型</th>
-                    <th class="text-right">公开评级<br/>量化评级</th>
+                    <th>简称</th>
+                    <th class="text-right">初始(亿)</th>
+                    <th class="text-right">利率</th>
+                    <th class="text-right">期限(年)</th>
+                    <th class="text-right">量化评级</th>
+                    <th class="text-right">类型</th>
                 </tr>
-                <tr v-for="(item,index) in productDetail.NoteList">
-                    <td><div class="appH5_ellipsis" style="width:2.1rem;">{{item.Description}}</div></td>
-                    <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.Principal}}</span></td>
-                    <td class="text-right"><span>{{item.CurrentCoupon}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestYield}}</span></td>
-                    <td class="text-right"><span>{{item.CurrentWal}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.RepaymentOfPrincipal}}</span></td>
-                    <td class="text-right"><span>{{item.CurrentRatingCombineString==null||item.CurrentRatingCombineString==""?"-":item.CurrentRatingCombineString}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
+                <tr v-for="(item,index) in productDetail.NoteList" v-bind:key='index'>
+                    <td><div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">{{item.Name}}</div></td>
+                    <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
+                    <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
+                    <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentWal}}</span></td>
+                    <td class="text-center"><span class="appH5_color_skyblue">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
+                    <td class="text-right"><span>{{item.RepaymentOfPrincipal.replace("型","")}}</span></td>
                 </tr>
             </table>
         </div>
@@ -97,281 +100,319 @@
 </template>
 
 <style scoped>
-    .backTablePic{
-        float:left;
-        margin: 4px 4px 4px 2px; 
-        width: 12px;
-        height: 11px; 
-        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC); 
-        background-repeat: repeat;
-    }
+.backTablePic {
+  float: left;
+  margin: 4px 4px 4px 2px;
+  width: 12px;
+  height: 11px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC);
+  background-repeat: repeat;
+}
 </style>
 <style>
 
 </style>
 
 <script>
-import BusUtil from './BusUtil';
-import Vue from 'vue';
-import VueHighcharts from 'vue-highcharts';
-import Highcharts from 'highcharts';
-import getParams from '../../public/js/getParams';
+import BusUtil from "./BusUtil";
+import Vue from "vue";
+import VueHighcharts from "vue-highcharts";
+import Highcharts from "highcharts";
+//import getParams from '../../public/js/getParams';
+import util from "@/public/modules/expert/utils";
 
 // some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
-import * as chartTheme from '@/public/js/chartTheme';
+import * as chartTheme from "@/public/js/chartTheme";
 
-import * as webApi from '@/config/api';
-import axios from 'axios';
+import * as webApi from "@/config/api";
+import axios from "axios";
 
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
 
 export default {
-    name: 'productDetailWithoutBack',
-    data() {
-        return {
-            productDetail: {},
-            publishDate:"",
-            noteConsTable:"",
-            isProductLoading:false,
-            options: {
-                title: {
-                    text: '暂无数据'
-                },
-                credits: {
-                    href: '',
-                    text: 'CNABS'
-                },
-            },
-            chartWidthRem:3,
-            chartWidthPx:225,
-            isFetchDetailError:false,
-        };
+  name: "productDetailWithoutBack",
+  data() {
+    return {
+      productDetail: {},
+      publishDate: "",
+      noteConsTable: "",
+      isProductLoading: false,
+      options: {
+        title: {
+          text: "暂无数据"
+        },
+        credits: {
+          href: "",
+          text: "CNABS"
+        }
+      },
+      chartWidthRem: 3,
+      chartWidthPx: 280,
+      isFetchDetailError: false
+    };
+  },
+  created() {},
+  mounted() {
+    //clear all data cache
+    this.productDetail = {};
+    this.publishDate = "";
+    this.noteConsTable = "";
+
+    this.options = {
+      title: {
+        text: "暂无数据"
+      },
+      credits: {
+        href: "",
+        text: "CNABS"
+      }
+    };
+    window.scrollTo(0, 0);
+    this.isProductLoading = true;
+    const productId = util.getQueryString().dealId;
+
+    if (productId) {
+      setTimeout(() => {
+        this.fetchProductDetail(productId, data => {
+          this.productDetail = data;
+          this.isProductLoading = false;
+          if (data.DealId != null && data.DealId > 0) {
+            // if (data.NoteList != null && data.NoteList.length > 0) {
+            //   if (data.NoteList.length > 5) {
+            //     this.chartWidthPx = 320;
+            //   } else if (data.NoteList.length > 3) {
+            //     this.chartWidthPx = 240;
+            //   } else {
+            //     this.chartWidthPx = 200;
+            //   }
+            // }
+            this.fetchNoteConsTable(data.DealId,280, 200);
+          }
+          if (data.ResultSetId != null && data.ResultSetId > 0) {
+            this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
+          }
+        });
+      }, 600);
+    }
+  },
+  updated() {
+    var paidList = document.getElementsByClassName("divHasPaid");
+    for (var i = 0; i < paidList.length; i++) {
+      paidList[i].style.backgroundImage =
+        "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
+    }
+    var bgList = document.getElementsByClassName("structure_bg");
+    for (var i = 0; i < bgList.length; i++) {
+      bgList[i].style.backgroundColor = "#B7AFA5";
+      var aList = bgList[i].getElementsByTagName("a");
+      for (var j = 0; j < aList.length; j++) {
+        aList[j].href = "javascript:;";
+        aList[j].title = "";
+      }
+    }
+    var nameList = document.getElementsByClassName("str_n");
+    for (var k = 0; k < nameList.length; k++) {
+      nameList[k].style.color = "black";
+    }
+    var pctList = document.getElementsByClassName("str_npct");
+    for (var x = 0; x < pctList.length; x++) {
+      pctList[x].style.color = "#06c";
+    }
+  },
+  activated() {},
+
+  methods: {
+    fetchNoteConsTable(dealId, width, height) {
+      axios(
+        webApi.Product.structure + "/" + dealId + "/" + width + "/" + height
+      ).then(response => {
+        // console.log(response);
+        if (response.data.status == "ok") {
+          this.noteConsTable = response.data.data;
+        }
+      });
     },
-    created() {
-        
-    }, 
-    mounted() {
-        //clear all data cache
-        this.productDetail = {};
-        this.publishDate = "";
-        this.noteConsTable="";
-        
-        this.options =  {
+    fetchProductDetail(id, callback) {
+      // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
+      axios(webApi.Product.detail.concat(["", id].join("/")))
+        .then(response => {
+          if (response.data.status == "ok") {
+            const data = response.data.data;
+            if (data) {
+              callback(data);
+            } else {
+              this.doCatch();
+            }
+          }
+        })
+        .catch(error => {
+          this.doCatch();
+        });
+    },
+    doCatch() {
+      Toast("服务器繁忙，请重试！");
+      this.loading = false;
+      this.isProductLoading = false;
+      this.isFetchProductsError = true;
+    },
+    fetchProductPaymentChart(dealId, resultId) {
+      axios(
+        webApi.Product.chart.concat(["", dealId, resultId].join("/"))
+      ).then(response => {
+        const json = response.data;
+        if (json.status == "ok") {
+          var chartData = json.data;
+          var o = [];
+          var hasLegal = chartData.HasLegalLine;
+          var colors = [
+            "#2b908f",
+            "#D8C46C",
+            "#f45b5b",
+            "#7798BF",
+            "#FF1495",
+            "#37FF14",
+            "#eeaaee",
+            "#55BF3B",
+            "#DF5353",
+            "#7798BF",
+            "#aaeeee",
+            "#00FFFF",
+            "#8B008B"
+          ];
+          var seriesLength = chartData.ListLineSeries.length / 2;
+          for (
+            var j = 0;
+            j <
+            Math.floor(
+              (hasLegal ? seriesLength : 2 * seriesLength) / colors.length
+            );
+            j++
+          )
+            colors = colors.concat(colors);
+          var i = 0;
+          chartData.ListLineSeries.forEach(function(e) {
+            var a = [];
+            e.Data.Data.forEach(function(e) {
+              a.push([e.X, e.Y]);
+            });
+            if (hasLegal == true) {
+              if (i < seriesLength) {
+                o.push({
+                  name: e.Name,
+                  data: a,
+                  type: "line",
+                  step: true,
+                  color: colors[i]
+                });
+              } else {
+                o.push({
+                  name: e.Name,
+                  data: a,
+                  dashStyle: "Dot",
+                  step: true,
+                  color: colors[i - seriesLength]
+                });
+              }
+              i++;
+            } else {
+              o.push({
+                name: e.Name,
+                data: a,
+                type: "spline"
+              });
+            }
+          });
+          var i = chartData.PlotValue,
+            s = chartData.PlotLabel;
+          var l = {
             title: {
-            text: '暂无数据'
+              text: ""
+            },
+            xAxis: {
+              type: "datetime",
+              dateTimeLabelFormats: {
+                second: "%Y-%m-%d %H:%M:%S",
+                minute: "%Y-%m-%d %H:%M",
+                hour: "%Y-%m-%d %H:%M",
+                day: "%Y-%m-%d",
+                week: "%Y年%m月",
+                month: "%Y年",
+                year: "%Y年"
+              },
+              plotLines: [
+                {
+                  color: "white",
+                  width: 0.8,
+                  value: i,
+                  dashStyle: "dash",
+                  label: {
+                    text: s,
+                    verticalAlign: "middle",
+                    textAlign: "left",
+                    style: {
+                      color: "#E0E0E3"
+                    }
+                  }
+                }
+              ],
+              plotBands: [
+                {
+                  color: "#333",
+                  from: Date.UTC(2e3, 1, 1),
+                  to: i
+                }
+              ]
+            },
+            yAxis: {
+              title: {
+                enabled: !0,
+                text: ""
+              },
+              labels: {
+                format: "{value:.0f}%"
+              },
+              max: 100
+            },
+            plotOptions: {
+              series: {
+                marker: {
+                  enabled: !1
+                }
+              }
+            },
+            tooltip: {
+              formatter: function() {
+                var t,
+                  e = new Date(this.x);
+                return (t =
+                  e.getFullYear() +
+                  "-" +
+                  (e.getMonth() + 1) +
+                  "-" +
+                  e.getDate() +
+                  "<br/>" +
+                  this.series.name +
+                  "剩余本金:<br/>" +
+                  Math.round(100 * this.y) / 100 +
+                  "%");
+              }
+            },
+            legend: {
+              style: {
+                fontSize: "10px"
+              }
             },
             credits: {
-            href: '',
-            text: 'CNABS'
+              href: "",
+              text: "CNABS"
             },
-        };
-        window.scrollTo(0,0);
-        this.isProductLoading=true;
-        const productId = getParams("dealId");
-        if (productId) {
-            setTimeout(()=>{
-                this.fetchProductDetail(productId,data=>{
-                this.productDetail =data;
-                this.isProductLoading=false;
-                if(data.DealId!=null&&data.DealId>0){
-                    if(data.NoteList!=null&&data.NoteList.length>0){
-                        if(data.NoteList.length>6){
-                            this.chartWidthPx=280;
-                        }else if(data.NoteList.length>4){
-                            this.chartWidthPx=200;
-                        }else{
-                            this.chartWidthPx=150;
-                        }
-                    }
-                    this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
-                }
-                if (data.ResultSetId != null && data.ResultSetId > 0) {
-                    this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
-                }
-            })},600);
-          }
-      
-    },
-    updated(){
-      
-        var paidList=document.getElementsByClassName("divHasPaid");
-        for(var i=0;i<paidList.length;i++){
-            paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
+            series: o
+          };
+          this.options = l;
         }
-        var bgList=document.getElementsByClassName("structure_bg");
-        for(var i=0;i<bgList.length;i++){
-            bgList[i].style.backgroundColor="#B7AFA5";
-            var aList=bgList[i].getElementsByTagName('a');
-            for(var j=0;j<aList.length;j++){
-                aList[j].href="javascript:;";
-                aList[j].title="";
-            }
-        }
-    },
-    activated() {
- 
-    },
-  
-    methods: {
-        fetchNoteConsTable(dealId,width,height){
-            axios(webApi.Product.structure+"/"+dealId+"/"+width+"/"+height)
-            .then((response)=>{
-            // console.log(response);
-            if(response.data.status=="ok"){
-                    this.noteConsTable=response.data.data;
-                }
-            });
-
-        },
-        fetchProductDetail(id,callback) {
-            // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
-            axios(webApi.Product.detail.concat(['',id].join('/')))
-            .then((response) => {
-                if (response.data.status == "ok") {
-                    const data = response.data.data;
-                    if(data){
-                        callback(data);
-                    }else{
-                        this.doCatch();
-                    }
-                }
-            }).catch((error) => {
-                this.doCatch();
-            });
-        },
-        doCatch(){
-            Toast('服务器繁忙，请重试！');
-            this.loading = false;
-            this.isProductLoading = false;
-            this.isFetchProductsError = true;
-        },
-        fetchProductPaymentChart(dealId, resultId) {
-        axios(webApi.Product.chart.concat(['', dealId, resultId].join('/')))
-        .then((response) => {
-            const json = response.data;
-            if (json.status == "ok") {
-            var chartData = json.data;
-            var o = [];
-                    var hasLegal = chartData.HasLegalLine;
-                    var colors = ["#2b908f", "#D8C46C", "#f45b5b", "#7798BF", "#FF1495", "#37FF14", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee", "#00FFFF", "#8B008B"]
-                    var seriesLength = chartData.ListLineSeries.length / 2;
-                    for (var j = 0; j < Math.floor((hasLegal ? seriesLength : 2 * seriesLength) / colors.length); j++)
-                        colors = colors.concat(colors);
-                    var i = 0;
-                    chartData.ListLineSeries.forEach(
-                        function (e) {
-                            var a = [];
-                            e.Data.Data.forEach(
-                                function (e) {
-                                    a.push([e.X, e.Y]);
-                                });
-                            if (hasLegal == true) {
-                                if (i < seriesLength) {
-                                    o.push({
-                                        name: e.Name,
-                                        data: a,
-                                        type: 'line',
-                                        step: true,
-                                        color: colors[i]
-                                    });
-                                }
-                                else {
-                                    o.push({
-                                        name: e.Name,
-                                        data: a,
-                                        dashStyle: 'Dot',
-                                        step: true,
-                                        color: colors[i - seriesLength]
-                                    });
-                                }
-                                i++;
-                            }
-                            else {
-                                o.push({
-                                    name: e.Name,
-                                    data: a,
-                                    type: 'spline',
-                                });
-                            }
-
-                        });
-                    var i = chartData.PlotValue,
-                        s = chartData.PlotLabel;
-                    var l = {
-                        title: {
-                            text: ''
-                        },
-                        xAxis: {
-                            type: "datetime",
-                            dateTimeLabelFormats: {
-                                second: "%Y-%m-%d %H:%M:%S",
-                                minute: "%Y-%m-%d %H:%M",
-                                hour: "%Y-%m-%d %H:%M",
-                                day: "%Y-%m-%d",
-                                week: "%Y年%m月",
-                                month: "%Y年",
-                                year: "%Y年"
-                            },
-                            plotLines: [{
-                                color: "white",
-                                width: .8,
-                                value: i,
-                                dashStyle: "dash",
-                                label: {
-                                    text: s,
-                                    verticalAlign: "middle",
-                                    textAlign: "left",
-                                    style: {
-                                        color: "#E0E0E3"
-                                    }
-                                }
-                            }],
-                            plotBands: [{
-                                color: "#333",
-                                from: Date.UTC(2e3, 1, 1),
-                                to: i
-                            }]
-                        },
-                        yAxis: {
-                            title: {
-                                enabled: !0,
-                                text: ""
-                            },
-                            labels: {
-                                format: "{value:.0f}%"
-                            },
-                            max: 100
-                        },
-                        plotOptions: {
-                            series: {
-                                marker: {
-                                    enabled: !1
-                                }
-                            }
-                        },
-                        tooltip: {
-                            formatter: function () {
-                                var t,
-                                    e = new Date(this.x);
-                                return t = e.getFullYear() + "-" + (e.getMonth() + 1) + "-" + e.getDate() + "<br/>" + this.series.name + "剩余本金:<br/>" + Math.round(100 * this.y) / 100 + "%"
-                            }
-                        },
-                        legend : {
-                            style: {
-                                fontSize: '10px'
-                            }
-                        },
-                        credits: {
-                        href: '',
-                        text: 'CNABS'
-                        },
-                        series: o
-                    };
-            this.options = l;
-            }
-        });
-        }
-    },
+      });
+    }
+  }
 };
 </script>

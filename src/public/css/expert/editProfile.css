@@ -11,7 +11,7 @@ body {
 }
 
 .ep_part {
-    background-color: #2b2a29;
+    background-color: #000;
     margin: 0.32rem 0.0rem;
 }
 
@@ -58,7 +58,7 @@ body {
     height: 0.8rem;
     margin-top: 0.266667rem;
     width: 5.8rem;
-    background-color: #2b2a29;
+    background-color: #000;
     border: none;
     -webkit-appearance: none;
     outline: none;
@@ -82,7 +82,7 @@ body {
     height: 0.8rem;
     margin-top: 0.266667rem;
     width: 5.8rem;
-    background-color: #2b2a29;
+    background-color: #000;
     border: none;
     -webkit-appearance: none;
     outline: none;
@@ -190,6 +190,9 @@ a.ep_editBtn:hover {
 .ep_width517 {
     width: 6.9rem;
 }
+.ep_width510 {
+    width: 6.8rem;
+}
 .ep_width500 {
     width: 6.666667rem;
 }
@@ -209,6 +212,15 @@ a.ep_editBtn:hover {
 }
 .ep_maxWidth400 {
     max-width: 5.333333rem;
+}
+.ep_maxWidth460{
+    max-width:6.133333rem;
+}
+.ep_maxWidth500{
+    max-width: 6.666667rem;
+}
+.ep_maxWidth577 {
+    max-width: 7.7rem;
 }
 .ep_width350 {
     width: 4.666667rem;
@@ -383,6 +395,9 @@ width:1.7rem;
 .ep_paddingBottom38{
     padding-bottom: 0.506667rem;
 }
+.ep_paddingBottom0{
+    padding-bottom: 0rem!important;
+}
 .editPencils {
     width: 19px;
     height:19px;
@@ -519,7 +534,7 @@ pre {
     border-radius: 4px;
     color: #ffc446;
     font-size: 15px;
-    background:#2b2a29;
+    background:#000;
 }
 
 .ep_errorTips {
@@ -563,7 +578,7 @@ pre {
     text-align: right;
     height: 0.8rem;
     font-size: 0.426667rem !important;
-    background-color: #2b2a29!important;
+    background-color: #000!important;
 }
 
 .ep_content_div .mint-searchbar {
@@ -591,7 +606,7 @@ pre {
     height: 3.066667rem;
     margin: 0 0.4rem 0rem 0.4rem;
     padding: 0.266667rem;
-    background-color: #2b2a29;
+    background-color: #000;
     outline: none;
 }
 
@@ -609,11 +624,11 @@ pre {
 }
 .ep_popup .ep_popup_div_btn
 {
-    border-bottom: 0.03333rem solid #2B2A29;
+    border-bottom: 0.03333rem solid #000;
 }
 .ep_delete_popup
 {
-    background-color:#2B2A29;
+    background-color:#000;
 }
 .ep_delete_popup div
 {
@@ -719,7 +734,7 @@ ul.articleDetail li {
 }
 /*projectHistoryABS CSS*/
 .projectHistoryABSContent{
-    background-color: #2b2a29;
+    background-color: #000;
 }
 .projectHistoryABSContent .mint-search-list-warp {
     margin-top: 0.36rem;
@@ -736,7 +751,7 @@ ul.articleDetail li {
 }
 /*basicInformation CSS*/
 .basicInformationContent {
-    background-color: #2b2a29;
+    background-color: #000;
 }
 
 .avatarPopup {
@@ -767,7 +782,7 @@ ul.articleDetail li {
 }
 /*workHistoryContent*/
 .workHistoryContent{
-    background-color: #2b2a29;
+    background-color: #000;
 }
 .workHistoryContent .startTime,
 .workHistoryContent .endTime
@@ -776,39 +791,39 @@ ul.articleDetail li {
 }
 /*otherProjectList*/
 .projectHistoryOtherContent{
-    background-color: #2b2a29;
+    background-color: #000;
 }
 /*otherPositionContent*/
 .otherPositionContent{
-    background-color: #2b2a29;
+    background-color: #000;
 }
 .projectHistoryOtherContent{
-    background-color: #2b2a29;
+    background-color: #000;
 }
 /*awardsHonorsContent*/
 .awardsHonorsContent{
-    background-color: #2b2a29;
+    background-color: #000;
 }
 .awardsHonorsContent .honorAwardYear{
     padding-right: 0.32rem;
 }
 /*activityContent*/
 .activityContent{
-    background-color: #2b2a29;
+    background-color: #000;
 }
 .activityContent .ActivityTime{
     padding-right: 0.32rem;
 }
 /*articleContent*/
 .articleContent,.articleListContent{
-    background-color: #2b2a29;
+    background-color: #000;
 }
 .articleContent .PublishTime{
     padding-right: 0.32rem;
 }
 /*educationHistoryContent*/
 .educationHistoryContent{
-    background-color: #2b2a29;
+    background-color: #000;
 }
 .educationHistoryContent .startTime,
 .educationHistoryContent .endTime
@@ -817,7 +832,7 @@ ul.articleDetail li {
 }
 /*personalProfileContent*/
 .personalProfileContent{
-    background-color: #2b2a29;
+    background-color: #000;
 }
 
 /*readProfile CSS*/
@@ -991,5 +1006,11 @@ select option：hover
     margin-bottom: 0.32rem;
     width: 6.8rem;
     color:#000;
+}
+.ep_panel_padding_bottom{
+    padding-bottom: 0.32rem;
+}
+.ep_line_height22{
+    line-height: 22px;
 }
    

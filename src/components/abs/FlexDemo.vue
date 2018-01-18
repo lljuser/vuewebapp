@@ -45,14 +45,29 @@
 		       <span>产品要素</span>
 	        </div>
 	        <table class="appH5_list_four">
+				<tr>
+	        		<td colspan="4" class="appH5_color_white appH5_word_break">这是一个产品名称，这是一个产品名称，这是一个产品名称</td>
+	        	</tr>
+				<tr>
+	        		<td class='appH5_color_red' colspan="2" rowspan="2">
+						<span class="appH5_font_largest">253</span>
+						<span>亿</span>
+					</td>
+	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>5~6%</td>
+	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_larger appH5_white_space'>3.83年</td>
+	        	</tr>
+				<tr>
+					<td class='appH5_color_skyblue appH5_font_larger appH5_white_space appH5_vertical_middle'>AAA</td>
+					<td class='appH5_color_skyblue appH5_font_larger appH5_white_space'>收费收益权</td>
+				</tr>
 	        	<tr>
-	        		<td class='appH5_white_space'>产品名称</td>
+	        		<td class='appH5_white_space'>产品描述</td>
 	        		<td colspan="3">这是一个产品名称，这是一个产品名称，这是一个产品名称</td>
 	        	</tr>
 	        	<tr>
 	        		<td class='appH5_white_space'>证券类型</td>
-	        		<td>夹层级</td>
-	        		<td class='appH5_white_space'>评级</td>
+	        		<td class="appH5_color_link">夹层级</td>
+	        		<td class='appH5_white_space'>评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级</td>
 	        		<td>AAA</td>
 	        	</tr>
 	        	<tr>
@@ -62,10 +77,12 @@
 	        		<td>A应收账款</td>
 	        	</tr>
 	        	<tr>
-	        		<td colspan="4">项目描述</td>
-	        	</tr>
-	        	<tr>
-	        		<td colspan="4" class="appH5_color_white">支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述</td>
+	        		<td colspan="4">
+						<span>项目描述</span>
+						<div class="appH5_color_white appH5_margin_top_td_div">
+							支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述支持描述
+						</div>
+					</td>
 	        	</tr>
 	        </table>
 	    </div>
@@ -102,9 +119,9 @@
             <table class="appH5_table">
                 <tr>
                     <th class="text-left">名称</th>
-                    <th class="text-right">今年总数</th>
-                    <th class="text-right">今年总额(亿)</th>
-                    <th class="text-right">累计总额(亿)</th>
+                    <th class="text-right">今年(单)</th>
+                    <th class="text-right">今年(亿)</th>
+                    <th class="text-right">累计(亿)</th>
                 </tr>
                 <tr>
                     <td>信贷ABS</td>
@@ -126,61 +143,62 @@
                 </tr>
             </table>
         </div>
-		<h2>示例表格（每行含两子行）</h2>
+		<h2>证券示例表格</h2>
         <div class="appH5_panel appH5_panel_mb">
 			<table class="appH5_table">
 				<tr>
-					<th>证券简称</th> 
+					<th>简称</th> 
 					<th class="text-right">
-						初始(亿)<br>剩余(亿)
+						初始(亿)
 					</th>
 					<th class="text-right">
-						利率<br>估值
+						利率
 					</th> 
 					<th class="text-right">
-						期限<br>类型
+						期限(年)
 					</th> 
+					<th class="text-center">
+						量化评级
+					</th>
 					<th class="text-right">
-						最新评级<br>建议评级
+						类型
 					</th>
 				</tr> 
 				<tr>
-					<td>17康安1A</td>
-					<td class="text-right">
-						<span class="appH5_color_red">1.50</span><br>
-						<span class="appH5_color_details appH5_font_smaller">1.50</span>
+					<td>A</td>
+					<td class="text-right appH5_color_red">
+						1.50
 					</td> 
-					<td class="text-right">
-						<span>4.85</span><br>
-						<span class="appH5_color_green appH5_font_smaller">4.85</span>
+					<td class="text-right appH5_color_skyblue">
+						4.85
                     </td> 
-					<td class="text-right">
-						<span>0.70</span><br>
-						<span class="appH5_color_details appH5_font_smaller">过手型</span>
+					<td class="text-right appH5_color_skyblue">
+						0.70
 					</td> 
-					<td class="text-right">
-						<span>AAA/AAA</span><br>
-						<span data-v-6719a154="" class="appH5_color_green appH5_font_smaller">AAA</span>
+					<td class="text-right text-center appH5_color_skyblue">
+						AAA
 					</td>
+					<td class="text-right">
+						过手
+					</td> 
 			    </tr>
 				<tr>
-					<td>17康安1A</td>
-					<td class="text-right">
-						<span class="appH5_color_red">1.50</span><br>
-						<span class="appH5_color_details appH5_font_smaller">1.50</span>
+					<td>A</td>
+					<td class="text-right appH5_color_red">
+						1.50
 					</td> 
-					<td class="text-right">
-						<span>4.85</span><br>
-						<span class="appH5_color_green appH5_font_smaller">4.85</span>
+					<td class="text-right appH5_color_skyblue">
+						4.85
                     </td> 
-					<td class="text-right">
-						<span>0.70</span><br>
-						<span class="appH5_color_details appH5_font_smaller">过手型</span>
+					<td class="text-right appH5_color_skyblue">
+						0.70
 					</td> 
-					<td class="text-right">
-						<span>AAA/AAA</span><br>
-						<span data-v-6719a154="" class="appH5_color_green appH5_font_smaller">AAA</span>
+					<td class="text-right text-center appH5_color_skyblue">
+						AAA
 					</td>
+					<td class="text-right">
+						过手
+					</td> 
 			    </tr>
 			</table>
 		</div>

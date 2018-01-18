@@ -2,7 +2,7 @@
     <div id="projectHistoryABSListContent" class="projectHistoryABSListContent ep_font32">
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div" v-if="!isArrayEmpty(projectHistories)" v-cloak>
-              <div class='appH5_panel' style="padding-top:0px;">
+              <div class='appH5_panel'>
                 <table class="appH5_table">
                     <tr>
                         <th class='text-left ep_width225'>名称</th>
@@ -35,7 +35,7 @@
     import axios from "axios";
     import * as webApi from "@/config/api";
     import dislikeImg from '@/public/images/dislike.png';
-    import likeImg from '@/public/images/like.png';
+    import likeImg from '@/public/image/followicon.png';
 
     export default {
         name: 'ReadAbsHistoryList',

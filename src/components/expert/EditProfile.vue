@@ -13,33 +13,35 @@
                     <img v-bind:src="userInfo.User && userInfo.User.Avatar" alt="用户头像">
                 </div>
             </div> -->
-            <div class="ep_part_item ep_part_item_border">
-                <span class='fl ep_font32 appH5_color_green'>姓名</span>
-                <span class=" fr ep_font32 ep_marginLeft15 ep_align_right ep_width200 ep_ellipsis">{{userInfo.User && userInfo.User.Name}}</span>
-            </div>
-            <div class="ep_part_item ep_part_item_border">
-                <span class='fl ep_font32 appH5_color_green'>公司</span>
-                <span class="fr ep_font32 ep_marginLeft15 ep_align_right ep_width460 ep_ellipsis">{{userInfo.User && userInfo.User.Company}}</span>
-            </div>
-            <div class="ep_part_item ep_part_item_border">
-                <span class='fl ep_font32 appH5_color_green'>手机号</span>
-                <span class="fr ep_font32 ep_marginLeft15 ep_align_right">{{userInfo.User && userInfo.User.Cellphone}}</span>
-            </div>
-            <div class="ep_part_item ep_part_item_border">
-                <span class='fl ep_font32 appH5_color_green'>邮箱</span>
-                <span class="fr ep_font32 ep_marginLeft15 ep_align_right">{{userInfo.User && userInfo.User.Email}}</span>
+            <div class="ep_panel_padding_bottom">
+                <div class="ep_part_item ep_part_item_border">
+                    <span class='fl ep_font32 appH5_color_green'>姓名</span>
+                    <span class=" fr ep_font32 ep_marginLeft15 ep_align_right ep_width200 ep_ellipsis">{{userInfo.User && userInfo.User.Name}}</span>
+                </div>
+                <div class="ep_part_item ep_part_item_border">
+                    <span class='fl ep_font32 appH5_color_green'>公司</span>
+                    <span class="fr ep_font32 ep_marginLeft15 ep_align_right ep_width460 ep_ellipsis">{{userInfo.User && userInfo.User.Company}}</span>
+                </div>
+                <div class="ep_part_item ep_part_item_border">
+                    <span class='fl ep_font32 appH5_color_green'>手机号</span>
+                    <span class="fr ep_font32 ep_marginLeft15 ep_align_right">{{userInfo.User && userInfo.User.Cellphone}}</span>
+                </div>
+                <div class="ep_part_item ep_part_item_border">
+                    <span class='fl ep_font32 appH5_color_green'>邮箱</span>
+                    <span class="fr ep_font32 ep_marginLeft15 ep_align_right">{{userInfo.User && userInfo.User.Email}}</span>
+                </div>
             </div>
         </section>
         <section class="ep_part" id="projectHistoryABS">
             <header class="ep_part_title">
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>ABS项目</span>
-                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
-                        <span class="fl">(共</span>
-                        <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
-                        <span class="fl">单，</span>
-                        <span class="appH5_color_green appH5_font_larger fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
-                        <span class="fl">亿)</span>
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide ep_line_height22" v-if="!isArrayEmpty(userInfo.ABSProjects)">
+                        <span class="fl appH5_font_smaller">(共&nbsp;</span>
+                        <span class="appH5_color_red appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
+                        <span class="fl appH5_font_smaller">&nbsp;单，</span>
+                        <span class="appH5_color_red appH5_font_larger fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
+                        <span class="fl appH5_font_smaller">&nbsp;亿)</span>
                     </span>
                 </div>
                 <router-link to="/AbsHistory" class="fr">
@@ -81,12 +83,12 @@
             <header class="ep_part_title">
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>其它项目</span>
-                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.OtherProjects)">
-                        <span class="fl">(共</span>
-                        <span class="appH5_color_green appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
-                        <span class="fl">单，</span>
-                        <span class="appH5_color_green appH5_font_larger fl">{{otherProjectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':otherProjectHistoriesSummary.totalOffering.toFixed(2)}}</span>
-                        <span class="fl">亿)</span>
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide ep_line_height22" v-if="!isArrayEmpty(userInfo.OtherProjects)">
+                        <span class="fl appH5_font_smaller">(共&nbsp;</span>
+                        <span class="appH5_color_red appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
+                        <span class="fl appH5_font_smaller">&nbsp;单，</span>
+                        <span class="appH5_color_red appH5_font_larger fl">{{otherProjectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':otherProjectHistoriesSummary.totalOffering.toFixed(2)}}</span>
+                        <span class="fl appH5_font_smaller">&nbsp;亿)</span>
                     </span>
                 </div>
                 <router-link to="/OtherProject" class="fr">
@@ -133,7 +135,7 @@
                     <img class="addBtn" src="../../public/images/add.png" />
                 </router-link>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.WorkHistories)" v-cloak>
+            <div class="ep_panel_padding_bottom" v-if="!isArrayEmpty(userInfo.WorkHistories)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.WorkHistories" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width600 appH5_color_green">{{item.Position}}</span>
@@ -149,7 +151,11 @@
                     <div class="ep_font24 ep_color_grey2 ep_marginTop10">
                         <span>{{item.StartTime}}</span>
                         <span>-</span>
-                        <span>{{item.EndTime}}</span>
+                        <span>{{item.EndTime}}；</span>
+                        <span>{{item.TimeSpan}}</span>
+                    </div>
+                    <div class="ep_font24 ep_color_grey2 ep_marginTop10">
+                        <span>{{item.Description}}</span>
                     </div>
                 </div>
             </div>
@@ -162,7 +168,7 @@
                     <img class="addBtn" src="../../public/images/add.png" />
                 </router-link>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.OtherPosts)" v-cloak>
+            <div class="ep_panel_padding_bottom" v-if="!isArrayEmpty(userInfo.OtherPosts)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.OtherPosts" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width600">{{item.Name}}</span>
@@ -181,7 +187,7 @@
                     <img class="addBtn" src="../../public/images/add.png" />
                 </router-link>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.HonorAwards)" v-cloak>
+            <div class="ep_panel_padding_bottom" v-if="!isArrayEmpty(userInfo.HonorAwards)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.HonorAwards" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
@@ -202,7 +208,7 @@
                     <img class="addBtn" src="../../public/images/add.png" />
                 </router-link>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.RecentActivities)" v-cloak>
+            <div class="ep_panel_padding_bottom" v-if="!isArrayEmpty(userInfo.RecentActivities)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.RecentActivities, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
@@ -213,7 +219,7 @@
                     </div>
                     <pre class="ep_decription ep_color_grey2 ep_font24">{{item.Description}}</pre>
                 </div>
-                <div class="ep_font30 ep_align_center ep_padding30" v-if="userInfo.RecentActivities.length > 3">
+                <div class="ep_font30 ep_align_center ep_padding30 ep_paddingBottom0" v-if="userInfo.RecentActivities.length > 3">
                     <router-link to="/ActivityList" class="ep_color_orange_important">
                         查看更多
                     </router-link>
@@ -228,11 +234,11 @@
                     <img class="addBtn" src="../../public/images/add.png" />
                 </router-link>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
+            <div class="ep_panel_padding_bottom" v-if="!isArrayEmpty(userInfo.Publishs)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.Publishs, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="fl ep_font28 appH5_color_green">《</span>
-                        <span class="ep_font28 appH5_color_green ep_ellipsis fl ep_maxWidth460">{{item.Name}}</span>
+                        <span class="ep_font28 appH5_color_green ep_ellipsis fl ep_maxWidth500">{{item.Name}}</span>
                         <span class="fl ep_font28 appH5_color_green">》</span>
                         <router-link :to="`/Article/${item.Id}`" class="ep_font30 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
@@ -242,38 +248,38 @@
                         <ul class="ep_color_grey2 ep_font24 ep_decription articleDetail">
                             <li>
                                 <span class='article_title'>作者：</span>
-                                <span class="ep_ellipsis ep_width440">{{item.Author}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Author}}</span>
                             </li>
                             <li v-if="isValidElement(item.Publisher)">
                                 <span class='article_title'>出版社：</span>
-                                <span class="ep_ellipsis ep_width440">{{item.Publisher}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Publisher}}</span>
                             </li>
                             <li v-if="isValidElement(item.PublishTime)">
                                 <span class='article_title'>出版时间：</span>
-                                <span class="ep_ellipsis ep_width440">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
+                                <span class="ep_ellipsis ep_width517">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
                             </li>
                             <li v-if="isValidElement(item.Isbn)">
                                 <span class='article_title'>书号ISBN：</span>
-                                <span class="ep_ellipsis ep_width440">{{item.Isbn}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Isbn}}</span>
                             </li>
                             <li v-if="isValidElement(item.Pages)">
                                 <span class='article_title'>页数：</span>
-                                <span class="ep_ellipsis ep_width440">{{item.Pages}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Pages}}</span>
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <a class="fl ep_ellipsis ep_width440 ep_color_orange_important ep_Link" v-bind:href="item.Link">{{item.Link}}</a>
+                                <a class="fl ep_ellipsis ep_width517 ep_color_orange_important ep_Link" v-bind:href="item.Link">{{item.Link}}</a>
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
                                 <span class='article_title'>作品文件：</span>
                                 <div class="fl">《</div>
-                                <span class="fl ep_ellipsis ep_maxWidth400">{{item.Name}}</span>
+                                <span class="fl ep_ellipsis ep_maxWidth460">{{item.Name}}</span>
                                 <div class="fl">》</div>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="ep_font30 ep_align_center ep_padding30" v-if="userInfo.Publishs.length > 3">
+                <div class="ep_font30 ep_align_center ep_padding30 ep_paddingBottom0" v-if="userInfo.Publishs.length > 3">
                     <router-link to="/ArticleList" class="ep_color_orange_important">
                         查看更多
                     </router-link>
@@ -289,7 +295,7 @@
                     <img class="addBtn" src="../../public/images/add.png" />
                 </router-link>
             </header>
-            <div v-if="!isArrayEmpty(userInfo.Educations)" v-cloak>
+            <div class="ep_panel_padding_bottom" v-if="!isArrayEmpty(userInfo.Educations)" v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.Educations" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width400 appH5_color_green">{{item.School}}</span>
@@ -322,7 +328,7 @@
                     <img class="fr editPencils" src="../../public/images/pencils.png" alt="">
                 </router-link>
             </header>
-            <pre v-if="isValidElement(userInfo.User.Introduction)" class="ep_part_description" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
+            <pre v-if="isValidElement(userInfo.User.Introduction)" class="ep_part_description ep_panel_padding_bottom" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
             <p v-else class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey">暂无个人简介</p>
         </section>
     </div>

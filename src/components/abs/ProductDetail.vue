@@ -10,8 +10,8 @@
           </div>
             <table class="appH5_list_two" v-if="productDetail.Basic!=null">
                 <tr>
-                <td>产品名称</td>
-                <td>{{productDetail.Basic.DealNameChinese}}</td>
+                    <td>产品名称</td>
+                    <td>{{productDetail.Basic.DealNameChinese}}</td>
                 </tr>
                 <tr>
                 <td>产品分类</td>
@@ -33,7 +33,8 @@
                 <tr>
                 <td>发起机构</td>
                 <td>
-                    <div v-for="(item,index) in productDetail.Basic.DealOriginator" v-bind:key='index'><span>{{item}}</span><br v-if="productDetail.Basic != null &&index!=productDetail.Basic.length-1"></div>
+                    <div v-if="productDetail.Basic.DealOriginator!==null"><span v-for="(item,index) in productDetail.Basic.DealOriginator" style="display:block">{{item}}</span></div>
+                    <div v-else>-</div>
                 </td>
                 </tr>
                 <tr>
@@ -47,7 +48,7 @@
               <span>证券结构</span>
         </div>
         <div v-if="noteConsTable.indexOf('table')!=-1">
-            <div style="text-align:center"><div v-html="noteConsTable" id="test" v-bind:style="'margin:0 auto;width:'+chartWidthPx+'px'">{{noteConsTable}}</div></div>
+            <div style="text-align:center"><div v-html="noteConsTable" id="structureTable" v-bind:style="'margin:0 auto;width:'+chartWidthPx+'px'">{{noteConsTable}}</div></div>
             <div style="text-align:center;height: 0.4rem;">
                 <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
                     <div class="backTablePic"></div>
@@ -66,24 +67,26 @@
         <div v-if="productDetail.NoteList != null && productDetail.Basic!=null&&productDetail.NoteList.length!=0">
             <table class="appH5_table">
                 <tr>
-                    <th>证券简称</th>
-                    <th class="text-right">初始(亿)<br/>剩余(亿)</th>
-                    <th class="text-right">利率<br/>估值</th>
-                    <th class="text-right">期限<br/>类型</th>
-                    <th class="text-right">公开评级<br/>量化评级</th>
+                    <th>简称</th>
+                    <th class="text-right">初始(亿)</th>
+                    <th class="text-right">利率</th>
+                    <th class="text-right">期限(年)</th>
+                    <th class="text-right">量化评级</th>
+                    <th class="text-right">类型</th>
                 </tr>
                 <tr v-for="(item,index) in productDetail.NoteList" v-bind:key='index'>
-                    <td><div class="appH5_ellipsis appH5_font_normal" style="width:2.1rem;">{{item.Description}}</div></td>
-                    <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.Principal}}</span></td>
-                    <td class="text-right"><span>{{item.CurrentCoupon}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestYield}}</span></td>
-                    <td class="text-right"><span>{{item.CurrentWal}}</span><br/><span class="appH5_color_details appH5_font_smaller">{{item.RepaymentOfPrincipal}}</span></td>
-                    <td class="text-right"><span>{{item.CurrentRatingCombineString==null||item.CurrentRatingCombineString==""?"-":item.CurrentRatingCombineString}}</span><br/><span class="appH5_color_green appH5_font_smaller">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
+                    <td><div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">{{item.Name}}</div></td>
+                    <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
+                    <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
+                    <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentWal}}</span></td>
+                    <td class="text-center"><span class="appH5_color_skyblue">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
+                    <td class="text-right"><span>{{item.RepaymentOfPrincipal.replace("型","")}}</span></td>
                 </tr>
             </table>
         </div>
         <div v-else class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
     </div>
-        <div class="appH5_panel">
+        <div class="appH5_panel" v-if="showChart">
             <div class="appH5_title">
                 <span>证券偿付</span>
             </div>
@@ -143,59 +146,60 @@ export default {
                 },
             },
             chartWidthRem:3,
-            chartWidthPx:225,
+            chartWidthPx:280,
+            showChart: true,
             isFetchDetailError: false,
+            tableFlag:0,
         };
     },
     created() {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
-        busUtil.bus.$emit('headTitle', '产品信息');
+        busUtil.bus.$emit('headTitle', '');
+        this.tableFlag=0;
     },
     mounted() {
         this.isProductLoading=true;
-        if(this.isFetchDetailError){
-            setTimeout(()=>{
-                    this.fetchProductDetail(this.id,data=>{
-                    this.productDetail =data;
-                    this.isProductLoading=false;
-                    if(data.DealId!=null&&data.DealId>0){
-                        if(data.NoteList!=null&&data.NoteList.length>0){
-                            if(data.NoteList.length>6){
-                                this.chartWidthPx=280;
-                            }else if(data.NoteList.length>4){
-                                this.chartWidthPx=200;
-                            }else{
-                                this.chartWidthPx=150;
-                            }
-                        }
-                        this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
-                    }
-                    if (data.ResultSetId != null && data.ResultSetId > 0) {
-                        this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
-                    }
-                });
-            },600);
-        }
+        
     },
     updated(){
-        var paidList=document.getElementsByClassName("divHasPaid");
-        for(var i=0;i<paidList.length;i++){
-            paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
-        }
-        var bgList=document.getElementsByClassName("structure_bg");
-        for(var i=0;i<bgList.length;i++){
-            bgList[i].style.backgroundColor="#B7AFA5";
-            var aList=bgList[i].getElementsByTagName('a');
-            for(var j=0;j<aList.length;j++){
-                aList[j].href="javascript:;";
-                aList[j].title="";
+        if(this.noteConsTable.indexOf('table')!=-1&&this.tableFlag==0){
+            // if(this.productDetail.NoteList!=null&&this.productDetail.NoteList.length>0){
+            //     let num=document.getElementById("structureTable").childNodes[0].childElementCount;
+            //     if(num>4){
+            //         this.chartWidthPx=320;
+            //     }else{
+            //         this.chartWidthPx=260;
+            //     }
+            // }
+            var paidList=document.getElementsByClassName("divHasPaid");
+            for(var i=0;i<paidList.length;i++){
+                paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
             }
+            var bgList=document.getElementsByClassName("structure_bg");
+            for(var i=0;i<bgList.length;i++){
+                bgList[i].style.backgroundColor="#B7AFA5";
+                var aList=bgList[i].getElementsByTagName('a');
+                for(var j=0;j<aList.length;j++){
+                    aList[j].href="javascript:;";
+                    aList[j].title="";
+                }
+            }
+            var nameList=document.getElementsByClassName("str_n");
+            for(var k=0;k<nameList.length;k++){
+                nameList[k].style.color="black";
+            }
+            var pctList=document.getElementsByClassName("str_npct");
+            for(var x=0;x<pctList.length;x++){
+                pctList[x].style.color="#06c";
+            }
+            this.tableFlag=1;
         }
     },
     activated() {
         //clear all data cache
+        this.isProductLoading=true;
         this.productDetail = {};
         this.publishDate = "";
         this.noteConsTable="";
@@ -212,28 +216,26 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
-        busUtil.bus.$emit('headTitle', '产品信息');
+        busUtil.bus.$emit('headTitle', '');
         this.id = this.$route.params.id;
         if (this.id) {
             setTimeout(()=>{
                     this.fetchProductDetail(this.id,data=>{
+                    busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.productDetail =data;
                     this.isProductLoading=false;
                     if(data.DealId!=null&&data.DealId>0){
-                        if(data.NoteList!=null&&data.NoteList.length>0){
-                            if(data.NoteList.length>6){
-                                this.chartWidthPx=280;
-                            }else if(data.NoteList.length>4){
-                                this.chartWidthPx=200;
-                            }else{
-                                this.chartWidthPx=150;
-                            }
-                        }
-                        this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
+                        
+                        this.fetchNoteConsTable(data.DealId,280,200);
+                        this.tableFlag=0;
                     }
                     if (data.ResultSetId != null && data.ResultSetId > 0) {
+                        this.showChart = true;
                         this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
+                    } else {
+                        this.showChart = false;
                     }
+
                 });
             },600);
         }
@@ -280,7 +282,7 @@ export default {
                 var chartData = json.data;
                 var o = [];
                         var hasLegal = chartData.HasLegalLine;
-                        var colors = ["#2b908f", "#D8C46C", "#f45b5b", "#7798BF", "#FF1495", "#37FF14", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee", "#00FFFF", "#8B008B"]
+                        var colors = chartTheme.colors;
                         var seriesLength = chartData.ListLineSeries.length / 2;
                         for (var j = 0; j < Math.floor((hasLegal ? seriesLength : 2 * seriesLength) / colors.length); j++)
                             colors = colors.concat(colors);
@@ -293,7 +295,7 @@ export default {
                                         a.push([e.X, e.Y]);
                                     });
                                 if (hasLegal == true) {
-                                    if (i < seriesLength) {
+                                    if (!(e.Name.indexOf('说明书') != -1)) {
                                         o.push({
                                             name: e.Name,
                                             data: a,

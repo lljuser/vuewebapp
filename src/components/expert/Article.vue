@@ -7,46 +7,46 @@
                     <span>作者</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="publish.Author" />
+                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入作者" v-model.trim="publish.Author" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>标题</span>
                     <span class="ep_marginTop5 ep_marginLeft10">*</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="publish.Name" />
+                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入标题" v-model.trim="publish.Name" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>出版社</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="publish.Publisher" />
+                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入出版社" v-model.trim="publish.Publisher" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>出版时间</span>
                 </div>
                 <div class="fl ep_font32 ep_align_left PublishTime ep_right_div" v-on:click="showYearPicker" v-bind:class="[!isValidElement(publish.PublishTime) ? 'ep_color_grey' : '']">
-                    {{isValidElement(publish.PublishTime) ? publish.PublishTime : '请选择'}}
+                    {{isValidElement(publish.PublishTime) ? publish.PublishTime : '请选择出版时间'}}
                 </div>
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                    <span>书号ISBN</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="publish.Isbn" />
+                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入书号" v-model.trim="publish.Isbn" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>页数</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="publish.Pages" />
+                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入页数" v-model.trim="publish.Pages" />
             </div>
             <div class="ep_part_item ep_part_item_border ep_overhide">
                 <div class="ep_title_div">
                     <span>作品网址</span>
                 </div>
-                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入" v-model.trim="publish.Link" />
+                <input class="ep_align_right ep_input fl ep_font32" type="text" placeholder="请输入作品网址" v-model.trim="publish.Link" />
             </div>
             <div class="ep_errorTips ep_color_red ep_font24 ep_overhide" v-show="isShowError" v-cloak v-bind:class="[isShowError?'ep_paddingTop60':'']">
                 <span class="fl ep_marginTop5">*</span>

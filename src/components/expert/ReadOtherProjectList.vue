@@ -2,7 +2,7 @@
     <div class="projectHistoryOtherListContent ep_font32">
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div" v-if="!util.isArrayEmpty(projectHistories)" v-cloak>
-            <div class='appH5_panel' style="padding-top:0px;">
+            <div class='appH5_panel'>
                     <table class="appH5_table">
                         <tr>
                             <th class="text-left ep_width225">简称</th>
@@ -37,7 +37,7 @@
     import * as webApi from "@/config/api";
     import util from '@/public/modules/expert/utils';
     import dislikeImg from '@/public/images/dislike.png';
-    import likeImg from '@/public/images/like.png';
+    import likeImg from '@/public/image/followicon.png';
 
     export default {
         name: 'ReadOtherProjectList',
