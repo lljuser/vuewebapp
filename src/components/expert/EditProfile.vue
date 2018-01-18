@@ -238,7 +238,7 @@
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.Publishs, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="fl ep_font28 appH5_color_green">《</span>
-                        <span class="ep_font28 appH5_color_green ep_ellipsis fl ep_maxWidth460">{{item.Name}}</span>
+                        <span class="ep_font28 appH5_color_green ep_ellipsis fl ep_maxWidth500">{{item.Name}}</span>
                         <span class="fl ep_font28 appH5_color_green">》</span>
                         <router-link :to="`/Article/${item.Id}`" class="ep_font30 ep_color_orange fr ep_lineHeight32 ep_marginLeft30">
                             编辑
@@ -248,32 +248,32 @@
                         <ul class="ep_color_grey2 ep_font24 ep_decription articleDetail">
                             <li>
                                 <span class='article_title'>作者：</span>
-                                <span class="ep_ellipsis ep_width440">{{item.Author}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Author}}</span>
                             </li>
                             <li v-if="isValidElement(item.Publisher)">
                                 <span class='article_title'>出版社：</span>
-                                <span class="ep_ellipsis ep_width440">{{item.Publisher}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Publisher}}</span>
                             </li>
                             <li v-if="isValidElement(item.PublishTime)">
                                 <span class='article_title'>出版时间：</span>
-                                <span class="ep_ellipsis ep_width440">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
+                                <span class="ep_ellipsis ep_width517">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
                             </li>
                             <li v-if="isValidElement(item.Isbn)">
                                 <span class='article_title'>书号ISBN：</span>
-                                <span class="ep_ellipsis ep_width440">{{item.Isbn}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Isbn}}</span>
                             </li>
                             <li v-if="isValidElement(item.Pages)">
                                 <span class='article_title'>页数：</span>
-                                <span class="ep_ellipsis ep_width440">{{item.Pages}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Pages}}</span>
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <a class="fl ep_ellipsis ep_width440 ep_color_orange_important ep_Link" v-bind:href="item.Link">{{item.Link}}</a>
+                                <a class="fl ep_ellipsis ep_width517 ep_color_orange_important ep_Link" v-bind:href="item.Link">{{item.Link}}</a>
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
                                 <span class='article_title'>作品文件：</span>
                                 <div class="fl">《</div>
-                                <span class="fl ep_ellipsis ep_maxWidth400">{{item.Name}}</span>
+                                <span class="fl ep_ellipsis ep_maxWidth460">{{item.Name}}</span>
                                 <div class="fl">》</div>
                             </li>
                         </ul>
