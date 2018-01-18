@@ -48,7 +48,7 @@
               <span>证券结构</span>
         </div>
         <div v-if="noteConsTable.indexOf('table')!=-1">
-            <div style="text-align:center"><div v-html="noteConsTable" id="test" v-bind:style="'margin:0 auto;width:'+chartWidthPx+'px'">{{noteConsTable}}</div></div>
+            <div style="text-align:center"><div v-html="noteConsTable" id="structureTable" v-bind:style="'margin:0 auto;width:'+chartWidthPx+'px'">{{noteConsTable}}</div></div>
             <div style="text-align:center;height: 0.4rem;">
                 <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
                     <div class="backTablePic"></div>
@@ -146,9 +146,10 @@ export default {
                 },
             },
             chartWidthRem:3,
-            chartWidthPx:225,
+            chartWidthPx:280,
             showChart: true,
             isFetchDetailError: false,
+            tableFlag:0,
         };
     },
     created() {
@@ -156,54 +157,44 @@ export default {
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
         busUtil.bus.$emit('headTitle', '产品信息');
+        this.tableFlag=0;
     },
     mounted() {
         this.isProductLoading=true;
-        // if(this.isFetchDetailError){
-        //     setTimeout(()=>{
-        //             this.fetchProductDetail(this.id,data=>{
-        //             this.productDetail =data;
-        //             this.isProductLoading=false;
-        //             if(data.DealId!=null&&data.DealId>0){
-        //                 if(data.NoteList!=null&&data.NoteList.length>0){
-        //                     if(data.NoteList.length>6){
-        //                         this.chartWidthPx=280;
-        //                     }else if(data.NoteList.length>4){
-        //                         this.chartWidthPx=200;
-        //                     }else{
-        //                         this.chartWidthPx=150;
-        //                     }
-        //                 }
-        //                 this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
-        //             }
-        //             if (data.ResultSetId != null && data.ResultSetId > 0) {
-        //                 this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
-        //             }
-        //         });
-        //     },600);
-        // }
+        
     },
     updated(){
-        var paidList=document.getElementsByClassName("divHasPaid");
-        for(var i=0;i<paidList.length;i++){
-            paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
-        }
-        var bgList=document.getElementsByClassName("structure_bg");
-        for(var i=0;i<bgList.length;i++){
-            bgList[i].style.backgroundColor="#B7AFA5";
-            var aList=bgList[i].getElementsByTagName('a');
-            for(var j=0;j<aList.length;j++){
-                aList[j].href="javascript:;";
-                aList[j].title="";
+        if(this.noteConsTable.indexOf('table')!=-1&&this.tableFlag==0){
+            // if(this.productDetail.NoteList!=null&&this.productDetail.NoteList.length>0){
+            //     let num=document.getElementById("structureTable").childNodes[0].childElementCount;
+            //     if(num>4){
+            //         this.chartWidthPx=320;
+            //     }else{
+            //         this.chartWidthPx=260;
+            //     }
+            // }
+            var paidList=document.getElementsByClassName("divHasPaid");
+            for(var i=0;i<paidList.length;i++){
+                paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
             }
-        }
-        var nameList=document.getElementsByClassName("str_n");
-        for(var k=0;k<nameList.length;k++){
-            nameList[k].style.color="black";
-        }
-        var pctList=document.getElementsByClassName("str_npct");
-        for(var x=0;x<pctList.length;x++){
-            pctList[x].style.color="#06c";
+            var bgList=document.getElementsByClassName("structure_bg");
+            for(var i=0;i<bgList.length;i++){
+                bgList[i].style.backgroundColor="#B7AFA5";
+                var aList=bgList[i].getElementsByTagName('a');
+                for(var j=0;j<aList.length;j++){
+                    aList[j].href="javascript:;";
+                    aList[j].title="";
+                }
+            }
+            var nameList=document.getElementsByClassName("str_n");
+            for(var k=0;k<nameList.length;k++){
+                nameList[k].style.color="black";
+            }
+            var pctList=document.getElementsByClassName("str_npct");
+            for(var x=0;x<pctList.length;x++){
+                pctList[x].style.color="#06c";
+            }
+            this.tableFlag=1;
         }
     },
     activated() {
@@ -233,16 +224,9 @@ export default {
                     this.productDetail =data;
                     this.isProductLoading=false;
                     if(data.DealId!=null&&data.DealId>0){
-                        if(data.NoteList!=null&&data.NoteList.length>0){
-                            if(data.NoteList.length>5){
-                                this.chartWidthPx=320;
-                            }else if(data.NoteList.length>3){
-                                this.chartWidthPx=240;
-                            }else{
-                                this.chartWidthPx=200;
-                            }
-                        }
-                        this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
+                        
+                        this.fetchNoteConsTable(data.DealId,280,200);
+                        this.tableFlag=0;
                     }
                     if (data.ResultSetId != null && data.ResultSetId > 0) {
                         this.showChart = true;
