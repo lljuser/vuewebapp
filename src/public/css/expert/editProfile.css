@@ -213,6 +213,15 @@ a.ep_editBtn:hover {
 .ep_maxWidth400 {
     max-width: 5.333333rem;
 }
+.ep_maxWidth460{
+    max-width:6.133333rem;
+}
+.ep_maxWidth500{
+    max-width: 6.666667rem;
+}
+.ep_maxWidth577 {
+    max-width: 7.7rem;
+}
 .ep_width350 {
     width: 4.666667rem;
 }
@@ -1000,5 +1009,8 @@ select option：hover
 }
 .ep_panel_padding_bottom{
     padding-bottom: 0.32rem;
+}
+.ep_line_height22{
+    line-height: 22px;
 }
    

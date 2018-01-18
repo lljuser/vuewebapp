@@ -1,7 +1,7 @@
 <template>
   <div class="divAutocomplete">
         <div class="fl">
-        <autocomplete :initValue="orgName" :classes="{ input: 'ep_align_right ep_input ep_font32'}" ref="organization" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="FullName" anchor="ShortName" v-bind:url="orgSearch" :debounce="250" param="keyword" placeholder="请输入机构名称">
+        <autocomplete :initValue="orgName" :classes="{ input: 'ep_align_right ep_input ep_font32 appH5_search_input'}" ref="organization" :onFocus="focusCallBack" :onSelect="getData" :process="processJSON" label="FullName" anchor="ShortName" v-bind:url="orgSearch" :debounce="250" param="keyword" placeholder="请输入机构名称">
         </autocomplete>
         </div>
         <span class="fr ep_font30 cancelBtn" v-on:click="cancel">取消</span>
@@ -34,7 +34,11 @@ export default {
         return !(item === null || item === undefined || item === "");
     },
     // 处理focus的时候触发autocomplete
-    focusCallBack: function () {
+    focusCallBack: function (e) {
+        if (this.isValidElement(e)) {
+            this.orgName = e.target.value;
+        }
+
         if (!this.isValidElement(this.orgName)) return;
 
         axios.post(webApi.Expert.orgSearch, {keyword: this.orgName}).then(response => {
@@ -81,9 +85,9 @@ export default {
         font-size: 17px;
     }
     .divAutocomplete .ep_input{
-        width: 7.5rem;
+        width: 7rem;
         margin-left: 0.32rem;
-        background:#fff;
+        background-color: #fff;
         color:black;
     }
     .autocomplete-list ul{

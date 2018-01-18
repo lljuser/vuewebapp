@@ -36,7 +36,7 @@
             <header class="ep_part_title">
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>ABS项目</span>
-                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide ep_line_height22" v-if="!isArrayEmpty(userInfo.ABSProjects)">
                         <span class="fl appH5_font_smaller">(共&nbsp;</span>
                         <span class="appH5_color_red appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
                         <span class="fl appH5_font_smaller">&nbsp;单，</span>
@@ -79,7 +79,7 @@
             <header class="ep_part_title">
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>其它项目</span>
-                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.OtherProjects)">
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide ep_line_height22" v-if="!isArrayEmpty(userInfo.OtherProjects)">
                     <span class="fl appH5_font_smaller">(共&nbsp;</span>
                     <span class="appH5_color_red appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
                     <span class="fl appH5_font_smaller">&nbsp;单，</span>
@@ -210,7 +210,7 @@
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.Publishs, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="fl ep_font28 appH5_color_green">《</span>
-                        <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_maxWidth577 appH5_color_green">{{item.Name}}</span>
                         <span class="fl ep_font28 appH5_color_green">》</span>
                         <div v-if="!editable" class="ep_overhide fr ep_lineHeight32 ">
                             <img class="followImg" v-bind:class="item.IsEndorse ? 'appH5_followIcon' : 'appH5_unfollowIcon'" v-on:click="publishEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
@@ -220,19 +220,19 @@
                         <ul class="ep_color_grey2 ep_font24 ep_decription articleDetail">
                             <li>
                                 <span class='article_title'>作者：</span>
-                                <span class="ep_ellipsis ep_width300">{{item.Author}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Author}}</span>
                             </li>
                             <li v-if="isValidElement(item.Publisher)">
                                 <span class='article_title'>出版社：</span>
-                                <span class="ep_ellipsis ep_width300">{{item.Publisher}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Publisher}}</span>
                             </li>
                             <li v-if="isValidElement(item.PublishTime)">
                                 <span class='article_title'>出版时间：</span>
-                                <span class="ep_ellipsis ep_width300">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
+                                <span class="ep_ellipsis ep_width517">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
                             </li>
                             <li v-if="isValidElement(item.Isbn)">
                                 <span class='article_title'>书号ISBN：</span>
-                                <span class="ep_ellipsis ep_width300">{{item.Isbn}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Isbn}}</span>
                             </li>
                             <li v-if="isValidElement(item.Pages)">
                                 <span class='article_title'>页数：</span>
