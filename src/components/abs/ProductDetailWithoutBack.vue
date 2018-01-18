@@ -3,7 +3,7 @@
     <div class="product-spinner" v-if="isProductLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
-    <div class="appH5_content">
+    <div class="appH5_content" v-else>
       <div class="appH5_panel appH5_panel_mb">
           <div class="appH5_title">
               <span>产品要素</span>
