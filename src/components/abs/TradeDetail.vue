@@ -282,5 +282,8 @@ export default {
     .appH5_font_larger {
        font-size: 17px!important;
     }
+    .mr5{
+      margin-right: 0;
+    }
 }
 </style>
