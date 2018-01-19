@@ -1,20 +1,14 @@
 <template>
   <div id="app"> 
-    <!-- <router-view/> -->
     <div v-if="showHeader" class="appH5_navbar_bg">
       <mt-header :title="headTitle">
         <a :href="path" slot="left">
           <mt-button icon="back" @click.stop="clearPath"></mt-button>
         </a>
-        <!-- <router-link :to="path" slot="left">
-          <mt-button icon="back" @click.stop="clearPath"></mt-button>
-        </router-link> -->
       </mt-header>
     </div>
     <transition>
-      <keep-alive>
-        <router-view />
-      </keep-alive>
+      <router-view />
     </transition>
   </div>
 </template>

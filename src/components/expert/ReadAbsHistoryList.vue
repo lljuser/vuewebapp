@@ -12,9 +12,11 @@
                     </tr>
                     <tr v-for="item in projectHistories" v-bind:key="item.DealId">
                         <td class='text-left'>
-                            <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'/webapp/product.html?dealId=' + item.DealId">{{item.DealName}}</a>
+                            <!-- <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'/webapp/product.html?dealId=' + item.DealId">{{item.DealName}}</a> -->
+                            <router-link :to="productDetailUrl(item.DealId)" class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow">
+                                {{item.DealName}}
+                            </router-link>
                         </td>
-
                         <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
                         <td class='text-right ep_ellipsis'>
                             {{item.DealType}}
@@ -47,7 +49,8 @@
                 absProjectEndorseLock: false,
                 editable: false,
                 userId: null,
-                isShowHeader: false
+                isShowHeader: false,
+                query: null
             }
         },
         created: function () {
@@ -61,6 +64,7 @@
 
                 if (query.isShowHeader) {
                     vm.isShowHeader = true;
+                    vm.query = query;
                     const busUtil = BusUtil.getInstance();
                     busUtil.bus.$emit('showHeader', true);
                     busUtil.bus.$emit('path', 'expert.html?' + util.toQueryString(query));
@@ -128,6 +132,9 @@
             scrollRestore: function () {
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0; 
+            },
+            productDetailUrl: function(id) {
+                return this.isShowHeader ? {path: `/ProductDetail/${id}`, query: this.query} : `/ProductDetail/${id}`;
             },
         }
     }

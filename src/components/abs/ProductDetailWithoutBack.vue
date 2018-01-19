@@ -1,5 +1,5 @@
 <template>
-  <div class="appH5_body" style="padding-top:0">
+  <div class="appH5_body" style="padding-top:0" :class="isShowHeader ? 'paddingTop50': ''">
     <div class="product-spinner" v-if="isProductLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
@@ -10,16 +10,21 @@
           </div>
             <table class="appH5_list_two" v-if="productDetail.Basic!=null">
                 <tr>
-                <td>产品名称</td>
-                <td>{{productDetail.Basic.DealNameChinese}}</td>
+                  <td>产品名称</td>
+                  <td>{{productDetail.Basic.DealNameChinese}}</td>
                 </tr>
                 <tr>
-                <td>产品分类</td>
-                <td>
-                    <div><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a></router-link></div>
-                    <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div><!---->
-                    <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
-                </td>
+                  <td>产品分类</td>
+                  <td v-if="isShowHeader">
+                    <div>{{productDetail.Basic.ProductType}}</div>
+                    <div>&nbsp;└&nbsp;{{productDetail.Basic.DealType}}</div>
+                    <div v-if="productDetail.Basic.AssetSubCategoryId != null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
+                  </td>
+                  <td v-else>
+                      <div><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a></router-link></div>
+                      <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div><!---->
+                      <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
+                  </td>
                 </tr>
                 <tr>
                 <td>产品状态</td>
@@ -27,7 +32,6 @@
                 </tr>
                 <tr>
                 <td>成立日期</td>
-                <!-- <td v-if="productDetail.Basic.ClosingDate!=null">{{publishDate.getFullYear()+"年"+publishDate.getMonth()+"月"+publishDate.getDate()+"日"}}</td> -->
                 <td v-if="productDetail.Basic.ClosingDate!=null">{{productDetail.Basic.ClosingDate.toString() | moment("YYYY年MM月DD日")}}</td>
                 <td v-else>-</td>
                 </tr>
@@ -118,9 +122,7 @@ import BusUtil from "./BusUtil";
 import Vue from "vue";
 import VueHighcharts from "vue-highcharts";
 import Highcharts from "highcharts";
-//import getParams from '../../public/js/getParams';
 import util from "@/public/modules/expert/utils";
-
 // some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
 import * as chartTheme from "@/public/js/chartTheme";
 
@@ -128,6 +130,7 @@ import * as webApi from "@/config/api";
 import axios from "axios";
 
 Vue.use(VueHighcharts, { Highcharts });
+Vue.use(require('vue-moment'));
 Highcharts.setOptions(chartTheme);
 
 export default {
@@ -149,10 +152,24 @@ export default {
       },
       chartWidthRem: 3,
       chartWidthPx: 280,
-      isFetchDetailError: false
+      isFetchDetailError: false,
+      isExpertJump: false,
+      isShowHeader: false
     };
   },
-  created() {},
+  beforeRouteEnter: (to, from, next) => {
+    next(vm => {
+      var query = util.getQueryString();
+
+      if (query.isShowHeader) {
+        vm.isShowHeader = true;
+        const busUtil = BusUtil.getInstance();
+        busUtil.bus.$emit("showHeader", true);
+        busUtil.bus.$emit("path", "expert.html?" + util.toQueryString(query) + "#" + from.path);
+        busUtil.bus.$emit("headTitle", "产品要素");
+      }
+    });
+  },
   mounted() {
     //clear all data cache
     this.productDetail = {};
@@ -170,30 +187,21 @@ export default {
     };
     window.scrollTo(0, 0);
     this.isProductLoading = true;
-    const productId = util.getQueryString().dealId;
+    const productId = util.isValidId(this.$route.params.dealId)
+      ? this.$route.params.dealId
+      : util.getQueryString().dealId;
 
     if (productId) {
-      setTimeout(() => {
-        this.fetchProductDetail(productId, data => {
+      this.fetchProductDetail(productId, data => {
           this.productDetail = data;
-          this.isProductLoading = false;
+          
           if (data.DealId != null && data.DealId > 0) {
-            // if (data.NoteList != null && data.NoteList.length > 0) {
-            //   if (data.NoteList.length > 5) {
-            //     this.chartWidthPx = 320;
-            //   } else if (data.NoteList.length > 3) {
-            //     this.chartWidthPx = 240;
-            //   } else {
-            //     this.chartWidthPx = 200;
-            //   }
-            // }
-            this.fetchNoteConsTable(data.DealId,280, 200);
+            this.fetchNoteConsTable(data.DealId, 280, 200);
           }
           if (data.ResultSetId != null && data.ResultSetId > 0) {
             this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
           }
-        });
-      }, 600);
+      });
     }
   },
   updated() {
@@ -220,14 +228,15 @@ export default {
       pctList[x].style.color = "#06c";
     }
   },
-  activated() {},
+  activated() {
+
+  },
 
   methods: {
     fetchNoteConsTable(dealId, width, height) {
       axios(
         webApi.Product.structure + "/" + dealId + "/" + width + "/" + height
       ).then(response => {
-        // console.log(response);
         if (response.data.status == "ok") {
           this.noteConsTable = response.data.data;
         }
@@ -240,6 +249,7 @@ export default {
           if (response.data.status == "ok") {
             const data = response.data.data;
             if (data) {
+              this.isProductLoading = false;
               callback(data);
             } else {
               this.doCatch();

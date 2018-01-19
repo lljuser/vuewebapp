@@ -59,7 +59,9 @@
                         </tr>
                         <tr v-for="(item, index) in _.take(userInfo.ABSProjects, 3)" v-bind:key="index">
                             <td class='text-left'>
-                                <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'/webapp/product.html?dealId=' + item.DealId">{{item.DealName}}</a>
+                                <router-link :to="productDetailUrl(item.DealId)" class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow">
+                                    {{item.DealName}}
+                                </router-link>
                             </td>
                             <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
                             <td class='text-right ep_ellipsis'>
@@ -490,6 +492,9 @@ export default {
           this.$toast(response.data.data);
         });
     },
+    productDetailUrl: function(id) {
+        return this.isShowHeader ? {path: `/ProductDetail/${id}`, query: this.query} : `/ProductDetail/${id}`;
+    },
     routeUrls: function() {
       if (this.editable) {
         return {
@@ -501,14 +506,10 @@ export default {
       }
 
       return {
-        // ReadAbsHistoryList: `/ReadAbsHistoryList/${this.userId}`,
-        // ReadOtherProjectList: `/ReadOtherProjectList/${this.userId}`,
-        // ReadArticleList: this.isShowHeader ? {path: `/ReadArticleList/${this.userId}`, query: this.query} : `/ReadArticleList/${this.userId}`,
-        // ReadActivityList: `/ReadActivityList/${this.userId}`
         ReadAbsHistoryList: this.isShowHeader ? {path: `/ReadAbsHistoryList/${this.userId}`, query: this.query} : `/ReadAbsHistoryList/${this.userId}`,
         ReadOtherProjectList: this.isShowHeader ? {path: `/ReadOtherProjectList/${this.userId}`, query: this.query} : `/ReadOtherProjectList/${this.userId}`,
         ReadArticleList: this.isShowHeader ? {path: `/ReadArticleList/${this.userId}`, query: this.query} : `/ReadArticleList/${this.userId}`,
-        ReadActivityList: this.isShowHeader ? {path: `/ReadActivityList/${this.userId}`, query: this.query} : `/ReadActivityList/${this.userId}`
+        ReadActivityList: this.isShowHeader ? {path: `/ReadActivityList/${this.userId}`, query: this.query} : `/ReadActivityList/${this.userId}`,
       };
     }
   },
