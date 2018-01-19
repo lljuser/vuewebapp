@@ -1,12 +1,12 @@
 <template>
-  <div class="appH5_body"  :class="isShowHeader ? 'paddingTop50': 'paddingTop0'">
+  <div class="appH5_body" style="padding-top:0"  :class="isShowHeader ? 'paddingTop50': ''">
     <div class="product-spinner" v-if="isProductLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
     <div class="appH5_content" v-else>
       <div class="appH5_panel appH5_panel_mb">
           <div class="appH5_title">
-              <span>产品要素</span> 
+              <span>产品要素</span>
           </div>
             <table class="appH5_list_two" v-if="productDetail.Basic!=null">
                 <tr>
