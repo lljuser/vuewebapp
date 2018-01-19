@@ -120,7 +120,7 @@ export default {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
-    busUtil.bus.$emit('headTitle', '交易信息');
+    busUtil.bus.$emit('headTitle', '');
   }, 
   mounted() {
   },
@@ -157,14 +157,15 @@ export default {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
-    busUtil.bus.$emit('headTitle', '交易信息');
+    busUtil.bus.$emit('headTitle', '');
     this.tradeId = this.$route.params.tradeId;
     this.noteId = this.$route.params.noteId;
     this.isProductLoading=true;
     //debugger;
     this.fetchTradeDetail(this.tradeId,this.noteId,data => {   //59,9461,this.tradeId,this.noteId
-    this.detailInfo = data;
-    this.isProductLoading=false;
+      this.detailInfo = data;
+      this.isProductLoading=false;
+      busUtil.bus.$emit('headTitle', data.SecurityName);
     });
 },
 };
