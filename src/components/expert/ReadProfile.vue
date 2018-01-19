@@ -242,7 +242,8 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <a class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important" v-bind:href="item.Link">{{item.Link}}</a>
+                                <span class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important">{{item.Link}}</span>
+                                <!-- <a class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important" v-bind:href="item.Link">{{item.Link}}</a> -->
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
                                 <span class='article_title'>作品文件：</span>
