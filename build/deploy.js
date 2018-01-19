@@ -20,7 +20,6 @@ function testDeploy() {
  
 function webDeploy() {  
     let buldEnv = readEnv();
-    console.log(buldEnv);
 
     if(buldEnv.isDeploy) {
         console.log(chalk.yellow('\n\n-----------------webdeploy-----------------'));
@@ -36,7 +35,7 @@ function webDeploy() {
             localRoot: sourceDir,
             remoteRoot: "/",
             // include: ['build/*.txt'],
-            // exclude: ['.git', '.idea', 'tmp/*', 'build/*']
+            exclude: ['.git','*.map']
         }
             
         ftpDeploy.deploy(config, function(err) {

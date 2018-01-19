@@ -1,5 +1,5 @@
 <template>
-  <div class="editProfileContent" v-cloak>
+  <div class="editProfileContent" v-cloak :class="isShowHeader ? 'paddingTop50': ''">
         <section class="ep_part ep_overhide" id="basicInformation">
             <div class="ep_overhide basicInformationCard">
                 <div class="fl ep_divAvatar" v-show="userInfo.User && userInfo.User.Avatar">
@@ -44,7 +44,7 @@
                         <span class="fl appH5_font_smaller">&nbsp;亿)</span>
                     </span>
                 </div>
-                <router-link v-if="userInfo.ABSProjects && userInfo.ABSProjects.length > 3" v-bind:to="routeUrls.ReadAbsHistoryList" class="fr text_right_link">
+                <router-link v-if="userInfo.ABSProjects && userInfo.ABSProjects.length > 3" v-bind:to="routeUrls().ReadAbsHistoryList" class="fr text_right_link">
                     更多
                 </router-link>
             </header>
@@ -87,7 +87,7 @@
                     <span class="fl appH5_font_smaller">&nbsp;亿)</span>
                     </span>
                 </div>
-                <router-link v-if="userInfo.OtherProjects && userInfo.OtherProjects.length > 3" v-bind:to="routeUrls.ReadOtherProjectList" class="fr text_right_link">
+                <router-link v-if="userInfo.OtherProjects && userInfo.OtherProjects.length > 3" v-bind:to="routeUrls().ReadOtherProjectList" class="fr text_right_link">
                     更多
                 </router-link>
             </header>
@@ -183,7 +183,7 @@
                  <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>近期活动</span>
                  </div>
-                <router-link v-if="userInfo.RecentActivities && userInfo.RecentActivities.length > 3" v-bind:to="routeUrls.ReadActivityList" class="fr text_right_link">
+                <router-link v-if="userInfo.RecentActivities && userInfo.RecentActivities.length > 3" v-bind:to="routeUrls().ReadActivityList" class="fr text_right_link">
                     更多
                 </router-link>
             </header>
@@ -202,7 +202,7 @@
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>著作与文章</span>
                 </div>
-                <router-link v-if="userInfo.Publishs && userInfo.Publishs.length > 3" v-bind:to="routeUrls.ReadArticleList"  class="fr text_right_link">
+                <router-link v-if="userInfo.Publishs && userInfo.Publishs.length > 3" v-bind:to="routeUrls().ReadArticleList"  class="fr text_right_link">
                    更多
                 </router-link>
             </header>
@@ -298,15 +298,15 @@
 </template>
 
 <script>
-
 import _ from "lodash";
 import axios from "axios";
 import * as webApi from "@/config/api";
 import util from "@/public/modules/expert/utils";
+import BusUtil from '../abs/BusUtil';
 
 import dislikeImg from '@/public/images/dislike.png';
 import likeImg from '@/public/image/followicon.png';
-import defaultAvatar from '@/public/image/unfollowicon.png';
+import defaultAvatar from '@/public/images/defaultavatar.png';
 
 export default {
   name: "ReadProfile",
@@ -319,13 +319,29 @@ export default {
       absProjectEndorseLock: false,
       otherProjectEndorseLock: false,
       publicEndorseLock: false,
-      submitPopupVisible: false
+      submitPopupVisible: false,
+      isShowHeader: false,
+      query: null
     };
   },
   created: function() {
       this._ = _;
       this.userId = util.getQueryString().UserId;
       this.initData();
+  },
+  beforeRouteEnter: (to, from, next) => {
+     next(vm => {
+         var query = util.getQueryString();
+         
+         if (query.isShowHeader) {
+            vm.isShowHeader = true;
+            vm.query = query;
+            const busUtil = BusUtil.getInstance();
+            busUtil.bus.$emit('showHeader', true);
+            busUtil.bus.$emit('path', 'abs.html#' + query.path);
+            busUtil.bus.$emit('headTitle', '专家履历');
+         }
+     });
   },
   methods: {
     initData: function() {
@@ -473,6 +489,27 @@ export default {
           this.submitPopupVisible = false;
           this.$toast(response.data.data);
         });
+    },
+    routeUrls: function() {
+      if (this.editable) {
+        return {
+          ReadAbsHistoryList: "/ReadAbsHistoryList",
+          ReadOtherProjectList: "/ReadOtherProjectList",
+          ReadArticleList: "/ReadArticleList",
+          ReadActivityList: "/ReadActivityList"
+        };
+      }
+
+      return {
+        // ReadAbsHistoryList: `/ReadAbsHistoryList/${this.userId}`,
+        // ReadOtherProjectList: `/ReadOtherProjectList/${this.userId}`,
+        // ReadArticleList: this.isShowHeader ? {path: `/ReadArticleList/${this.userId}`, query: this.query} : `/ReadArticleList/${this.userId}`,
+        // ReadActivityList: `/ReadActivityList/${this.userId}`
+        ReadAbsHistoryList: this.isShowHeader ? {path: `/ReadAbsHistoryList/${this.userId}`, query: this.query} : `/ReadAbsHistoryList/${this.userId}`,
+        ReadOtherProjectList: this.isShowHeader ? {path: `/ReadOtherProjectList/${this.userId}`, query: this.query} : `/ReadOtherProjectList/${this.userId}`,
+        ReadArticleList: this.isShowHeader ? {path: `/ReadArticleList/${this.userId}`, query: this.query} : `/ReadArticleList/${this.userId}`,
+        ReadActivityList: this.isShowHeader ? {path: `/ReadActivityList/${this.userId}`, query: this.query} : `/ReadActivityList/${this.userId}`
+      };
     }
   },
   computed: {
@@ -512,28 +549,11 @@ export default {
         totalOffering: projectTotalOffering
       };
     },
-    routeUrls: function() {
-      if (this.editable) {
-        return {
-          ReadAbsHistoryList: "/ReadAbsHistoryList",
-          ReadOtherProjectList: "/ReadOtherProjectList",
-          ReadArticleList: "/ReadArticleList",
-          ReadActivityList: "/ReadActivityList"
-        };
-      }
-
-      return {
-        ReadAbsHistoryList: "/ReadAbsHistoryList/" + this.userId,
-        ReadOtherProjectList: "/ReadOtherProjectList/" + this.userId,
-        ReadArticleList: "/ReadArticleList/" + this.userId,
-        ReadActivityList: "/ReadActivityList/" + this.userId
-      };
-    }
   }
 };
 </script>
 
 <style>
-
+    
 </style>
 

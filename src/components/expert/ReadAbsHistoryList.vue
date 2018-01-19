@@ -1,5 +1,5 @@
 <template>
-    <div id="projectHistoryABSListContent" class="projectHistoryABSListContent ep_font32">
+    <div id="projectHistoryABSListContent" class="projectHistoryABSListContent ep_font32" :class="isShowHeader ? 'paddingTop50': ''">
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div" v-if="!isArrayEmpty(projectHistories)" v-cloak>
               <div class='appH5_panel'>
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+    import BusUtil from '../abs/BusUtil';
+    import util from "@/public/modules/expert/utils";
     import axios from "axios";
     import * as webApi from "@/config/api";
     import dislikeImg from '@/public/images/dislike.png';
@@ -45,11 +47,26 @@
                 absProjectEndorseLock: false,
                 editable: false,
                 userId: null,
+                isShowHeader: false
             }
         },
         created: function () {
             this.userId = this.$route.params.userId;
             this.initData();
+            this.scrollRestore();
+        },
+        beforeRouteEnter: (to, from, next) => {
+            next(vm => {
+                var query = util.getQueryString();
+
+                if (query.isShowHeader) {
+                    vm.isShowHeader = true;
+                    const busUtil = BusUtil.getInstance();
+                    busUtil.bus.$emit('showHeader', true);
+                    busUtil.bus.$emit('path', 'expert.html?' + util.toQueryString(query));
+                    busUtil.bus.$emit('headTitle', 'ABS项目');
+                }
+            });
         },
         methods: {
             initData: function () {
@@ -107,7 +124,11 @@
                         absProject.IsEndorse = response.data.data.IsEndorse;
                         this.absProjectEndorseLock = false;
                     });
-            }
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
+            },
         }
     }
 </script>

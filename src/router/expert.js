@@ -51,7 +51,7 @@ export default new Router({
       component: ReadOtherProjectList,
     },
     {
-      path: '/ReadArticleList/:userId?',
+      path: '/ReadArticleList/:userId?/:isShowHeader?',
       name: 'ReadArticleList',
       component: ReadArticleList,
     },

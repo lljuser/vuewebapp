@@ -30,4 +30,15 @@ export default {
 
     return theRequest;
   },
+  toQueryString: function(obj) {
+    if ((obj === null || obj === undefined || obj === '' || obj === 'undefined')) return null;
+
+    var query = [];
+
+    for (let prop of Object.keys(obj)) {
+        query.push(`${prop}=${obj[prop]}`)
+    }
+
+    return query.join("&");
+  }
 };
