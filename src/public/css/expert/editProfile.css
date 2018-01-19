@@ -1014,5 +1014,9 @@ select option：hover
     line-height: 22px;
 }
 .paddingTop50 {
-    padding-top: 50px;
+    padding-top: 42px;
+}  
+
+.paddingTop0 {
+    padding-top: 0px;
 }   
