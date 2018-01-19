@@ -1,9 +1,9 @@
 <template>
-    <div class="articleListContent ep_font32">
+    <div class="articleListContent ep_font32" :class="isShowHeader ? 'paddingTop50': ''">
         <div class="ep_marginTop24"></div>
         <section class="ep_content_div">
             <div v-if="!isArrayEmpty(publishes)" v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in publishes" v-bind:key="item.Name">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in publishes" v-bind:key="index">
                     <div class=" ep_overhide">
                         <span class="fl ep_font28 appH5_color_green">《</span>
                         <span class="ep_font28 ep_ellipsis fl ep_maxWidth577 appH5_color_green">{{item.Name}}</span>
@@ -56,6 +56,8 @@
 <script>
     import axios from "axios";
     import * as webApi from "@/config/api";
+    import BusUtil from '../abs/BusUtil';
+    import util from "@/public/modules/expert/utils";
     import dislikeImg from '@/public/images/dislike.png';
     import likeImg from '@/public/image/followicon.png';
 
@@ -67,11 +69,26 @@
                 editable: false,
                 publicEndorseLock: false,
                 userId: null,
+                isShowHeader: false
             }
         },
         created: function () {
             this.userId = this.$route.params.userId;
+            this.scrollRestore();
             this.initData();
+        },
+        beforeRouteEnter: (to, from, next) => {
+            next(vm => {
+                var query = util.getQueryString();
+
+                if (query.isShowHeader) {
+                    vm.isShowHeader = true;
+                    const busUtil = BusUtil.getInstance();
+                    busUtil.bus.$emit('showHeader', true);
+                    busUtil.bus.$emit('path', 'expert.html?' + util.toQueryString(query));
+                    busUtil.bus.$emit('headTitle', '近期活动');
+                }
+            });
         },
         methods: {
             initData: function () {
@@ -123,7 +140,11 @@
                 .then(response => {
                     this.$toast(response.data.data);
                 });
-            }
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
+            },
         }
     }
 </script>
