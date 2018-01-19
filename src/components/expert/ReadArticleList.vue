@@ -86,7 +86,7 @@
                     const busUtil = BusUtil.getInstance();
                     busUtil.bus.$emit('showHeader', true);
                     busUtil.bus.$emit('path', 'expert.html?' + util.toQueryString(query));
-                    busUtil.bus.$emit('headTitle', '近期活动');
+                    busUtil.bus.$emit('headTitle', '著作与文章');
                 }
             });
         },

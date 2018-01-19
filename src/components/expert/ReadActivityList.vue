@@ -33,6 +33,7 @@
         created: function () {
             this.userId = this.$route.params.userId;
             this.initData();
+            this.scrollRestore();
         },
         beforeRouteEnter: (to, from, next) => {
             next(vm => {
@@ -55,6 +56,10 @@
             },
             isArrayEmpty: function (arr) {
                 return (arr === null || arr === undefined || arr.length === 0);
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
             },
         }
     }
