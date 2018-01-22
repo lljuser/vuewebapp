@@ -1,5 +1,5 @@
 <template>
-  <div class="editProfileContent" v-cloak>
+  <div class="editProfileContent" v-cloak :class="isShowHeader ? 'paddingTop50': ''">
         <section class="ep_part ep_overhide" id="basicInformation">
             <div class="ep_overhide basicInformationCard">
                 <div class="fl ep_divAvatar" v-show="userInfo.User && userInfo.User.Avatar">
@@ -36,7 +36,7 @@
             <header class="ep_part_title">
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>ABS项目</span>
-                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.ABSProjects)">
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide ep_line_height22" v-if="!isArrayEmpty(userInfo.ABSProjects)">
                         <span class="fl appH5_font_smaller">(共&nbsp;</span>
                         <span class="appH5_color_red appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
                         <span class="fl appH5_font_smaller">&nbsp;单，</span>
@@ -44,7 +44,7 @@
                         <span class="fl appH5_font_smaller">&nbsp;亿)</span>
                     </span>
                 </div>
-                <router-link v-if="userInfo.ABSProjects && userInfo.ABSProjects.length > 3" v-bind:to="routeUrls.ReadAbsHistoryList" class="fr text_right_link">
+                <router-link v-if="userInfo.ABSProjects && userInfo.ABSProjects.length > 3" v-bind:to="routeUrls().ReadAbsHistoryList" class="fr text_right_link">
                     更多
                 </router-link>
             </header>
@@ -59,7 +59,9 @@
                         </tr>
                         <tr v-for="(item, index) in _.take(userInfo.ABSProjects, 3)" v-bind:key="index">
                             <td class='text-left'>
-                                <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'/webapp/product.html?dealId=' + item.DealId">{{item.DealName}}</a>
+                                <router-link :to="productDetailUrl(item.DealId)" class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow">
+                                    {{item.DealName}}
+                                </router-link>
                             </td>
                             <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
                             <td class='text-right ep_ellipsis'>
@@ -79,7 +81,7 @@
             <header class="ep_part_title">
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>其它项目</span>
-                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide" v-if="!isArrayEmpty(userInfo.OtherProjects)">
+                    <span class="fl ep_marginLeft15 ep_font28 ep_overhide ep_line_height22" v-if="!isArrayEmpty(userInfo.OtherProjects)">
                     <span class="fl appH5_font_smaller">(共&nbsp;</span>
                     <span class="appH5_color_red appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
                     <span class="fl appH5_font_smaller">&nbsp;单，</span>
@@ -87,7 +89,7 @@
                     <span class="fl appH5_font_smaller">&nbsp;亿)</span>
                     </span>
                 </div>
-                <router-link v-if="userInfo.OtherProjects && userInfo.OtherProjects.length > 3" v-bind:to="routeUrls.ReadOtherProjectList" class="fr text_right_link">
+                <router-link v-if="userInfo.OtherProjects && userInfo.OtherProjects.length > 3" v-bind:to="routeUrls().ReadOtherProjectList" class="fr text_right_link">
                     更多
                 </router-link>
             </header>
@@ -126,7 +128,7 @@
                     <span class='fl'>工作经历</span>
                 </div>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom"> 
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.WorkHistories" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width510 appH5_color_green">{{item.Position}}</span>
@@ -154,7 +156,7 @@
                     <span class='fl'>其它职务</span>
                 </div>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom">
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.OtherPosts" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width600">{{item.Name}}</span>
@@ -168,7 +170,7 @@
                 <span class='fl'>奖项与荣誉</span>
             </div>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom">
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.HonorAwards" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
@@ -183,11 +185,11 @@
                  <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>近期活动</span>
                  </div>
-                <router-link v-if="userInfo.RecentActivities && userInfo.RecentActivities.length > 3" v-bind:to="routeUrls.ReadActivityList" class="fr text_right_link">
+                <router-link v-if="userInfo.RecentActivities && userInfo.RecentActivities.length > 3" v-bind:to="routeUrls().ReadActivityList" class="fr text_right_link">
                     更多
                 </router-link>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom">
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.RecentActivities, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width460 appH5_color_green">{{item.Name}}</span>
@@ -202,15 +204,15 @@
                 <div class='appH5_title fl' style='overflow:hidden;'>
                     <span class='fl'>著作与文章</span>
                 </div>
-                <router-link v-if="userInfo.Publishs && userInfo.Publishs.length > 3" v-bind:to="routeUrls.ReadArticleList"  class="fr text_right_link">
+                <router-link v-if="userInfo.Publishs && userInfo.Publishs.length > 3" v-bind:to="routeUrls().ReadArticleList"  class="fr text_right_link">
                    更多
                 </router-link>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom">
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in _.take(userInfo.Publishs, 3)" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="fl ep_font28 appH5_color_green">《</span>
-                        <span class="ep_font28 ep_ellipsis fl ep_maxWidth460 appH5_color_green">{{item.Name}}</span>
+                        <span class="ep_font28 ep_ellipsis fl ep_maxWidth577 appH5_color_green">{{item.Name}}</span>
                         <span class="fl ep_font28 appH5_color_green">》</span>
                         <div v-if="!editable" class="ep_overhide fr ep_lineHeight32 ">
                             <img class="followImg" v-bind:class="item.IsEndorse ? 'appH5_followIcon' : 'appH5_unfollowIcon'" v-on:click="publishEndorseHandle(item)" v-bind:src="endorseImg(item.IsEndorse)" />
@@ -220,19 +222,19 @@
                         <ul class="ep_color_grey2 ep_font24 ep_decription articleDetail">
                             <li>
                                 <span class='article_title'>作者：</span>
-                                <span class="ep_ellipsis ep_width300">{{item.Author}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Author}}</span>
                             </li>
                             <li v-if="isValidElement(item.Publisher)">
                                 <span class='article_title'>出版社：</span>
-                                <span class="ep_ellipsis ep_width300">{{item.Publisher}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Publisher}}</span>
                             </li>
                             <li v-if="isValidElement(item.PublishTime)">
                                 <span class='article_title'>出版时间：</span>
-                                <span class="ep_ellipsis ep_width300">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
+                                <span class="ep_ellipsis ep_width517">{{isValidElement(item.PublishTime) ? item.PublishTime + '年' : ''}}</span>
                             </li>
                             <li v-if="isValidElement(item.Isbn)">
                                 <span class='article_title'>书号ISBN：</span>
-                                <span class="ep_ellipsis ep_width300">{{item.Isbn}}</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Isbn}}</span>
                             </li>
                             <li v-if="isValidElement(item.Pages)">
                                 <span class='article_title'>页数：</span>
@@ -240,7 +242,8 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <a class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important" v-bind:href="item.Link">{{item.Link}}</a>
+                                <span class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important">{{item.Link}}</span>
+                                <!-- <a class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important" v-bind:href="item.Link">{{item.Link}}</a> -->
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
                                 <span class='article_title'>作品文件：</span>
@@ -260,7 +263,7 @@
                 <span class='fl'>教育经历</span>
                </div>
             </header>
-            <div>
+            <div class="ep_panel_padding_bottom">
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.Educations" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width400 appH5_color_green">{{item.School}}</span>
@@ -288,7 +291,7 @@
                 <span class='fl'>个人简介</span>
             </div>
             </header>
-            <pre class="ep_part_description" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
+            <pre class="ep_part_description ep_panel_padding_bottom" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
         </section>
         <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
@@ -298,15 +301,15 @@
 </template>
 
 <script>
-
 import _ from "lodash";
 import axios from "axios";
 import * as webApi from "@/config/api";
 import util from "@/public/modules/expert/utils";
+import BusUtil from '../abs/BusUtil';
 
 import dislikeImg from '@/public/images/dislike.png';
 import likeImg from '@/public/image/followicon.png';
-import defaultAvatar from '@/public/image/unfollowicon.png';
+import defaultAvatar from '@/public/images/defaultavatar.png';
 
 export default {
   name: "ReadProfile",
@@ -319,13 +322,29 @@ export default {
       absProjectEndorseLock: false,
       otherProjectEndorseLock: false,
       publicEndorseLock: false,
-      submitPopupVisible: false
+      submitPopupVisible: false,
+      isShowHeader: false,
+      query: null
     };
   },
   created: function() {
       this._ = _;
       this.userId = util.getQueryString().UserId;
       this.initData();
+  },
+  beforeRouteEnter: (to, from, next) => {
+     next(vm => {
+         var query = util.getQueryString();
+         
+         if (query.isShowHeader) {
+            vm.isShowHeader = true;
+            vm.query = query;
+            const busUtil = BusUtil.getInstance();
+            busUtil.bus.$emit('showHeader', true);
+            busUtil.bus.$emit('path', 'abs.html#' + query.path);
+            busUtil.bus.$emit('headTitle', '专家履历');
+         }
+     });
   },
   methods: {
     initData: function() {
@@ -473,6 +492,26 @@ export default {
           this.submitPopupVisible = false;
           this.$toast(response.data.data);
         });
+    },
+    productDetailUrl: function(id) {
+        return this.isShowHeader ? {path: `/ProductDetail/${id}`, query: this.query} : `/ProductDetail/${id}`;
+    },
+    routeUrls: function() {
+      if (this.editable) {
+        return {
+          ReadAbsHistoryList: "/ReadAbsHistoryList",
+          ReadOtherProjectList: "/ReadOtherProjectList",
+          ReadArticleList: "/ReadArticleList",
+          ReadActivityList: "/ReadActivityList"
+        };
+      }
+
+      return {
+        ReadAbsHistoryList: this.isShowHeader ? {path: `/ReadAbsHistoryList/${this.userId}`, query: this.query} : `/ReadAbsHistoryList/${this.userId}`,
+        ReadOtherProjectList: this.isShowHeader ? {path: `/ReadOtherProjectList/${this.userId}`, query: this.query} : `/ReadOtherProjectList/${this.userId}`,
+        ReadArticleList: this.isShowHeader ? {path: `/ReadArticleList/${this.userId}`, query: this.query} : `/ReadArticleList/${this.userId}`,
+        ReadActivityList: this.isShowHeader ? {path: `/ReadActivityList/${this.userId}`, query: this.query} : `/ReadActivityList/${this.userId}`,
+      };
     }
   },
   computed: {
@@ -512,28 +551,11 @@ export default {
         totalOffering: projectTotalOffering
       };
     },
-    routeUrls: function() {
-      if (this.editable) {
-        return {
-          ReadAbsHistoryList: "/ReadAbsHistoryList",
-          ReadOtherProjectList: "/ReadOtherProjectList",
-          ReadArticleList: "/ReadArticleList",
-          ReadActivityList: "/ReadActivityList"
-        };
-      }
-
-      return {
-        ReadAbsHistoryList: "/ReadAbsHistoryList/" + this.userId,
-        ReadOtherProjectList: "/ReadOtherProjectList/" + this.userId,
-        ReadArticleList: "/ReadArticleList/" + this.userId,
-        ReadActivityList: "/ReadActivityList/" + this.userId
-      };
-    }
   }
 };
 </script>
 
 <style>
-
+    
 </style>
 

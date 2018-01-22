@@ -7,21 +7,12 @@ cache:
   
 build_master:
   stage: build 
-  before_script: 
-  - echo "==>Run yarn install---------------------------"
-  - chcp 850
-  - yarn install
-  - echo "==>install success-----------------------"    
-  script: 
-  - echo "==>Run yarn build------------------------------"
-  - chcp 850
-  - yarn build
-  - echo "==>build success--------------------------"  
-  after_script:
-  - echo "==>Run yarn webdeploy------------------------------"
-  - chcp 850
-  - yarn webdeploy
-  - echo "==>web deploy success--------------------------"  
+  before_script:  
+  - chcp 850 
+  script:  
+  - chcp 850 
+  after_script: 
+  - chcp 850 
   only:
   - triggers
   except:
@@ -44,7 +35,7 @@ build_developer:
   after_script: 
   - echo "==>Run yarn test------------------------------"
   - chcp 850
-  - yarn test
+  - if "%CI_COMMIT_REF_NAME%"=="master" ( yarn build %build_webdeploy% ) else ( yarn test ) 
   - echo "==>test success--------------------------"    
   only: 
   - schedules

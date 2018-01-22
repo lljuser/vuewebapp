@@ -31,9 +31,9 @@
 	        		<td class='appH5_white_space'>证券类型</td>
 	        		<td class="appH5_vertical_top">{{detailInfo.SecurityType}}</td>
 	        		<td class='appH5_white_space'>交易类型</td>
-	        		<td v-if="detailInfo.TradeType === '转让'">二级市场转让</td>
-              <td v-else-if="detailInfo.TradeType === '发行'">一级市场发行</td>
-              <td v-else>{{detailInfo.TradeType}}</td>
+	        		<td v-if="detailInfo.TradeType === '转让'" class="appH5_white_space">二级市场</td>
+              <td v-else-if="detailInfo.TradeType === '发行'" class="appH5_white_space">一级市场</td>
+              <td v-else class="appH5_white_space">{{detailInfo.TradeType}}</td>
 	      </tr>
 	      <tr>
 	        		<td class='appH5_white_space'>分层占比</td>
@@ -53,7 +53,7 @@
               <td colspan="4" class="padtop1">
                   <span class="fl mr5">参与专家</span>
                   <div class="fl" style="max-width: 6.9rem;">
-                    <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}`"  v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
+                    <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}`"  v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
                       <img class="touxiang" :src="item.AvatarPath"/>
                     </a>
                   </div>
@@ -77,7 +77,7 @@
     </div>
     <div class="fixedMain appH5_font_normal" v-if="contactItem.IsPrimary" v-for="contactItem in detailInfo.Contacts">
         <div class="fl fixedLeft">
-              <a v-bind:href="`/webapp/expert.html?UserId=${contactItem.UserId}`"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
+              <a v-bind:href="`/webapp/expert.html?UserId=${contactItem.UserId}&isShowHeader=true&path=${$route.path}`"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
                 <img class="touxiang" :src="contactItem.AvatarPath"/>
               </a>
               <div class="fl txtLeft" style="margin: .1rem 0 0 0; display: table; height: 1.3rem;">
@@ -120,7 +120,7 @@ export default {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
-    busUtil.bus.$emit('headTitle', '交易信息');
+    busUtil.bus.$emit('headTitle', '');
   }, 
   mounted() {
   },
@@ -157,14 +157,15 @@ export default {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/trade');
-    busUtil.bus.$emit('headTitle', '交易信息');
+    busUtil.bus.$emit('headTitle', '');
     this.tradeId = this.$route.params.tradeId;
     this.noteId = this.$route.params.noteId;
     this.isProductLoading=true;
     //debugger;
     this.fetchTradeDetail(this.tradeId,this.noteId,data => {   //59,9461,this.tradeId,this.noteId
-    this.detailInfo = data;
-    this.isProductLoading=false;
+      this.detailInfo = data;
+      this.isProductLoading=false;
+      busUtil.bus.$emit('headTitle', data.SecurityName);
     });
 },
 };
@@ -281,6 +282,9 @@ export default {
     }
     .appH5_font_larger {
        font-size: 17px!important;
+    }
+    .mr5{
+      margin-right: 0;
     }
 }
 </style>

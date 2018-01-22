@@ -1,8 +1,8 @@
 <template>
-    <div class="projectHistoryOtherListContent ep_font32">
+    <div class="projectHistoryOtherListContent ep_font32" :class="isShowHeader ? 'paddingTop50': ''">
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div" v-if="!util.isArrayEmpty(projectHistories)" v-cloak>
-            <div class='appH5_panel' style="padding-top:0px;">
+            <div class='appH5_panel'>
                     <table class="appH5_table">
                         <tr>
                             <th class="text-left ep_width225">简称</th>
@@ -10,7 +10,7 @@
                             <th class="text-right">类型</th>
                             <th class='text-right ep_width90' v-if="!editable">点赞</th>
                         </tr>
-                        <tr v-for="item in projectHistories" v-bind:key="item.ProjectShortName">
+                        <tr v-for="(item, index) in projectHistories" v-bind:key="index">
                             <td class="ep_ellipsis text-left">
                                 <div class=" ep_ellipsis fl ep_width225">
                                     {{item.ProjectShortName}}
@@ -35,6 +35,7 @@
 <script>
     import axios from "axios";
     import * as webApi from "@/config/api";
+    import BusUtil from '../abs/BusUtil';
     import util from '@/public/modules/expert/utils';
     import dislikeImg from '@/public/images/dislike.png';
     import likeImg from '@/public/image/followicon.png';
@@ -48,12 +49,26 @@
                 editable: false,
                 util: {},
                 userId: null,
+                isShowHeader: false,
             }
         },
         created: function () {
             this.userId = this.$route.params.userId;
             this.util = util;
             this.initData();
+        },
+        beforeRouteEnter: (to, from, next) => {
+            next(vm => {
+                var query = util.getQueryString();
+
+                if (query.isShowHeader) {
+                    vm.isShowHeader = true;
+                    const busUtil = BusUtil.getInstance();
+                    busUtil.bus.$emit('showHeader', true);
+                    busUtil.bus.$emit('path', 'expert.html?' + util.toQueryString(query));
+                    busUtil.bus.$emit('headTitle', '其它项目');
+                }
+            });
         },
         methods: {
             initData: function () {

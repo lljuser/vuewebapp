@@ -126,6 +126,7 @@ export default {
     }, 600);
   },
   activated() {
+    document.body.scrollTop=0;
     this.loading = false;
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', false);
@@ -149,6 +150,7 @@ export default {
     if (this.isFetchProductsError) {
       this.loadFirstPageProducts();
     }
+    //this.$refs.loadmore.onTopLoaded();
   },
   deactivated() {
     this.timer && clearTimeout(this.timer);

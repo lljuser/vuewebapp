@@ -1,5 +1,5 @@
 <template>
-    <div class="recentActivitiesContent ep_font32">
+    <div class="recentActivitiesContent ep_font32" :class="isShowHeader ? 'paddingTop50': ''">
         <div class="ep_marginTop24"></div>
         <section class="ep_part ep_content_div">
             <div v-if="!isArrayEmpty(recentActivities)" v-cloak>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+    import BusUtil from '../abs/BusUtil';
+    import util from "@/public/modules/expert/utils";
     import axios from "axios";
     import * as webApi from "@/config/api";
 
@@ -25,11 +27,26 @@
             return {
                 recentActivities: [],
                 userId: null,
+                isShowHeader: false
             }
         },
         created: function () {
             this.userId = this.$route.params.userId;
             this.initData();
+            this.scrollRestore();
+        },
+        beforeRouteEnter: (to, from, next) => {
+            next(vm => {
+                var query = util.getQueryString();
+
+                if (query.isShowHeader) {
+                    vm.isShowHeader = true;
+                    const busUtil = BusUtil.getInstance();
+                    busUtil.bus.$emit('showHeader', true);
+                    busUtil.bus.$emit('path', 'expert.html?' + util.toQueryString(query));
+                    busUtil.bus.$emit('headTitle', '近期活动');
+                }
+            });
         },
         methods: {
             initData: function () {
@@ -39,6 +56,10 @@
             },
             isArrayEmpty: function (arr) {
                 return (arr === null || arr === undefined || arr.length === 0);
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
             },
         }
     }

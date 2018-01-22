@@ -213,6 +213,15 @@ a.ep_editBtn:hover {
 .ep_maxWidth400 {
     max-width: 5.333333rem;
 }
+.ep_maxWidth460{
+    max-width:6.133333rem;
+}
+.ep_maxWidth500{
+    max-width: 6.666667rem;
+}
+.ep_maxWidth577 {
+    max-width: 7.7rem;
+}
 .ep_width350 {
     width: 4.666667rem;
 }
@@ -385,6 +394,9 @@ width:1.7rem;
 }
 .ep_paddingBottom38{
     padding-bottom: 0.506667rem;
+}
+.ep_paddingBottom0{
+    padding-bottom: 0rem!important;
 }
 .editPencils {
     width: 19px;
@@ -995,4 +1007,14 @@ select option：hover
     width: 6.8rem;
     color:#000;
 }
-   
+.ep_panel_padding_bottom{
+    padding-bottom: 0.32rem;
+}
+.ep_line_height22{
+    line-height: 22px;
+}
+.paddingTop50 {
+    padding-top: 42px;
+}  
+
+ 

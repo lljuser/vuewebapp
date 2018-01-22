@@ -29,6 +29,7 @@ import BriefIntroducation from '@/components/expert/BriefIntroducation';
 import WorkHistory from '@/components/expert/WorkHistory';
 import DealSearch from '@/components/expert/DealSearch';
 import OrganizationSearch from '@/components/expert/OrganizationSearch';
+import ProductDetail from '@/components/abs/ProductDetailWithoutBack';
 
 Vue.use(Router);
 Vue.use(MintUI);
@@ -51,7 +52,7 @@ export default new Router({
       component: ReadOtherProjectList,
     },
     {
-      path: '/ReadArticleList/:userId?',
+      path: '/ReadArticleList/:userId?/:isShowHeader?',
       name: 'ReadArticleList',
       component: ReadArticleList,
     },
@@ -140,11 +141,15 @@ export default new Router({
       name: 'DealSearch',
       component: DealSearch,
     },
-    //
     {
       path: '/OrganizationSearch/:orgName?',
       name: 'OrganizationSearch',
       component: OrganizationSearch,
+    },
+    {
+      path: '/ProductDetail/:dealId?',
+      name: 'ProductDetail',
+      component: ProductDetail,
     },
   ],
 });

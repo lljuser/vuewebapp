@@ -1,8 +1,8 @@
 <template>
-    <div id="projectHistoryABSListContent" class="projectHistoryABSListContent ep_font32">
+    <div id="projectHistoryABSListContent" class="projectHistoryABSListContent ep_font32" :class="isShowHeader ? 'paddingTop50': ''">
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div" v-if="!isArrayEmpty(projectHistories)" v-cloak>
-              <div class='appH5_panel' style="padding-top:0px;">
+              <div class='appH5_panel'>
                 <table class="appH5_table">
                     <tr>
                         <th class='text-left ep_width225'>名称</th>
@@ -12,9 +12,11 @@
                     </tr>
                     <tr v-for="item in projectHistories" v-bind:key="item.DealId">
                         <td class='text-left'>
-                            <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'/webapp/product.html?dealId=' + item.DealId">{{item.DealName}}</a>
+                            <!-- <a class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow" v-bind:href="'/webapp/product.html?dealId=' + item.DealId">{{item.DealName}}</a> -->
+                            <router-link :to="productDetailUrl(item.DealId)" class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow">
+                                {{item.DealName}}
+                            </router-link>
                         </td>
-
                         <td class='text-right appH5_color_red'>{{item.TotalOffering.toFixed(2)}}</td>
                         <td class='text-right ep_ellipsis'>
                             {{item.DealType}}
@@ -32,6 +34,8 @@
 </template>
 
 <script>
+    import BusUtil from '../abs/BusUtil';
+    import util from "@/public/modules/expert/utils";
     import axios from "axios";
     import * as webApi from "@/config/api";
     import dislikeImg from '@/public/images/dislike.png';
@@ -45,11 +49,28 @@
                 absProjectEndorseLock: false,
                 editable: false,
                 userId: null,
+                isShowHeader: false,
+                query: null
             }
         },
         created: function () {
             this.userId = this.$route.params.userId;
             this.initData();
+            this.scrollRestore();
+        },
+        beforeRouteEnter: (to, from, next) => {
+            next(vm => {
+                var query = util.getQueryString();
+
+                if (query.isShowHeader) {
+                    vm.isShowHeader = true;
+                    vm.query = query;
+                    const busUtil = BusUtil.getInstance();
+                    busUtil.bus.$emit('showHeader', true);
+                    busUtil.bus.$emit('path', 'expert.html?' + util.toQueryString(query));
+                    busUtil.bus.$emit('headTitle', 'ABS项目');
+                }
+            });
         },
         methods: {
             initData: function () {
@@ -107,7 +128,14 @@
                         absProject.IsEndorse = response.data.data.IsEndorse;
                         this.absProjectEndorseLock = false;
                     });
-            }
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
+            },
+            productDetailUrl: function(id) {
+                return this.isShowHeader ? {path: `/ProductDetail/${id}`, query: this.query} : `/ProductDetail/${id}`;
+            },
         }
     }
 </script>
