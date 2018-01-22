@@ -1,5 +1,5 @@
 <template>
-  <div class="appH5_body" style="padding-top:0" :class="isShowHeader ? 'paddingTop50': ''">
+  <div class="appH5_body" :class="isShowHeader ? 'paddingTop50': 'paddingTop0'">
     <div class="product-spinner" v-if="isProductLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
@@ -111,6 +111,10 @@
   height: 11px;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC);
   background-repeat: repeat;
+}
+
+.paddingTop0 {
+  padding-top: 0;
 }
 </style>
 <style>

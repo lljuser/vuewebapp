@@ -21,7 +21,7 @@ a {color:#333333;text-decoration:none; display:block;}  /* 重置链接a标签 *
 a:active, a:hover {text-decoration:none; color:#e60012;}   /* 重置链接a标签的鼠标滑动效果 */
 address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal}  /* 重置样式标签的样式 */
 caption {display:none;}    /* 重置表格标题为隐藏 */
-table {width:100%;border-collapse:collapse;border-spacing:0;table-layout:fixed;}    /* 重置table属性 */
+/* table {width:100%;border-collapse:collapse;border-spacing:0;table-layout:fixed;}     重置table属性 */
 img{vertical-align:top;}  /* 图片在当前行内的垂直位置 */
 
 /* 页面设置 */
