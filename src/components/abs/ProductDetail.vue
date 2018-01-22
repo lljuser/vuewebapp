@@ -244,14 +244,11 @@ export default {
                         }
                         this.fetchNoteConsTable(data.DealId,this.chartWidthPx,200);
                     }
-                    if (data.ResultSetId != null && data.ResultSetId > 0) {
-                        this.showChart = true;
-                        this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
-                    } else {
-                        this.showChart = false;
-                    }
                 });
             },600);
+            setTimeout(()=>{
+            this.fetchProductPaymentChart(this.id);
+            }, 600);
         }
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
@@ -288,59 +285,63 @@ export default {
             this.isProductLoading = false;
             this.isFetchDetailError=true;
         },
-        fetchProductPaymentChart(dealId, resultId) {
-            axios(webApi.Product.chart.concat(['', dealId, resultId].join('/')))
+        fetchProductPaymentChart(dealId) {
+            var self = this;
+            axios(webApi.Product.chart.concat(['', dealId].join('/')))
             .then((response) => {
                 const json = response.data;
                 if (json.status == "ok") {
                 var chartData = json.data;
-                var o = [];
-                        var hasLegal = chartData.HasLegalLine;
-                        var colors = chartTheme.colors;
-                        var seriesLength = chartData.ListLineSeries.length / 2;
-                        for (var j = 0; j < Math.floor((hasLegal ? seriesLength : 2 * seriesLength) / colors.length); j++)
-                            colors = colors.concat(colors);
-                        var i = 0;
-                        chartData.ListLineSeries.forEach(
-                            function (e) {
-                                var a = [];
-                                e.Data.Data.forEach(
-                                    function (e) {
-                                        a.push([e.X, e.Y]);
-                                    });
-                                if (hasLegal == true) {
-                                    if (!(e.Name.indexOf('说明书') != -1)) {
-                                        o.push({
-                                            name: e.Name,
-                                            data: a,
-                                            type: 'line',
-                                            step: true,
-                                            color: colors[i]
-                                        });
-                                    }
-                                    else {
-                                        o.push({
-                                            name: e.Name,
-                                            data: a,
-                                            dashStyle: 'Dot',
-                                            step: true,
-                                            color: colors[i - seriesLength]
-                                        });
-                                    }
-                                    i++;
-                                }
-                                else {
-                                    o.push({
-                                        name: e.Name,
-                                        data: a,
-                                        type: 'spline',
-                                    });
-                                }
-
-                            });
-                        var i = chartData.PlotValue,
-                            s = chartData.PlotLabel;
-                        var l = {
+                var allSeries = [];
+                var lineValue;
+                var i = 0;
+                var colors = chartTheme.colors;
+                if (chartData && chartData.length > 0) {
+                    var allSeriesLth = chartData.length;
+                    var colorSeries = chartData.filter(function (item) { return item.Order > 100 }).length > 0 ?
+                        Math.ceil(chartData.length / colors.length) : chartData.length;
+                    for (var j = 0; j < colorSeries; j++) //get max color series
+                        colors = colors.concat(colors);
+                    var pSeries = chartData.filter(function (item) { return item.Order < 100 });
+                    var lSeries = chartData.filter(function (item) { return item.Order > 100 && item.Order != 1000 });
+                    var plotLine = chartData.filter(function (item) { return item.Order == 1000 });
+                    var minDate = new Date(1970,1,1).valueOf();
+                    pSeries.forEach(function (item, index) {
+                        var point = [];
+                        item.Points.forEach(function (e) {
+                            point.push([new Date(e.X).valueOf() - minDate, e.Y*1]);
+                        });
+                        allSeries.push({
+                            name: item.SeriesName,
+                            data: point,
+                            dashStyle: item.Type,
+                            step: true,
+                            color: colors[i]
+                        });
+                        i++;
+                    });
+                    if (lSeries.length > 0) {
+                        i = 0;
+                        lSeries.forEach(function (item, index) {
+                           var point = [];
+                           item.Points.forEach(function (e) {
+                              point.push([new Date(e.X).valueOf() - minDate, e.Y*1]);
+                           });
+                           allSeries.push({
+                               name: item.SeriesName,
+                               data: point,
+                               dashStyle: item.Type,
+                               step: true,
+                               color: colors[i]
+                           });
+                        i++;                           
+                        });
+                    }
+                    if (plotLine.length == 1) {
+                        lineValue = new Date(plotLine[0].Points).valueOf() - minDate;
+                    }
+                }
+                        var option = {
                             title: {
                                 text: ''
                             },
@@ -351,17 +352,17 @@ export default {
                                     minute: "%Y-%m-%d %H:%M",
                                     hour: "%Y-%m-%d %H:%M",
                                     day: "%Y-%m-%d",
-                                    week: "%Y年%m月",
-                                    month: "%Y年",
-                                    year: "%Y年"
+                                    week: "%Y.%m",
+                                    month: "%Y.%m",
+                                    year: "%Y.%m"
                                 },
                                 plotLines: [{
                                     color: "white",
                                     width: .8,
-                                    value: i,
+                                    value: lineValue,
                                     dashStyle: "dash",
                                     label: {
-                                        text: s,
+                                        text: plotLine.Points,
                                         verticalAlign: "middle",
                                         textAlign: "left",
                                         style: {
@@ -372,7 +373,7 @@ export default {
                                 plotBands: [{
                                     color: "#333",
                                     from: Date.UTC(2e3, 1, 1),
-                                    to: i
+                                    to: lineValue
                                 }]
                             },
                             yAxis: {
@@ -408,9 +409,11 @@ export default {
                             href: '',
                             text: 'CNABS'
                             },
-                            series: o
+                            series: allSeries
                         };
-                this.options = l;
+                this.options = option;
+                } else {
+                    self.showChart = false;
                 }
             });
         }
