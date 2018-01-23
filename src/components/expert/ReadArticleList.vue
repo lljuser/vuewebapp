@@ -1,5 +1,5 @@
 <template>
-    <div class="articleListContent ep_font32" :class="isShowHeader ? 'paddingTop50': ''">
+    <div class="articleListContent ep_font32" :class="isShowHeader ? 'paddintTop45': ''">
         <div class="ep_marginTop24"></div>
         <section class="ep_content_div">
             <div v-if="!isArrayEmpty(publishes)" v-cloak>

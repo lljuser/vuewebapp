@@ -1,5 +1,5 @@
 <template>
-  <div class="appH5_body" :class="isShowHeader ? 'paddingTop50': 'paddingTop0'">
+  <div class="appH5_body" :class="isShowHeader ? 'paddintTop55': 'paddingTop0'">
     <div class="product-spinner" v-if="isProductLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
@@ -198,6 +198,9 @@ export default {
     if (productId) {
       this.fetchProductDetail(productId, data => {
           this.productDetail = data;
+          if (this.isShowHeader) {
+            BusUtil.getInstance().bus.$emit("headTitle", data.Basic.DealName)
+          }
           
           if (data.DealId != null && data.DealId > 0) {
             this.fetchNoteConsTable(data.DealId, 280, 200);

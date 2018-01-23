@@ -1,5 +1,5 @@
 <template>
-  <div class="editProfileContent" v-cloak :class="isShowHeader ? 'paddingTop50': ''">
+  <div class="editProfileContent" v-cloak :class="isShowHeader ? 'paddintTop45': ''">
         <section class="ep_part ep_overhide" id="basicInformation">
             <div class="ep_overhide basicInformationCard">
                 <div class="fl ep_divAvatar" v-show="userInfo.User && userInfo.User.Avatar">

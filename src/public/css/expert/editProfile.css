@@ -1013,8 +1013,13 @@ select option：hover
 .ep_line_height22{
     line-height: 22px;
 }
-.paddingTop50 {
-    padding-top: 42px;
+
+.paddintTop45 {
+    padding-top: 45px;
+}
+
+.paddingTop55 {
+    padding-top: 55px;
 }  
 
  
