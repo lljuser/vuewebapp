@@ -8,7 +8,7 @@
                 <div class="fl ep_marginLeft30 ep_width517" v-cloak>
                     <div class='ep_overhide'>
                         <span class="fl ep_font32 ep_width300 ep_ellipsis">{{userInfo.User && userInfo.User.Name}}</span>
-                        <router-link v-if="editable" to="/EditProfile" class="fr ep_editBtn ep_font28 appH5_color_link">
+                        <router-link v-if="editable && !isShowHeader" to="/EditProfile" class="fr ep_editBtn ep_font28 appH5_color_link">
                             编辑履历
                         </router-link>
                     </div>

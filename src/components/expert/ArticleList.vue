@@ -36,7 +36,8 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <a class="fl ep_ellipsis ep_width517  ep_Link"  v-bind:href="item.Link">{{item.Link}}</a>
+                                <!-- <a class="fl ep_ellipsis ep_width517 ep_Link" v-bind:href="item.Link">{{item.Link}}</a> -->
+                                <span class="fl ep_ellipsis ep_width517 ep_Link">{{item.Link}}</span>
                             </li>
                             <li v-show="isValidElement(item.AttachmentFileCode)">
                                 <span class='article_title'>作品文件：</span>
@@ -65,6 +66,7 @@
         },
         created: function () {
             this.initData();
+            this.scrollRestore();
         },
         methods: {
             initData: function () {
@@ -77,6 +79,10 @@
             },
             isValidElement: function (item) {
                 return !(item === null || item === undefined || item === "");
+            },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
             }
         }
     }

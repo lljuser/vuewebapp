@@ -31,6 +31,7 @@
         },
         created: function () {
             this.initData();
+            this.scrollRestore();
         },
         methods: {
             initData: function () {
@@ -41,6 +42,10 @@
             isArrayEmpty: function (arr) {
                 return (arr === null || arr === undefined || arr.length === 0);
             },
+            scrollRestore: function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; 
+            }
         }
     }
 </script>
