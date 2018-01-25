@@ -323,7 +323,7 @@ export default {
                         });
                     }
                     if (plotLine.length == 1) {
-                        lineValue = new Date(plotLine[0].Points).valueOf() - minDate;
+                        lineValue = new Date(plotLine[0].Points[0].X).valueOf() - minDate;
                     }
                 }
                         var option = {
@@ -347,7 +347,7 @@ export default {
                                     value: lineValue,
                                     dashStyle: "dash",
                                     label: {
-                                        text: plotLine.Points,
+                                        text: plotLine[0].Points[0].X,
                                         verticalAlign: "middle",
                                         textAlign: "left",
                                         style: {
