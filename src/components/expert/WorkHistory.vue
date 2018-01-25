@@ -313,7 +313,7 @@ export default {
       }
       if (
         new Date() <
-        new Date(values[0].replace("年", "-") + values[1].replace("月", ""))
+        new Date(parseInt(values[0].replace("年", "/")) , parseInt(values[1].replace("月", ""))-1)
       ) {
         picker.setSlotValue(0, new Date().getFullYear() + "年");
         picker.setSlotValue(1, new Date().getMonth() + 1 + "月");
@@ -360,7 +360,7 @@ export default {
         if (values[1] != undefined) {
           if (
             new Date() <
-            new Date(values[0].replace("年", "-") + values[1].replace("月", ""))
+            new Date(parseInt(values[0].replace("年", "/")) , parseInt(values[1].replace("月", ""))-1)
           ) {
             picker.setSlotValue(0, new Date().getFullYear() + "年");
             picker.setSlotValue(1, new Date().getMonth() + 1 + "月");

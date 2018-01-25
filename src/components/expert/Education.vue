@@ -103,7 +103,7 @@
                 availableYearMonth: [
                 {
                     flex: 1,
-                    values: this.setYears(),
+                    values: this.setYears(new Date().getFullYear()),
                     className: 'slot1',
                     textAlign: 'center',
                 }
@@ -130,8 +130,7 @@
                     });
                 }
             },
-            setYears: function () {
-                var end = new Date().getFullYear();
+            setYears: function (end) {
                 var start = end - 80;
                 
                 var yearArray = [];
@@ -145,9 +144,11 @@
                 this.isShowYearMonthPopup = true;
                 this.timeType = type;
                 if (type == 'startTime') {
+                    this.availableYearMonth[0].values = this.setYears(new Date().getFullYear());
                     this.getPicker.setSlotValue(0, this.startTime === '' ? (this.endTime === '' ? new Date().getFullYear() + '年' : this.endTime) : this.startTime);
                 }
                 if (type == 'endTime') {
+                    this.availableYearMonth[0].values = this.setYears(new Date().getFullYear() + 7);
                     this.getPicker.setSlotValue(0, this.endTime === '' ? (this.startTime === '' ? new Date().getFullYear() + '年' : this.startTime) : this.endTime);
                 }
             },

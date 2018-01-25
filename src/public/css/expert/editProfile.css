@@ -620,7 +620,7 @@ pre {
 
 .ep_popup .picker-selected {
     color: #ffc446 !important;
-    background-color:#535352 !important;
+    /* background-color:#535352 !important; */
 }
 .ep_popup .ep_popup_div_btn
 {
@@ -1004,7 +1004,6 @@ select option：hover
 .ep_defineRoleInput{
     margin-top: 0px;
     margin-bottom: 0.32rem;
-    width: 6.8rem;
     color:#000;
 }
 .ep_panel_padding_bottom{
@@ -1013,8 +1012,13 @@ select option：hover
 .ep_line_height22{
     line-height: 22px;
 }
-.paddingTop50 {
-    padding-top: 42px;
+
+.paddintTop45 {
+    padding-top: 45px;
+}
+
+.paddingTop55 {
+    padding-top: 55px;
 }  
 
  

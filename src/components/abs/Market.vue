@@ -5,7 +5,6 @@
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
     <div v-else>
-       <mt-loadmore :top-method="loadTop"  ref="loadmore">
     <div class="appH5_panel  appH5_panel_mb" >
     <div class="appH5_title"><span>市场概要</span></div>
     <div>
@@ -61,7 +60,6 @@
       <highcharts :options='options'></highcharts>
     </div>
   </div>
-   </mt-loadmore>
     </div>
   </div>
 
@@ -100,7 +98,6 @@ export default {
       marketSummary:[],
       isMarketLoading: false,
       isFetchMarketError: false,
-      isLoadTop:false
     };
   },
   created() {
@@ -119,9 +116,8 @@ export default {
     this.timer && clearTimeout(this.timer);
   },
   methods: {
-    loadfirstMarket(showSpinnerLoad){
-      this.isMarketLoading=true;
-      if(showSpinnerLoad!=null)this.isMarketLoading = false;
+    loadfirstMarket(){
+      this.isMarketLoading=true,
       this.timer = setTimeout(() => {
         this.fetchMarketSummary(data=>{
           this.marketSummary=data;
@@ -129,14 +125,6 @@ export default {
           this.isFetchMarketError=false;
         });
         this.fetchChartData();
-        if(showSpinnerLoad!=null) this.$refs.loadmore.onTopLoaded();
-      }, 600);
-    },
-
-    loadTop(){
-      this.isLoadTop=true;
-      this.timer = setTimeout(() => {
-        this.loadfirstMarket(true);
       }, 600);
     },
 
@@ -145,7 +133,6 @@ export default {
           const data=response.data.data;
           if(data){
               callback(data);
-              this.isLoadTop=false;
           }
           else{
               this.doCatch();
@@ -159,11 +146,6 @@ export default {
         Toast('服务器繁忙，请重试！');
         this.isMarketLoading = false;
         this.isFetchMarketError=true;
-         if(this.isLoadTop){
-          setTimeout(() => {
-            this.$refs.loadmore.onTopLoaded();
-          }, 4000);
-        }
     },
 
     fetchChartData() {
@@ -250,7 +232,7 @@ export default {
           }
         });
       },
-    },
+    }, 
 };
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="projectHistoryOtherListContent ep_font32" :class="isShowHeader ? 'paddingTop50': ''">
+    <div class="projectHistoryOtherListContent ep_font32" :class="isShowHeader ? 'paddintTop45': ''">
         <div class="ep_marginTop24"></div>
         <div class="ep_content_div" v-if="!util.isArrayEmpty(projectHistories)" v-cloak>
             <div class='appH5_panel'>
