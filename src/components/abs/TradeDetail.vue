@@ -77,8 +77,8 @@
     </div>
     <div class="fixedMain appH5_font_normal" v-if="contactItem.IsPrimary" v-for="contactItem in detailInfo.Contacts">
         <div class="fl fixedLeft">
-              <a v-bind:href="`/webapp/expert.html?UserId=${contactItem.UserId}&isShowHeader=true&path=${$route.path}`"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
-                <img class="touxiang" :src="contactItem.AvatarPath"/>
+              <a href="javascript:;" class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
+                <img class="touxiang" @click.stop="clickAvatar(contactItem)" :src="contactItem.AvatarPath"/>
               </a>
               <div class="fl txtLeft" style="margin: .1rem 0 0 0; display: table; height: 1.3rem;">
                   <div style="display: table-cell; vertical-align: middle;">
@@ -151,6 +151,10 @@ export default {
         this.loading = false;
         this.isTradeLoading=false;
         this.isFetchTradesError=true;
+    },
+    clickAvatar(item) {
+      // 发消息通知app跳转到原生专家微主页
+      window.postMessage(item.UserId, "*");
     },
   },
   activated() {
