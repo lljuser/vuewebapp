@@ -53,8 +53,8 @@
               <td colspan="4" class="padtop1">
                   <span class="fl mr5 iphone5">参与专家</span>
                   <div class="fl" style="max-width: 6.9rem;">
-                    <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}`"  v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
-                      <img class="touxiang" :src="item.AvatarPath"/>
+                    <a v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
+                      <img class="touxiang" @click.stop="clickAvatar(item)" :src="item.AvatarPath"/>
                     </a>
                   </div>
                   <div class="clearfix"></div>
@@ -153,7 +153,7 @@ export default {
         this.isFetchTradesError=true;
     },
     clickAvatar(item) {
-      // 发消息通知app跳转到原生专家微主页
+      // 点击参数专家、底部栏的专家头像 发消息通知app跳转到原生专家微主页
       window.postMessage(item.UserId, "*");
     },
   },
