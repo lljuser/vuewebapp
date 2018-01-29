@@ -310,9 +310,9 @@
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
             <div class="ep_align_center ep_font30 ep_submitColor">发送中...</div>
         </mt-popup>
-        <mt-popup v-model="prizeModel.showDetail" class="mint-popup mint-popup-1" closeOnClickModal="true" v-if="isValidElement(prizeModel.prizeDetail)">
+        <mt-popup v-model="prizeModel.showDetail" style="background-color:#78bcff;color:white" class="mint-popup mint-popup-1" closeOnClickModal="true" v-if="isValidElement(prizeModel.prizeDetail)">
             <h1 class="mint-popup-title">{{prizeModel.prizeDetail.Name}}</h1>
-            <p v-for="(item, index) in prizeModel.prizeDetail.Reasons" :key="index">{{item}}</p>
+            <p style="font-size:13px;" v-for="(item, index) in prizeModel.prizeDetail.Reasons" :key="index">{{item}}</p>
         </mt-popup>
     </div>
 </template>
