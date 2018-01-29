@@ -317,7 +317,8 @@ export default {
                                data: point,
                                dashStyle: item.Type,
                                step: true,
-                               color: colors[i]
+                               color: colors[i],
+                               lineWidth: 3
                            });
                         i++;                           
                         });
