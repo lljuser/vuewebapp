@@ -32,6 +32,18 @@
                 </div>
             </div>
         </section>
+        <section class="ep_part" v-if="!isArrayEmpty(userInfo.Badges)" v-cloak>
+            <header class="ep_part_title">
+                <div class='appH5_title fl'>
+                    <span class='fl'>已获奖章</span>
+                </div>
+            </header>
+            <div class="appH5_panel" style="padding-top:0px;padding-left: 0.85rem;padding-right:0.85rem">
+                <div class="tooltip" @click="showPrizeDetail(item, $event)" v-for="(item, index) in userInfo.Badges" :key="index" style="display:inline-block;width:1.35rem">
+                    <img :src="item.IconUrl" style="height:30px" />
+                </div>
+            </div>
+        </section>
         <section class="ep_part" id="projectHistoryABS">
             <header class="ep_part_title">
                 <div class='appH5_title fl' style='overflow:hidden;'>
@@ -332,6 +344,10 @@
             <pre v-if="isValidElement(userInfo.User.Introduction)" class="ep_part_description ep_panel_padding_bottom" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
             <p v-else class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey">暂无个人简介</p>
         </section>
+        <mt-popup v-model="prizeModel.showDetail" class="mint-popup mint-popup-1" closeOnClickModal="true" v-if="isValidElement(prizeModel.prizeDetail)">
+            <h1 class="mint-popup-title">{{prizeModel.prizeDetail.Name}}</h1>
+            <p v-for="(item, index) in prizeModel.prizeDetail.Reasons" :key="index">{{item}}</p>
+        </mt-popup>
     </div>
 </template>
 
@@ -345,7 +361,11 @@ export default {
   data: function() {
     return {
       _: {},
-      userInfo: {}
+      userInfo: {},
+      prizeModel: {
+          prizeDetail: null,
+          showDetail: false
+      }
     };
   },
   created: function() {
@@ -379,6 +399,10 @@ export default {
     },
     isValidElement: function(item) {
       return !(item === null || item === undefined || item === "");
+    },
+    showPrizeDetail: function(model, e) {
+        this.prizeModel.prizeDetail = model;
+        this.prizeModel.showDetail = true;
     }
   },
   computed: {

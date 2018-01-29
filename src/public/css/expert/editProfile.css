@@ -1019,6 +1019,23 @@ select option：hover
 
 .paddingTop55 {
     padding-top: 55px;
-}  
+}
+
+.mint-popup-1 {
+    width: 200px;
+    border-radius: 8px;
+    padding: 10px;
+    -webkit-transform: translate(-50%);
+    transform: translate(-50%);
+    color: black;
+}
+
+.mint-popup-title {
+    margin-bottom: 10px;
+}
+
+.dn {
+    display: none;
+}
 
  

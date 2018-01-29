@@ -15,8 +15,8 @@
                     <div class='ep_overhide ep_marginTop10'>
                         <span class="fl ep_color_grey2 ep_font28 ep_width470">{{userInfo.User && userInfo.User.Company}}</span>
                     </div>
-                    <!-- <div class='ep_overhide ep_marginTop10 ep_font30 ep_color_grey2'>
-                        <div class="fl ep_minWidth140">
+                    <div class='ep_overhide ep_marginTop10 ep_font30 ep_color_grey2' v-if="!isArrayEmpty(userInfo.Badges)">
+                        <!-- <div class="fl ep_minWidth140">
                             <span>粉丝</span>
                             <span>80</span>
                         </div>
@@ -27,8 +27,21 @@
                         <div class="fl ep_marginLeft10 ep_minWidth140">
                             <span>关注</span>
                             <span>80</span>
-                        </div>
-                    </div> -->
+                        </div> -->
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="ep_part" v-if="!isArrayEmpty(userInfo.Badges)" v-cloak>
+            <header class="ep_part_title">
+                <div class='appH5_title fl'>
+                    <span class='fl'>已获奖章</span>
+                </div>
+            </header>
+            <div class="appH5_panel" style="padding-top:0px;padding-left: 0.85rem;padding-right:0.85rem">
+                <div class="tooltip" @click="showPrizeDetail(item, $event)" v-for="(item, index) in userInfo.Badges" :key="index" style="display:inline-block;width:1.35rem">
+                    <img :src="item.IconUrl" style="height:30px" />
                 </div>
             </div>
         </section>
@@ -297,6 +310,10 @@
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
             <div class="ep_align_center ep_font30 ep_submitColor">发送中...</div>
         </mt-popup>
+        <mt-popup v-model="prizeModel.showDetail" class="mint-popup mint-popup-1" closeOnClickModal="true" v-if="isValidElement(prizeModel.prizeDetail)">
+            <h1 class="mint-popup-title">{{prizeModel.prizeDetail.Name}}</h1>
+            <p v-for="(item, index) in prizeModel.prizeDetail.Reasons" :key="index">{{item}}</p>
+        </mt-popup>
     </div>
 </template>
 
@@ -306,6 +323,7 @@ import axios from "axios";
 import * as webApi from "@/config/api";
 import util from "@/public/modules/expert/utils";
 import BusUtil from '../abs/BusUtil';
+import tippy from 'tippy.js';
 
 import dislikeImg from '@/public/images/dislike.png';
 import likeImg from '@/public/image/followicon.png';
@@ -324,7 +342,11 @@ export default {
       publicEndorseLock: false,
       submitPopupVisible: false,
       isShowHeader: false,
-      query: null
+      query: null,
+      prizeModel: {
+          prizeDetail: null,
+          showDetail: false
+      }
     };
   },
   created: function() {
@@ -353,6 +375,8 @@ export default {
         .then(response => {
           this.userInfo = response.data.data.UserInfo;
           this.editable = response.data.data.Editable;
+
+          //this.userInfo.Badges = this.userInfo.Badges.concat(this.userInfo.Badges).concat(this.userInfo.Badges);
 
           if (!this.isValidElement(this.userInfo.User.Avatar)) {
               this.userInfo.User.Avatar = defaultAvatar;
@@ -512,6 +536,10 @@ export default {
         ReadArticleList: this.isShowHeader ? {path: `/ReadArticleList/${this.userId}`, query: this.query} : `/ReadArticleList/${this.userId}`,
         ReadActivityList: this.isShowHeader ? {path: `/ReadActivityList/${this.userId}`, query: this.query} : `/ReadActivityList/${this.userId}`,
       };
+    },
+    showPrizeDetail: function(model, e) {
+        this.prizeModel.prizeDetail = model;
+        this.prizeModel.showDetail = true;
     }
   },
   computed: {
@@ -556,6 +584,6 @@ export default {
 </script>
 
 <style>
-    
+
 </style>
 
