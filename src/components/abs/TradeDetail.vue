@@ -53,8 +53,8 @@
               <td colspan="4" class="padtop1">
                   <span class="fl mr5 iphone5">参与专家</span>
                   <div class="fl" style="max-width: 6.9rem;">
-                    <a v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
-                      <img class="touxiang" @click.stop="clickAvatar(item)" :src="item.AvatarPath"/>
+                    <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}`"  v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
+                      <img class="touxiang" :src="item.AvatarPath"/>
                     </a>
                   </div>
                   <div class="clearfix"></div>
@@ -77,8 +77,8 @@
     </div>
     <div class="fixedMain appH5_font_normal" v-if="contactItem.IsPrimary" v-for="contactItem in detailInfo.Contacts">
         <div class="fl fixedLeft">
-              <a href="javascript:;" class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
-                <img class="touxiang" @click.stop="clickAvatar(contactItem)" :src="contactItem.AvatarPath"/>
+              <a v-bind:href="`/webapp/expert.html?UserId=${contactItem.UserId}&isShowHeader=true&path=${$route.path}`"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
+                <img class="touxiang" :src="contactItem.AvatarPath"/>
               </a>
               <div class="fl txtLeft" style="margin: .1rem 0 0 0; display: table; height: 1.3rem;">
                   <div style="display: table-cell; vertical-align: middle;">
@@ -151,10 +151,6 @@ export default {
         this.loading = false;
         this.isTradeLoading=false;
         this.isFetchTradesError=true;
-    },
-    clickAvatar(item) {
-      // 点击参数专家、底部栏的专家头像 发消息通知app跳转到原生专家微主页
-      window.postMessage(item.UserId, "*");
     },
   },
   activated() {
