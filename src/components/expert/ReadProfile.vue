@@ -15,8 +15,8 @@
                     <div class='ep_overhide ep_marginTop10'>
                         <span class="fl ep_color_grey2 ep_font28 ep_width470">{{userInfo.User && userInfo.User.Company}}</span>
                     </div>
-                    <!-- <div class='ep_overhide ep_marginTop10 ep_font30 ep_color_grey2'>
-                        <div class="fl ep_minWidth140">
+                    <div class='ep_overhide ep_marginTop10 ep_font30 ep_color_grey2' v-if="!isArrayEmpty(userInfo.Badges)">
+                        <!-- <div class="fl ep_minWidth140">
                             <span>粉丝</span>
                             <span>80</span>
                         </div>
@@ -27,8 +27,21 @@
                         <div class="fl ep_marginLeft10 ep_minWidth140">
                             <span>关注</span>
                             <span>80</span>
-                        </div>
-                    </div> -->
+                        </div> -->
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="ep_part" v-if="!isArrayEmpty(userInfo.Badges)" v-cloak>
+            <header class="ep_part_title">
+                <div class='appH5_title fl'>
+                    <span class='fl'>已获奖章</span>
+                </div>
+            </header>
+            <div class="appH5_panel" style="padding-top:0px;padding-left: 0.85rem;padding-right:0.85rem">
+                <div :id="`tooltip${index}`" v-for="(item, index) in userInfo.Badges" :key="index" style="display:inline-block;margin-right:0.75rem">
+                    <img :src="item.IconUrl" style="height:30px" />
                 </div>
             </div>
         </section>
@@ -297,6 +310,9 @@
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
             <div class="ep_align_center ep_font30 ep_submitColor">发送中...</div>
         </mt-popup>
+        <div id="toolTipTemplate" class="dn">
+            
+        </div>
     </div>
 </template>
 
@@ -306,6 +322,7 @@ import axios from "axios";
 import * as webApi from "@/config/api";
 import util from "@/public/modules/expert/utils";
 import BusUtil from '../abs/BusUtil';
+import tippy from 'tippy.js';
 
 import dislikeImg from '@/public/images/dislike.png';
 import likeImg from '@/public/image/followicon.png';
@@ -324,13 +341,16 @@ export default {
       publicEndorseLock: false,
       submitPopupVisible: false,
       isShowHeader: false,
-      query: null
+      query: null,
     };
   },
   created: function() {
       this._ = _;
       this.userId = util.getQueryString().UserId;
       this.initData();
+  },
+  updated: function() {
+      this.registerTippy();//注册徽章Tooltips
   },
   beforeRouteEnter: (to, from, next) => {
      next(vm => {
@@ -358,6 +378,51 @@ export default {
               this.userInfo.User.Avatar = defaultAvatar;
           }
         });
+    },
+    registerTippy: function() {
+        const poppers = document.querySelectorAll('.tippy-popper');
+
+        for (const popper of poppers) {
+            const tooltip = popper._reference._tippy;
+
+            if (tooltip.state.visible) {
+                tooltip.hide()
+            }
+        }
+
+        if (this.isArrayEmpty(this.userInfo.Badges)) return;
+
+        for (const [index, item] of this.userInfo.Badges.entries()) {
+            const id = `#tooltip${index}`;
+            const model = item;
+
+            if (document.querySelector(id)._tippy === undefined) {
+                tippy(id, {
+                            html: '#toolTipTemplate',
+                            placement: 'bottom',
+                            animation: 'scale',
+                            arrow: true,
+                            onShow() {
+                                const content = this.querySelector('.tippy-content');
+                                content.innerHTML = `<h1 style="font-size:15px;text-align:left">${model.Name}</h1>`;
+
+                                for (let reason of model.Reasons) {
+                                    content.innerHTML += `<p style="font-size:13px;text-align:left">${reason}</p>`
+                                }
+                            },
+                            popperOptions: {
+                                modifiers: {
+                                    preventOverflow: {
+                                        enabled: true
+                                    },
+                                    hide: {
+                                        enabled: false
+                                    }
+                                }
+                            }
+                    });
+                }
+            }
     },
     endorseImg: function(isEndorse) {
       return isEndorse ? likeImg : dislikeImg;
@@ -512,7 +577,7 @@ export default {
         ReadArticleList: this.isShowHeader ? {path: `/ReadArticleList/${this.userId}`, query: this.query} : `/ReadArticleList/${this.userId}`,
         ReadActivityList: this.isShowHeader ? {path: `/ReadActivityList/${this.userId}`, query: this.query} : `/ReadActivityList/${this.userId}`,
       };
-    }
+    },
   },
   computed: {
     projectHistoriesSummary: function() {
@@ -556,6 +621,41 @@ export default {
 </script>
 
 <style>
-    
-</style>
+    .mint-popup-1 {
+        width: 200px;
+        border-radius: 8px;
+        padding: 10px;
+        -webkit-transform: translate(-50%);
+        transform: translate(-50%);
+        color: black;
+    }
 
+    .mint-popup-title {
+        margin-bottom: 10px;
+    }
+
+    .dn {
+        display: none;
+    }
+
+    .tippy-tooltip {
+        position: relative;
+        color: white;
+        border-radius: 4px;
+        font-size: .9rem;
+        padding: .3rem .6rem;
+        text-align: center;
+        will-change: transform;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #78bcff;
+    }
+
+    .tippy-popper[x-placement^=bottom] .tippy-arrow {
+        border-bottom: 7px solid #78bcff;
+        border-right: 7px solid transparent;
+        border-left: 7px solid transparent;
+        top: -7px;
+        margin: 0 7px;
+    }
+</style>

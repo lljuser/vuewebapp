@@ -51,7 +51,7 @@
           </tr>
           <tr v-if="detailInfo.AbsProjectUsers !== undefined &&detailInfo.AbsProjectUsers !== null && detailInfo.AbsProjectUsers.length > 0">
               <td colspan="4" class="padtop1">
-                  <span class="fl mr5">参与专家</span>
+                  <span class="fl mr5 iphone5">参与专家</span>
                   <div class="fl" style="max-width: 6.9rem;">
                     <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}`"  v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
                       <img class="touxiang" :src="item.AvatarPath"/>
@@ -83,10 +83,12 @@
               <div class="fl txtLeft" style="margin: .1rem 0 0 0; display: table; height: 1.3rem;">
                   <div style="display: table-cell; vertical-align: middle;">
                     <div class="lxname">{{contactItem.Name}}</div>
-                    <div class="lxcompany appH5_font_smaller">{{contactItem.CompanyDisplay}}</div>
-                    <div class="lxcont appH5_font_smaller" v-if="contactItem.Department!=''&&contactItem.Department!=null&&contactItem.Position!=''&&contactItem.Position!=null">{{contactItem.Department}}-{{contactItem.Position}}</div>
-                    <div class="lxcont appH5_font_smaller" v-if="contactItem.Department==''||contactItem.Department==null">{{contactItem.Position}}</div>
-                    <div class="lxcont appH5_font_smaller" v-if="contactItem.Position==''||contactItem.Position==null">{{contactItem.Department}}</div>
+                    <div class="iphone5Style">
+                      <div class="lxcompany appH5_font_smaller">{{contactItem.CompanyDisplay}}</div>
+                      <div class="lxcont appH5_font_smaller" v-if="contactItem.Department!=''&&contactItem.Department!=null&&contactItem.Position!=''&&contactItem.Position!=null">{{contactItem.Department}}-{{contactItem.Position}}</div>
+                      <div class="lxcont appH5_font_smaller" v-if="contactItem.Department==''||contactItem.Department==null">{{contactItem.Position}}</div>
+                      <div class="lxcont appH5_font_smaller" v-if="contactItem.Position==''||contactItem.Position==null">{{contactItem.Department}}</div>
+                    </div>
                   </div>
               </div>
               <div class="clearfix"></div>
@@ -285,6 +287,14 @@ export default {
     }
     .mr5{
       margin-right: 0;
+    }
+    .iphone5{
+      padding-right: .2rem;
+    }
+    .iphone5Style{
+        font-size: .28rem;
+        margin-top: -.04rem;
+        line-height: .4rem;
     }
 }
 </style>

@@ -32,6 +32,18 @@
                 </div>
             </div>
         </section>
+        <section class="ep_part" v-if="!isArrayEmpty(userInfo.Badges)" v-cloak>
+            <header class="ep_part_title">
+                <div class='appH5_title fl'>
+                    <span class='fl'>已获奖章</span>
+                </div>
+            </header>
+            <div class="appH5_panel" style="padding-top:0px;padding-left: 0.85rem;padding-right:0.85rem">
+                <div class="tooltip" :id="`tooltip${index}`" v-for="(item, index) in userInfo.Badges" :key="index" style="display:inline-block;margin-right:0.75rem">
+                    <img :src="item.IconUrl" style="height:30px" />
+                </div>
+            </div>
+        </section>
         <section class="ep_part" id="projectHistoryABS">
             <header class="ep_part_title">
                 <div class='appH5_title fl' style='overflow:hidden;'>
@@ -332,6 +344,12 @@
             <pre v-if="isValidElement(userInfo.User.Introduction)" class="ep_part_description ep_panel_padding_bottom" v-cloak>{{userInfo.User && userInfo.User.Introduction}}</pre>
             <p v-else class="ep_font24 ep_align_center ep_paddingBottom30 ep_color_grey">暂无个人简介</p>
         </section>
+        <mt-popup v-model="prizeModel.showDetail" class="mint-popup mint-popup-1" closeOnClickModal="true" v-if="isValidElement(prizeModel.prizeDetail)">
+            <h1 class="mint-popup-title">{{prizeModel.prizeDetail.Name}}</h1>
+            <p v-for="(item, index) in prizeModel.prizeDetail.Reasons" :key="index">{{item}}</p>
+        </mt-popup>
+        <div id="toolTipTemplate" class="dn">
+        </div>
     </div>
 </template>
 
@@ -339,24 +357,79 @@
 import axios from "axios";
 import * as webApi from "@/config/api";
 import _ from "lodash";
+import tippy from 'tippy.js';
 
 export default {
   name: "EditProfile",
   data: function() {
     return {
       _: {},
-      userInfo: {}
+      userInfo: {},
+      prizeModel: {
+          prizeDetail: null,
+          showDetail: false
+      }
     };
   },
   created: function() {
     this._ = _;
     this.initData();
   },
+  updated: function() {
+      this.registerTippy();//注册徽章Tooltips
+  },
   methods: {
     initData: function() {
       axios.post(webApi.Expert.getExpert).then(response => {
             this.userInfo = response.data.data;
         });
+    },
+    registerTippy: function() {
+        if (this.isArrayEmpty(this.userInfo.Badges)) return;
+
+        for (const [index, item] of this.userInfo.Badges.entries()) {
+            const id = `#tooltip${index}`;
+            const model = item;
+
+            if (document.querySelector(id)._tippy === undefined) {
+                tippy(id, {
+                            html: '#toolTipTemplate',
+                            placement: 'bottom',
+                            animation: 'scale',
+                            arrow: true,
+                            onShow() {
+                                const content = this.querySelector('.tippy-content');
+                                content.innerHTML = `<h1 style="font-size:15px;text-align:left">${model.Name}</h1>`;
+
+                                for (let reason of model.Reasons) {
+                                    content.innerHTML += `<p style="font-size:13px;text-align:left">${reason}</p>`
+                                }
+                            },
+                            popperOptions: {
+                                modifiers: {
+                                    preventOverflow: {
+                                        enabled: true
+                                    },
+                                    hide: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                    });
+                }
+            }
+    },
+    destroyAllTippy: function() {
+        if (this.isArrayEmpty(this.userInfo.Badges)) return;
+
+
+        for (const [index, item] of this.userInfo.Badges.entries()) {
+            const id = `#tooltip${index}`;
+
+            if (document.querySelector(id)._tippy === undefined) {
+                document.querySelector(id)._tippy.destroy();
+            }
+        }
     },
     //机构角色拼接
     splicingOrganizationRoles: function(organizationRoles) {
@@ -379,6 +452,10 @@ export default {
     },
     isValidElement: function(item) {
       return !(item === null || item === undefined || item === "");
+    },
+    showPrizeDetail: function(model, e) {
+        this.prizeModel.prizeDetail = model;
+        this.prizeModel.showDetail = true;
     }
   },
   computed: {
@@ -427,5 +504,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+    .tippy-tooltip {
+        position: relative;
+        color: white;
+        border-radius: 4px;
+        font-size: .9rem;
+        padding: .3rem .6rem;
+        text-align: center;
+        will-change: transform;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #78bcff;
+    }
 
+    .tippy-popper[x-placement^=bottom] .tippy-arrow {
+        border-bottom: 7px solid #78bcff;
+        border-right: 7px solid transparent;
+        border-left: 7px solid transparent;
+        top: -7px;
+        margin: 0 7px;
+    }
 </style>
