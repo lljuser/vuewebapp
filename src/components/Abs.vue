@@ -11,6 +11,12 @@
         <router-link to="/trade" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">交易</a>
         </router-link>
+        <router-link to="/security" tag="div" class="navbar-item">
+          <a class="appH5_tab" href="javascript:;">证券</a>
+        </router-link>
+        <router-link to="/organ" tag="div" class="navbar-item">
+          <a class="appH5_tab" href="javascript:;">机构</a>
+        </router-link>
       </div>
     </div> 
 
@@ -40,7 +46,7 @@ export default {
       showHeader: false,
       path: '',
       headTitle:'产品信息',
-      tabs: ['market', 'product', 'trade'],
+      tabs: ['market', 'product', 'trade','security','organ'],
       startX: 0,
       startY: 0,
       isVertical: false

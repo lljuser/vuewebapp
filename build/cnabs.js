@@ -55,6 +55,18 @@ module.exports = {
         tmpl: resovePublicFile('trade').path,
         output: resovePublicFile('trade').filename
     },
+    security:{
+        name: 'security',
+        entry: resoveEntryFile('security').path,
+        tmpl: resovePublicFile('security').path,
+        output: resovePublicFile('security').filename
+    },
+    organ:{
+        name: 'organ',
+        entry: resoveEntryFile('organ').path,
+        tmpl: resovePublicFile('organ').path,
+        output: resovePublicFile('organ').filename
+    },
 }
 
 

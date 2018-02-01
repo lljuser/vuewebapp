@@ -8,6 +8,10 @@ import ProductDetail from '@/components/abs/ProductDetail';
 import ProductDetailWithoutBack from '@/components/abs/ProductDetailWithoutBack';
 import FlexDemo from '@/components/abs/FlexDemo';
 import TradeDetail from '@/components/abs/TradeDetail';
+import Security from '@/components/abs/Security';
+import Organ from '@/components/abs/Organ';
+import SecurityDetail from '@/components/abs/SecurityDetail';
+import OrganDetail from '@/components/abs/OrganDetail';
 
 
 Vue.use(Router);
@@ -77,6 +81,26 @@ export default new Router({
       path: '/tradedetail/:tradeId/:noteId',
       name: 'tradedetail',
       component: TradeDetail,
+    },
+    {
+      path: '/security',
+      name: 'security',
+      component: Security,
+    },
+    {
+      path: '/securityDetail/:id',
+      name: 'securityDetail',
+      component: SecurityDetail,
+    },
+    {
+      path: '/organ',
+      name: 'organ',
+      component: Organ,
+    },
+    {
+      path: '/organDetail/:id',
+      name: 'organDetail',
+      component: OrganDetail,
     },
   ],
 });
