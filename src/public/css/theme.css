@@ -105,7 +105,6 @@ body{
    font-size: 13px;
    white-space: nowrap;
 }
-
 .appH5_table td{
    font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
    padding: 0.26rem 0.146667rem;
@@ -334,6 +333,12 @@ select{
 .text-center{
 	text-align: center;
 }
+.clearfix{
+	clear: both;
+}
+.text-justify{
+	text-align: justify;
+}
 .fontBold{
 	font-weight: bold;
 }
@@ -493,10 +498,16 @@ select{
 	font-size: 12px;
 }
 
-.appH5_float_left{
+.appH5_float_left,.appH5_fl{
 	float: left;
 }
 
-.appH5_float_right{
+.appH5_float_right,.appH5_fr{
 	float: right;
+}
+.appH5_relative{
+	position: relative;
+}
+.appH5_absolute{
+	position: absolute;
 }
