@@ -1,34 +1,37 @@
 <template>
   <div class="appH5_body">
-    <!-- <div class="product-spinner" v-if="isProductLoading">
+    <div class="product-spinner" v-if="isSecurityLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
-    </div> -->
-    <div class="appH5_content">
+    </div>
+    <div class="appH5_content" v-else >
+        <div v-if="securityDetail.Basic!=null">
         <div class="appH5_panel">
             <div class="securityDetailHeader detailBg">
                 <div class="sdHeaderTop borderBom">
                     <div class="fl">
-                        <span class="appH5_font_largest appH5_color_red">23.62</span>亿
+                        <span class="appH5_font_largest appH5_color_red">{{securityDetail.Basic.Principal}}</span>亿
                     </div>
                     <div class="fr deatilheaderR colorGary">
-                        <div>上交所<span>{{securityDetail.Basic.ClosingDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(发行)</span></div>
-                        <div>上交所<span>2017-12-23&nbsp;(到期)</span></div>
+                        <div v-if="securityDetail.Basic.ClosingDate!=null">{{securityDetail.Basic.SimpleExchange}}<span>{{securityDetail.Basic.ClosingDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(发行)</span></div>
+                        <div v-else>{{securityDetail.Basic.SimpleExchange}}</div>
+                        <div v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.RepaymentOfPrincipal}}<span>{{securityDetail.Basic.ExpectedMaturityDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(到期)</span></div>
+                        <div v-else>{{securityDetail.Basic.RepaymentOfPrincipal}}</div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="sdHeaderBom colorBlue">
-                   <span class="fl">汽车抵押贷款</span>     
-                   <span class="fl">AAA/AA+</span>     
-                   <span class="fl">5.8%</span>     
-                   <span class="fr" style="padding-right:0;">2.75Y</span>   
+                   <span class="fl">{{securityDetail.Basic.DealType}}</span>     
+                   <span class="fl">{{securityDetail.Basic.CurrentRatingCombine}}</span>     
+                   <span class="fl">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</span>     
+                   <span class="fr" style="padding-right:0;">{{securityDetail.Basic.CurrentWal!=null&&securityDetail.Basic.CurrentWal!=""?securityDetail.Basic.CurrentWal+"Y":"-"}}</span>   
                    <div class="clearfix"></div>  
                 </div>    
             </div>
             <div class="QuantitativePricing appH5martop colorGary">
                 <span class="fl">量化定价</span>
-                <span class="fl" style="padding-left: .6rem;">AAA+</span>
-                <span class="fl" style="padding-left: .6rem;">1.2455%</span>
-                <span class="fr">99.4567</span>
+                <span class="fl" style="padding-left: .6rem;">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</span>
+                <span class="fl" style="padding-left: .6rem;">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</span>
+                <span class="fr">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</span>
                 <div class="clearfix"></div>
             </div> 
         </div>
@@ -51,17 +54,21 @@
         <div class="appH5_panel securityStructure appH5martop">
             <p class="panel-title colorGary"><span class="titLine">产品分类</span></p>
             <div class="appH5martop proList">
-                <a href="javascript:;">信贷资产证券化</a>
+                <span style="color:white">{{securityDetail.Basic.ProductType}}</span>
                 <div style="margin-left:0;">
                     <span>L</span>
-                    <a href="javascript:;">汽车抵押贷款</a>
-                    <div>
+                    <router-link :to="`/security/${securityDetail.Basic.DealTypeId}`"><a href="javascript:;">{{securityDetail.Basic.DealType}}</a></router-link>
+                    <div v-if="securityDetail.Basic.AssetSubCategory!=null&&securityDetail.Basic.AssetSubCategory!=''">
                         <span>L</span>
-                        <a href="javascript:;">外商独自汽车金融公司</a>
+                        <span style="color:white">{{securityDetail.Basic.AssetSubCategory}}</span>
                         <div>
                             <span>L</span>
-                            <a href="javascript:;">福元2018-1</a>
+                            <router-link :to="`/productDetail/${securityDetail.Basic.DealId}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
                         </div>
+                    </div>
+                    <div v-else>
+                        <span>L</span>
+                        <router-link :to="`/security/${securityDetail.Basic.DealId}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
                     </div>
                 </div>
             </div>
@@ -88,6 +95,7 @@
                 </tr>
             </table> 
            <div id="appH5lookAll" class="appH5lookAll appH5bgColor appH5_link">查看所有现金流</div>  
+        </div>
         </div>
     </div>
   </div>
@@ -171,6 +179,7 @@
         border: none!important;
         margin: none;
         padding:0;
+        width: 9.36rem;;
     }
     .appH5_table tr:first-child{
         background-color: #364945;
@@ -182,7 +191,6 @@
         border: none;
         padding-top: 0.1rem;
         padding-bottom: 0.1rem;
-        font-size: 15px;
     }
     .appH5bgColor{
         background-color: #222222;
@@ -193,7 +201,6 @@
         margin-top: .32rem;
         height: 1rem;
         line-height: 1rem;
-        width: 100%;
     }
     .QuantitativePricing{
         background-color: #670202;
@@ -257,7 +264,7 @@ export default {
         this.tableFlag=0;
     },
     mounted() {
-        this.isSecurityLoading=true;
+      //  this.isSecurityLoading=true;
     },
     updated(){
         // if(this.noteConsTable.indexOf('table')!=-1&&this.tableFlag==0){
@@ -298,10 +305,11 @@ export default {
         if (this.id) {
             setTimeout(()=>{
                     this.fetchSecurityDetail(this.id,data=>{
-                    busUtil.bus.$emit('headTitle', data.Basic.Description); 
+                    busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
                     console.log(this.securityDetail);
-                    this.isProductLoading=false;
+                    this.isSecurityLoading=false;
+                    console.log(this.isSecurityLoading);
                     // if(data.DealId!=null&&data.DealId>0){
                     //     this.fetchNoteConsTable(data.DealId,280,200);
                     //     this.tableFlag=0;
@@ -315,6 +323,7 @@ export default {
   
     methods: {
         fetchSecurityDetail(id,callback) {
+            console.log(webApi.Security.detail.concat(['',id].join('/')));
             axios(webApi.Security.detail.concat(['',id].join('/')))
             .then((response) => {
                 console.log(response);
