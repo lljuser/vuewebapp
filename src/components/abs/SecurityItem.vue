@@ -8,7 +8,7 @@
        <div class='td_elips1'> {{ item.Description }}</div>
       </router-link>
     </td>
-    <td class="text-right appH5_color_red" style="font-size:17px">
+    <td class="text-left appH5_color_red" style="font-size:17px">
       <div v-if="item.RepaymentOfPrincipal=='摊'" class="appH5_float_left securityLevelDiv appH5_bg_amortization">{{item.RepaymentOfPrincipal}}</div>      
       <div v-if="item.RepaymentOfPrincipal=='过'" class="appH5_float_left securityLevelDiv appH5_bg_passthrough">{{item.RepaymentOfPrincipal}}</div>      
       <div>{{item.Principal}}</div>
