@@ -171,7 +171,6 @@
         border: none!important;
         margin: none;
         padding:0;
-        width: 9.36rem;;
     }
     .appH5_table tr:first-child{
         background-color: #364945;
@@ -183,6 +182,7 @@
         border: none;
         padding-top: 0.1rem;
         padding-bottom: 0.1rem;
+        font-size: 15px;
     }
     .appH5bgColor{
         background-color: #222222;
@@ -193,6 +193,7 @@
         margin-top: .32rem;
         height: 1rem;
         line-height: 1rem;
+        width: 100%;
     }
     .QuantitativePricing{
         background-color: #670202;
