@@ -87,14 +87,26 @@
                     <td>利息(元)</td>
                     <td>本息(元)</td>
                 </tr>
-                <tr class="appH5_color_red">
-                    <td>1.13</td>
-                    <td>0.89</td>
-                    <td>1.98</td>
-                    <td>1.98</td>
+                <tr class="appH5_color_red" v-if="CashflowShowFlag">
+                    <td>{{securityDetail.Cashflow[0].PaymentData.toString() | moment("YYYY-MM-DD")}}</td>
+                    <td>{{securityDetail.Cashflow[0].Principal}}</td>
+                    <td>{{securityDetail.Cashflow[0].Interest+"%"}}</td>
+                    <td>{{securityDetail.Cashflow[0].Total}}</td>
                 </tr>
+                <tbody v-else  v-for="item in securityDetail.Cashflow">
+                    <tr class="appH5_color_red" v-bind:style="item.StatusId==2||item.StatusId==3?'background-color:white':''">
+                        <td>{{item.PaymentData.toString() | moment("YYYY-MM-DD")}}</td>
+                        <td>{{item.Principal}}</td>
+                        <td>{{item.Interest+"%"}}</td>
+                        <td>{{item.Total}}</td>
+                    </tr>
+                    <tr v-if="item.StatusId==3" v-bind:style="item.StatusId==2||item.StatusId==3?'background-color:white':''">
+                        <td colspan="4">数据更新至最新偿付报告</td>
+                    </tr>
+                </tbody>
+                
             </table> 
-           <div id="appH5lookAll" class="appH5lookAll appH5bgColor appH5_link">查看所有现金流</div>  
+           <div id="appH5lookAll" v-on:click="cashflowShow()" class="appH5lookAll appH5bgColor appH5_link">查看所有现金流</div>  
         </div>
         </div>
     </div>
@@ -254,6 +266,7 @@ export default {
             chartWidthRem:3,
             chartWidthPx:280,
             isFetchDetailError: false,
+            CashflowShowFlag:true,
         };
     },
     created() {
@@ -309,7 +322,6 @@ export default {
                     this.securityDetail =data;
                     console.log(this.securityDetail);
                     this.isSecurityLoading=false;
-                    console.log(this.isSecurityLoading);
                     // if(data.DealId!=null&&data.DealId>0){
                     //     this.fetchNoteConsTable(data.DealId,280,200);
                     //     this.tableFlag=0;
@@ -343,6 +355,11 @@ export default {
             Toast('服务器繁忙，请重试！');
             this.isSecurityLoading = false;
             this.isFetchDetailError=true;
+        },
+        cashflowShow(){
+            this.CashflowShowFlag=false;
+            var buttonShow=document.getElementById("appH5lookAll");
+            buttonShow.setAttribute("style","display:none");
         },
         // fetchNoteConsTable(dealId,width,height){
         //     axios(webApi.Product.structure+"/"+dealId+"/"+width+"/"+height)
