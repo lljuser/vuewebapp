@@ -1,12 +1,12 @@
 <template>
   <tr>
     <td class="text-left">
-      <router-link :to="`../../securityDetail/${ item.DealId}`" class="appH5_color_link" style=""  >
-       <div class='td_elips1'> {{ item.DealName }}</div>
+      <router-link :to="`../../securityDetail/${ item.NoteId}`" class="appH5_color_link" style=""  >
+       <div class='td_elips1'> {{ item.Description }}</div>
       </router-link>
     </td>
-    <td class="text-right appH5_color_red" style="font-size:17px">{{item.TotalOffering}}</td>
-    <td style="color:white" class="text-right td_elips2"><div style="width:100%;float:right"><div>{{ item.DealType }}</div></div></td>
+    <td class="text-right appH5_color_red" style="font-size:17px">{{item.Principal}}</td>
+    <td style="color:white" class="text-right td_elips2"><div style="width:100%;float:right"><div>{{ item.CurrentCoupon }}</div></div></td>
   </tr>
 </template>
 

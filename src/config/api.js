@@ -29,6 +29,13 @@ export const Trade = {
   couponList: `${apiAddress}/motrade/getcouponlist`,
 };
 
+export const Security = {
+  // /{year?}/{dealTypeId?}/{trancheId?}/{direction?}/{lastId?}/{pageSize?}
+  list: `${apiAddress}/MoNote/GetNoteList`,
+  // /{noteId?}
+  detail: `${apiAddress}/MoNote/GetNoteFactory`,
+};
+
 export const Expert = {
   // 获取专家编辑页面数据
   getExpert: `${apiAddress}/ExpertInfo/GetExpert`,

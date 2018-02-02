@@ -9,8 +9,8 @@
     <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0" >
       <tr>
         <td class="text-left">
-          <select v-model="ProductTypeVal" v-on:change="selectChange()" >
-             <option v-for="option in ProductType" :value="option.Value" :key="option.Value" selected="option.Selected">
+          <select v-model="YearVal" v-on:change="selectChange()" >
+             <option v-for="option in Year" :value="option.Value" :key="option.Value" selected="option.Selected">
               {{ option.Text }}
               </option>
           </select>
@@ -23,40 +23,21 @@
           </select>
         </td>
         <td class="text-right"> 
-          <select v-model="CurrentStatusVal" v-on:change="selectChange()">
-           <option v-for="option in CurrentStatus" :value="option.Value" :key="option.Value" selected="option.Selected">
+          <select v-model="TrancheVal" v-on:change="selectChange()">
+           <option v-for="option in Tranche" :value="option.Value" :key="option.Value" selected="option.Selected">
               {{ option.Text }}
               </option>
             </select>
         </td>
       </tr>
     </table>
- 
 
-
-      <!-- <table id="productTableId" class="appH5_table">
-        <tr>
-          <th>产品名称</th>
-          <th class="text-right">总额(亿)</th>
-          <th class="text-right">产品分类</th>
-        </tr>
-        <tbody  v-infinite-scroll="loadMore"
-          infinite-scroll-disabled="loading"
-          infinite-scroll-immediate-check="true"
-          infinite-scroll-distance="55">
-          <ProductItem 
-            v-for="(item, index) in list" 
-            :item="item"
-            :id="index"
-            :key="index"/>
-        </tbody>
-    </table> -->
     <mt-loadmore :top-method="loadTop"  ref="loadmore">
       <table id="productTableId" class="appH5_table">
         <tr>
-          <th>产品名称</th>
-          <th class="text-right">总额(亿)</th>
-          <th class="text-right">产品分类</th>
+          <th>证券简称</th>
+          <th class="text-right">金额(亿)</th>
+          <th class="text-right">当前利率</th>
         </tr>
         <tbody  v-infinite-scroll="loadMore"
           infinite-scroll-disabled="loading"
@@ -107,12 +88,12 @@ export default {
       page: 1,
       pageSize:15,
       loading: false,
-      ProductTypeVal: "0",
+      YearVal: "0",
       DealTypeVal: "0",
-      CurrentStatusVal: "0",
-      ProductType:[],
+      TrancheVal: "0",
+      Year:[],
       DealType:[],
-      CurrentStatus:[],
+      Tranche:[],
       isProductLoading: false,
       isFetchProductsError: false,
       noMore:false,
@@ -135,7 +116,7 @@ export default {
     var reLoadData=false;    
     if(productTypeParam!=null )
     {
-      this.ProductTypeVal= productTypeParam;
+      this.YearVal= productTypeParam;
       reLoadData=true;
     }
     if(dealTypeParam!=null && dealTypeParam!="0" )
@@ -197,23 +178,23 @@ export default {
 
 
     fetchProducts(page,direction,callback) {
-      var url=webApi.Product.list;
-      url=url+"/"+this.ProductTypeVal+"/"+this.DealTypeVal+"/"+this.CurrentStatusVal;
+      var url=webApi.Security.list;
+      url=url+"/"+this.YearVal+"/"+this.DealTypeVal+"/"+this.TrancheVal;
       url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
       axios.post(url).then((response) => { 
         const data = response.data.data;
         if (data) {
-            var productTypeSel=data.ProductType.filter(x=>x.Selected==true);
-            this.ProductTypeVal=productTypeSel.length>0?productTypeSel[0].Value:"";
+            var YearSel=data.Year.filter(x=>x.Selected==true);
+            this.YearVal=YearSel.length>0?YearSel[0].Value:"";
             var dealTypeSel=data.DealType.filter(x=>x.Selected==true)
             this.DealTypeVal=dealTypeSel.length>0?dealTypeSel[0].Value:"";
-            var currentStatusSel=data.CurrentStatus.filter(x=>x.Selected==true);
-            this.CurrentStatusVal=currentStatusSel.length>0?currentStatusSel[0].Value:"";
-            this.ProductType=data.ProductType;
+            var TrancheSel=data.Tranche.filter(x=>x.Selected==true);
+            this.TrancheVal=TrancheSel.length>0?TrancheSel[0].Value:"";
+            this.Year=data.Year;
             this.DealType=data.DealType;
-            this.CurrentStatus=data.CurrentStatus;
-            callback(data.Deal);
-            if(data.Deal.length==0){ 
+            this.Tranche=data.Tranche;
+            callback(data.Note);
+            if(data.Note.length==0){ 
               this.loading=true;
               this.noMore=true;
             }
