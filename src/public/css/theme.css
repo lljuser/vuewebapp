@@ -118,6 +118,13 @@ body{
 .appH5_table th:last-child,.appH5_table td:last-child{
 	padding-right: 0.32rem;
 }
+.appH5_detail_tr{
+    height:21px;
+}
+.appH5_detail_tr td{
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
 a{
 	color:#ffc446;
 	text-decoration: none;
@@ -127,7 +134,7 @@ a:hover, a:focus {
 }
 /*文字大小4种*/
 .appH5_font_smaller{
-	font-size: 13px;
+	font-size: 13px!important;
 }
 .appH5_font_normal{
 	font-size:15px;
@@ -156,6 +163,9 @@ a:hover, a:focus {
 }
 .appH5_color_pink{
 	color:#ff6666;
+}
+.appH5_color_Lightpink{
+	color: #EEB9B9;
 }
 .appH5_color_skyblue{
 	color:#78bcff!important;
@@ -190,6 +200,19 @@ a:hover, a:focus {
 .appH5_bg_passthrough{
 	background: #BA1DA2;
 }
+.appH5_bg_grayblue{
+	background: #364651;
+}
+.appH5_bg_brightgrayblue{
+	background: #364651;
+}
+.appH5_bg_grayblue{
+	background: #22303A;
+}
+.appH5_bg_brightred{
+	background: #594444;
+}
+
 input{
    padding-left:0.32rem;
    padding-right: 0.32rem;
