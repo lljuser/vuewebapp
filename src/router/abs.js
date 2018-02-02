@@ -88,6 +88,11 @@ export default new Router({
       component: Security,
     },
     {
+      path: '/security/:dealType',
+      name: 'security1',
+      component: Security,
+    },
+    {
       path: '/securityDetail/:id',
       name: 'securityDetail',
       component: SecurityDetail,
