@@ -47,7 +47,7 @@ export default {
 }
 
 .td_elips1 {
-  width: 122%;
+  width: 110%;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
