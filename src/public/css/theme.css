@@ -176,6 +176,21 @@ a:hover, a:focus {
 .appH5_bg_purple{
 	background:#9966ff;
 }
+.appH5_bg_senior{
+	background: #A23B1D;
+}
+.appH5_bg_mezzanine{
+	background: #A2751D;
+}
+.appH5_bg_subordin{
+	background: #1DA27F;
+}
+.appH5_bg_amortization{
+	background: #1D67A2;
+}
+.appH5_bg_passthrough{
+	background: #BA1DA2;
+}
 input{
    padding-left:0.32rem;
    padding-right: 0.32rem;
@@ -476,4 +491,12 @@ select{
 
 .mint-loadmore-top{
 	font-size: 12px;
+}
+
+.appH5_float_left{
+	float: left;
+}
+
+.appH5_float_right{
+	float: right;
 }
