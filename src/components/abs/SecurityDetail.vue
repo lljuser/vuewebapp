@@ -86,27 +86,25 @@
                     <th class="text-right">利息(元)</th> 
                     <th class="text-right">本息(元)</th>
                 </tr>
-                <tr>
-                    <td>信贷ABS</td>
-                    <td class="text-right">1</td> 
-                    <td class="text-right appH5_color_red">5</td>
-                    <td class="text-right appH5_color_red">445</td>
-                </tr>
-
-                <tr class="appH5_color_red" v-if="CashflowShowFlag">
-                    <td>{{securityDetail.Cashflow[0].PaymentData.toString() | moment("YYYY-MM-DD")}}</td>
-                    <td>{{securityDetail.Cashflow[0].Principal}}</td>
-                    <td>{{securityDetail.Cashflow[0].Interest+"%"}}</td>
-                    <td>{{securityDetail.Cashflow[0].Total}}</td>
-                </tr>
-                <tbody v-else  v-for="item in securityDetail.Cashflow">
-                    <tr class="appH5_color_red" v-bind:style="item.StatusId==2||item.StatusId==3?'background-color:white':''">
-                        <td>{{item.PaymentData.toString() | moment("YYYY-MM-DD")}}</td>
-                        <td>{{item.Principal}}</td>
-                        <td>{{item.Interest+"%"}}</td>
-                        <td>{{item.Total}}</td>
+                <tbody v-if="CashflowShowFlag">
+                    <tr v-bind:class="'appH5_color_red '+(securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3?'appH5_bg_brightred':'')">
+                        <td>{{securityDetail.Cashflow[0].PaymentData.toString() | moment("YYYY-MM-DD")}}</td> 
+						<td class="text-right">{{securityDetail.Cashflow[0].Principal}}</td>
+						<td class="text-right appH5_color_red">{{securityDetail.Cashflow[0].Interest+"%"}}</td>
+						<td class="text-right appH5_color_red">{{securityDetail.Cashflow[0].Total}}</td>
                     </tr>
-                    <tr v-if="item.StatusId==3" v-bind:style="item.StatusId==2||item.StatusId==3?'background-color:white':''">
+                    <tr v-if="securityDetail.Cashflow[0].StatusId==3" class="appH5_bg_brightred">
+                        <td colspan="4">数据更新至最新偿付报告</td>
+                    </tr>
+                </tbody>
+                <tbody v-else  v-for="item in securityDetail.Cashflow">
+                    <tr  v-bind:class="'appH5_color_red '+(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')">
+                        <td>{{item.PaymentData.toString() | moment("YYYY-MM-DD")}}</td>
+                        <td class="text-right">{{item.Principal}}</td>
+                        <td class="text-right appH5_color_red">{{item.Interest+"%"}}</td>
+                        <td class="text-right appH5_color_red">{{item.Total}}</td>
+                    </tr>
+                    <tr v-if="item.StatusId==3" class="appH5_bg_brightred">
                         <td colspan="4">数据更新至最新偿付报告</td>
                     </tr>
                 </tbody>
