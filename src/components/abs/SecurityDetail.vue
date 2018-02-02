@@ -5,49 +5,51 @@
     </div>
     <div class="appH5_content" v-else >
         <div v-if="securityDetail.Basic!=null">
-        <div class="appH5_panel">
-            <div class="securityDetailHeader detailBg">
-                <div class="sdHeaderTop borderBom">
-                    <div class="fl">
-                        <span class="appH5_font_largest appH5_color_red">{{securityDetail.Basic.Principal}}</span>亿
-                    </div>
-                    <div class="fr deatilheaderR colorGary">
-                        <div v-if="securityDetail.Basic.ClosingDate!=null">{{securityDetail.Basic.SimpleExchange}}<span>{{securityDetail.Basic.ClosingDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(发行)</span></div>
-                        <div v-else>{{securityDetail.Basic.SimpleExchange}}</div>
-                        <div v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.RepaymentOfPrincipal}}<span>{{securityDetail.Basic.ExpectedMaturityDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(到期)</span></div>
-                        <div v-else>{{securityDetail.Basic.RepaymentOfPrincipal}}</div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="sdHeaderBom colorBlue">
-                   <span class="fl">{{securityDetail.Basic.DealType}}</span>     
-                   <span class="fl">{{securityDetail.Basic.CurrentRatingCombine}}</span>     
-                   <span class="fl">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</span>     
-                   <span class="fr" style="padding-right:0;">{{securityDetail.Basic.CurrentWal!=null&&securityDetail.Basic.CurrentWal!=""?securityDetail.Basic.CurrentWal+"Y":"-"}}</span>   
-                   <div class="clearfix"></div>  
-                </div>    
-            </div>
-            <div class="QuantitativePricing appH5martop colorGary">
-                <span class="fl">量化定价</span>
-                <span class="fl" style="padding-left: .6rem;">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</span>
-                <span class="fl" style="padding-left: .6rem;">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</span>
-                <span class="fr">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</span>
-                <div class="clearfix"></div>
-            </div> 
+            <div class="appH5_panel">
+                <table class="appH5_list_four borderBom">
+                    <tr>
+                        <td class='appH5_color_red' colspan="2" rowspan="2">
+                            <span class="appH5_font_largest" v-if="securityDetail.Basic.Principal>=10">{{Math.round(securityDetail.Basic.Principal)}}</span>
+                            <span class="appH5_font_largest" v-else>{{securityDetail.Basic.Principal}}</span>
+                            <span>亿</span>
+                        </td>
+                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space'  v-if="securityDetail.Basic.ClosingDate!=null">{{securityDetail.Basic.SimpleExchange}}</td>
+                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_white'  v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.ClosingDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(发行)</td>
+                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space' v-else>{{securityDetail.Basic.SimpleExchange}}</td>
+                    </tr>
+                   <tr>
+                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_white' v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
+                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top' v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.ExpectedMaturityDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(到期)</td>
+                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top' v-else>{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
+                </tr>
+            </table>
+            <table class="spacialTable" border="0" cellspacing="0" cellpadding="0">
+                <tr class="appH5_color_skyblue">
+                    <td class="text-left">{{securityDetail.Basic.DealType}}</td>
+                    <td>{{securityDetail.Basic.CurrentRatingCombine}}</td>
+                    <td>{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td>
+                    <td class="text-right">{{securityDetail.Basic.CurrentWal!=null&&securityDetail.Basic.CurrentWal!=""?securityDetail.Basic.CurrentWal+"Y":"-"}}</td>
+                </tr>
+                <tr class="appH5_bg_grayblue">
+                    <td class="appH5_bg_brightgrayblue text-left">量化定价</td>
+                    <td class="appH5_bg_grayblue">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</td>
+                    <td class="appH5_bg_grayblue">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</td>
+                    <td class="appH5_bg_grayblue text-right">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</td>
+                </tr>
+            </table>
         </div>
-        
         <!-- 证券结构 -->
         <div class="appH5_panel securityStructure appH5martop">
             <p class="panel-title colorGary"><span class="titLine">证券结构</span></p>
             <div class="appH5martop">
-                <div class="fl">放图</div>
-                <div class="fr colorGary">
-                    放说明<br/>
-                    剩余<br/>
-                    已偿付<br/>
-                    当前证券<br/>
-                </div>
-                <div class="clearfix"></div>
+                <div class="text-center">放图</div>
+                <table class="structureTable appH5_color_white font13">
+                    <tr>
+                        <td class="text-left"><i class="Surplus"></i><span>剩余</span></td>
+                        <td class="text-center"><i class="Reimbursement"></i><span>已偿付</span></td>
+                        <td class="text-right"><i class="CurrentSecurities"></i><span>当前证券</span></td>
+                    </tr>
+                </table>
             </div>
         </div>
         <!-- 产品分类 -->
@@ -77,23 +79,29 @@
         <!-- 现金流 -->
         <div class="appH5_panel securityStructure appH5martop">
             <p class="panel-title colorGary"><span class="titLine">现金流</span></p>
-            <table class="appH5_table appH5martop colorGary" border="0" cellspacing="0" cellpadding="0">
+            <table class="appH5_table appH5martop" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td colspan="4">偿付日期&nbsp;&nbsp;<span class="colorGreen">2018-01-26&nbsp;&nbsp;(一)</span></td>
+                    <th class="text-left">偿付日期</th> 
+                    <th class="text-right">本金(元)</th>
+                    <th class="text-right">利息(元)</th> 
+                    <th class="text-right">本息(元)</th>
                 </tr>
                 <tr>
-                    <td>初始金额(万)</td>
-                    <td>本金(元)</td>
-                    <td>利息(元)</td>
-                    <td>本息(元)</td>
+                    <td>信贷ABS</td>
+                    <td class="text-right">1</td> 
+                    <td class="text-right appH5_color_red">5</td>
+                    <td class="text-right appH5_color_red">445</td>
                 </tr>
-                <tr class="appH5_color_red">
-                    <td>1.13</td>
-                    <td>0.89</td>
-                    <td>1.98</td>
-                    <td>1.98</td>
+                <tr class="appH5_bg_brightred">
+                    <td>信贷ABS</td> 
+                    <td class="text-right">1</td>
+                    <td class="text-right appH5_color_red">5</td>
+                    <td class="text-right appH5_color_red">445</td>
                 </tr>
-            </table> 
+                <tr class="appH5_bg_brightred appH5_detail_tr">
+                <td colspan="4" class="appH5_font_smaller appH5_color_Lightpink">偿付报告已出，尚未支付</td>
+                </tr>
+	        </table>
            <div id="appH5lookAll" class="appH5lookAll appH5bgColor appH5_link">查看所有现金流</div>  
         </div>
         </div>
@@ -111,15 +119,6 @@
     }
     .detailBg{
         background-color: #171D21;
-    }
-    .fl{
-        float: left;
-    }
-    .fr{
-        float: right;
-    }
-    .clearfix{
-        clear: both;
     }
     .txt_justify{
         text-align: justify;
@@ -144,7 +143,7 @@
         margin-top: .32rem;
     }
     .borderBom{
-        border-bottom: #242C32 solid 1px;
+        border-bottom: #343E46 solid 1px;
     }
     .deatilheaderR{
         margin-top: 0.35rem;
@@ -175,58 +174,67 @@
         color:#676767;
         font-weight: bold;
     }
-    .appH5_table {
+    .spacialTable {
         border: none!important;
         margin: none;
         padding:0;
-        width: 9.36rem;;
+        width: 9.36rem;
     }
-    .appH5_table tr:first-child{
-        background-color: #364945;
-    }
-    .appH5_table tr:not(:first-child){
-        background-color: #24302D;
-    }
-    .appH5_table td{
-        border: none;
-        padding-top: 0.1rem;
-        padding-bottom: 0.1rem;
-    }
-    .appH5bgColor{
-        background-color: #222222;
-    }
+   .spacialTable tr td:first-child{
+       width: 1.7rem;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       white-space: nowrap;
+       padding-left: .32rem;
+       padding-right: .32rem;
+   }
+   .spacialTable tr td:nth-child(2){
+       width: 3rem;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       white-space: nowrap;
+       padding-left: .32rem;
+   }
+   .spacialTable tr td{
+       height: 1.06rem;
+       line-height: 1.06rem;
+   }
+   .spacialTable tr td:last-child{
+       padding-right: .32rem;
+   }
     .appH5lookAll{
         cursor: pointer;
         text-align: center;
         margin-top: .32rem;
         height: 1rem;
         line-height: 1rem;
+        background-color: #222222;
     }
-    .QuantitativePricing{
-        background-color: #670202;
+    .structureTable i{
+        display: inline-block;
+        width:.56rem;
+        height: .3467rem;
+        vertical-align: middle;
     }
-    .QuantitativePricing span{
-        display: block;
-        padding: .2rem .32rem;
+    .structureTable span{
+        vertical-align: middle;
+        padding-left: .2rem;
     }
-    .QuantitativePricing span:first-child{
-        background-color: #520909;
+    .structureTable tr td{
+        padding-top: .1333rem;
+        width: 3.12rem;
     }
-@media only screen and (min-width: 320px) and (max-width: 374px){
-    .appH5_font_largest{
-        font-size: 1rem!important;
+    .Surplus{
+        background-color: #615C55;
     }
-    .deatilheaderR{
-        line-height: normal;
-        margin-top: 0;
+    .Reimbursement{
+       background-image: url('../../public/images/Reimbursement.png');
+       background-repeat: no-repeat;
+       margin-top: 0.03rem;
     }
-    .sdHeaderBom span{
-    padding-right: .42rem;
+    .CurrentSecurities{
+        background-color: #B8B156;
     }
-    .QuantitativePricing span{
-        padding: .2rem .2rem!important;
-    }
-}
 </style>
 
 <script>
