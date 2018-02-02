@@ -11,7 +11,7 @@
                         <span class="appH5_font_largest appH5_color_red">23.62</span>亿
                     </div>
                     <div class="fr deatilheaderR colorGary">
-                        <div>上交所<span>2017-12-23&nbsp;(发行)</span></div>
+                        <div>上交所<span>{{securityDetail.Basic.ClosingDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(发行)</span></div>
                         <div>上交所<span>2017-12-23&nbsp;(到期)</span></div>
                     </div>
                     <div class="clearfix"></div>
@@ -220,6 +220,7 @@
     }
 }
 </style>
+
 <script>
 import BusUtil from './BusUtil';
 import Vue from 'vue';
@@ -236,282 +237,114 @@ import { Toast } from 'mint-ui';
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
 
-
-//export default {
-    // name: 'securityDetail',
-    // data() {
-    //     return {
-    //         productDetail: {},
-    //         publishDate:"",
-    //         noteConsTable:"",
-    //         isProductLoading:false,
-    //         options: {
-    //             title: {
-    //             text: '暂无数据'
-    //             },
-    //             credits: {
-    //             href: '',
-    //             text: 'CNABS'
-    //             },
-    //         },
-    //         chartWidthRem:3,
-    //         chartWidthPx:280,
-    //         showChart: true,
-    //         isFetchDetailError: false,
-    //         tableFlag:0,
-    //     };
-    // },
-    // created() {
-    //     const busUtil = BusUtil.getInstance();
-    //     busUtil.bus.$emit('showHeader', true);
-    //     busUtil.bus.$emit('path', '/security');
-    //     busUtil.bus.$emit('headTitle', '');
-    //     this.tableFlag=0;
-    // },
-    // mounted() {
-    //     this.isProductLoading=true;
-        
-    // },
-    // updated(){
-    //     if(this.noteConsTable.indexOf('table')!=-1&&this.tableFlag==0){
-    //         // if(this.productDetail.NoteList!=null&&this.productDetail.NoteList.length>0){
-    //         //     let num=document.getElementById("structureTable").childNodes[0].childElementCount;
-    //         //     if(num>4){
-    //         //         this.chartWidthPx=320;
-    //         //     }else{
-    //         //         this.chartWidthPx=260;
-    //         //     }
-    //         // }
-    //         var paidList=document.getElementsByClassName("divHasPaid");
-    //         for(var i=0;i<paidList.length;i++){
-    //             paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
-    //         }
-    //         var bgList=document.getElementsByClassName("structure_bg");
-    //         for(var i=0;i<bgList.length;i++){
-    //             bgList[i].style.backgroundColor="#B7AFA5";
-    //             var aList=bgList[i].getElementsByTagName('a');
-    //             for(var j=0;j<aList.length;j++){
-    //                 aList[j].href="javascript:;";
-    //                 aList[j].title="";
-    //             }
-    //         }
-    //         var nameList=document.getElementsByClassName("str_n");
-    //         for(var k=0;k<nameList.length;k++){
-    //             nameList[k].style.color="black";
-    //         }
-    //         var pctList=document.getElementsByClassName("str_npct");
-    //         for(var x=0;x<pctList.length;x++){
-    //             pctList[x].style.color="#06c";
-    //         }
-    //         this.tableFlag=1;
-    //     }
-    // },
-    // activated() {
-    //     //clear all data cache
-    //     this.isProductLoading=true;
-    //     this.productDetail = {};
-    //     this.publishDate = "";
-    //     this.noteConsTable="";
-    //     this.options =  {
-    //         title: {
-    //             text: '暂无数据'
-    //         },
-    //         credits: {
-    //             href: '',
-    //             text: 'CNABS'
-    //         },
-    //     };
-    //     window.scrollTo(0,0);
-    //     const busUtil = BusUtil.getInstance();
-    //     busUtil.bus.$emit('showHeader', true);
-    //     busUtil.bus.$emit('path', '/security');
-    //     busUtil.bus.$emit('headTitle', '');
-    //     this.id = this.$route.params.id;
-    //     if (this.id) {
-    //         setTimeout(()=>{
-    //                 this.fetchProductDetail(this.id,data=>{
-    //                 busUtil.bus.$emit('headTitle', data.Basic.DealName); 
-    //                 this.productDetail =data;
-    //                 this.isProductLoading=false;
-    //                 if(data.DealId!=null&&data.DealId>0){
-                        
-    //                     this.fetchNoteConsTable(data.DealId,280,200);
-    //                     this.tableFlag=0;
-    //                 }
-    //             });
-    //         },600);
-    //         setTimeout(()=>{
-    //         this.fetchProductPaymentChart(this.id);
-    //         }, 600);
-    //     }
-    //     busUtil.bus.$emit('showHeader', true);
-    //     busUtil.bus.$emit('path', '/security');
-    // },
+export default {
+    name: 'securityDetail',
+    data() {
+        return {
+            securityDetail:{},
+            isSecurityLoading:false,
+            chartWidthRem:3,
+            chartWidthPx:280,
+            isFetchDetailError: false,
+        };
+    },
+    created() {
+        const busUtil = BusUtil.getInstance();
+        busUtil.bus.$emit('showHeader', true);
+        busUtil.bus.$emit('path', '/security');
+        busUtil.bus.$emit('headTitle', '');
+        this.tableFlag=0;
+    },
+    mounted() {
+        this.isSecurityLoading=true;
+    },
+    updated(){
+        // if(this.noteConsTable.indexOf('table')!=-1&&this.tableFlag==0){
+        //     var paidList=document.getElementsByClassName("divHasPaid");
+        //     for(var i=0;i<paidList.length;i++){
+        //         paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
+        //     }
+        //     var bgList=document.getElementsByClassName("structure_bg");
+        //     for(var i=0;i<bgList.length;i++){
+        //         bgList[i].style.backgroundColor="#B7AFA5";
+        //         var aList=bgList[i].getElementsByTagName('a');
+        //         for(var j=0;j<aList.length;j++){
+        //             aList[j].href="javascript:;";
+        //             aList[j].title="";
+        //         }
+        //     }
+        //     var nameList=document.getElementsByClassName("str_n");
+        //     for(var k=0;k<nameList.length;k++){
+        //         nameList[k].style.color="black";
+        //     }
+        //     var pctList=document.getElementsByClassName("str_npct");
+        //     for(var x=0;x<pctList.length;x++){
+        //         pctList[x].style.color="#06c";
+        //     }
+        //     this.tableFlag=1;
+        // }
+    },
+    activated() {
+        //clear all data cache
+        this.isSecurityLoading=true;
+        this.securityDetail = {};
+        window.scrollTo(0,0);
+        const busUtil = BusUtil.getInstance();
+        busUtil.bus.$emit('showHeader', true);
+        busUtil.bus.$emit('path', '/security');
+        busUtil.bus.$emit('headTitle', '');
+        this.id = this.$route.params.id;
+        if (this.id) {
+            setTimeout(()=>{
+                    this.fetchSecurityDetail(this.id,data=>{
+                    busUtil.bus.$emit('headTitle', data.Basic.Description); 
+                    this.securityDetail =data;
+                    console.log(this.securityDetail);
+                    this.isProductLoading=false;
+                    // if(data.DealId!=null&&data.DealId>0){
+                    //     this.fetchNoteConsTable(data.DealId,280,200);
+                    //     this.tableFlag=0;
+                    // }
+                });
+            },600);
+        }
+        busUtil.bus.$emit('showHeader', true);
+        busUtil.bus.$emit('path', '/security');
+    },
   
-    // methods: {
-    //     fetchNoteConsTable(dealId,width,height){
-    //         axios(webApi.Product.structure+"/"+dealId+"/"+width+"/"+height)
-    //         .then((response)=>{
-    //         // console.log(response);
-    //             if(response.data.status=="ok"){
-    //                 this.noteConsTable=response.data.data;
-    //             }
-    //         });
-    //     },
-    //     fetchProductDetail(id,callback) {
-    //         // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
-    //         axios(webApi.Product.detail.concat(['',id].join('/')))
-    //         .then((response) => {
-    //             if (response.data.status == "ok") {
-    //                 const data = response.data.data;
-    //                 if(data){
-    //                     callback(data);
-    //                 } else{
-    //                     this.doCatch();
-    //                 }
-    //             }
-    //         }).catch((error) => {
-    //             this.doCatch();
-    //         });
-    //     },
-    //     doCatch(){
-    //         Toast('服务器繁忙，请重试！');
-    //         this.isProductLoading = false;
-    //         this.isFetchDetailError=true;
-    //     },
-    //     fetchProductPaymentChart(dealId) {
-    //         var self = this;
-    //         axios(webApi.Product.chart.concat(['', dealId].join('/')))
-    //         .then((response) => {
-    //             const json = response.data;
-    //             if (json.status == "ok") {
-    //             var chartData = json.data;
-    //             var allSeries = [];
-    //             var lineValue;
-    //             var i = 0;
-    //             var colors = chartTheme.colors;
-    //             if (chartData && chartData.length > 0) {
-    //                 var allSeriesLth = chartData.length;
-    //                 var colorSeries = chartData.filter(function (item) { return item.Order > 100 }).length > 0 ?
-    //                     Math.ceil(chartData.length / colors.length) : chartData.length;
-    //                 for (var j = 0; j < colorSeries; j++) //get max color series
-    //                     colors = colors.concat(colors);
-    //                 var pSeries = chartData.filter(function (item) { return item.Order < 100 });
-    //                 var lSeries = chartData.filter(function (item) { return item.Order > 100 && item.Order != 1000 });
-    //                 var plotLine = chartData.filter(function (item) { return item.Order == 1000 });
-    //                 var minDate = new Date(1970,1,1).valueOf();
-    //                 pSeries.forEach(function (item, index) {
-    //                     var point = [];
-    //                     item.Points.forEach(function (e) {
-    //                         point.push([new Date(e.X).valueOf() - minDate, e.Y*1]);
-    //                     });
-    //                     allSeries.push({
-    //                         name: item.SeriesName,
-    //                         data: point,
-    //                         dashStyle: item.Type,
-    //                         step: true,
-    //                         color: colors[i]
-    //                     });
-    //                     i++;
-    //                 });
-    //                 if (lSeries.length > 0) {
-    //                     i = 0;
-    //                     lSeries.forEach(function (item, index) {
-    //                        var point = [];
-    //                        item.Points.forEach(function (e) {
-    //                           point.push([new Date(e.X).valueOf() - minDate, e.Y*1]);
-    //                        });
-    //                        allSeries.push({
-    //                            name: item.SeriesName,
-    //                            data: point,
-    //                            dashStyle: item.Type,
-    //                            step: true,
-    //                            color: colors[i],
-    //                            lineWidth: 3
-    //                        });
-    //                     i++;                           
-    //                     });
-    //                 }
-    //                 if (plotLine.length == 1) {
-    //                     lineValue = new Date(plotLine[0].Points[0].X).valueOf() - minDate;
-    //                 }
-    //             }
-    //                     var option = {
-    //                         title: {
-    //                             text: ''
-    //                         },
-    //                         xAxis: {
-    //                             type: "datetime",
-    //                             dateTimeLabelFormats: {
-    //                                 second: "%Y-%m-%d %H:%M:%S",
-    //                                 minute: "%Y-%m-%d %H:%M",
-    //                                 hour: "%Y-%m-%d %H:%M",
-    //                                 day: "%Y-%m-%d",
-    //                                 week: "%Y.%m",
-    //                                 month: "%Y.%m",
-    //                                 year: "%Y.%m"
-    //                             },
-    //                             plotLines: [{
-    //                                 color: "white",
-    //                                 width: .8,
-    //                                 value: lineValue,
-    //                                 dashStyle: "dash",
-    //                                 label: {
-    //                                     text: plotLine[0].Points[0].X,
-    //                                     verticalAlign: "middle",
-    //                                     textAlign: "left",
-    //                                     style: {
-    //                                         color: "#E0E0E3"
-    //                                     }
-    //                                 }
-    //                             }],
-    //                             plotBands: [{
-    //                                 color: "#333",
-    //                                 from: Date.UTC(2e3, 1, 1),
-    //                                 to: lineValue
-    //                             }]
-    //                         },
-    //                         yAxis: {
-    //                             title: {
-    //                                 enabled: !0,
-    //                                 text: ""
-    //                             },
-    //                             labels: {
-    //                                 format: "{value:.0f}%"
-    //                             },
-    //                             max: 100
-    //                         },
-    //                         plotOptions: {
-    //                             series: {
-    //                                 marker: {
-    //                                     enabled: !1
-    //                                 }
-    //                             }
-    //                         },
-    //                         tooltip: {
-    //                             formatter: function () {
-    //                                 var t,
-    //                                     e = new Date(this.x);
-    //                                 return t = e.getFullYear() + "-" + (e.getMonth() + 1) + "-" + e.getDate() + "<br/>" + this.series.name + "剩余本金:<br/>" + Math.round(100 * this.y) / 100 + "%"
-    //                             }
-    //                         },
-    //                         legend : {
-    //                             style: {
-    //                                 fontSize: '10px'
-    //                             }
-    //                         },
-    //                         credits: {
-    //                         href: '',
-    //                         text: 'CNABS'
-    //                         },
-    //                         series: allSeries
-    //                     };
-    //             this.options = option;
-    //             } else {
-    //                 self.showChart = false;
-    //             }
-    //         });
-    //     }
-    // },
-//};
+    methods: {
+        fetchSecurityDetail(id,callback) {
+            axios(webApi.Security.detail.concat(['',id].join('/')))
+            .then((response) => {
+                console.log(response);
+                if (response.data.status == "ok") {
+                    const data = response.data.data;
+                    if(data){
+                        callback(data);
+                    } else{
+                        this.doCatch();
+                    }
+                }
+            }).catch((error) => {
+                this.doCatch();
+            });
+        },
+        doCatch(){
+            Toast('服务器繁忙，请重试！');
+            this.isSecurityLoading = false;
+            this.isFetchDetailError=true;
+        },
+        // fetchNoteConsTable(dealId,width,height){
+        //     axios(webApi.Product.structure+"/"+dealId+"/"+width+"/"+height)
+        //     .then((response)=>{
+        //     // console.log(response);
+        //         if(response.data.status=="ok"){
+        //             this.noteConsTable=response.data.data;
+        //         }
+        //     });
+        // },
+        
+       
+    },
+};
 </script>
