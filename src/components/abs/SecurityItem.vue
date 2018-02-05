@@ -11,9 +11,9 @@
     <td class="text-left appH5_color_red" style="font-size:17px">
       <div v-if="item.RepaymentOfPrincipal=='摊'" class="appH5_float_left securityLevelDiv appH5_font_smaller appH5_bg_amortization">{{item.RepaymentOfPrincipal}}</div>      
       <div v-if="item.RepaymentOfPrincipal=='过'" class="appH5_float_left securityLevelDiv appH5_font_smaller appH5_bg_passthrough">{{item.RepaymentOfPrincipal}}</div>      
-      <div>{{item.Principal}}<span style="color:#000;">一</span></div>
+      <div style="padding-top:2px">{{item.Principal}}</div>
       </td>
-    <td style="color:white" class="text-right"><div>{{ item.CurrentCoupon }}</div></td>
+    <td style="color:white" class="text-right"><div style="padding-top:2px">{{ item.CurrentCoupon }}</div></td>
   </tr>
 </template>
 
