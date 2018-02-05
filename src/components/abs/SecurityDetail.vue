@@ -130,7 +130,7 @@
     </div>
   </div>
 </template>
-<style scoped>
+<style>
     .backTablePic{
         float:left;
         margin: 4px 4px 4px 2px;
@@ -240,39 +240,64 @@
         font-size:15px;
     }
     /*   结构图样式   */
-    .St-Outer-Table {
-        border: 1px solid #666;
-        background-color: #615C55;
+    .St_Out_Div {
+        margin: 0 auto;
+    }
+    .St_Inner_Div {
+        border-top: 2px solid #000;
+        background-color: #000;
         color: #FFF;
     }
 
-    .St-Outer-Table tr td {
-        position: relative;
-    }
-
-    .St-Select {
-        background-color: #FF0;
-        color: #615C55;
-    }
-
-    .St-Inner-Text {
+    .St_Inner_Text {
         display: inline-block;
+        color: #fff;
+        font-size: 10px;
         position: absolute;
-        margin: 0 auto;
+        top: 0;
+        left: 0;
+        z-index: 99;
     }
 
-    .St-Payment {
+    .St_Payment {
+        display: block;
         background-image: url('../../public/images/table_bg.png');
-        opacity: 0.8;
+        opacity: 0.7;
+        position: absolute;
+        top: 0;
         background-repeat: repeat;
-        vertical-align: top;
     }
 
-    .St-Inner-Td {
-        vertical-align: top;
-        border-left: 1px solid #666;
-        border-right: 1px solid #666;
+    .St_Inner_Td {
+        display: inline-block;
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+        background-color: #615C55;
         position: relative;
+    }
+
+    .St_Inner_Td_Single {
+        display: block;
+        background-color: #615C55;        
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+        position: relative;
+    }
+
+    .St_Select {
+        background-color: #B8B156;
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+        position: relative;
+        display: inline-block;
+    }
+
+    .St_Select_Single {
+        background-color: #B8B156;
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+        position: relative;
+        display: block;
     }
 </style>
 
