@@ -4177,11 +4177,7 @@ pluralize@^1.2.1:
 
 popper.js@^1.12.9:
   version "1.12.9"
-<<<<<<< HEAD
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.12.9.tgz#0dfbc2dff96c451bb332edcfcfaaf566d331d5b3"
-=======
   resolved "http://registry.npm.taobao.org/popper.js/download/popper.js-1.12.9.tgz#0dfbc2dff96c451bb332edcfcfaaf566d331d5b3"
->>>>>>> 075c80b276be226f03f438e7365b38de80ce16a5
 
 portfinder@^1.0.13, portfinder@^1.0.9:
   version "1.0.13"
@@ -5439,13 +5435,8 @@ timers-browserify@^2.0.4:
     setimmediate "^1.0.4"
 
 tippy.js@^2.0.9:
-<<<<<<< HEAD
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-2.0.9.tgz#13876ad1cb962f5d0058146ce1defa25ec6c373e"
-=======
   version "2.1.0"
   resolved "http://registry.npm.taobao.org/tippy.js/download/tippy.js-2.1.0.tgz#c61450ff3bde6f2c8edc5ad4cb0cbb03809bee1d"
->>>>>>> 075c80b276be226f03f438e7365b38de80ce16a5
   dependencies:
     popper.js "^1.12.9"
 
