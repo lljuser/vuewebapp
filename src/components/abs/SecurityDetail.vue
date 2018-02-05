@@ -312,7 +312,6 @@ export default {
         busUtil.bus.$emit('path', '/security');
         busUtil.bus.$emit('headTitle', '');
         this.tableFlag=0;
-        
     },
     mounted() {
       //  this.isSecurityLoading=true;
@@ -366,33 +365,10 @@ export default {
                     // }
                 });
             },600);
+            
         }
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/security');
-
-        setTimeout(() => {NoteStructure({
-            container: 'noteStructure',
-            //width: 280,  default for 280px;
-            //height: 200, default for 200px;
-            //maxCols: 5, // for more artistic, should be odd number
-            data: [
-                {"NoteId":1523,"Name":"A1","IsEquity":false,"Rating":"AAA","Notional":39.5,"Principal":0.0,"HasShot":false},
-                {"NoteId":1524,"Name":"A2","IsEquity":false,"Rating":"AAA","Notional":45.5,"Principal":0.0,"HasShot":false},
-                {"NoteId":1525,"Name":"A3","IsEquity":false,"Rating":"AAA","Notional":35.0,"Principal":0.0,"HasShot":false},
-                {"NoteId":1525,"Name":"A4","IsEquity":false,"Rating":"AAA","Notional":35.0,"Principal":0.0,"HasShot":false},
-                {"NoteId":1525,"Name":"A5","IsEquity":false,"Rating":"AAA","Notional":35.0,"Principal":0.0,"HasShot":false},
-                {"NoteId":1525,"Name":"A6","IsEquity":false,"Rating":"AAA","Notional":35.0,"Principal":0.0,"HasShot":true},
-                {"NoteId":1526,"Name":"B1","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":9.44064,"HasShot":false},
-                {"NoteId":1526,"Name":"B2","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":0,"HasShot":false},
-                {"NoteId":1526,"Name":"B3","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":4,"HasShot":false},
-                {"NoteId":1526,"Name":"B4","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":9.9,"HasShot":false},
-                {"NoteId":1526,"Name":"B5","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":9.44064,"HasShot":true},
-                {"NoteId":1526,"Name":"B6","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":9.44064,"HasShot":false},
-                {"NoteId":1526,"Name":"B7","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":9.44064,"HasShot":false},
-                {"NoteId":1527,"Name":"Sub","IsEquity":true,"Rating":"NR","Notional":39.7486,"Principal":39.7486,"HasShot":false}
-            ] //note data list
-            })
-        }, 2000);
   },
   
     methods: {
@@ -400,7 +376,6 @@ export default {
             console.log(webApi.Security.detail.concat(['',id].join('/')));
             axios(webApi.Security.detail.concat(['',id].join('/')))
             .then((response) => {
-                console.log(response);
                 if (response.data.status == "ok") {
                     const data = response.data.data;
                     if(data){
@@ -408,6 +383,8 @@ export default {
                     } else{
                         this.doCatch();
                     }
+                    //load deal structure
+                    this.fetchDealStructure(data.DealId,data.NoteId);
                 }
             }).catch((error) => {
                 this.doCatch();
@@ -423,6 +400,16 @@ export default {
             var buttonShow=document.getElementById("appH5lookAll");
             buttonShow.setAttribute("style","display:none");
         },
+        fetchDealStructure(dealId, noteId) {
+            axios(webApi.Security.structure.concat(['',dealId,noteId].join('/'))).then(response => {
+                if (response.data.status == 'ok') {
+                    NoteStructure({
+                       container: 'noteStructure',
+                       data: response.data.data.Notes
+                    });
+                }
+            })
+        }
         // fetchNoteConsTable(dealId,width,height){
         //     axios(webApi.Product.structure+"/"+dealId+"/"+width+"/"+height)
         //     .then((response)=>{

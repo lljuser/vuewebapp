@@ -2,7 +2,7 @@
  * @Author: CNABS 
  * @Date: 2018-02-02 11:18:42 
  * @Last Modified by: bzhou
- * @Last Modified time: 2018-02-05 09:55:03
+ * @Last Modified time: 2018-02-05 15:09:35
  * @Function: Get Note Structure Html
  */
 /* eslint-disable */
@@ -52,12 +52,9 @@ function NoteStructure(options) {
                         }
                     });
                 }
-                // console.log(div);
-                // console.log(document.getElementById(options.container));
                 document.getElementById(options.container).appendChild(div);
             }
         }
-        
         //sperate layer due to different note name
         function getLayerWithoutRating() {
             let data = options.data;
@@ -157,7 +154,6 @@ function NoteStructure(options) {
             } else {
                 buildEachNoteHtml(layer, tr, false, false);
             }
-            // console.log(table);
             table.appendChild(tr);
             return table;
         }
@@ -187,9 +183,6 @@ function NoteStructure(options) {
                     span.innerHTML = note.Name;
                 }
                 span.className = 'St-Inner-Text';
-                // console.log(payDiv);
-                // console.log(td);
-                // console.log(tr);
                 payDiv.appendChild(span);
                 td.appendChild(payDiv);
                 tr.appendChild(td);
