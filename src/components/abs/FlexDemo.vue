@@ -1,13 +1,18 @@
 <template>
   <div class="appH5_body">
     <div class="appH5_content">
-    
         <h2>区域标题</h2>
         <div class="appH5_panel">
     	    <div class="appH5_title">
 		       区域标题
 	        </div>
 	    </div>
+		<h2>icon</h2>
+        <div class="appH5_panel">
+		    <font-awesome-icon :icon="['far', 'user']" class="appH5_icon" />专家
+	        <font-awesome-icon :icon="['far', 'chart-bar']" class="appH5_icon" />项目
+	        <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon"/>文章
+        </div>
 	    <h2>tab切换</h2>
         <div class="appH5_panel appH5_tab_div">
     	    <div class="appH5_tab appH5_select_tab">市场</div>
