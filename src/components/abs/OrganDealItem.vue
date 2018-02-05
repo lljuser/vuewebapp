@@ -2,15 +2,11 @@
   <tr>
     <td class="text-left">
       <router-link :to="`../../OrganDetail/${ item.OrganizationId}`" class="appH5_color_link" style=""  >
-       <div class='td_elips1'> {{ item.Organization }}
-       </div>
-      <router-link :to="`../../OrganDeal/${ item.OrganizationId}`" class="appH5_color_link" style=""  >
-       <div> deal</div>
+       <div class='td_elips1'> {{ item.DealName }}</div>
       </router-link>
-      </router-link>
-
     </td>
-    <td style="color:white;width:auto" class="text-right"><div style="width:100%;float:right"><div>{{ item.DealCount }}</div></div></td>
+    <td class="text-right appH5_color_red" style="font-size:17px">{{item.TotalOffering}}</td>
+    <td style="color:white;width:auto" class="text-right"><div style="width:100%;float:right"><div>{{ item.DealType }}</div></div></td>
   </tr>
 </template>
 
@@ -18,7 +14,7 @@
 import { Toast } from 'mint-ui';
 
 export default {
-  name: 'organItem',
+  name: 'organDealItem',
   props: ['id', 'item'],
   mounted() {
   },
