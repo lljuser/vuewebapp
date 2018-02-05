@@ -2,7 +2,7 @@
  * @Author: CNABS 
  * @Date: 2018-02-02 11:18:42 
  * @Last Modified by: bzhou
- * @Last Modified time: 2018-02-05 15:09:35
+ * @Last Modified time: 2018-02-05 18:30:23
  * @Function: Get Note Structure Html
  */
 /* eslint-disable */
@@ -29,6 +29,9 @@ function NoteStructure(options) {
         }
         function buildStructureHtml() {
             let div = document.createElement('div');
+            div.style.width = options.width + 'px';
+            div.style.height = options.height + 'px';
+            div.className = 'St_Out_Div';
             let data = options.data;
             if (data instanceof Array && 
                 data.length > 0) {
@@ -90,15 +93,15 @@ function NoteStructure(options) {
         //get each layer html format
         function getLayerHtml(layer) {
             let data = options.data;
-            let table = document.createElement('table');
+            let outDiv = document.createElement('div');
             //define table width, height
-            table.style.width = options.width + 'px';
+            outDiv.style.width = options.width + 'px';
             let layerNotional = 0;
             layer.forEach((r) => layerNotional += r.Notional);
-            let trHeiht = (layerNotional / scope.totalNotional) * options.height;
-            table.style.height = trHeiht + 'px';
-            table.className = 'St-Outer-Table';
-            let tr = document.createElement('tr');
+            let divHeiht = (layerNotional / scope.totalNotional) * options.height;
+            outDiv.style.height = divHeiht + 'px';
+            outDiv.style.width = options.width + 'px';
+            outDiv.className = 'St_Inner_Div';
             //define each note width, name, payment info
             //tip: show only maxCol note
             if (layer.length > options.maxCols) {
@@ -113,7 +116,7 @@ function NoteStructure(options) {
                 //choose the method to display col
                 if (selectIdx === -1) {
                     layer.length = options.maxCols;
-                    buildEachNoteHtml(layer, tr, false, true);
+                    buildEachNoteHtml(layer, outDiv, divHeiht, false, true);
                 } else {
                     let idxContainer = [], transferFlag = true; //a container to store the max col note
                     let leftExtra = true, rightExtra = true;
@@ -148,32 +151,37 @@ function NoteStructure(options) {
                         }
                     });
                     if (tempLayer.length > 0) {
-                        buildEachNoteHtml(tempLayer, tr, leftExtra, rightExtra);
+                        buildEachNoteHtml(tempLayer, outDiv, divHeiht, leftExtra, rightExtra);
                     }
                 }
             } else {
-                buildEachNoteHtml(layer, tr, false, false);
+                buildEachNoteHtml(layer, outDiv, divHeiht, false, false);
             }
-            table.appendChild(tr);
-            return table;
+            return outDiv;
         }
 
-        function buildEachNoteHtml(layer, tr, hasLeftExtra, hasRightExtra) {
+        function buildEachNoteHtml(layer, outDiv, divHeiht, hasLeftExtra, hasRightExtra) {
             let layerNotional = 0;
             layer.forEach((r) => layerNotional += r.Notional);
             layer.forEach(function(note, idx) {
-                let td = document.createElement('td');
+                let noteDiv = document.createElement('div');
                 //define td width
-                td.style.width = (note.Notional / layerNotional) * options.width + 'px';
-                td.className = 'St-Inner-Td';
+                noteDiv.style.width = ((note.Notional / layerNotional) * options.width - 2) + 'px'; //minus the border px
+                noteDiv.style.height = divHeiht + 'px';
+                noteDiv.className = layer.length > 1 ? 'St_Inner_Td' : 'St_Inner_Td_Single';
                 //add background yellow color
                 if (note.HasShot) {
-                    td.className = 'St-Select';
+                    noteDiv.className = layer.length > 1 ? 'St_Select' : 'St_Select_Single';
+                }
+                if (layer.length > 1 && idx === layer.length - 1) {
+                    noteDiv.style.styleFloat = 'right'; //ie
+                    noteDiv.style.cssFloat = 'right'; //火狐
                 }
                 //add payment info
                 let payDiv = document.createElement('div');
                 payDiv.style.height = (1 - (note.Principal / note.Notional)) * 100 + '%'; //not pay percent
-                payDiv.className = 'St-Payment';
+                payDiv.style.width = noteDiv.style.width;
+                payDiv.className = 'St_Payment';
                 //add text info
                 let span = document.createElement('span');
                 if ((hasLeftExtra && idx === 0 ) || 
@@ -182,10 +190,12 @@ function NoteStructure(options) {
                 } else {
                     span.innerHTML = note.Name;
                 }
-                span.className = 'St-Inner-Text';
-                payDiv.appendChild(span);
-                td.appendChild(payDiv);
-                tr.appendChild(td);
+                span.className = 'St_Inner_Text';
+                span.style.lineHeight = divHeiht + 'px';
+                span.style.width = noteDiv.style.width;
+                noteDiv.appendChild(span);
+                noteDiv.appendChild(payDiv);
+                outDiv.appendChild(noteDiv);
             }, this);
         }
         buildStructureHtml();

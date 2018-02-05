@@ -6,22 +6,64 @@
   <div v-else>
     <div class="appH5_content">
       <div class="appH5_panel">
-        <div class="relevant-itemA" style="margin-top: 0;">
-            <div style="position: relative;">
-                <img src="../../public/images/userAvatar.png" class="related-image appH5_fl" style="margin-top: 8px;"/>
+        <div class="relevant-item">
+          <div class="padStyle">
+              <div style="position: relative;">
+                  <img src="../../public/images/userAvatar.png" class="related-image appH5_fl"/>
+              </div>
+              <div class="related-info appH5_fl">
+                  <div class="related-info-cont">
+                      <div class="relevant-item-name"><a href="javascript;" class="appH5_font16 appH5_link">晓蕾</a></div>
+                      <div class="relevant-item-conts appH5_font12">
+                          <div class="relevant-item-info">
+                              <span class="content-truncate">部门abs absabsabsabsabsabsabs-职位职位职位职位职位职位职位</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <a href="javascript;"  class="appH5_fr appH5_followBtn">+关注</a>
+              <div class="clearfix"></div>
             </div>
-            <div class="related-info appH5_fl" style="display: table; margin-left: 5px;">
-                <div style="display: table-cell; vertical-align: middle; height: 80px;">
-                    <div class="relevant-item-name"><span class="appH5_font16 appH5_link">晓蕾</span></div>
-                    <div class="width130 relevant-item-conts">
-                        <div class="relevant-item-info">
-                            <span class="content-truncate width195">部门-职位</span>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        
+        <div class="relevant-item">
+          <div class="padStyle">
+              <div style="position: relative;">
+                  <img src="../../public/images/userAvatar.png" class="related-image appH5_fl"/>
+              </div>
+              <div class="related-info appH5_fl">
+                  <div class="related-info-cont">
+                      <div class="relevant-item-name"><a href="javascript;" class="appH5_font16 appH5_link">晓蕾</a></div>
+                      <div class="relevant-item-conts appH5_font12">
+                          <div class="relevant-item-info">
+                              <span class="content-truncate">部门abs absabsabsabsabsabsabs-职位职位职位职位职位职位职位</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <a href="javascript;"  class="appH5_fr appH5_unfollowBtn">已关注</a>
+              <div class="clearfix"></div>
             </div>
-            <div class="appH5_fr appH5_followBtn">+关注</div>
-            <div class="clearfix"></div>
+        </div>
+        
+        <div class="relevant-item">
+          <div class="padStyle">
+              <div style="position: relative;">
+                  <img src="../../public/images/userAvatar.png" class="related-image appH5_fl"/>
+              </div>
+              <div class="related-info appH5_fl">
+                  <div class="related-info-cont">
+                      <div class="relevant-item-name"><a href="javascript;" class="appH5_font16 appH5_link">晓蕾</a></div>
+                      <div class="relevant-item-conts appH5_font12">
+                          <div class="relevant-item-info">
+                              <span class="content-truncate">部门abs absabsabsabsabsabsabs-职位职位职位职位职位职位职位</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <a href="javascript;" class="appH5_fr appH5_followBtn">+关注</a>
+              <div class="clearfix"></div>
+            </div>
         </div>
       </div>
     </div>
@@ -63,39 +105,40 @@ export default {
 .appH5_font16{
   font-size: 16px;
 }
+.appH5_panel{
+  padding: 0;
+}
+.padStyle{
+  padding: 0 .32rem;
+}
+.relevant-item {
+  border-bottom: #444444 solid 1px;
+  height: 1.86667rem;
+  width: 100%;
+}
 .related-image {
     width: 1.0667rem;
     height: 1.0667rem;
     border-radius: 50%;
     -webkit-border-radius: 50%;
-    margin-left: 0;
+    margin-top: .4rem;
 }
-.briefIntroduction {
-    text-align: justify;
-    padding: 0 20px 20px 20px;
-    line-height: 22px;
-}
-.relevant-item-name {
-    line-height: 26px;
-    font-size: 14px;
-}
-.width130 {
-    width: 130px;
-}
-.width195 {
-    width: 205px;
-}
-.relevant-item-info {
-    line-height: 16px;
-    font-size: 14px;
+.content-truncate{
+  display: block;
+  width: 5.7333rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .appH5_followBtn,.appH5_unfollowBtn{
     width: 1.3333rem;
     height:.61333rem;
     line-height:.61333rem;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
+    border-radius: .10667rem;
+    -webkit-border-radius: .10667rem;
     text-align: center;
+    margin-top: 0.66rem;
+    display: block;
 }
 .appH5_followBtn{
     border: #00FC00 solid 1px;
@@ -104,5 +147,15 @@ export default {
 .appH5_unfollowBtn{
     border: #666666 solid 1px;
     color: #666666;
+}
+.related-info {
+  display: table; 
+  margin-left: .26667rem;
+}
+.related-info-cont{
+  display: table-cell; 
+  vertical-align: middle; 
+  height: 1.8667rem;
+  line-height: .55rem;
 }
 </style>

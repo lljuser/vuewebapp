@@ -153,7 +153,7 @@ a:hover, a:focus {
 	color:#666666;
 }
 .appH5_color_details{
-	color:#ccc;
+	color:#ccc!important;
 }
 .appH5_color_green{
    color:#33ffcc;
@@ -168,7 +168,7 @@ a:hover, a:focus {
 	color: #EEB9B9;
 }
 .appH5_color_skyblue{
-	color:#78bcff!important;
+	color:#00B5E6!important;
 }
 .appH5_color_blue{
 	color:#0066cc;
@@ -530,4 +530,8 @@ select{
 }
 .appH5_absolute{
 	position: absolute;
+}
+.appH5_icon{
+	font-size:34px;
+	color:#ffc446;
 }
