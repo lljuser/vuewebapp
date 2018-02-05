@@ -34,6 +34,7 @@ export const Security = {
   list: `${apiAddress}/MoNote/GetNoteList`,
   // /{noteId?}
   detail: `${apiAddress}/MoNote/GetNoteFactory`,
+  structure: `${apiAddress}/MoNote/GetDealStructure`,
 };
 
 export const Expert = {
