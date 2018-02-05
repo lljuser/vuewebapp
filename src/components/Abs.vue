@@ -38,6 +38,14 @@
 import 'mint-ui/lib/style.css'
 import '@/public/css/theme.css';
 import BusUtil from './abs/BusUtil';
+import fontawesome from '@fortawesome/fontawesome';
+import faCircle from '@fortawesome/fontawesome-free-regular';
+
+fontawesome.library.add(faCircle);
+import Vue from 'vue';
+
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 export default {
   name: 'abs',
