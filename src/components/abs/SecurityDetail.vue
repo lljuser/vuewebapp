@@ -13,14 +13,14 @@
                             <span class="appH5_font_largest" v-else>{{securityDetail.Basic.Principal}}</span>
                             <span>亿</span>
                         </td>
-                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space'  v-if="securityDetail.Basic.ClosingDate!=null">{{securityDetail.Basic.SimpleExchange}}</td>
-                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_white'  v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.ClosingDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(发行)</td>
-                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space' v-else>{{securityDetail.Basic.SimpleExchange}}</td>
+                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_details'  v-if="securityDetail.Basic.ClosingDate!=null">{{securityDetail.Basic.SimpleExchange}}</td>
+                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_details'  v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.ClosingDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(发行)</td>
+                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_details' v-else>{{securityDetail.Basic.SimpleExchange}}</td>
                     </tr>
                    <tr>
-                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_white' v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
-                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top' v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.ExpectedMaturityDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(到期)</td>
-                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top' v-else>{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
+                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_details' v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
+                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_details' v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.ExpectedMaturityDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(到期)</td>
+                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_details' v-else>{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
                 </tr>
             </table>
             <table class="spacialTable" border="0" cellspacing="0" cellpadding="0">
@@ -46,7 +46,9 @@
                 <div class="clearfix"></div>
             </p>
             <div class="appH5martop">
-                <div class="text-center">放图</div>
+                <div id="noteStructure" class="text-center">
+
+                </div>
                 <table class="structureTable appH5_color_white appH5_font_smaller">
                     <tr>
                         <td class="text-left"><i class="Surplus"></i><span>剩余</span></td>
@@ -237,6 +239,41 @@
     .appH5_table td{
         font-size:15px;
     }
+    /*   结构图样式   */
+    .St-Outer-Table {
+        border: 1px solid #666;
+        background-color: #615C55;
+        color: #FFF;
+    }
+
+    .St-Outer-Table tr td {
+        position: relative;
+    }
+
+    .St-Select {
+        background-color: #FF0;
+        color: #615C55;
+    }
+
+    .St-Inner-Text {
+        display: inline-block;
+        position: absolute;
+        margin: 0 auto;
+    }
+
+    .St-Payment {
+        background-image: url('../../public/images/table_bg.png');
+        opacity: 0.8;
+        background-repeat: repeat;
+        vertical-align: top;
+    }
+
+    .St-Inner-Td {
+        vertical-align: top;
+        border-left: 1px solid #666;
+        border-right: 1px solid #666;
+        position: relative;
+    }
 </style>
 
 <script>
@@ -245,6 +282,7 @@ import Vue from 'vue';
 import VueHighcharts from 'vue-highcharts';
 import Highcharts from 'highcharts';
 import getParams from '../../public/js/getParams';
+import { NoteStructure } from '../../public/js/NoteStructure.js';
 
 // some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
 import * as chartTheme from '@/public/js/chartTheme';
@@ -254,6 +292,7 @@ import axios from 'axios';
 import { Toast } from 'mint-ui';
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
+
 
 export default {
     name: 'securityDetail',
@@ -273,6 +312,7 @@ export default {
         busUtil.bus.$emit('path', '/security');
         busUtil.bus.$emit('headTitle', '');
         this.tableFlag=0;
+        
     },
     mounted() {
       //  this.isSecurityLoading=true;
@@ -329,7 +369,31 @@ export default {
         }
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/security');
-    },
+
+        setTimeout(() => {NoteStructure({
+            container: 'noteStructure',
+            //width: 280,  default for 280px;
+            //height: 200, default for 200px;
+            //maxCols: 5, // for more artistic, should be odd number
+            data: [
+                {"NoteId":1523,"Name":"A1","IsEquity":false,"Rating":"AAA","Notional":39.5,"Principal":0.0,"HasShot":false},
+                {"NoteId":1524,"Name":"A2","IsEquity":false,"Rating":"AAA","Notional":45.5,"Principal":0.0,"HasShot":false},
+                {"NoteId":1525,"Name":"A3","IsEquity":false,"Rating":"AAA","Notional":35.0,"Principal":0.0,"HasShot":false},
+                {"NoteId":1525,"Name":"A4","IsEquity":false,"Rating":"AAA","Notional":35.0,"Principal":0.0,"HasShot":false},
+                {"NoteId":1525,"Name":"A5","IsEquity":false,"Rating":"AAA","Notional":35.0,"Principal":0.0,"HasShot":false},
+                {"NoteId":1525,"Name":"A6","IsEquity":false,"Rating":"AAA","Notional":35.0,"Principal":0.0,"HasShot":true},
+                {"NoteId":1526,"Name":"B1","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":9.44064,"HasShot":false},
+                {"NoteId":1526,"Name":"B2","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":0,"HasShot":false},
+                {"NoteId":1526,"Name":"B3","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":4,"HasShot":false},
+                {"NoteId":1526,"Name":"B4","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":9.9,"HasShot":false},
+                {"NoteId":1526,"Name":"B5","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":9.44064,"HasShot":true},
+                {"NoteId":1526,"Name":"B6","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":9.44064,"HasShot":false},
+                {"NoteId":1526,"Name":"B7","IsEquity":false,"Rating":"AA-","Notional":9.9,"Principal":9.44064,"HasShot":false},
+                {"NoteId":1527,"Name":"Sub","IsEquity":true,"Rating":"NR","Notional":39.7486,"Principal":39.7486,"HasShot":false}
+            ] //note data list
+            })
+        }, 2000);
+  },
   
     methods: {
         fetchSecurityDetail(id,callback) {
