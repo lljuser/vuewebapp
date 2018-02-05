@@ -174,7 +174,7 @@
         border: none!important;
         margin: none;
         padding:0;
-        width: 9.36rem;
+        width: 100%;
     }
    .spacialTable tr td:first-child{
        width: 1.65rem;
