@@ -40,7 +40,7 @@
                 </div>
             </header>
             <div class="appH5_panel" style="padding-top:0px;padding-left: 0.85rem;padding-right:0.85rem">
-                <div class="tooltip" @click="showPrizeDetail(item, $event)" v-for="(item, index) in userInfo.Badges" :key="index" style="display:inline-block;width:1.35rem">
+                <div :id="`tooltip${index}`" v-for="(item, index) in userInfo.Badges" :key="index" style="display:inline-block;margin-right:0.75rem">
                     <img :src="item.IconUrl" style="height:30px" />
                 </div>
             </div>
@@ -310,10 +310,9 @@
             <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
             <div class="ep_align_center ep_font30 ep_submitColor">发送中...</div>
         </mt-popup>
-        <mt-popup v-model="prizeModel.showDetail" class="mint-popup mint-popup-1" closeOnClickModal="true" v-if="isValidElement(prizeModel.prizeDetail)">
-            <h1 class="mint-popup-title">{{prizeModel.prizeDetail.Name}}</h1>
-            <p v-for="(item, index) in prizeModel.prizeDetail.Reasons" :key="index">{{item}}</p>
-        </mt-popup>
+        <div id="toolTipTemplate" class="dn">
+            
+        </div>
     </div>
 </template>
 
@@ -343,16 +342,15 @@ export default {
       submitPopupVisible: false,
       isShowHeader: false,
       query: null,
-      prizeModel: {
-          prizeDetail: null,
-          showDetail: false
-      }
     };
   },
   created: function() {
       this._ = _;
       this.userId = util.getQueryString().UserId;
       this.initData();
+  },
+  updated: function() {
+      this.registerTippy();//注册徽章Tooltips
   },
   beforeRouteEnter: (to, from, next) => {
      next(vm => {
@@ -376,12 +374,55 @@ export default {
           this.userInfo = response.data.data.UserInfo;
           this.editable = response.data.data.Editable;
 
-          //this.userInfo.Badges = this.userInfo.Badges.concat(this.userInfo.Badges).concat(this.userInfo.Badges);
-
           if (!this.isValidElement(this.userInfo.User.Avatar)) {
               this.userInfo.User.Avatar = defaultAvatar;
           }
         });
+    },
+    registerTippy: function() {
+        const poppers = document.querySelectorAll('.tippy-popper');
+
+        for (const popper of poppers) {
+            const tooltip = popper._reference._tippy;
+
+            if (tooltip.state.visible) {
+                tooltip.hide()
+            }
+        }
+
+        if (this.isArrayEmpty(this.userInfo.Badges)) return;
+
+        for (const [index, item] of this.userInfo.Badges.entries()) {
+            const id = `#tooltip${index}`;
+            const model = item;
+
+            if (document.querySelector(id)._tippy === undefined) {
+                tippy(id, {
+                            html: '#toolTipTemplate',
+                            placement: 'bottom',
+                            animation: 'scale',
+                            arrow: true,
+                            onShow() {
+                                const content = this.querySelector('.tippy-content');
+                                content.innerHTML = `<h1 style="font-size:15px;text-align:left">${model.Name}</h1>`;
+
+                                for (let reason of model.Reasons) {
+                                    content.innerHTML += `<p style="font-size:13px;text-align:left">${reason}</p>`
+                                }
+                            },
+                            popperOptions: {
+                                modifiers: {
+                                    preventOverflow: {
+                                        enabled: true
+                                    },
+                                    hide: {
+                                        enabled: false
+                                    }
+                                }
+                            }
+                    });
+                }
+            }
     },
     endorseImg: function(isEndorse) {
       return isEndorse ? likeImg : dislikeImg;
@@ -537,10 +578,6 @@ export default {
         ReadActivityList: this.isShowHeader ? {path: `/ReadActivityList/${this.userId}`, query: this.query} : `/ReadActivityList/${this.userId}`,
       };
     },
-    showPrizeDetail: function(model, e) {
-        this.prizeModel.prizeDetail = model;
-        this.prizeModel.showDetail = true;
-    }
   },
   computed: {
     projectHistoriesSummary: function() {
@@ -584,6 +621,41 @@ export default {
 </script>
 
 <style>
+    .mint-popup-1 {
+        width: 200px;
+        border-radius: 8px;
+        padding: 10px;
+        -webkit-transform: translate(-50%);
+        transform: translate(-50%);
+        color: black;
+    }
 
+    .mint-popup-title {
+        margin-bottom: 10px;
+    }
+
+    .dn {
+        display: none;
+    }
+
+    .tippy-tooltip {
+        position: relative;
+        color: white;
+        border-radius: 4px;
+        font-size: .9rem;
+        padding: .3rem .6rem;
+        text-align: center;
+        will-change: transform;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #78bcff;
+    }
+
+    .tippy-popper[x-placement^=bottom] .tippy-arrow {
+        border-bottom: 7px solid #78bcff;
+        border-right: 7px solid transparent;
+        border-left: 7px solid transparent;
+        top: -7px;
+        margin: 0 7px;
+    }
 </style>
-
