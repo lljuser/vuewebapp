@@ -57,7 +57,7 @@ export default {
   width: 17px;
   height: 17px;
   text-align: center;
-  margin-top: 4px;
+  margin-top: 3px;
   margin-right: 4px;
   color: #ffffff;
   line-height: 16px;
