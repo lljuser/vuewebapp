@@ -5,7 +5,12 @@
     </div>
   <div v-else>
     <div class="articleListContent ep_font32">
-        <section class="ep_content_div">
+        
+      <mt-loadmore :top-method="loadTop"  ref="loadmore">
+        <section class="ep_content_div"  v-infinite-scroll="loadMore"
+          infinite-scroll-disabled="loading"
+          infinite-scroll-immediate-check="true"
+          infinite-scroll-distance="55">
             <div v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in articleInfo" v-bind:key="index">
                     <div class=" ep_overhide">
@@ -32,11 +37,20 @@
                                 <span class="fl ep_ellipsis ep_width300 ep_Link appH5_link">{{item.Link}}</span>
                             </li>
                         </ul>
-                        <span class="ep_sendMailBtn appH5_font_normal">发送到邮箱</span>
+                        <span class="ep_sendMailBtn appH5_font_normal" v-on:click="sendAttachment(item.AttachmentFileCode)" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>
                     </div>
                 </div>
             </div>
         </section>
+      </mt-loadmore>
+      
+         <div class="spinner_div" v-if="articleInfo.length==0">
+          <span  class="nomore">暂无数据</span>
+        </div>
+        <div class="spinner_div" v-else >
+          <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
+          <span v-if="noMore" class="nomore">没有更多了</span>
+        </div>
     </div>
   </div>
   
@@ -50,12 +64,20 @@ import * as webApi from '@/config/api';
 import axios from 'axios';
 import getParams from '../../public/js/getParams';
 import { Toast } from 'mint-ui';
+import "mint-ui/lib/style.css";
 export default {
   name: 'institutionalArticle',
   data() {
     return {
       articleInfo:[],
       isArticleLoading:false,
+      CurrentStatus: [],
+      loading: false,
+      isFetchArticlesError: false,
+      page: 1,
+      pageSize: 5,
+      noMore: false,
+      isLoadTop: false
     };
   },
   created() {
@@ -66,8 +88,13 @@ export default {
     this.tableFlag=0;
   }, 
   mounted() {
+    this.isExpertsLoading = true;
+    this.timer = setTimeout(() => {
+      this.loadFirstPageArticles();
+    }, 600);
   },
   activated(){
+    this.loading = false;
     this.isArticleLoading=true;
     this.articleInfo = {};
     window.scrollTo(0,0);
@@ -76,6 +103,16 @@ export default {
     busUtil.bus.$emit('path', '/organDetail/1912');
     busUtil.bus.$emit('headTitle', '');
     this.id = this.$route.params.id;
+    
+    var reLoadData = false;
+    if (reLoadData) {
+      this.loadFirstPageArticles();
+    }
+
+    if (this.isFetchArticlesError) {
+      this.loadFirstPageArticles();
+    }
+
     if (this.id) {
         setTimeout(()=>{
             this.fetchArticleDetail(this.id,data=>{
@@ -86,33 +123,87 @@ export default {
         },600);
     }
   },
+  deactivated() {
+    this.timer && clearTimeout(this.timer);
+    // 防止在其他组件滚动时 此组件调用loadMore方法
+    this.loading = true;
+  },
   methods: {
-    newUpdateTime(updateTimes){
-        var newDate=updateTimes.substr(0,10);
-        return newDate;
+    loadFirstPageArticles(showSpinnerLoad) {
+      this.loading = false;
+      this.isArticleLoading = true;
+      if (showSpinnerLoad != null) this.isArticleLoading = false;
+      setTimeout(() => {
+        this.fetchArticleDetail(1, 0, data => {
+          this.articleInfo = data;
+          this.isArticleLoading = false;
+          this.page = 1;
+          if (data.length < this.pageSize) {
+            this.noMore = true;
+          }
+          if (showSpinnerLoad != null) this.$refs.loadmore.onTopLoaded();
+        });
+      }, 600);
+    },
+    sendAttachment: function(fileCode) {
+        axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
+        .then(response => {
+            this.$toast(response.data.data);
+        });
     },
     isValidElement: function (item) {
         return !(item === null || item === undefined || item === "");
     },
-    fetchArticleDetail(id,callback) {
-        axios(webApi.Organ.articleList.concat(['',id].join('/')))
-            .then((response) => {
-                if (response.data.status == "ok") {
-                    const data = response.data.data;
-                    if(data){
-                        callback(data);
-                    } else{
-                        this.doCatch();
-                    }
+    fetchArticleDetail(page, direction,callback) {
+      var url = webApi.Organ.articleList + "/" + this.$route.params.id;
+      url =url +"/" +direction +"/" +page * this.pageSize +"/" +this.pageSize;
+      axios.post(url).then((response) => {
+        if (response.data.status == "ok") {
+            const data = response.data.data;
+            if(data){
+                callback(data);
+                    if (data.length == 0) {
+                    this.loading = true;
+                    this.noMore = true;
                 }
-            }).catch((error) => {
+                this.isFetchArticlesError = false;
+                this.isLoadTop = false;
+            } else{
                 this.doCatch();
-            });
+            }
+        }
+        }).catch((error) => {
+            this.doCatch();
+        });
+    },
+    
+    loadTop() {
+      this.isLoadTop = true;
+      this.timer = setTimeout(() => {
+        this.loadFirstPageArticles(true);
+      }, 600);
+    },
+    loadMore() {
+      this.loading = true;
+      this.noMore = false;
+      setTimeout(() => {
+        this.fetchArticleDetail(this.page, 1, data => {
+          this.articleInfo = this.articleInfo.concat(data);
+          this.page = this.page + 1;
+          this.loading = false;
+        });
+      }, 600);
     },
     doCatch(){
         Toast('服务器繁忙，请重试！');
         this.isArticleLoading = false;
-        this.isFetchDetailError=true;
+        this.isFetchArticlesError = true;
+        this.loading = false;
+        if (this.isLoadTop) {
+            setTimeout(() => {
+            this.$refs.loadmore.onTopLoaded();
+            }, 4000);
+        }
     },
   },
 };

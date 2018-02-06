@@ -74,7 +74,7 @@ export default {
       loading: false,
       isFetchExpertsError: false,
       page: 1,
-      pageSize: 15,
+      pageSize: 10,
       noMore: false,
       isLoadTop: false
     };
@@ -146,17 +146,8 @@ export default {
     },
     fetchExpertsDetail(page, direction, callback) {
       var url = webApi.Organ.expertList + "/" + this.$route.params.id;
-      url =
-        url +
-        "/" +
-        direction +
-        "/" +
-        page * this.pageSize +
-        "/" +
-        this.pageSize;
-      axios
-        .post(url)
-        .then(response => {
+      url =url +"/" +direction +"/" +page * this.pageSize +"/" +this.pageSize;
+      axios.post(url).then(response => {
           if (response.data.status == "ok") {
             const data = response.data.data;
             if (data) {
