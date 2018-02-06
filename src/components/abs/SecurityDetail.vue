@@ -303,6 +303,12 @@
         position: relative;
         display: block;
     }
+
+    .St_Text_Min {
+        display: inline-block;
+        line-height: 13px;
+        vertical-align: middle;
+    }
 </style>
 
 <script>

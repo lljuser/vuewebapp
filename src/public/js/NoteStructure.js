@@ -2,7 +2,7 @@
  * @Author: CNABS 
  * @Date: 2018-02-02 11:18:42 
  * @Last Modified by: bzhou
- * @Last Modified time: 2018-02-06 11:55:22
+ * @Last Modified time: 2018-02-06 14:10:12
  * @Function: Get Note Structure Html
  */
 /* eslint-disable */
@@ -188,7 +188,11 @@ function NoteStructure(options) {
                 (hasRightExtra && idx == layer.length -1)) {
                     span.innerHTML = '...';
                 } else {
-                    span.innerHTML = formatPercent(note.Name, note.Notional, scope.totalNotional);
+                    let textSp = document.createElement('span')
+                    textSp.innerText = 
+                        formatPercent(note.Name, note.Notional, scope.totalNotional);
+                    textSp.className = 'St_Text_Min';
+                    span.appendChild(textSp);
                 }
                 span.className = 'St_Inner_Text';
                 span.style.lineHeight = divHeiht + 'px';
