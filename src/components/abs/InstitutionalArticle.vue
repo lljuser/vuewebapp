@@ -5,14 +5,10 @@
     </div>
   <div v-else>
     <div class="articleListContent ep_font32">
-        
+    <section class="ep_content_div">
       <mt-loadmore :top-method="loadTop"  ref="loadmore">
-        <section class="ep_content_div"  v-infinite-scroll="loadMore"
-          infinite-scroll-disabled="loading"
-          infinite-scroll-immediate-check="true"
-          infinite-scroll-distance="55">
             <div v-cloak>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in articleInfo" v-bind:key="index">
+                <div class="ep_padding30 ep_part_item_border"  v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-immediate-check="true" infinite-scroll-distance="55" v-for="(item, index) in articleInfo" v-bind:key="index">
                     <div class=" ep_overhide">
                         <span class="appH5_fl appH5_font_normal appH5_color_green">《</span>
                         <span class="appH5_font_normal ep_ellipsis appH5_fl ep_maxWidth577 appH5_color_green">{{item.Name}}</span>
@@ -34,16 +30,15 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <span class="fl ep_ellipsis ep_width300 ep_Link appH5_link">{{item.Link}}</span>
+                                <a class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important" style="display: block;"  v-bind:href="item.Link">{{item.Link}}</a>
+                                <!-- <span class="fl ep_ellipsis ep_width300 ep_Link appH5_link">{{item.Link}}</span> -->
                             </li>
                         </ul>
                         <span class="ep_sendMailBtn appH5_font_normal" v-on:click="sendAttachment(item.AttachmentFileCode)" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>
                     </div>
                 </div>
             </div>
-        </section>
       </mt-loadmore>
-      
          <div class="spinner_div" v-if="articleInfo.length==0">
           <span  class="nomore">暂无数据</span>
         </div>
@@ -51,6 +46,7 @@
           <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
           <span v-if="noMore" class="nomore">没有更多了</span>
         </div>
+        </section>
     </div>
   </div>
   
