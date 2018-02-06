@@ -1,13 +1,18 @@
 <template>
   <div class="appH5_body">
     <div class="appH5_content">
-    
         <h2>区域标题</h2>
         <div class="appH5_panel">
     	    <div class="appH5_title">
 		       区域标题
 	        </div>
 	    </div>
+		<h2>icon</h2>
+        <div class="appH5_panel">
+		    <font-awesome-icon :icon="['far', 'user']" class="appH5_icon" />专家
+	        <font-awesome-icon :icon="['far', 'chart-bar']" class="appH5_icon" />项目
+	        <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon"/>文章
+        </div>
 	    <h2>tab切换</h2>
         <div class="appH5_panel appH5_tab_div">
     	    <div class="appH5_tab appH5_select_tab">市场</div>
@@ -86,6 +91,26 @@
 	        	</tr>
 	        </table>
 	    </div>
+		<h2>四列示例</h2>
+        <div class="appH5_panel">
+			        <table class="appH5_list_four">
+				<tr>
+	        		<td colspan="4" class="appH5_color_white appH5_word_break">这是一个产品名称，这是一个产品名称，这是一个产品名称</td>
+	        	</tr>
+				<tr>
+	        		<td class='appH5_color_red' colspan="2" rowspan="2">
+						<span class="appH5_font_largest">253</span>
+						<span>亿</span>
+					</td>
+	        		<td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space'>上交所</td>
+	        		<td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_white'>2017-12-23（发行）</td>
+	        	</tr>
+				<tr>
+					<td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_white'>过手型</td>
+					<td class='appH5_font_smaller appH5_white_space appH5_vertical_top'>2018-12-23（到期）</td>
+				</tr>
+				</table>
+		</div>
         <h2>表单元素</h2>
 	    <div class="appH5_panel">
 	        <input type='text' placeholder='请输入内容'>
@@ -129,11 +154,14 @@
                     <td class="text-right appH5_color_red">5</td>
                     <td class="text-right appH5_color_red">445</td>
                 </tr>
-                <tr>
+                <tr class="appH5_bg_brightred">
                     <td>信贷ABS</td>
                     <td class="text-right">1</td>
                     <td class="text-right appH5_color_red">5</td>
                     <td class="text-right appH5_color_red">445</td>
+                </tr>
+				<tr class="appH5_bg_brightred appH5_detail_tr">
+                    <td colspan=4 class="appH5_font_smaller appH5_color_Lightpink">偿付报告已出，尚未支付</td>
                 </tr>
                 <tr>
                     <td class="fontBold">总计</td>
