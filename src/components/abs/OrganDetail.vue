@@ -61,7 +61,7 @@
                 </router-link>               
               </div>
               <div class="appH5_float_left organIconDiv"> 
-                <router-link :to="`/organDeal/1`"> 
+                <router-link :to="`/organDeal/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
                     <div>
                       <font-awesome-icon :icon="['far', 'chart-bar']" class="appH5_icon" />

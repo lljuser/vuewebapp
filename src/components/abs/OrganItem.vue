@@ -4,9 +4,6 @@
       <router-link :to="`../../OrganDetail/${ item.OrganizationId}`" class="appH5_color_link" style=""  >
        <div class='td_elips1'> {{ item.Organization }}
        </div>
-      <router-link :to="`../../OrganDeal/${ item.OrganizationId}`" class="appH5_color_link" style=""  >
-       <div> deal</div>
-      </router-link>
       </router-link>
 
     </td>
