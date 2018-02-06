@@ -54,25 +54,48 @@ export default {
     return {
       expertsInfo:[],
       isExpertsLoading:false,
+      CurrentStatus:[],
+      loading: false,
+      isFetchExpertsError: false,
+      page: 1,
+      pageSize:15,
+      noMore:false,
+      isLoadTop:false,
     };
   },
   created() {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
-        busUtil.bus.$emit('path', '/organDetail/1');
+        busUtil.bus.$emit('path', '/organDetail/1912');
         busUtil.bus.$emit('headTitle', '');
         this.tableFlag=0;
   }, 
   mounted() {
+    this.isExpertsLoading = true;
+    this.timer = setTimeout(() => {
+      this.loadFirstPageExperts();
+    }, 600);
   },
   activated(){
+    this.loading = false;
     this.isExpertsLoading=true;
     this.expertsInfo = {};
     window.scrollTo(0,0);
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
-    busUtil.bus.$emit('path', '/organDetail/1');
+    busUtil.bus.$emit('path', '/organDetail/1912');
     busUtil.bus.$emit('headTitle', '');
+
+
+    var reLoadData=false;   
+    if(reLoadData){
+      this.loadFirstPageExperts();
+    }
+
+    if (this.isFetchExpertsError) {
+      this.loadFirstPageExperts();
+    }
+
     this.id = this.$route.params.id;
     if (this.id) {
         setTimeout(()=>{
@@ -84,28 +107,80 @@ export default {
         },600);
     }
   },
+  deactivated() {
+    this.timer && clearTimeout(this.timer);
+    // 防止在其他组件滚动时 此组件调用loadMore方法
+    this.loading = true;
+  },
   methods: {
-    fetchExpertsDetail(id,callback) {
-      console.log(webApi.Organ.expertList.concat(['',id].join('/')));
-            axios(webApi.Organ.expertList.concat(['',id].join('/')))
-            .then((response) => {
-                if (response.data.status == "ok") {
-                    const data = response.data.data;
-                    if(data){
-                        callback(data);
-                    } else{
-                        this.doCatch();
-                    }
+    loadFirstPageExperts(showSpinnerLoad) {
+      this.loading = false;
+      this.isExpertsLoading = true;
+      if(showSpinnerLoad!=null)this.isExpertsLoading = false;
+      setTimeout(() => {
+        this.fetchExpertsDetail(1,0, data => {
+          this.list = data;
+          this.isExpertsLoading = false;
+          this.page=1;
+          if(data.length<this.pageSize)
+          {
+            this.noMore=true;
+          }
+          if(showSpinnerLoad!=null) this.$refs.loadmore.onTopLoaded();
+        });
+      }, 600);
+    },
+    fetchExpertsDetail(page,direction,callback) {
+        var url=webApi.Organ.expertList;
+        url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
+        axios.post(url).then((response) => {
+            if (response.data.status == "ok") {
+                const data = response.data.data;
+                if(data){
+                     callback(data);
+                     if(data.length==0){ 
+                        this.loading=true;
+                        this.noMore=true;
+                      }
+                      this.isFetchExpertsError = false;
+                      this.isLoadTop=false;
+                } else{
+                    this.doCatch();
                 }
-            }).catch((error) => {
-                this.doCatch();
-            });
+            }
+        }).catch((error) => {
+            this.doCatch();
+        });
    },
-    doCatch(){
+  loadTop(){
+    this.isLoadTop=true;
+    this.timer = setTimeout(() => {
+      this.loadFirstPageTrades(true);
+      this.loadSelectOptions();
+    }, 600);   
+  },
+  loadMore(){
+    this.loading = true;
+    this.noMore=false;
+    setTimeout(() => {
+      this.fetchTrades(this.page, 1,data => {
+        this.list = this.list.concat(data);
+        this.page = this.page + 1;
+        this.loading = false;
+      });
+    }, 300);
+  },
+  doCatch(){
         Toast('服务器繁忙，请重试！');
         this.isExpertsLoading = false;
-        this.isFetchDetailError=true;
-    },
+        this.isFetchExpertsError = true;
+        this.loading = false;
+        if(this.isLoadTop){
+          setTimeout(() => {
+            this.$refs.loadmore.onTopLoaded();
+          }, 4000);
+        }
+  },
   },
 };
 </script>

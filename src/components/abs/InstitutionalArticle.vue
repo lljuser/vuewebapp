@@ -61,7 +61,7 @@ export default {
   created() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
-    busUtil.bus.$emit('path', '/organDetail/1');
+    busUtil.bus.$emit('path', '/organDetail/1912');
     busUtil.bus.$emit('headTitle', '');
     this.tableFlag=0;
   }, 
@@ -73,7 +73,7 @@ export default {
     window.scrollTo(0,0);
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
-    busUtil.bus.$emit('path', '/organDetail/1');
+    busUtil.bus.$emit('path', '/organDetail/1912');
     busUtil.bus.$emit('headTitle', '');
     this.id = this.$route.params.id;
     if (this.id) {
