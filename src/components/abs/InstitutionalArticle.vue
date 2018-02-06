@@ -7,60 +7,29 @@
     <div class="articleListContent ep_font32">
         <section class="ep_content_div">
             <div v-cloak>
-                <div class="ep_padding30 ep_part_item_border">
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in articleInfo" v-bind:key="index">
                     <div class=" ep_overhide">
                         <span class="appH5_fl appH5_font_normal appH5_color_green">《</span>
-                        <span class="appH5_font_normal ep_ellipsis appH5_fl ep_maxWidth577 appH5_color_green">书名</span>
+                        <span class="appH5_font_normal ep_ellipsis appH5_fl ep_maxWidth577 appH5_color_green">{{item.Name}}</span>
                         <span class="appH5_fl appH5_font_normal appH5_color_green">》</span>
                     </div>
                     <div class="divArticleDetail">
                         <ul class="appH5_color_details appH5_font_smaller ep_decription articleDetail">
                             <li>
                                 <span class='article_title'>作者：</span>
-                                <span class="ep_ellipsis ep_width517">晓蕾</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Author}}</span>
                             </li>
-                            <li>
+                            <li v-if="isValidElement(item.Category)">
                                 <span class='article_title'>报告分类：</span>
-                                <span class="ep_ellipsis ep_width517">报告分类</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Category}}</span>
                             </li>
-                            <li>
+                            <li v-if="isValidElement(item.UpdateTime)">
                                 <span class='article_title'>更新时间：</span>
-                                <span class="ep_ellipsis ep_width517">2018-02-12</span>
+                                <span class="ep_ellipsis ep_width517">{{item.UpdateTime.toString() | moment("YYYY-MM-DD")}}</span>
                             </li>
-                            <li>
+                            <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <!-- <a class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important"  v-bind:href="item.Link">{{item.Link}}</a> -->
-                                <span class="fl ep_ellipsis ep_width300 ep_Link appH5_link">www.baidu.com</span>
-                            </li>
-                        </ul>
-                        <span class="ep_sendMailBtn appH5_font_normal">发送到邮箱</span>
-                    </div>
-                </div>
-                
-                <div class="ep_padding30 ep_part_item_border">
-                    <div class=" ep_overhide">
-                        <span class="appH5_fl appH5_font_normal appH5_color_green">《</span>
-                        <span class="appH5_font_normal ep_ellipsis appH5_fl ep_maxWidth577 appH5_color_green">书名</span>
-                        <span class="appH5_fl appH5_font_normal appH5_color_green">》</span>
-                    </div>
-                    <div class="divArticleDetail">
-                        <ul class="appH5_color_details appH5_font_smaller ep_decription articleDetail">
-                            <li>
-                                <span class='article_title'>作者：</span>
-                                <span class="ep_ellipsis ep_width517">晓蕾</span>
-                            </li>
-                            <li>
-                                <span class='article_title'>报告分类：</span>
-                                <span class="ep_ellipsis ep_width517">报告分类</span>
-                            </li>
-                            <li>
-                                <span class='article_title'>更新时间：</span>
-                                <span class="ep_ellipsis ep_width517">2018-02-12</span>
-                            </li>
-                            <li>
-                                <span class='article_title'>作品网址：</span>
-                                <!-- <a class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important"  v-bind:href="item.Link">{{item.Link}}</a> -->
-                                <span class="fl ep_ellipsis ep_width300 ep_Link appH5_link">www.baidu.com</span>
+                                <span class="fl ep_ellipsis ep_width300 ep_Link appH5_link">{{item.Link}}</span>
                             </li>
                         </ul>
                         <span class="ep_sendMailBtn appH5_font_normal">发送到邮箱</span>
@@ -99,18 +68,50 @@ export default {
   mounted() {
   },
   activated(){
-    //this.isArticleLoading=true;
+    this.isArticleLoading=true;
     this.articleInfo = {};
     window.scrollTo(0,0);
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/organDetail/1');
     busUtil.bus.$emit('headTitle', '');
+    this.id = this.$route.params.id;
+    if (this.id) {
+        setTimeout(()=>{
+            this.fetchArticleDetail(this.id,data=>{
+                busUtil.bus.$emit('headTitle', '机构文章'); 
+                this.articleInfo =data;
+                this.isArticleLoading=false;
+            });
+        },600);
+    }
   },
   methods: {
+    newUpdateTime(updateTimes){
+        var newDate=updateTimes.substr(0,10);
+        return newDate;
+    },
+    isValidElement: function (item) {
+        return !(item === null || item === undefined || item === "");
+    },
+    fetchArticleDetail(id,callback) {
+        axios(webApi.Organ.articleList.concat(['',id].join('/')))
+            .then((response) => {
+                if (response.data.status == "ok") {
+                    const data = response.data.data;
+                    if(data){
+                        callback(data);
+                    } else{
+                        this.doCatch();
+                    }
+                }
+            }).catch((error) => {
+                this.doCatch();
+            });
+    },
     doCatch(){
         Toast('服务器繁忙，请重试！');
-        //this.isArticleLoading = false;
+        this.isArticleLoading = false;
         this.isFetchDetailError=true;
     },
   },
