@@ -100,18 +100,18 @@
                     <th class="text-right appH5_font_normal">利息(元)</th> 
                     <th class="text-right appH5_font_normal">本息(元)</th>
                 </tr>
-                <tbody v-if="CashflowShowFlag">
+                <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag">
                     <tr v-bind:class="(securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3?'appH5_bg_brightred':'')">
                         <td class="appH5_font_normal">{{securityDetail.Cashflow[0].PaymentData.toString() | moment("YYYY-MM-DD")}}</td> 
-						<td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Principal}}</td>
-						<td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Interest+"%"}}</td>
-						<td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Total}}</td>
+                        <td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Principal}}</td>
+                        <td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Interest+"%"}}</td>
+                        <td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Total}}</td>
                     </tr>
                     <tr v-if="securityDetail.Cashflow[0].StatusId==3" class="appH5_bg_brightred appH5_detail_tr">
                         <td colspan="4" class="appH5_font_smaller appH5_color_Lightpink">数据更新至最新偿付报告</td>
                     </tr>
                 </tbody>
-                <tbody v-else  v-for="item in securityDetail.Cashflow">
+                <tbody v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag"  v-for="item in securityDetail.Cashflow">
                     <tr  v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')">
                         <td class="appH5_font_normal">{{item.PaymentData.toString() | moment("YYYY-MM-DD")}}</td>
                         <td class="text-right appH5_color_red appH5_font_normal">{{item.Principal}}</td>
@@ -123,8 +123,10 @@
                     </tr>
                 </tbody>
                 
+                
             </table> 
-           <div id="appH5lookAll" v-on:click="cashflowShow()" class="appH5lookAll appH5bgColor appH5_link">查看所有现金流</div>  
+            <div id="appH5lookAll" v-if="securityDetail.Cashflow.length==0" class="appH5lookAll appH5bgColor">暂无现金流</div>
+           <div id="appH5lookAll" v-else v-on:click="cashflowShow()" class="appH5lookAll appH5bgColor appH5_link">查看所有现金流</div>  
            <div id="appH5CloseAll" v-on:click="cashflowHide()"  style="display: none;" class="appH5CloseAll appH5bgColor appH5_link">收起所有现金流</div>  
         </div>
         </div>
@@ -448,6 +450,7 @@ export default {
         fetchDealStructure(dealId, noteId) {
             axios(webApi.Security.structure.concat(['',dealId,noteId].join('/'))).then(response => {
                 if (response.data.status == 'ok') {
+                    console.log(response);
                     NoteStructure({
                        container: 'noteStructure',
                        data: response.data.data.Notes
