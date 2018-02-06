@@ -82,7 +82,7 @@ export default {
   created() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organDetail/1912");
+    busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
     busUtil.bus.$emit("headTitle", "");
     this.tableFlag = 0;
   },
@@ -99,27 +99,10 @@ export default {
     window.scrollTo(0, 0);
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organDetail/1912");
-    busUtil.bus.$emit("headTitle", "");
-
-    var reLoadData = false;
-    if (reLoadData) {
-      this.loadFirstPageExperts();
-    }
-
+    busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
+    busUtil.bus.$emit("headTitle", "机构专家");
     if (this.isFetchExpertsError) {
       this.loadFirstPageExperts();
-    }
-
-    this.id = this.$route.params.id;
-    if (this.id) {
-      setTimeout(() => {
-        this.fetchExpertsDetail(1, 0, data => {
-          busUtil.bus.$emit("headTitle", "机构专家");
-          this.expertsInfo = data;
-          this.isExpertsLoading = false;
-        });
-      }, 600);
     }
   },
   deactivated() {

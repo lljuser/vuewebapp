@@ -30,8 +30,8 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <a class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important" style="display: block;"  v-bind:href="item.Link">{{item.Link}}</a>
-                                <!-- <span class="fl ep_ellipsis ep_width300 ep_Link appH5_link">{{item.Link}}</span> -->
+                                <!-- <a class="fl ep_ellipsis ep_width300 ep_Link ep_color_orange_important" style="display: block;"  v-bind:href="item.Link">{{item.Link}}</a> -->
+                                <span class="fl ep_ellipsis ep_width300">{{item.Link}}</span>
                             </li>
                         </ul>
                         <span class="ep_sendMailBtn appH5_font_normal" v-on:click="sendAttachment(item.AttachmentFileCode)" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>
@@ -79,7 +79,7 @@ export default {
   created() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
-    busUtil.bus.$emit('path', '/organDetail/1912');
+    busUtil.bus.$emit('path', '/organDetail/'+this.$route.params.id);
     busUtil.bus.$emit('headTitle', '');
     this.tableFlag=0;
   }, 
@@ -96,27 +96,10 @@ export default {
     window.scrollTo(0,0);
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
-    busUtil.bus.$emit('path', '/organDetail/1912');
-    busUtil.bus.$emit('headTitle', '');
-    this.id = this.$route.params.id;
-    
-    var reLoadData = false;
-    if (reLoadData) {
-      this.loadFirstPageArticles();
-    }
-
+    busUtil.bus.$emit('path', '/organDetail/'+this.$route.params.id);
+    busUtil.bus.$emit('headTitle', '机构文章');
     if (this.isFetchArticlesError) {
       this.loadFirstPageArticles();
-    }
-
-    if (this.id) {
-        setTimeout(()=>{
-            this.fetchArticleDetail(this.id,data=>{
-                busUtil.bus.$emit('headTitle', '机构文章'); 
-                this.articleInfo =data;
-                this.isArticleLoading=false;
-            });
-        },600);
     }
   },
   deactivated() {
