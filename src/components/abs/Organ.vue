@@ -47,8 +47,8 @@
     <mt-loadmore :top-method="loadTop"  ref="loadmore">
       <table id="productTableId" class="appH5_table">
         <tr>
-          <th style="width:80%">机构名称</th>
-          <th class="text-right" style="width:20%">参与单数</th>
+          <th style="width:75%">机构名称</th>
+          <th class="text-right" style="width:25%">参与单数</th>
         </tr>
         <tbody  v-infinite-scroll="loadMore"
           infinite-scroll-disabled="loading"
