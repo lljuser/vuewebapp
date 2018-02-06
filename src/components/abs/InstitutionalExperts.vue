@@ -1,11 +1,13 @@
+
 <template>
 <div class="appH5_body">
   <div class="product-spinner" v-if="isExpertsLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
   <div v-else>
-    <div class="appH5_content">
+    <div class="appH5_content" >
       <div class="appH5_panel">
+      <mt-loadmore :top-method="loadTop"  ref="loadmore">
         <div class="relevant-item">
           <div class="padStyle" v-for="item in expertsInfo">
               <div style="position: relative;">
@@ -33,10 +35,12 @@
               <div class="clearfix"></div>
             </div>
         </div>
+      </mt-loadmore>
+
       </div>
     </div>
+
   </div>
-  
 </div>
 </template>
 
@@ -99,7 +103,7 @@ export default {
     this.id = this.$route.params.id;
     if (this.id) {
         setTimeout(()=>{
-            this.fetchExpertsDetail(this.id,data=>{
+            this.fetchExpertsDetail(this.page,1,data=>{
                 busUtil.bus.$emit('headTitle', '机构专家'); 
                 this.expertsInfo =data;
                 this.isExpertsLoading=false;
@@ -131,7 +135,7 @@ export default {
       }, 600);
     },
     fetchExpertsDetail(page,direction,callback) {
-        var url=webApi.Organ.expertList;
+        var url=webApi.Organ.expertList+'/'+ this.$route.params.id;
         url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
         axios.post(url).then((response) => {
             if (response.data.status == "ok") {
@@ -155,8 +159,7 @@ export default {
   loadTop(){
     this.isLoadTop=true;
     this.timer = setTimeout(() => {
-      this.loadFirstPageTrades(true);
-      this.loadSelectOptions();
+      this.loadFirstPageExperts(true);
     }, 600);   
   },
   loadMore(){
