@@ -39,7 +39,7 @@
             </table>
         </div>
         <!-- 证券结构 -->
-        <div class="appH5_panel securityStructure appH5martop">
+        <div class="appH5_panel securityStructure appH5martop" v-show="NoteStructureFlag">
             <p class="panel-title appH5_color_details appH5_font_large">
                 <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">证券结构</span>
@@ -341,6 +341,7 @@ export default {
             chartWidthPx:280,
             isFetchDetailError: false,
             CashflowShowFlag:true,
+            NoteStructureFlag:true,
         };
     },
     created() {
@@ -351,33 +352,9 @@ export default {
         this.tableFlag=0;
     },
     mounted() {
-      //  this.isSecurityLoading=true;
     },
     updated(){
-        // if(this.noteConsTable.indexOf('table')!=-1&&this.tableFlag==0){
-        //     var paidList=document.getElementsByClassName("divHasPaid");
-        //     for(var i=0;i<paidList.length;i++){
-        //         paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
-        //     }
-        //     var bgList=document.getElementsByClassName("structure_bg");
-        //     for(var i=0;i<bgList.length;i++){
-        //         bgList[i].style.backgroundColor="#B7AFA5";
-        //         var aList=bgList[i].getElementsByTagName('a');
-        //         for(var j=0;j<aList.length;j++){
-        //             aList[j].href="javascript:;";
-        //             aList[j].title="";
-        //         }
-        //     }
-        //     var nameList=document.getElementsByClassName("str_n");
-        //     for(var k=0;k<nameList.length;k++){
-        //         nameList[k].style.color="black";
-        //     }
-        //     var pctList=document.getElementsByClassName("str_npct");
-        //     for(var x=0;x<pctList.length;x++){
-        //         pctList[x].style.color="#06c";
-        //     }
-        //     this.tableFlag=1;
-        // }
+
     },
     activated() {
         //clear all data cache
@@ -394,12 +371,7 @@ export default {
                     this.fetchSecurityDetail(this.id,data=>{
                     busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
-                    console.log(this.securityDetail);
                     this.isSecurityLoading=false;
-                    // if(data.DealId!=null&&data.DealId>0){
-                    //     this.fetchNoteConsTable(data.DealId,280,200);
-                    //     this.tableFlag=0;
-                    // }
                 });
             },600);
             
@@ -410,7 +382,6 @@ export default {
   
     methods: {
         fetchSecurityDetail(id,callback) {
-            console.log(webApi.Security.detail.concat(['',id].join('/')));
             axios(webApi.Security.detail.concat(['',id].join('/')))
             .then((response) => {
                 if (response.data.status == "ok") {
@@ -450,25 +421,16 @@ export default {
         fetchDealStructure(dealId, noteId) {
             axios(webApi.Security.structure.concat(['',dealId,noteId].join('/'))).then(response => {
                 if (response.data.status == 'ok') {
-                    console.log(response);
+                   this.NoteStructureFlag=true;
                     NoteStructure({
                        container: 'noteStructure',
                        data: response.data.data.Notes
                     });
+                }else{
+                    this.NoteStructureFlag=false;
                 }
             })
         }
-        // fetchNoteConsTable(dealId,width,height){
-        //     axios(webApi.Product.structure+"/"+dealId+"/"+width+"/"+height)
-        //     .then((response)=>{
-        //     // console.log(response);
-        //         if(response.data.status=="ok"){
-        //             this.noteConsTable=response.data.data;
-        //         }
-        //     });
-        // },
-        
-       
     },
 };
 </script>
