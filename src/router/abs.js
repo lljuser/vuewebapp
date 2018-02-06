@@ -14,6 +14,7 @@ import SecurityDetail from '@/components/abs/SecurityDetail';
 import OrganDetail from '@/components/abs/OrganDetail';
 import InstitutionalExperts from '@/components/abs/InstitutionalExperts';
 import InstitutionalArticle from '@/components/abs/InstitutionalArticle';
+import OrganDeal from '@/components/abs/OrganDeal';
 
 Vue.use(Router);
 
@@ -109,12 +110,17 @@ export default new Router({
       component: OrganDetail,
     },
     {
-      path: '/institutionalExperts/:id',
+      path: '/organDeal/:id',
+      name: 'organDeal',
+      component: OrganDeal,
+    },
+    {
+      path: '/institutionalExperts',
       name: 'institutionalExperts',
       component: InstitutionalExperts,
     },
     {
-      path: '/institutionalArticle/:id',
+      path: '/institutionalArticle',
       name: 'institutionalArticle',
       component: InstitutionalArticle,
     },

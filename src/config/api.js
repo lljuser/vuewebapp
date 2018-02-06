@@ -1,11 +1,11 @@
- 
+
 const apiAddress = process.env.API_ADDRESS;
 export default apiAddress;
 
 export const Market = {
   list: `${apiAddress}/momarket/productsummary`,
   chart: `${apiAddress}/momarket/getissuestatchartdata`,
-}; 
+};
 
 export const Product = {
   // {productTypeId?}/{dealTypeId?}/{currentStatusId?}/{direction?}/{lastId?}/{pageSize?}
@@ -16,15 +16,15 @@ export const Product = {
   chart: `${apiAddress}/modeal/NoteCashFlowSeries`,
   // 
   structure: `${apiAddress}/modeal/getnotestructure`,
-}; 
- 
+};
+
 export const Trade = {
   // /{ratingId?}/{couponId?}/{walId?}/{lastId?}/{pageSize?}/{direction?}
   list: `${apiAddress}/motrade/gettradelist`,
   // /{tradeId}/{noteId}/{tradeType}
   detail: `${apiAddress}//motrade/gettradedata`,
-  typeList: `${apiAddress}/motrade/getsecuritytypelist`, 
-  walbuckList: `${apiAddress}/moTrade/getwalbucketlist`, 
+  typeList: `${apiAddress}/motrade/getsecuritytypelist`,
+  walbuckList: `${apiAddress}/moTrade/getwalbucketlist`,
   ratingList: `${apiAddress}/motrade/getratinglist`,
   couponList: `${apiAddress}/motrade/getcouponlist`,
 };
@@ -35,6 +35,12 @@ export const Security = {
   // /{noteId?}
   detail: `${apiAddress}/MoNote/GetNoteFactory`,
   structure: `${apiAddress}/MoNote/GetDealStructure`,
+};
+
+export const Organ = {
+  // /{typeId?}/{roleId?}/{direction?}/{lastId?}/{pageSize?}
+  list: `${apiAddress}/MoOrganization/GetOrganizationList`,
+  dealList: `${apiAddress}/MoOrganization/GetDealList`,
 };
 
 export const Expert = {

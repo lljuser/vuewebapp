@@ -125,6 +125,7 @@
                 
             </table> 
            <div id="appH5lookAll" v-on:click="cashflowShow()" class="appH5lookAll appH5bgColor appH5_link">查看所有现金流</div>  
+           <div id="appH5CloseAll" v-on:click="cashflowHide()"  style="display: none;" class="appH5CloseAll appH5bgColor appH5_link">收起所有现金流</div>  
         </div>
         </div>
     </div>
@@ -156,12 +157,15 @@
         padding-left: .25rem;
     }
     .panel-title .titLine {
-        width:.1067rem;
-        height: .373rem;
-        background-color: #967845;
+        width: .1067rem;
+        height: 17px;
+        background-color: #F88B2B;
         display: inline-block;
         margin-right: 5px;
-        margin-top: 0.14rem;
+        margin-top: 0.09rem;
+    }
+    .structureTable{
+        margin-top: .15rem;
     }
     .proList {
         margin-left: .5rem;
@@ -200,7 +204,7 @@
    .spacialTable tr td:last-child{
        padding-right: .32rem;
    }
-    .appH5lookAll{
+    .appH5lookAll,.appH5CloseAll{
         cursor: pointer;
         text-align: center;
         margin-top: .32rem;
@@ -424,6 +428,16 @@ export default {
             this.CashflowShowFlag=false;
             var buttonShow=document.getElementById("appH5lookAll");
             buttonShow.setAttribute("style","display:none");
+            var buttonHide=document.getElementById("appH5CloseAll");
+            buttonHide.setAttribute("style","display:block");
+
+        },
+        cashflowHide(){
+            this.CashflowShowFlag=true;
+            var buttonHide=document.getElementById("appH5CloseAll");
+            buttonHide.setAttribute("style","display:none");
+            var buttonShow=document.getElementById("appH5lookAll");
+            buttonShow.setAttribute("style","display:block");
         },
         fetchDealStructure(dealId, noteId) {
             axios(webApi.Security.structure.concat(['',dealId,noteId].join('/'))).then(response => {

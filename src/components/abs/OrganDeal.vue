@@ -6,28 +6,39 @@
   </div>
   <div v-else>
   <div class="appH5_panel">
+    <div class="appH5_title">机构项目</div>
+    <div class="div_desc">
+      <div><span class="appH5_white_space">总单</span><span>{{Count}}</span></div>
+      <div><span class="appH5_white_space">总额</span><span>{{Balance}}</span></div>
+      <div><span class="appH5_white_space">承销额</span><span>{{UnderwritingBalance}}</span></div>
+    </div>
     <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0" >
       <tr>
         <td class="text-left">
-          <select v-model="TypeVal" v-on:change="selectChange()" >
-             <option v-for="option in Type" :value="option.Value" :key="option.Value" selected="option.Selected">
-              {{ option.Text }}
-              </option>
-          </select>
-        </td>
-        <td style="text-align:center">
-          <select v-model="RoleVal" v-on:change="selectChange()">
+          <select v-model="RoleVal" v-on:change="selectChange()" >
              <option v-for="option in Role" :value="option.Value" :key="option.Value" selected="option.Selected">
               {{ option.Text }}
               </option>
           </select>
         </td>
+        <td style="text-align:center">
+          <select v-model="ExchangeVal" v-on:change="selectChange()">
+             <option v-for="option in Exchange" :value="option.Value" :key="option.Value" selected="option.Selected">
+              {{ option.Text }}
+              </option>
+          </select>
+        </td>
+        <td class="text-right">
+          <select v-model="CurrentStatusVal" v-on:change="selectChange()">
+           <option v-for="option in CurrentStatus" :value="option.Value" :key="option.Value" selected="option.Selected">
+              {{ option.Text }}
+              </option>
+            </select>
+        </td>
       </tr>
     </table>
- 
-
-
-      <!-- <table id="productTableId" class="appH5_table">
+    <mt-loadmore :top-method="loadTop"  ref="loadmore">
+      <table id="productTableId" class="appH5_table">
         <tr>
           <th>产品名称</th>
           <th class="text-right">总额(亿)</th>
@@ -37,24 +48,7 @@
           infinite-scroll-disabled="loading"
           infinite-scroll-immediate-check="true"
           infinite-scroll-distance="55">
-          <ProductItem 
-            v-for="(item, index) in list" 
-            :item="item"
-            :id="index"
-            :key="index"/>
-        </tbody>
-    </table> -->
-    <mt-loadmore :top-method="loadTop"  ref="loadmore">
-      <table id="productTableId" class="appH5_table">
-        <tr>
-          <th style="width:75%">机构名称</th>
-          <th class="text-right" style="width:25%">参与单数</th>
-        </tr>
-        <tbody  v-infinite-scroll="loadMore"
-          infinite-scroll-disabled="loading"
-          infinite-scroll-immediate-check="true"
-          infinite-scroll-distance="55">
-          <OrganItem 
+          <OrganDealItem 
             v-for="(item, index) in list" 
             :item="item"
             :id="index"
@@ -87,28 +81,33 @@
 <script> 
 import BusUtil from './BusUtil';
 import * as webApi from '@/config/api';
-import OrganItem from './OrganItem';
+import OrganDealItem from './OrganDealItem';
 import axios from 'axios';
 import { Toast } from 'mint-ui';
 import 'mint-ui/lib/style.css'
+const busUtil = BusUtil.getInstance();
+
 export default {
-  name: "organ",
+  name: "orderDeal",
   data() {
     return {
       list: [],
       page: 1,
       pageSize:15,
       loading: false,
-      TypeVal: "0",
       RoleVal: "0",
+      ExchangeVal: "0",
       CurrentStatusVal: "0",
-      Type:[],
       Role:[],
+      Exchange:[],
       CurrentStatus:[],
       isProductLoading: false,
       isFetchProductsError: false,
       noMore:false,
-      isLoadTop:false
+      isLoadTop:false,
+      Count:0,
+      Balance:0,
+      UnderwritingBalance:0
     };
   },
   mounted() {
@@ -120,21 +119,18 @@ export default {
   activated() {
     document.body.scrollTop=0;
     this.loading = false;
-    const busUtil = BusUtil.getInstance();
-    busUtil.bus.$emit('showHeader', false);
-    var productTypeParam = this.$route.params.productType;
-    var dealTypeParam=this.$route.params.dealType;
+    
+    busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/organ');
+    busUtil.bus.$emit('headTitle', '');
+
+    var idParam = this.$route.params.id;
     var reLoadData=false;    
-    if(productTypeParam!=null )
+    if(idParam!=null )
     {
-      this.TypeVal= productTypeParam;
       reLoadData=true;
     }
-    if(dealTypeParam!=null && dealTypeParam!="0" )
-    {
-      this.RoleVal= dealTypeParam;
-      reLoadData=true;
-    }
+    
     if(reLoadData){
       this.loadFirstPageProducts();
     }
@@ -189,21 +185,30 @@ export default {
 
 
     fetchProducts(page,direction,callback) {
-      var url=webApi.Organ.list;
-      url=url+"/"+this.TypeVal+"/"+this.RoleVal;
+      var url=webApi.Organ.dealList+"/"+this.$route.params.id;
+      url=url+"/"+this.RoleVal+"/"+this.ExchangeVal+"/"+this.CurrentStatusVal;
       url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
       axios.post(url).then((response) => { 
         const data = response.data.data;
         if (data) {
-            var productTypeSel=data.Type.filter(x=>x.Selected==true);
-            this.TypeVal=productTypeSel.length>0?productTypeSel[0].Value:"";
-            var dealTypeSel=data.Role.filter(x=>x.Selected==true)
-            this.RoleVal=dealTypeSel.length>0?dealTypeSel[0].Value:"";
-            this.Type=data.Type;
+           busUtil.bus.$emit('headTitle', data.Organization);
+           this.Count=data.Count;
+           this.Balance=data.Balance;
+           this.UnderwritingBalance=data.UnderwritingBalance;
+
+            var productTypeSel=data.Role.filter(x=>x.Selected==true);
+            this.RoleVal=productTypeSel.length>0?productTypeSel[0].Value:"";
+            var dealTypeSel=data.Exchange.filter(x=>x.Selected==true)
+            this.ExchangeVal=dealTypeSel.length>0?dealTypeSel[0].Value:"";
+            var currentStatusSel=data.CurrentStatus.filter(x=>x.Selected==true);
+            this.CurrentStatusVal=currentStatusSel.length>0?currentStatusSel[0].Value:"";
             this.Role=data.Role;
+            this.Exchange=data.Exchange;
             this.CurrentStatus=data.CurrentStatus;
-            callback(data.Organization);
-            if(data.Organization.length==0){ 
+
+
+            callback(data.Deal);
+            if(data.Deal.length==0){ 
               this.loading=true;
               this.noMore=true;
             }
@@ -238,7 +243,7 @@ export default {
      
   },
   components: {
-    OrganItem
+    OrganDealItem
   }
 };
 </script>
@@ -277,12 +282,25 @@ li {
   table-layout: fixed;
 }
 
-/* #productTableId th:nth-of-type(2){
+#productTableId th:nth-of-type(2){
 width: 55px;
 }
 #productTableId th:nth-of-type(3){
 width: 35%;
-} */
+}
 
+.div_desc div{
+float: left;
+font-size: 15px;
+margin:0 10px 5px 0;
+}
+
+.div_desc div span:nth-of-type(2n+1){
+  color: #33ffcc;
+  margin-right: 4px;
+}
+
+/* .div_desc div span:nth-of-type(2n+1){
+} */
 
 </style>
