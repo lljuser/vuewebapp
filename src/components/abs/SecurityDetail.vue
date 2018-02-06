@@ -39,7 +39,7 @@
             </table>
         </div>
         <!-- 证券结构 -->
-        <div class="appH5_panel securityStructure appH5martop">
+        <div class="appH5_panel securityStructure appH5martop" v-show="NoteStructureFlag">
             <p class="panel-title appH5_color_details appH5_font_large">
                 <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">证券结构</span>
@@ -100,18 +100,18 @@
                     <th class="text-right appH5_font_normal">利息(元)</th> 
                     <th class="text-right appH5_font_normal">本息(元)</th>
                 </tr>
-                <tbody v-if="CashflowShowFlag">
+                <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag">
                     <tr v-bind:class="(securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3?'appH5_bg_brightred':'')">
                         <td class="appH5_font_normal">{{securityDetail.Cashflow[0].PaymentData.toString() | moment("YYYY-MM-DD")}}</td> 
-						<td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Principal}}</td>
-						<td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Interest+"%"}}</td>
-						<td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Total}}</td>
+                        <td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Principal}}</td>
+                        <td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Interest+"%"}}</td>
+                        <td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Total}}</td>
                     </tr>
                     <tr v-if="securityDetail.Cashflow[0].StatusId==3" class="appH5_bg_brightred appH5_detail_tr">
                         <td colspan="4" class="appH5_font_smaller appH5_color_Lightpink">数据更新至最新偿付报告</td>
                     </tr>
                 </tbody>
-                <tbody v-else  v-for="item in securityDetail.Cashflow">
+                <tbody v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag"  v-for="item in securityDetail.Cashflow">
                     <tr  v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')">
                         <td class="appH5_font_normal">{{item.PaymentData.toString() | moment("YYYY-MM-DD")}}</td>
                         <td class="text-right appH5_color_red appH5_font_normal">{{item.Principal}}</td>
@@ -123,8 +123,10 @@
                     </tr>
                 </tbody>
                 
+                
             </table> 
-           <div id="appH5lookAll" v-on:click="cashflowShow()" class="appH5lookAll appH5bgColor appH5_link">查看所有现金流</div>  
+            <div id="appH5lookAll" v-if="securityDetail.Cashflow.length==0" class="appH5lookAll appH5bgColor">暂无现金流</div>
+           <div id="appH5lookAll" v-else v-on:click="cashflowShow()" class="appH5lookAll appH5bgColor appH5_link">查看所有现金流</div>  
            <div id="appH5CloseAll" v-on:click="cashflowHide()"  style="display: none;" class="appH5CloseAll appH5bgColor appH5_link">收起所有现金流</div>  
         </div>
         </div>
@@ -230,8 +232,8 @@
         background-color: #615C55;
     }
     .Reimbursement{
-       background-image: url('../../public/images/Reimbursement.png');
-       background-repeat: no-repeat;
+       background-image: url('../../public/images/table_bg.png');
+       background-repeat: repeat;
        margin-top: 0.03rem;
     }
     .CurrentSecurities{
@@ -303,6 +305,12 @@
         position: relative;
         display: block;
     }
+
+    .St_Text_Min {
+        display: inline-block;
+        line-height: 13px;
+        vertical-align: middle;
+    }
 </style>
 
 <script>
@@ -333,6 +341,7 @@ export default {
             chartWidthPx:280,
             isFetchDetailError: false,
             CashflowShowFlag:true,
+            NoteStructureFlag:true,
         };
     },
     created() {
@@ -343,33 +352,9 @@ export default {
         this.tableFlag=0;
     },
     mounted() {
-      //  this.isSecurityLoading=true;
     },
     updated(){
-        // if(this.noteConsTable.indexOf('table')!=-1&&this.tableFlag==0){
-        //     var paidList=document.getElementsByClassName("divHasPaid");
-        //     for(var i=0;i<paidList.length;i++){
-        //         paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
-        //     }
-        //     var bgList=document.getElementsByClassName("structure_bg");
-        //     for(var i=0;i<bgList.length;i++){
-        //         bgList[i].style.backgroundColor="#B7AFA5";
-        //         var aList=bgList[i].getElementsByTagName('a');
-        //         for(var j=0;j<aList.length;j++){
-        //             aList[j].href="javascript:;";
-        //             aList[j].title="";
-        //         }
-        //     }
-        //     var nameList=document.getElementsByClassName("str_n");
-        //     for(var k=0;k<nameList.length;k++){
-        //         nameList[k].style.color="black";
-        //     }
-        //     var pctList=document.getElementsByClassName("str_npct");
-        //     for(var x=0;x<pctList.length;x++){
-        //         pctList[x].style.color="#06c";
-        //     }
-        //     this.tableFlag=1;
-        // }
+
     },
     activated() {
         //clear all data cache
@@ -386,12 +371,7 @@ export default {
                     this.fetchSecurityDetail(this.id,data=>{
                     busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
-                    console.log(this.securityDetail);
                     this.isSecurityLoading=false;
-                    // if(data.DealId!=null&&data.DealId>0){
-                    //     this.fetchNoteConsTable(data.DealId,280,200);
-                    //     this.tableFlag=0;
-                    // }
                 });
             },600);
             
@@ -402,7 +382,6 @@ export default {
   
     methods: {
         fetchSecurityDetail(id,callback) {
-            console.log(webApi.Security.detail.concat(['',id].join('/')));
             axios(webApi.Security.detail.concat(['',id].join('/')))
             .then((response) => {
                 if (response.data.status == "ok") {
@@ -442,24 +421,16 @@ export default {
         fetchDealStructure(dealId, noteId) {
             axios(webApi.Security.structure.concat(['',dealId,noteId].join('/'))).then(response => {
                 if (response.data.status == 'ok') {
+                   this.NoteStructureFlag=true;
                     NoteStructure({
                        container: 'noteStructure',
                        data: response.data.data.Notes
                     });
+                }else{
+                    this.NoteStructureFlag=false;
                 }
             })
         }
-        // fetchNoteConsTable(dealId,width,height){
-        //     axios(webApi.Product.structure+"/"+dealId+"/"+width+"/"+height)
-        //     .then((response)=>{
-        //     // console.log(response);
-        //         if(response.data.status=="ok"){
-        //             this.noteConsTable=response.data.data;
-        //         }
-        //     });
-        // },
-        
-       
     },
 };
 </script>
