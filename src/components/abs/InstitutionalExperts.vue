@@ -1,6 +1,6 @@
 <template>
 <div class="appH5_body">
-  <div class="product-spinner" v-if="isProductLoading">
+  <div class="product-spinner" v-if="isExpertsLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
   <div v-else>
@@ -73,27 +73,45 @@
 </template>
 
 <script> 
-import * as webApi from '@/config/api';
 import BusUtil from './BusUtil';
+import Vue from 'vue';
 import util from "@/public/modules/expert/utils";
+import * as webApi from '@/config/api';
 import axios from 'axios';
+import getParams from '../../public/js/getParams';
+import { Toast } from 'mint-ui';
 export default {
   name: 'institutionalExperts',
-  props: ['id'],
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      detailInfo:[],
-      newContacts:[],
-      isProductLoading:false,
+      expertsInfo:[],
+      isExpertsLoading:false,
     };
   },
   created() {
+        const busUtil = BusUtil.getInstance();
+        busUtil.bus.$emit('showHeader', true);
+        busUtil.bus.$emit('path', '/organDetail/1');
+        busUtil.bus.$emit('headTitle', '');
+        this.tableFlag=0;
   }, 
   mounted() {
   },
+  activated(){
+    //this.isExpertsLoading=true;
+    this.expertsInfo = {};
+    window.scrollTo(0,0);
+    const busUtil = BusUtil.getInstance();
+    busUtil.bus.$emit('showHeader', true);
+    busUtil.bus.$emit('path', '/organDetail/1');
+    busUtil.bus.$emit('headTitle', '');
+  },
   methods: {
- 
+    doCatch(){
+        Toast('服务器繁忙，请重试！');
+        //this.isExpertsLoading = false;
+        this.isFetchDetailError=true;
+    },
   },
 };
 </script>
