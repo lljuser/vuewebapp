@@ -2,7 +2,7 @@
  * @Author: CNABS 
  * @Date: 2018-02-02 11:18:42 
  * @Last Modified by: bzhou
- * @Last Modified time: 2018-02-05 18:30:23
+ * @Last Modified time: 2018-02-06 11:55:22
  * @Function: Get Note Structure Html
  */
 /* eslint-disable */
@@ -188,7 +188,7 @@ function NoteStructure(options) {
                 (hasRightExtra && idx == layer.length -1)) {
                     span.innerHTML = '...';
                 } else {
-                    span.innerHTML = note.Name;
+                    span.innerHTML = formatPercent(note.Name, note.Notional, scope.totalNotional);
                 }
                 span.className = 'St_Inner_Text';
                 span.style.lineHeight = divHeiht + 'px';
@@ -197,6 +197,11 @@ function NoteStructure(options) {
                 noteDiv.appendChild(payDiv);
                 outDiv.appendChild(noteDiv);
             }, this);
+        }
+
+        function formatPercent(text, cur, total) {
+            let ratio = ((cur / total) * 100).toFixed(0) + '%';
+            return [text, ' ', ratio].join('');
         }
         buildStructureHtml();
     }

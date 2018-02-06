@@ -226,8 +226,8 @@
         background-color: #615C55;
     }
     .Reimbursement{
-       background-image: url('../../public/images/Reimbursement.png');
-       background-repeat: no-repeat;
+       background-image: url('../../public/images/table_bg.png');
+       background-repeat: repeat;
        margin-top: 0.03rem;
     }
     .CurrentSecurities{
