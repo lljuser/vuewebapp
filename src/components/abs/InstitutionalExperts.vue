@@ -7,61 +7,29 @@
     <div class="appH5_content">
       <div class="appH5_panel">
         <div class="relevant-item">
-          <div class="padStyle">
+          <div class="padStyle" v-for="item in expertsInfo">
               <div style="position: relative;">
-                  <img src="../../public/images/userAvatar.png" class="related-image appH5_fl"/>
+                
+                  <img :src="'http://10.1.1.35:8000/filestore/common/downloadimg/cnabs/'+item.Avatar+'/s'" class="related-image appH5_fl"/>
+                  <!-- <img :src="'https://file.cn-abs.com/filestore/common/downloadimg/cnabs/'+item.Avatar+'/s'" class="related-image appH5_fl"/> -->
               </div>
               <div class="related-info appH5_fl">
                   <div class="related-info-cont">
-                      <div class="relevant-item-name"><a href="javascript;" class="appH5_font16 appH5_link">晓蕾</a></div>
+                      <div class="relevant-item-name">
+                        <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}`" class="appH5_font16 appH5_link">{{item.UserName}}</a>
+                        <span v-if="item.Verified===1" class="authenticated">已认证</span>
+                      </div>
                       <div class="relevant-item-conts appH5_font12">
                           <div class="relevant-item-info">
-                              <span class="content-truncate">部门abs absabsabsabsabsabsabs-职位职位职位职位职位职位职位</span>
+                            <div class="content-truncate" v-if="item.Department!=''&&item.Department!=null&&item.Title!=''&&item.Title!=null">{{item.Department}}-{{item.Title}}</div>
+                            <div class="content-truncate" v-if="item.Department==''||item.Department==null">{{item.Title}}</div>
+                            <div class="content-truncate" v-if="item.Title==''||item.Title==null">{{item.Department}}</div>
                           </div>
                       </div>
                   </div>
               </div>
-              <a href="javascript;"  class="appH5_fr appH5_followBtn">+关注</a>
-              <div class="clearfix"></div>
-            </div>
-        </div>
-        
-        <div class="relevant-item">
-          <div class="padStyle">
-              <div style="position: relative;">
-                  <img src="../../public/images/userAvatar.png" class="related-image appH5_fl"/>
-              </div>
-              <div class="related-info appH5_fl">
-                  <div class="related-info-cont">
-                      <div class="relevant-item-name"><a href="javascript;" class="appH5_font16 appH5_link">晓蕾</a></div>
-                      <div class="relevant-item-conts appH5_font12">
-                          <div class="relevant-item-info">
-                              <span class="content-truncate">部门abs absabsabsabsabsabsabs-职位职位职位职位职位职位职位</span>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <a href="javascript;"  class="appH5_fr appH5_unfollowBtn">已关注</a>
-              <div class="clearfix"></div>
-            </div>
-        </div>
-        
-        <div class="relevant-item">
-          <div class="padStyle">
-              <div style="position: relative;">
-                  <img src="../../public/images/userAvatar.png" class="related-image appH5_fl"/>
-              </div>
-              <div class="related-info appH5_fl">
-                  <div class="related-info-cont">
-                      <div class="relevant-item-name"><a href="javascript;" class="appH5_font16 appH5_link">晓蕾</a></div>
-                      <div class="relevant-item-conts appH5_font12">
-                          <div class="relevant-item-info">
-                              <span class="content-truncate">部门abs absabsabsabsabsabsabs-职位职位职位职位职位职位职位</span>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <a href="javascript;" class="appH5_fr appH5_followBtn">+关注</a>
+              <a href="javascript;" v-if="!item.Followed" class="appH5_fr appH5_followBtn">+关注</a>
+              <a href="javascript;" v-if="item.Followed" class="appH5_fr appH5_unfollowBtn">已关注</a>
               <div class="clearfix"></div>
             </div>
         </div>
@@ -98,18 +66,44 @@ export default {
   mounted() {
   },
   activated(){
-    //this.isExpertsLoading=true;
+    this.isExpertsLoading=true;
     this.expertsInfo = {};
     window.scrollTo(0,0);
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/organDetail/1');
     busUtil.bus.$emit('headTitle', '');
+    this.id = this.$route.params.id;
+    if (this.id) {
+        setTimeout(()=>{
+            this.fetchExpertsDetail(this.id,data=>{
+                busUtil.bus.$emit('headTitle', '机构专家'); 
+                this.expertsInfo =data;
+                this.isExpertsLoading=false;
+            });
+        },600);
+    }
   },
   methods: {
+    fetchExpertsDetail(id,callback) {
+      console.log(webApi.Organ.expertList.concat(['',id].join('/')));
+            axios(webApi.Organ.expertList.concat(['',id].join('/')))
+            .then((response) => {
+                if (response.data.status == "ok") {
+                    const data = response.data.data;
+                    if(data){
+                        callback(data);
+                    } else{
+                        this.doCatch();
+                    }
+                }
+            }).catch((error) => {
+                this.doCatch();
+            });
+   },
     doCatch(){
         Toast('服务器繁忙，请重试！');
-        //this.isExpertsLoading = false;
+        this.isExpertsLoading = false;
         this.isFetchDetailError=true;
     },
   },
@@ -128,9 +122,10 @@ export default {
 }
 .padStyle{
   padding: 0 .32rem;
+  border-bottom: #3B3A39 solid 1px;
+  background-color: black;
 }
 .relevant-item {
-  border-bottom: #444444 solid 1px;
   height: 1.86667rem;
   width: 100%;
 }
@@ -175,5 +170,19 @@ export default {
   vertical-align: middle; 
   height: 1.8667rem;
   line-height: .55rem;
+}
+.authenticated {
+    vertical-align: middle;
+    margin-left: .15rem;
+    background-color: #FF7272;
+    display: inline-block;
+    font-size: 10px;
+    color: #fff !important;
+    padding: .05rem .05rem;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    letter-spacing: 1px;
+    line-height: 14px;
+    margin-top: -3px;
 }
 </style>

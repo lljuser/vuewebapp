@@ -115,12 +115,12 @@ export default new Router({
       component: OrganDeal,
     },
     {
-      path: '/institutionalExperts',
+      path: '/institutionalExperts/:id',
       name: 'institutionalExperts',
       component: InstitutionalExperts,
     },
     {
-      path: '/institutionalArticle',
+      path: '/institutionalArticle/:id',
       name: 'institutionalArticle',
       component: InstitutionalArticle,
     },

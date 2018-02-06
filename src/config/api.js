@@ -41,6 +41,8 @@ export const Organ = {
   // /{typeId?}/{roleId?}/{direction?}/{lastId?}/{pageSize?}
   list: `${apiAddress}/MoOrganization/GetOrganizationList`,
   dealList: `${apiAddress}/MoOrganization/GetDealList`,
+  expertList: `${apiAddress}/MoOrganization/GetOrganizationRelateProfessorList`,
+  articleList: `${apiAddress}/MoOrganization/GetOrganizationArticleList`,
 };
 
 export const Expert = {
