@@ -1,12 +1,8 @@
 <template>
   <tr>
     <td class="text-left" style="padding-left:0;padding-right:0">      
-      <!-- <div v-if="item.SecurityType=='优'" class="appH5_float_left securityLevelDiv appH5_font_smaller appH5_bg_senior">{{item.SecurityType}}</div>
-      <div v-if="item.SecurityType=='夹'" class="appH5_float_left securityLevelDiv appH5_font_smaller appH5_bg_mezzanine">{{item.SecurityType}}</div>
-      <div v-if="item.SecurityType=='次'" class="appH5_float_left securityLevelDiv appH5_font_smaller appH5_bg_subordin">{{item.SecurityType}}</div> -->
-      <div v-if="item.RepaymentOfPrincipal=='摊'" class="appH5_float_left securityLevelDiv appH5_font_smaller appH5_bg_amortization">{{item.RepaymentOfPrincipal}}</div>      
-      <div v-if="item.RepaymentOfPrincipal=='过'" class="appH5_float_left securityLevelDiv appH5_font_smaller appH5_bg_passthrough">{{item.RepaymentOfPrincipal}}</div>      
-
+      <div v-if="item.RepaymentOfPrincipal=='摊'" class="appH5_square_ch_char appH5_bg_amortization">{{item.RepaymentOfPrincipal}}</div>      
+      <div v-if="item.RepaymentOfPrincipal=='过'" class="appH5_square_ch_char appH5_bg_passthrough">{{item.RepaymentOfPrincipal}}</div>      
     </td>
     <td> 
       <router-link :to="`../../securityDetail/${ item.NoteId}`" class="appH5_color_link appH5_float_left" style="width:100%"> 

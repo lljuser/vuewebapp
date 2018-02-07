@@ -101,27 +101,22 @@
               <div class="appH5_title">
                   <span>累积参与项目</span>
               </div>
-              <table class="appH5_list_two">
-                <tr>
-                    <td>总数</td>
-                    <td>{{product.Count}}单</td>
-                </tr>
-                <tr>
-                    <td>总额</td>
-                    <td>{{product.Balance}}亿</td>
-                </tr>                                   
-              </table>
+              <div class="appH5_overhide">
+                <span class="appH5_font_larger appH5_color_red">{{product.Count}}</span>
+                <span class="appH5_font_smaller">单</span>
+                <span class="appH5_font_larger appH5_color_red appH5_margin_left30">{{product.Balance}}</span>
+                <span class="appH5_font_smaller">亿</span>
+              </div>
           </div> 
 
           <div class="appH5_panel appH5_panel_mb">
               <div class="appH5_title">
                   <span>机构简介</span>
               </div>
-              <div class="organ_introduction">
+              <div class="organ_introduction appH5_color_details">
                   <pre>{{organDetail.Introduction}}</pre>
-              </div>              
-          </div>
-
+             </div>
+           </div>
           <div class="appH5_panel appH5_panel_mb" v-if="!isArrayEmpty(expertList)">
             <header class="ep_part_title ep_part_item_border">
               <div class="appH5_title">
@@ -223,6 +218,10 @@
 </template>
 
 <style scoped>
+.organ_introduction{
+  line-height: 22px;
+  text-align: justify;
+}
 .backTablePic {
   float: left;
   margin: 4px 4px 4px 2px;
