@@ -340,10 +340,11 @@
 .organ_prize_img {
   width: 62px;
   height: 50px;
+  padding-left: 0.36rem;
+  margin-top: 0.3rem;
 }
 .organ_prize_size {
-  width: 30px;
-  height: 40px;
+  height: 35px;
 }
 .organ_introduction pre{
       margin: 0;
