@@ -11,8 +11,8 @@
       <div v-if="this.list.length>0">
       <div class="div_desc">
         <div><span class="appH5_font_larger appH5_color_red">{{Count}}</span><span class="appH5_font_smaller">单</span></div>
-        <div><span class="appH5_font_larger appH5_color_red">{{Balance}}</span><span class="appH5_font_smaller">亿</span></div>
-        <div><span class="appH5_font_larger appH5_color_red">{{UnderwritingBalance}}</span><span class="appH5_font_smaller">亿(承销)</span></div>
+        <div><span class="appH5_font_larger appH5_color_red appH5_margin_left10">{{Balance}}</span><span class="appH5_font_smaller">亿</span></div>
+        <div><span class="appH5_font_larger appH5_color_red appH5_margin_left10">{{UnderwritingBalance}}</span><span class="appH5_font_smaller">亿(承销)</span></div>
       </div>
       <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0" >
         <tr>
