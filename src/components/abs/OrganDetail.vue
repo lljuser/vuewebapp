@@ -14,7 +14,7 @@
           <div>{{organDetail.Website}}</div>
           <!-- 机构单页-资产方 -->
           <div v-if="organDetail.IsAsset">
-              <table class="appH5_list_two" v-if="productDetail.Basic!=null">
+              <table class="appH5_list_two">
                 <tr>
                     <td>总资产</td>
                     <td>{{organDetail.TotalAssets}}</td>
@@ -43,7 +43,7 @@
 
           <div class="organIconsDiv appH5_float_right appH5_panel appH5_panel_mb">
               <div class="appH5_float_left organIconDiv"> 
-                <router-link :to="`/institutionalExperts/1`"> 
+                <router-link :to="`/institutionalExperts/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
                     <div>
                       <font-awesome-icon :icon="['far', 'user']" class="appH5_icon" />
@@ -92,7 +92,7 @@
               <div class="appH5_title">
                   <span>累积参与项目</span>
               </div>
-              <table class="appH5_list_two" v-if="productDetail.Basic!=null">
+              <table class="appH5_list_two">
                 <tr>
                     <td>总数</td>
                     <td>{{product.Count}}单</td>
@@ -474,7 +474,6 @@ export default {
   data() {
     return {
       id:0,
-      productDetail: {},
       expertList:[],
       articleList:[],
       productList:[],
@@ -501,7 +500,12 @@ export default {
       chartWidthPx: 280,
       showChart: true,
       isFetchDetailError: false,
-      tableFlag: 0
+      tableFlag: 0,
+      routerLink:{
+        expert:0,
+        deal:0,
+        article:0
+      }
     };
   },
   created() {
@@ -544,7 +548,6 @@ export default {
   activated() {
     //clear all data cache
     this.isOrganLoading = true;
-    this.productDetail = {};
     this.organDetail={};
     this.publishDate = "";
     this.noteConsTable = "";
@@ -565,17 +568,11 @@ export default {
     this.id = this.$route.params.id;
     if (this.id) {
       setTimeout(() => {
-        this.fetchProductDetail(this.id, data => {
-          busUtil.bus.$emit("headTitle", data.Basic.DealName);
-          this.productDetail = data;
-          if (data.DealId != null && data.DealId > 0) {
-            this.fetchNoteConsTable(data.DealId, 280, 200);
-            this.tableFlag = 0;
-          }
-        });
+        
         this.fetchOrganDetail(this.id, data => {
+           busUtil.bus.$emit("headTitle", data.ShortName);
           //group奖章
-          if (data.Prizes) {
+          if (data.Prizes && data.Prizes.length>0) {
             var newPrize = [];
             var newPrizeObj = { IconPath: "", count: 0, description: [] };
             var prize = data.Prizes;
@@ -628,6 +625,10 @@ export default {
 
           this.isOrganLoading = false;
           this.organDetail = data;
+
+          
+
+
         });
       }, 600);
     }
@@ -715,23 +716,6 @@ export default {
         }
       });
     },
-    fetchProductDetail(id, callback) {
-      // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
-      axios(webApi.Product.detail.concat(["", id].join("/")))
-        .then(response => {
-          if (response.data.status == "ok") {
-            const data = response.data.data;
-            if (data) {
-              callback(data);
-            } else {
-              this.doCatch();
-            }
-          }
-        })
-        .catch(error => {
-          this.doCatch();
-        });
-    },
     fetchOrganDetail(id, callback) {
       var url = webApi.Organ.detail;
       url = url + "/" + id;
@@ -743,6 +727,7 @@ export default {
         }
       });
     },
+
     doCatch() {
       Toast("服务器繁忙，请重试！");
       this.isOrganLoading = false;
