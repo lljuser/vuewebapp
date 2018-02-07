@@ -90,7 +90,16 @@ body{
 	margin-bottom: 12px;
 }
 .appH5_inner_panel{
-	background-color: #444444;
+	background-color: #242424;
+	padding:.293333rem 0px .293333rem 0px; 
+}
+.appH5_important_div{
+	display: flex;
+}
+.appH5_important_item{
+	display: inline-block;
+	flex:1;
+	text-align: center;
 }
 .appH5_square_dot{
 	float: left;
@@ -427,6 +436,17 @@ select{
 .appH5_list_four tr:last-child td{
 	padding-bottom:0rem; 
 }
+.appH5_list_five{
+    border-collapse: collapse;
+    width:100%;
+}
+.appH5_list_five td{
+	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
+	padding-bottom:0.2rem; 
+}
+.appH5_list_five td:nth-of-type(2n){
+	padding-right: 0.2rem;
+}
 .appH5_white_space{
 	white-space: nowrap;
 }
@@ -540,4 +560,7 @@ select{
 }
 .appH5_margin_left20{
 	margin-left: .533333rem;
+}
+.appH5_margin_bottom10{
+	margin-bottom: .133333rem;
 }
