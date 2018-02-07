@@ -1,11 +1,14 @@
 <template>
-  <div class="appH5_body">
+  <div class="appH5_body" style="margin-top:-.32rem;">
     <div class="product-spinner" v-if="isSecurityLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
-    <div class="appH5_content" v-else>
+    <div class="appH5_content" v-else  style="margin-top:0;">
         <div v-if="securityDetail.Basic!=null">
-            <div class="appH5_panel" style="padding-top:0;">
+            <div class="appH5_panel text-center appH5_color_white">
+                {{securityDetail.Basic.Description}}
+            </div>
+            <div class="appH5_panel" style="padding-top:0;margin-top:.32rem;">
                 <table class="appH5_list_five">
                     <tr>
                         <td colspan="2" rowspan="2" class="appH5_color_red">
@@ -15,12 +18,12 @@
                         </td> 
                         <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.DealType}}</td> 
                         <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td> 
-                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.SimpleExchange}}</td>
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space text-right" style="padding-right:0;">{{securityDetail.Basic.SimpleExchange}}</td>
                     </tr>
                     <tr>
                         <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentRatingCombine}}</td> 
                         <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentWal!=null&&securityDetail.Basic.CurrentWal!=""?securityDetail.Basic.CurrentWal+"Y":"-"}}</td> 
-                        <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
+                        <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top text-right" style="padding-right:0;">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
                     </tr>
                 </table>
                
