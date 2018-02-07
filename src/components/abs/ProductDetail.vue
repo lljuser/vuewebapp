@@ -337,8 +337,11 @@ export default {
                     }
                 }
                         var option = {
+                            chart: {
+                                 height: 350,  
+                            },
                             title: {
-                                text: ''
+                                text: '',
                             },
                             xAxis: {
                                 type: "datetime",
