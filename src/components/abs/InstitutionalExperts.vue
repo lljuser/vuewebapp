@@ -33,8 +33,9 @@
                       </div>
                   </div>
               </div>
-              <a href="javascript;" v-if="!item.Followed" class="appH5_fr appH5_followBtn">+关注</a>
-              <a href="javascript;" v-if="item.Followed" class="appH5_fr appH5_unfollowBtn">已关注</a>
+              <!-- <span v-if="!item.Followed" class="appH5_fr appH5_followBtn">+关注</span>
+              <span v-if="item.Followed" class="appH5_fr appH5_unfollowBtn">已关注</span> -->
+              <span class="appH5_fr appH5_followBtn" v-bind:class="[!item.Followed?'appH5_followBtn':'appH5_unfollowBtn']" v-on:click="followHandle()">{{!item.Followed ? "+关注":'已关注'}}</span>
               <div class="clearfix"></div>
             </div>
         </div>
@@ -76,7 +77,7 @@ export default {
       page: 1,
       pageSize: 10,
       noMore: false,
-      isLoadTop: false
+      isLoadTop: false,
     };
   },
   created() {
@@ -111,6 +112,31 @@ export default {
     this.loading = true;
   },
   methods: {
+    followHandle() {
+      var isFollow = !this.expertsInfo.Followed;
+      console.log(isFollow);
+      if (isFollow) {
+        // 已关注
+         axios(webApi.Organ.followList.concat(['',this.UserId].join('/'))).then(response => {
+                if (response.data.status == 'ok') {
+                  this.expertsInfo.Followed=true;
+                }
+                else {
+                 this.doCatch();
+                }
+          })
+      } else {
+        // 取消关注
+         axios(webApi.Organ.followList.concat(['',this.UserId].join('/'))).then(response => {
+                if (response.data.status == 'ok') {
+                  this.expertsInfo.Followed=false;
+                }
+                else {
+                 this.doCatch();
+                }
+          })
+      }
+    },
     loadFirstPageExperts(showSpinnerLoad) {
       this.loading = false;
       this.isExpertsLoading = true;
