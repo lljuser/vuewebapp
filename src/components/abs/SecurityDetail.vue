@@ -259,6 +259,9 @@
         line-height: 1rem;
         background-color: #222222;
     }
+    .structureTable {
+        width:100%;
+    }
     .structureTable i{
         display: inline-block;
         width:.56rem;
