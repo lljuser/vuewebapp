@@ -6,37 +6,38 @@
     <div class="appH5_content" v-else>
         <div v-if="securityDetail.Basic!=null">
             <div class="appH5_panel" style="padding-top:0;">
-                <table class="appH5_list_four borderBom">
+                <table class="appH5_list_five">
                     <tr>
-                        <td class='appH5_color_red' colspan="2" rowspan="2">
+                        <td colspan="2" rowspan="2" class="appH5_color_red">
                             <span class="appH5_font_largest" v-if="securityDetail.Basic.Principal>=10">{{Math.round(securityDetail.Basic.Principal)}}</span>
                             <span class="appH5_font_largest" v-else>{{securityDetail.Basic.Principal}}</span>
-                            <span>亿</span>
-                        </td>
-                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_details'  v-if="securityDetail.Basic.ClosingDate!=null">{{securityDetail.Basic.SimpleExchange}}</td>
-                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_details'  v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.ClosingDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(发行)</td>
-                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_details' v-else>{{securityDetail.Basic.SimpleExchange}}</td>
+                            <span class="appH5_font_normal">亿</span>
+                        </td> 
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.DealType}}</td> 
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td> 
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.SimpleExchange}}</td>
                     </tr>
-                   <tr>
-                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_details' v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
-                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_details' v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.ExpectedMaturityDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(到期)</td>
-                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_details' v-else>{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
-                </tr>
-            </table>
-            <table class="spacialTable" border="0" cellspacing="0" cellpadding="0">
-                <tr class="appH5_color_skyblue">
-                    <td class="text-left">{{securityDetail.Basic.DealType}}</td>
-                    <td>{{securityDetail.Basic.CurrentRatingCombine}}</td>
-                    <td>{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td>
-                    <td class="text-right">{{securityDetail.Basic.CurrentWal!=null&&securityDetail.Basic.CurrentWal!=""?securityDetail.Basic.CurrentWal+"Y":"-"}}</td>
-                </tr>
-                <tr class="appH5_bg_grayblue">
-                    <td class="appH5_bg_brightgrayblue text-left">量化定价</td>
-                    <td class="appH5_bg_grayblue">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</td>
-                    <td class="appH5_bg_grayblue">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</td>
-                    <td class="appH5_bg_grayblue text-right">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</td>
-                </tr>
-            </table>
+                    <tr>
+                        <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentRatingCombine}}</td> 
+                        <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentWal!=null&&securityDetail.Basic.CurrentWal!=""?securityDetail.Basic.CurrentWal+"Y":"-"}}</td> 
+                        <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
+                    </tr>
+                </table>
+               
+            <div class="appH5_inner_panel appH5_important_div">
+                <div class="appH5_important_item">
+                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</div> 
+                    <div class="appH5_color_green appH5_font_smaller">量化评级</div>
+                </div>  
+                <div class="appH5_important_item">
+                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</div>
+                    <div class="appH5_color_green appH5_font_smaller">收益率</div>
+                </div>
+                <div class="appH5_important_item">
+                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</div> 
+                    <div class="appH5_color_green appH5_font_smaller">量化定价</div>
+                </div>
+            </div>
         </div>
         <!-- 证券结构 -->
         <div class="appH5_panel securityStructure appH5martop" v-show="NoteStructureFlag">
@@ -117,7 +118,7 @@
                     <th class="text-right">利息</th> 
                     <th class="text-right">本息</th>
                 </tr>
-                <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag">
+                <!-- <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag">
                     <tr v-bind:class="(securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3||securityDetail.Cashflow[0].StatusId==11)">
                         <td>
                             <span v-if="securityDetail.Cashflow[0].StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
@@ -129,6 +130,20 @@
                         <td class="text-right">{{securityDetail.Cashflow[0].Principal}}</td>
                         <td class="text-right">{{securityDetail.Cashflow[0].Interest}}</td>
                         <td class="text-right">{{securityDetail.Cashflow[0].Total}}</td>
+                    </tr>
+                </tbody> -->
+                <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&!!item.Default" v-for="item in securityDetail.Cashflow">
+                    <tr>
+                        <td>
+                            <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
+                            <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
+                            <span v-if="item.StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
+                             {{item.PaymentData.toString() | moment("YYYY-MM-DD")}}
+                        </td> 
+                        <td class="text-right">{{item.Begin}}</td>
+                        <td class="text-right">{{item.Principal}}</td>
+                        <td class="text-right">{{item.Interest}}</td>
+                        <td class="text-right">{{item.Total}}</td>
                     </tr>
                 </tbody>
                 <tbody v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag"  v-for="item in securityDetail.Cashflow">
@@ -269,12 +284,6 @@
     .CurrentSecurities{
         background-color: #B8B156;
     }
-    /* .appH5_table th{
-        font-size: 15px;
-    } 
-    .appH5_table td{
-        font-size:15px;
-    } */
     /*   结构图样式   */
     .St_Out_Div {
         margin: 0 auto;
@@ -441,7 +450,6 @@ export default {
             var buttonHide=document.getElementById("appH5CloseAll");
             // buttonHide.setAttribute("style","display:block");
             buttonHide.style.display="block";
-
         },
         cashflowHide(){
             this.CashflowShowFlag=true;
