@@ -73,7 +73,7 @@ export default {
     window.scrollTo(0,0);
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', true);
-    busUtil.bus.$emit('path', '/organDetail/1');
+    busUtil.bus.$emit('path', '/organDetail/'+this.$route.params.id);
     busUtil.bus.$emit('headTitle', '');
     this.id = this.$route.params.id;
     if (this.id) {

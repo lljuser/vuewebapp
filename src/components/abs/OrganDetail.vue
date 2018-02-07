@@ -1,6 +1,6 @@
 <template>
   <div class="appH5_body">
-    <div class="product-spinner" v-if="isProductLoading">
+    <div class="product-spinner" v-if="isOrganLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
 
@@ -8,30 +8,42 @@
       <div>
         <div class="appH5_panel appH5_panel_mb">
           <div class="appH5_title">
-              <span>{{productDetail.Basic.DealNameChinese}}</span>
+              <span>{{organDetail.FullName}}</span>
           </div>
           <!-- 机构单页-资产方 -->
           <div v-if="1>0">
               <table class="appH5_list_two" v-if="productDetail.Basic!=null">
                 <tr>
                     <td>总资产</td>
-                    <td>{{productDetail.Basic.TotalOffering}}(亿)</td>
-                </tr>   
+                    <td>{{organDetail.TotalAssets}}(亿)</td>
+                </tr>  
+                <tr>
+                    <td>总负债</td>
+                    <td>{{organDetail.TotalLiability}}</td>
+                </tr>                 
                 <tr>
                     <td>资产负债率</td>
-                    <td>{{productDetail.Basic.TotalOffering}}%</td>
-                </tr> 
+                    <td>{{organDetail.AssetLiabilityRatio}}</td>
+                </tr>
+                <tr>
+                    <td>评级</td>
+                    <td>{{organDetail.Rating}}</td>
+                </tr>                 
                 <tr>
                     <td>企业性质</td>
-                    <td>{{productDetail.Basic.CurrentStatus}}</td>
+                    <td>{{organDetail.Nature}}</td>
                 </tr> 
                 <tr>
+                    <td>注册资金</td>
+                    <td>{{organDetail.Capital}}{{organDetail.CapitalCurrency}}</td>
+                </tr>                 
+                <tr>
                     <td>成立日期</td>
-                    <td>2017-11-18</td>
+                    <td>{{organDetail.FoundDate}}</td>
                 </tr>   
                 <tr>
                     <td>公司网址</td>
-                    <td>http://cn.bing.com/</td>
+                    <td>{{organDetail.Website}}</td>
                 </tr>                                                                                             
               </table> 
           </div>
@@ -71,7 +83,7 @@
                 </router-link>               
               </div>
               <div class="appH5_float_left organIconDiv"> 
-                <router-link :to="`/institutionalArticle/1`"> 
+                <router-link :to="`/institutionalArticle/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
                     <div>
                       <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon"/>
@@ -88,6 +100,12 @@
               <div class="appH5_title">
                   <span>机构奖章</span>
               </div>
+              <div>
+                <div class="organ_prize_img appH5_float_left" v-for="(item,index) in organDetail.Prizes" :key=index>
+                  <img class="organ_prize_size" v-bind:src="item.IconPath">   
+                </div>
+              </div> 
+              <div style="clear:both"></div>             
           </div>
 
           <div class="appH5_panel appH5_panel_mb">
@@ -110,19 +128,86 @@
               <div class="appH5_title">
                   <span>机构简介</span>
               </div>
-              <div>
-                  上海联合金融机构简介
+              <div class="organ_introduction">
+                  {{organDetail.Introduction}}
               </div>              
           </div>
 
           <div class="appH5_panel appH5_panel_mb">
               <div class="appH5_title">
                   <span>机构专家</span>
+                  <router-link :to="`/institutionalExperts/1`"> 
+                  <div class="appH5_float_right appH5_font16">更多></div>
+                  </router-link>
               </div>
               <div>
-                  上海联合机构专家
+                <div class="relevant-item">
+                  <div>
+                    <div style="position:relative;">
+                      <img src="../../public/images/userAvatar.png" class="related-image appH5_fl"/>                                            
+                    </div>
+                    <div class="related-info appH5_f1">
+                      <div class="related-info-cont">
+                        <div class="relevant-item-name"><a href="javascript;" class="appH5_font16 appH5_link">晓蕾</a></div>                        
+                        <div class="relevant-item-conts appH5_font12">
+                          <div class="relevant-item-info">
+                            <span class="content-truncate">部门abs absabsabsabsabsabsabs-职位职位职位职位职位职位职位</span>
+                          </div>
+                        </div>
+                      </div>                      
+                    </div>
+                    <a href="javascript;" class="appH5_fr appH5_followBtn">+关注</a>                                                                                
+                  </div>             
+                </div>                                                  
               </div>              
           </div>                  
+
+          <div class="appH5_panel appH5_panel_mb">
+              <div class="appH5_title">
+                  <span>参与项目</span>
+                  <router-link :to="`/organDeal/1`"> 
+                  <div class="appH5_float_right appH5_font16">更多></div>
+                  </router-link>
+              </div>            
+          </div>          
+
+          <div class="appH5_panel appH5_panel_mb">
+              <div class="appH5_title">
+                  <span>机构文章</span>
+                  <router-link :to="`/institutionalArticle/1`"> 
+                  <div class="appH5_float_right appH5_font16">更多></div>
+                  </router-link>
+              </div>
+              <div class="article_padding30 article_border article_position">
+                <div class="overhide">
+                  <span class="appH5_fl appH5_font_normal appH5_color_green">《</span>
+                  <span class="appH5_fl appH5_font_normal appH5_color_green appH5_ellipsis articleWidth">书名</span>
+                  <span class="appH5_fl appH5_font_normal appH5_color_green">》</span>
+                </div>
+                <div>
+                  <ul class="article_content appH5_font_smaller appH5_color_details">
+                    <li>
+                      <span class="article_title appH5_float_left">作者：</span>
+                      <span class="appH5_ellipsis article_detail appH5_float_left">晓蕾晓蕾晓蕾晓蕾晓蕾</span>
+                      </li>
+                    <li>
+                      <span class="article_title appH5_float_left">报告分类：</span>
+                      <span class="appH5_ellipsis article_detail appH5_float_left">报告分类</span>
+                    </li>
+                    <li>
+                      <span class="article_title appH5_float_left">更新时间：</span>
+                      <span class="appH5_ellipsis article_detail appH5_float_left">2018-02-12</span>
+                    </li>
+                    <li>
+                      <span class="article_title appH5_float_left">作品网址：</span>
+                      <span class="appH5_ellipsis article_detail appH5_float_left">http://cn.bing.com/</span>
+                    </li>                                                                                                        
+                  </ul>
+                  <span class="send_mail_btn appH5_font_normal">发送到邮箱</span>
+                </div>
+              </div>                          
+          </div> 
+                                     
       </div>
     </div>
   </div>
@@ -149,9 +234,111 @@
   color: #fec447;
   font-size: 14px;
 }
-</style>
-<style>
-
+.relevant-item{
+  border-bottom: #444444 solid 1px;
+  height: 1.86667rem;
+  width: 100%;
+}
+.related-image{
+  width: 1.0667rem;
+  height: 1.0667rem;
+  border-radius: 50%;
+  -webkit-border-radius:50%;
+  margin-top: .4rem;
+}
+.related-info{
+  display: table;
+  margin-left: 1.26667rem;
+}
+.related-info-cont{
+  display: table-cell;
+  vertical-align: middle;
+  height: 1.8667rem;
+  line-height: .55rem;
+}
+.content-truncate{
+  display: block;
+  width: 5.7333rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.appH5_followBtn,.appH5_unfollowBtn{
+    width: 1.3333rem;
+    height:.61333rem;
+    line-height:.61333rem;
+    border-radius: .10667rem;
+    -webkit-border-radius: .10667rem;
+    text-align: center;
+    margin-top: -1.16rem;
+    display: block;
+}
+.appH5_followBtn{
+    border: #00FC00 solid 1px;
+    color: #00FC00;
+}
+.appH5_unfollowBtn{
+    border: #666666 solid 1px;
+    color: #666666;
+}
+.appH5_font16{
+  font-size: 16px;
+}
+.appH5_font12{
+  font-size: 12px;
+}
+.clear_float{
+  clear: both;
+}
+.clear_float{
+  overflow: hidden;
+}
+.articleWidth{
+  max-width: 7.7rem;
+}
+.article_title{
+  width: 70px;
+}
+.overhide{
+  overflow: hidden;
+}
+.article_content{
+  line-height: 0.48rem;
+  margin-top: 0.133333rem;
+}
+.article_content li{
+  overflow: hidden;
+  margin-bottom: 0.133333rem;
+}
+.article_border{
+  border-bottom: 1px solid #444444;
+}
+.article_position{
+  position: relative;
+}
+.article_padding30{
+  padding: 0rem 0.4rem 0.266667rem 0.4rem;
+}
+.send_mail_btn{
+  position: absolute;
+  bottom: 0.26667rem;
+  right: 0rem;
+  padding: 0.1rem 0.2rem ;
+  height: .42rem;
+  line-height: .42rem;
+  border:1px solid #ffc446;
+  border-radius: 4px;
+  color: #ffc446;
+  background:#000;
+}
+.organ_prize_img{
+  width: 50px;
+  height: 50px;
+}
+.organ_prize_size{
+  width: 30px;
+  height: 40px;
+}
 </style>
 
 <script>
@@ -175,9 +362,10 @@ export default {
   data() {
     return {
       productDetail: {},
+      organDetail:{},
       publishDate: "",
       noteConsTable: "",
-      isProductLoading: false,
+      isOrganLoading: false,
       options: {
         title: {
           text: "暂无数据"
@@ -202,18 +390,10 @@ export default {
     this.tableFlag = 0;
   },
   mounted() {
-    this.isProductLoading = true;
+    this.isOrganLoading = true;
   },
   updated() {
     if (this.noteConsTable.indexOf("table") != -1 && this.tableFlag == 0) {
-      // if(this.productDetail.NoteList!=null&&this.productDetail.NoteList.length>0){
-      //     let num=document.getElementById("structureTable").childNodes[0].childElementCount;
-      //     if(num>4){
-      //         this.chartWidthPx=320;
-      //     }else{
-      //         this.chartWidthPx=260;
-      //     }
-      // }
       var paidList = document.getElementsByClassName("divHasPaid");
       for (var i = 0; i < paidList.length; i++) {
         paidList[i].style.backgroundImage =
@@ -241,8 +421,9 @@ export default {
   },
   activated() {
     //clear all data cache
-    this.isProductLoading = true;
+    this.isOrganLoading = true;
     this.productDetail = {};
+    this.organDetail={};
     this.publishDate = "";
     this.noteConsTable = "";
     this.options = {
@@ -265,15 +446,20 @@ export default {
         this.fetchProductDetail(this.id, data => {
           busUtil.bus.$emit("headTitle", data.Basic.DealName);
           this.productDetail = data;
-          this.isProductLoading = false;
           if (data.DealId != null && data.DealId > 0) {
             this.fetchNoteConsTable(data.DealId, 280, 200);
             this.tableFlag = 0;
           }
         });
-      }, 600);
-      setTimeout(() => {
-        this.fetchProductPaymentChart(this.id);
+        this.fetchOrganDetail(this.id,data=>{
+          this.organDetail = data;           
+          // if(data.Prizes){
+          //   return data.Prizes.filter(function(item){
+          //     return item.PrizeId==1
+          //   })
+          // }
+          this.isOrganLoading = false;     
+        });
       }, 600);
     }
     busUtil.bus.$emit("showHeader", true);
@@ -308,173 +494,21 @@ export default {
           this.doCatch();
         });
     },
+    fetchOrganDetail(id,callback){
+      var url=webApi.Organ.detail;
+      url=url+"/"+id;
+      axios(url).then((response) => {
+        const data = response.data.data;
+        console.log(data);
+        if(data){
+          callback(data);
+        }
+      })
+    },
     doCatch() {
       Toast("服务器繁忙，请重试！");
-      this.isProductLoading = false;
+      this.isOrganLoading = false;
       this.isFetchDetailError = true;
-    },
-    fetchProductPaymentChart(dealId) {
-      var self = this;
-      axios(webApi.Product.chart.concat(["", dealId].join("/"))).then(
-        response => {
-          const json = response.data;
-          if (json.status == "ok") {
-            var chartData = json.data;
-            var allSeries = [];
-            var lineValue;
-            var i = 0;
-            var colors = chartTheme.colors;
-            if (chartData && chartData.length > 0) {
-              var allSeriesLth = chartData.length;
-              var colorSeries =
-                chartData.filter(function(item) {
-                  return item.Order > 100;
-                }).length > 0
-                  ? Math.ceil(chartData.length / colors.length)
-                  : chartData.length;
-              for (
-                var j = 0;
-                j < colorSeries;
-                j++ //get max color series
-              )
-                colors = colors.concat(colors);
-              var pSeries = chartData.filter(function(item) {
-                return item.Order < 100;
-              });
-              var lSeries = chartData.filter(function(item) {
-                return item.Order > 100 && item.Order != 1000;
-              });
-              var plotLine = chartData.filter(function(item) {
-                return item.Order == 1000;
-              });
-              var minDate = new Date(1970, 1, 1).valueOf();
-              pSeries.forEach(function(item, index) {
-                var point = [];
-                item.Points.forEach(function(e) {
-                  point.push([new Date(e.X).valueOf() - minDate, e.Y * 1]);
-                });
-                allSeries.push({
-                  name: item.SeriesName,
-                  data: point,
-                  dashStyle: item.Type,
-                  step: true,
-                  color: colors[i]
-                });
-                i++;
-              });
-              if (lSeries.length > 0) {
-                i = 0;
-                lSeries.forEach(function(item, index) {
-                  var point = [];
-                  item.Points.forEach(function(e) {
-                    point.push([new Date(e.X).valueOf() - minDate, e.Y * 1]);
-                  });
-                  allSeries.push({
-                    name: item.SeriesName,
-                    data: point,
-                    dashStyle: item.Type,
-                    step: true,
-                    color: colors[i],
-                    lineWidth: 3
-                  });
-                  i++;
-                });
-              }
-              if (plotLine.length == 1) {
-                lineValue =
-                  new Date(plotLine[0].Points[0].X).valueOf() - minDate;
-              }
-            }
-            var option = {
-              title: {
-                text: ""
-              },
-              xAxis: {
-                type: "datetime",
-                dateTimeLabelFormats: {
-                  second: "%Y-%m-%d %H:%M:%S",
-                  minute: "%Y-%m-%d %H:%M",
-                  hour: "%Y-%m-%d %H:%M",
-                  day: "%Y-%m-%d",
-                  week: "%Y.%m",
-                  month: "%Y.%m",
-                  year: "%Y.%m"
-                },
-                plotLines: [
-                  {
-                    color: "white",
-                    width: 0.8,
-                    value: lineValue,
-                    dashStyle: "dash",
-                    label: {
-                      text: plotLine[0].Points[0].X,
-                      verticalAlign: "middle",
-                      textAlign: "left",
-                      style: {
-                        color: "#E0E0E3"
-                      }
-                    }
-                  }
-                ],
-                plotBands: [
-                  {
-                    color: "#333",
-                    from: Date.UTC(2e3, 1, 1),
-                    to: lineValue
-                  }
-                ]
-              },
-              yAxis: {
-                title: {
-                  enabled: !0,
-                  text: ""
-                },
-                labels: {
-                  format: "{value:.0f}%"
-                },
-                max: 100
-              },
-              plotOptions: {
-                series: {
-                  marker: {
-                    enabled: !1
-                  }
-                }
-              },
-              tooltip: {
-                formatter: function() {
-                  var t,
-                    e = new Date(this.x);
-                  return (t =
-                    e.getFullYear() +
-                    "-" +
-                    (e.getMonth() + 1) +
-                    "-" +
-                    e.getDate() +
-                    "<br/>" +
-                    this.series.name +
-                    "剩余本金:<br/>" +
-                    Math.round(100 * this.y) / 100 +
-                    "%");
-                }
-              },
-              legend: {
-                style: {
-                  fontSize: "10px"
-                }
-              },
-              credits: {
-                href: "",
-                text: "CNABS"
-              },
-              series: allSeries
-            };
-            this.options = option;
-          } else {
-            self.showChart = false;
-          }
-        }
-      );
     }
   }
 };
