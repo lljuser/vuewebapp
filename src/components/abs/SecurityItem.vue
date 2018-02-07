@@ -9,7 +9,7 @@
 
     </td>
     <td> 
-      <router-link :to="`../../securityDetail/${ item.NoteId}`" class="appH5_color_link appH5_float_left" style="width:80%"> 
+      <router-link :to="`../../securityDetail/${ item.NoteId}`" class="appH5_color_link appH5_float_left" style="width:100%"> 
        <div class='td_elips1'> {{ item.Description }}</div>
       </router-link></td>
     <td style="font-size:17px" class="text-right" >

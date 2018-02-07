@@ -36,7 +36,7 @@
       <table id="productTableId" class="appH5_table">
         <tr>
           <th style="padding-left:0;width:8px;"></th>
-          <th>证券简称</th>
+          <th style="width:56%">证券简称</th>
           <th class="text-right">金额(亿)</th>
           <th class="text-right">利率</th>
         </tr>
@@ -52,7 +52,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="3" style="border-bottom:none">
+            <td colspan="4" style="border-bottom:none">
               <div class="spinner_div" v-if="list.length==0">
                 <span  class="nomore">暂无数据</span>
               </div>
