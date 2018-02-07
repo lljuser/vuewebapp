@@ -161,7 +161,6 @@
                       </div>
                   </div>
               </div>
-              <span v-if="item.Followed" class="appH5_fr appH5_unfollowBtn">已关注</span>
               <span class="appH5_fr appH5_followBtn" v-bind:class="[!item.Followed?'appH5_followBtn':'appH5_unfollowBtn']" v-on:click="followHandle(item)">{{!item.Followed ? "+关注":'已关注'}}</span>
               <div class="clearfix"></div>
             </div>                  
@@ -199,7 +198,7 @@
                                 <span class="fl ep_ellipsis ep_width262 ep_Link">{{item.Link}}</span>
                             </li>
                         </ul>
-                        <span class="ep_sendMailBtn appH5_font_normal">发送到邮箱</span>
+                        <span class="ep_sendMailBtn appH5_font_normal" v-on:click="sendAttachment(item.AttachmentFileCode)" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>
                     </div>
                 </div>                         
           </div> 
@@ -600,8 +599,9 @@ export default {
 
   methods: {
     initData: function() {
+      this.id = this.$route.params.id;
       axios(
-        `${webApi.Organ.expertList}/1912/0/0/3`
+        `${webApi.Organ.expertList}/{this.id}/0/0/3`
       ).then(response => {
         if(response.data.status === "ok")
         {
@@ -610,7 +610,7 @@ export default {
       });
 
       axios(
-        `${webApi.Organ.articleList}/1912/0/0/3`
+        `${webApi.Organ.articleList}/{this.id}/0/0/3`
       ).then(response => {
         if(response.data.status === "ok")
         {
@@ -619,7 +619,7 @@ export default {
       });
 
      axios(
-        `${webApi.Organ.dealList}/1/0/0/0/0/0/5`
+        `${webApi.Organ.dealList}/{this.id}/0/0/0/0/0/5`
       ).then(response => {
         if(response.data.status === "ok")
         {
@@ -632,6 +632,23 @@ export default {
     },
     isArrayEmpty: function(arr) {
       return arr === null || arr === undefined || arr.length === 0;
+    },
+    followHandle(exItem) {
+      // 关注
+        axios(webApi.Organ.followList.concat(['',exItem.Followed,exItem.UserId].join('/'))).then(response => {
+              if (response.data.status == 'ok') {
+                exItem.Followed=!exItem.Followed;
+              }
+              else {
+                this.doCatch();
+              }
+        })
+    },
+    sendAttachment: function(fileCode) {
+        axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
+        .then(response => {
+            this.$toast(response.data.data);
+        });
     },
     productDetailUrl: function(id) {
         return this.isShowHeader ? {path: `/ProductDetail/${id}`, query: this.query} : `/ProductDetail/${id}`;
