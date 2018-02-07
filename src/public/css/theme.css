@@ -580,12 +580,12 @@ select{
 	width:1.333333rem;
 	height: 1.333333rem;
 	border-radius: 50%;
-	line-height: 1.55rem;
 	text-align: center;
 	display: inline-block;
 }
 .appH5_icon{
-	font-size:30px;
+	margin-top:.266667rem;
+	font-size:.8rem;
 	color:#ffffff;
 }
 .appH5_margin_left20{
