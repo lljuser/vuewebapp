@@ -233,6 +233,7 @@ export default {
     },
     activated() {
         //clear all data cache
+        this.showChart=true;
         this.isProductLoading=true;
         this.productDetail = {};
         this.publishDate = "";
@@ -311,6 +312,7 @@ export default {
             axios(webApi.Product.chart.concat(['', dealId].join('/')))
             .then((response) => {
                 const json = response.data;
+                console.log(json);
                 if (json.status == "ok") {
                 var chartData = json.data;
                 var allSeries = [];
