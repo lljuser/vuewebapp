@@ -209,7 +209,8 @@
                       </td>
                   </tr>
                 </table>
-          </div>                           
+          </div> 
+          <div class="appH5_panel_mb promt"><span>温馨提示：如对机构数据有疑问，请登录CNABS网页端反馈或申请机构管家后修改。</span></div>                          
       </div>
     </div>
   </div>
@@ -457,6 +458,9 @@ ul.articleDetail li span:nth-of-type(2) {
 }
 ul.articleDetail .article_title {
   width: 70px;
+}
+.promt{
+  padding: 0 0.32rem;
 }
 </style>
 
