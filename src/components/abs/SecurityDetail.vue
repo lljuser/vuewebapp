@@ -76,7 +76,7 @@
                 <span style="color:white">{{securityDetail.Basic.ProductType}}</span>
                 <div style="margin-left:0;">
                     <span>L</span>
-                    <router-link :to="`/security/${securityDetail.Basic.DealTypeId}`"><a href="javascript:;">{{securityDetail.Basic.DealType}}</a></router-link>
+                   {{securityDetail.Basic.DealType}}
                     <div v-if="securityDetail.Basic.AssetSubCategory!=null&&securityDetail.Basic.AssetSubCategory!=''">
                         <span>L</span>
                         <span style="color:white">{{securityDetail.Basic.AssetSubCategory}}</span>
