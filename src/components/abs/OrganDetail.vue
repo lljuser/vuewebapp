@@ -133,35 +133,77 @@
               </div>              
           </div>
 
-          <div class="appH5_panel appH5_panel_mb">
+          <div class="appH5_panel appH5_panel_mb" v-if="!isArrayEmpty(expertList)">
+            <header class="ep_part_title ep_part_item_border">
               <div class="appH5_title">
                   <span>机构专家</span>
                   <router-link :to="`/institutionalExperts/1`"> 
                   <div class="appH5_float_right appH5_font16">更多></div>
                   </router-link>
               </div>
-              <div>
-                <div class="relevant-item">
-                  <div>
-                    <div style="position:relative;">
-                      <img src="../../public/images/userAvatar.png" class="related-image appH5_fl"/>                                            
-                    </div>
-                    <div class="related-info appH5_f1">
-                      <div class="related-info-cont">
-                        <div class="relevant-item-name"><a href="javascript;" class="appH5_font16 appH5_link">晓蕾</a></div>                        
-                        <div class="relevant-item-conts appH5_font12">
+             </header>
+            <div class="expertLsit padStyle ep_part_item_border" v-for="(item, index) in expertList" v-bind:key="index">
+              <div style="position: relative;">
+                  <img :src="'http://10.1.1.35:8000/filestore/common/downloadimg/cnabs/'+item.Avatar+'/s'" class="related-image appH5_fl"/>
+              </div>
+              <div class="related-info appH5_fl">
+                  <div class="related-info-cont">
+                      <div class="relevant-item-name">
+                        <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}`" class="appH5_font16 appH5_link">{{item.UserName}}</a>
+                        <span v-if="item.Verified===1" class="authenticated">已认证</span>
+                      </div>
+                      <div class="relevant-item-conts appH5_font12">
                           <div class="relevant-item-info">
-                            <span class="content-truncate">部门abs absabsabsabsabsabsabs-职位职位职位职位职位职位职位</span>
+                            <div class="content-truncate" v-if="item.Department!=''&&item.Department!=null&&item.Title!=''&&item.Title!=null">{{item.Department}}-{{item.Title}}</div>
+                            <div class="content-truncate" v-if="item.Department==''||item.Department==null">{{item.Title}}</div>
+                            <div class="content-truncate" v-if="item.Title==''||item.Title==null">{{item.Department}}</div>
                           </div>
-                        </div>
-                      </div>                      
-                    </div>
-                    <a href="javascript;" class="appH5_fr appH5_followBtn">+关注</a>                                                                                
-                  </div>             
-                </div>                                                  
-              </div>              
+                      </div>
+                  </div>
+              </div>
+              <span v-if="item.Followed" class="appH5_fr appH5_unfollowBtn">已关注</span>
+              <span class="appH5_fr appH5_followBtn" v-bind:class="[!item.Followed?'appH5_followBtn':'appH5_unfollowBtn']" v-on:click="followHandle(item)">{{!item.Followed ? "+关注":'已关注'}}</span>
+              <div class="clearfix"></div>
+            </div>                  
           </div>                  
-          <div class="appH5_panel appH5_panel_mb">
+                
+          <div class="appH5_panel appH5_panel_mb" v-if="!isArrayEmpty(articleList)">
+                <header class="ep_part_title ep_part_item_border">
+                  <div class="appH5_title">
+                      <span>机构文章</span>
+                      <router-link :to="`/institutionalArticle/1912`"> 
+                      <div class="appH5_float_right appH5_font16">更多></div>
+                      </router-link>
+                  </div>
+                </header>
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in articleList" v-bind:key="index">
+                    <div class=" ep_overhide">
+                        <span class="appH5_font_normal ep_ellipsis appH5_fl ep_maxWidth577 appH5_color_green">{{item.Name}}</span>
+                    </div>
+                    <div class="divArticleDetail">
+                        <ul class="appH5_color_details appH5_font_smaller ep_decription articleDetail">
+                            <li>
+                                <span class='article_title'>作者：</span>
+                                <span class="ep_ellipsis ep_width450">{{item.Author}}</span>
+                            </li>
+                            <li v-if="isValidElement(item.Category)">
+                                <span class='article_title'>报告分类：</span>
+                                <span class="ep_ellipsis ep_width450">{{item.Category}}</span>
+                            </li>
+                            <li v-if="isValidElement(item.UpdateTime)">
+                                <span class='article_title'>更新时间：</span>
+                                <span class="ep_ellipsis ep_width450">{{item.UpdateTime.toString() | moment("YYYY-MM-DD")}}</span>
+                            </li>
+                            <li v-if="isValidElement(item.Link)">
+                                <span class='article_title'>作品网址：</span>
+                                <span class="fl ep_ellipsis ep_width262 ep_Link">{{item.Link}}</span>
+                            </li>
+                        </ul>
+                        <span class="ep_sendMailBtn appH5_font_normal">发送到邮箱</span>
+                    </div>
+                </div>                         
+          </div> 
+              <div class="appH5_panel appH5_panel_mb" v-if="!isArrayEmpty(productList)">
               <div class="appH5_title">
                   <span>参与项目</span>
                   <router-link :to="`/organDeal/1`"> 
@@ -186,42 +228,7 @@
                       </td>
                   </tr>
                 </table>
-          </div>          
-          <div class="appH5_panel appH5_panel_mb">
-              <div class="appH5_title">
-                  <span>机构文章</span>
-                  <router-link :to="`/institutionalArticle/1`"> 
-                  <div class="appH5_float_right appH5_font16">更多></div>
-                  </router-link>
-              </div>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in articleInfo" v-bind:key="index">
-                    <div class=" ep_overhide">
-                        <span class="appH5_font_normal ep_ellipsis appH5_fl ep_maxWidth577 appH5_color_green">{{item.Name}}</span>
-                    </div>
-                    <div class="divArticleDetail">
-                        <ul class="appH5_color_details appH5_font_smaller ep_decription articleDetail">
-                            <li>
-                                <span class='article_title'>作者：</span>
-                                <span class="ep_ellipsis ep_width517">{{item.Author}}</span>
-                            </li>
-                            <li v-if="isValidElement(item.Category)">
-                                <span class='article_title'>报告分类：</span>
-                                <span class="ep_ellipsis ep_width517">{{item.Category}}</span>
-                            </li>
-                            <li v-if="isValidElement(item.UpdateTime)">
-                                <span class='article_title'>更新时间：</span>
-                                <span class="ep_ellipsis ep_width517">{{item.UpdateTime.toString() | moment("YYYY-MM-DD")}}</span>
-                            </li>
-                            <li v-if="isValidElement(item.Link)">
-                                <span class='article_title'>作品网址：</span>
-                                <span class="fl ep_ellipsis ep_width300 ep_Link appH5_link">{{item.Link}}</span>
-                            </li>
-                        </ul>
-                        <span class="ep_sendMailBtn appH5_font_normal">发送到邮箱</span>
-                    </div>
-                </div>                         
-          </div> 
-                                     
+          </div>                           
       </div>
     </div>
   </div>
@@ -353,6 +360,108 @@
 .organ_prize_size{
   width: 30px;
   height: 40px;
+}
+
+/*机构专家*/
+.expertLsit .related-info
+{
+ margin-left: 0.26667rem;
+}
+.expertLsit .appH5_followBtn
+{
+      margin-top: 0.6rem;
+}
+
+/*机构文章*/
+.articleContent, .articleListContent {
+    background-color: #000;
+}
+.ep_content_div {
+    min-height: 16.0rem;
+}
+.divArticleDetail {
+    position: relative;
+}
+.divArticleDetail .ep_sendMailBtn {
+    margin-bottom: -0.05rem;
+    position: absolute;
+    bottom: 0rem;
+    right: 0rem;
+}
+.ep_ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.ep_maxWidth577 {
+    max-width: 7.7rem;
+}
+.ep_width517 {
+    width: 6.9rem;
+}
+.ep_width450
+{
+  width: 6rem;
+}
+ul.articleDetail .article_title {
+    width: 70px;
+}
+.ep_decription {
+    line-height: 0.48rem;
+    margin-top: 0.133333rem;
+}
+.ep_padding30 {
+    padding: 0.266667rem 0.4rem;
+}
+.ep_overhide {
+    overflow: hidden;
+}
+.ep_part_item_border {
+    border-bottom: 1px solid #3B3A39;
+}
+.divArticleDetail {
+    position: relative;
+}
+
+.divArticleDetail .ep_sendMailBtn {
+    margin-bottom: -0.05rem;
+    position: absolute;
+    bottom: 0rem;
+    right: 0rem;
+}
+
+.ep_sendMailBtn {
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    padding-bottom: 0.1rem;
+    padding-top: 0.1rem; 
+    height: .42rem;
+    line-height: .42rem;
+    border: 1px solid #ffc446;
+    border-radius: 4px;
+    color: #ffc446;
+    background: #000;
+}
+.ep_width300 {
+    width: 4.0rem;
+}
+.ep_width262 {
+    width: 3.5rem;
+}
+ul.articleDetail li {
+    overflow: hidden;
+    margin-bottom: 0.133333rem;
+}
+
+ul.articleDetail li span:nth-of-type(1) {
+    float: left;
+}
+
+ul.articleDetail li span:nth-of-type(2) {
+    float: left;
+}
+ul.articleDetail .article_title {
+    width: 70px;
 }
 </style>
 
@@ -492,20 +601,20 @@ export default {
   methods: {
     initData: function() {
       axios(
-        `${webApi.Organ.expertList}/1/0/0/0/0/0/3`
+        `${webApi.Organ.expertList}/1912/0/0/3`
       ).then(response => {
         if(response.data.status === "ok")
         {
-          this.productList = response.data.data.Deal;
+          this.expertList = response.data.data;
         } 
       });
 
       axios(
-        `${webApi.Organ.articleList}/1/0/0/0/0/0/3`
+        `${webApi.Organ.articleList}/1912/0/0/3`
       ).then(response => {
         if(response.data.status === "ok")
         {
-          this.productList = response.data.data.Deal;
+          this.articleList = response.data.data;
         } 
       });
 
@@ -517,6 +626,12 @@ export default {
           this.productList = response.data.data.Deal;
         } 
       });
+    },
+    isValidElement: function (item) {
+        return !(item === null || item === undefined || item === "");
+    },
+    isArrayEmpty: function(arr) {
+      return arr === null || arr === undefined || arr.length === 0;
     },
     productDetailUrl: function(id) {
         return this.isShowHeader ? {path: `/ProductDetail/${id}`, query: this.query} : `/ProductDetail/${id}`;
