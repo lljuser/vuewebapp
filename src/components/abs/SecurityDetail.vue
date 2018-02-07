@@ -315,7 +315,7 @@ export default {
             securityDetail:{},
             isSecurityLoading:false,
             chartWidthRem:3,
-            chartWidthPx:222,
+            chartWidthPx:280,
             isFetchDetailError: false,
             CashflowShowFlag:true,
             NoteStructureFlag:true,
