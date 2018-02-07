@@ -7,12 +7,12 @@
   <div v-else>
   <div class="appH5_panel">
      
-      <div class="appH5_title">机构项目</div>
+      <!-- <div class="appH5_title">机构项目</div> -->
       <div v-if="this.list.length>0">
       <div class="div_desc">
-        <div><span class="appH5_white_space">总单</span><span>{{Count}}</span></div>
-        <div><span class="appH5_white_space">总额</span><span>{{Balance}}</span></div>
-        <div><span class="appH5_white_space">承销额</span><span>{{UnderwritingBalance}}</span></div>
+        <div><span class="appH5_font_larger appH5_color_red">{{Count}}</span><span class="appH5_font_smaller">单</span></div>
+        <div><span class="appH5_font_larger appH5_color_red">{{Balance}}</span><span class="appH5_font_smaller">亿</span></div>
+        <div><span class="appH5_font_larger appH5_color_red">{{UnderwritingBalance}}</span><span class="appH5_font_smaller">亿(承销)</span></div>
       </div>
       <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0" >
         <tr>
@@ -299,7 +299,6 @@ margin:0 10px 5px 0;
 }
 
 .div_desc div span:nth-of-type(2n+1){
-  color: #33ffcc;
   margin-right: 4px;
 }
 
