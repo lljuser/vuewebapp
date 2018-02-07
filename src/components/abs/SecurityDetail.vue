@@ -404,7 +404,8 @@ export default {
                    this.NoteStructureFlag=true;
                     NoteStructure({
                        container: 'noteStructure',
-                       data: response.data.data.Notes
+                       data: response.data.data.Notes,
+                       width: 220,
                     });
                 }else{
                     this.NoteStructureFlag=false;
