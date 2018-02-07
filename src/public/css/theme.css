@@ -109,6 +109,22 @@ body{
 	margin-top:6px;
 	margin-right: 5px;
 }
+.appH5_square_char{
+	width: 15px;
+	height: 15px;
+	text-align: center;   
+	font-size: 13px;
+	line-height: 15px;
+	color: #ffffff;
+}
+.appH5_square_ch_char{
+	width: 15px;
+	height: 15px;
+	text-align: center;   
+	font-size: 12px;
+	line-height: 15px;
+	color: #ffffff;
+}
 .appH5_table{
     border-collapse: collapse;
     width:100%;
@@ -193,6 +209,9 @@ a:hover, a:focus {
 .appH5_bg_green{
 	background:#33ffcc;
  }
+ .appH5_bg_darkgreen{
+	background:#009900;
+ }
 .appH5_bg_pink{
 	background:#ff6666;
 }
@@ -205,6 +224,9 @@ a:hover, a:focus {
 .appH5_bg_purple{
 	background:#9966ff;
 }
+.appH5_bg_darkpurple{
+	background:#6600cc;
+ }
 .appH5_bg_senior{
 	background: #A23B1D;
 }
@@ -554,9 +576,17 @@ select{
 .appH5_absolute{
 	position: absolute;
 }
+.appH5_circle_icon_div{
+	width:1.333333rem;
+	height: 1.333333rem;
+	border-radius: 50%;
+	line-height: 1.55rem;
+	text-align: center;
+	display: inline-block;
+}
 .appH5_icon{
-	font-size:34px;
-	color:#ffc446;
+	font-size:30px;
+	color:#ffffff;
 }
 .appH5_margin_left20{
 	margin-left: .533333rem;

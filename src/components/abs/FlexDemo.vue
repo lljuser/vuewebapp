@@ -9,9 +9,35 @@
 	    </div>
 		<h2>icon</h2>
         <div class="appH5_panel">
-		    <font-awesome-icon :icon="['far', 'user']" class="appH5_icon" />专家
-	        <font-awesome-icon :icon="['far', 'chart-bar']" class="appH5_icon" />项目
-	        <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon"/>文章
+			<div class="appH5_important_div">
+                <div class="appH5_important_item">
+				   <div class="appH5_margin_bottom10">
+					   <div class="appH5_circle_icon_div appH5_bg_blue">
+					      <font-awesome-icon :icon="['far', 'user']" class="appH5_icon" />
+					   </div>
+				   </div>
+				   <div>机构专家</div>
+			    </div>
+			    <div class="appH5_important_item">
+				   <div class="appH5_margin_bottom10">
+					   <div class=" appH5_bg_darkgreen appH5_circle_icon_div">
+                           <font-awesome-icon :icon="['far', 'chart-bar']" class="appH5_icon" />
+					   </div>
+				   </div>
+				   <div>参与项目</div>
+			    </div>
+				<div class="appH5_important_item">
+				   <div class="appH5_margin_bottom10">
+					   <div class="appH5_bg_darkpurple appH5_circle_icon_div">
+                       <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon"/>
+					   </div>
+				   </div>
+				   <div>机构文章</div>
+			    </div>
+			</div>
+		    
+	        
+	        
         </div>
 	    <h2>tab切换</h2>
         <div class="appH5_panel appH5_tab_div">
@@ -160,7 +186,7 @@
 			<div class="appH5_btn_save">保存</div>
 			<div class="appH5_btn_cancel">取消</div>
 		</div>
-		<h2>表格内图例</h2>
+		<h2>表格内纯色图例</h2>
 		<div class="appH5_panel appH5_overhide">
 			<span class="appH5_square_dot appH5_bg_green"></span>
 			<span class="appH5_font_smaller appH5_fl">起息日</span>
@@ -168,6 +194,13 @@
 			<span class="appH5_font_smaller appH5_fl">实际值</span>
 			<span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span>
 			<span class="appH5_font_smaller appH5_fl">预测值</span>
+		</div>
+		<h2>表格内带字图例</h2>
+		<div class="appH5_panel appH5_overhide">
+			<span class="appH5_fl">英文：</span>
+			<span class="appH5_square_char appH5_bg_blue appH5_fl">P</span>
+			<span class="appH5_fl appH5_margin_left20">中文：</span>
+            <span class="appH5_square_ch_char appH5_bg_blue appH5_fl">摊</span>
 		</div>
         <h2>示例表格</h2>
         <div class="appH5_panel">
