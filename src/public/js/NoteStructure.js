@@ -11,7 +11,7 @@ export
 function NoteStructure(options) {
         var defaults = {
             container: '',
-            width: 280,
+            width: 222,
             height: 200,
             maxCols: 5, // for more artistic, should be odd number
             data: [] //note data list

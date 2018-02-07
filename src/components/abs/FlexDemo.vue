@@ -91,26 +91,47 @@
 	        	</tr>
 	        </table>
 	    </div>
-		<h2>四列示例</h2>
+		<h2>五列示例</h2>
         <div class="appH5_panel">
-			        <table class="appH5_list_four">
-				<tr>
-	        		<td colspan="4" class="appH5_color_white appH5_word_break">这是一个产品名称，这是一个产品名称，这是一个产品名称</td>
-	        	</tr>
+		    <table class="appH5_list_five">
 				<tr>
 	        		<td class='appH5_color_red' colspan="2" rowspan="2">
 						<span class="appH5_font_largest">253</span>
-						<span>亿</span>
+						<span class="appH5_font_normal">亿</span>
 					</td>
-	        		<td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space'>上交所</td>
-	        		<td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_white'>2017-12-23（发行）</td>
+	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space'>汽车贷款</td>
+	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space'>5.8%</td>
+					<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space'>上交所</td>
 	        	</tr>
 				<tr>
-					<td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_white'>过手型</td>
-					<td class='appH5_font_smaller appH5_white_space appH5_vertical_top'>2018-12-23（到期）</td>
+					<td class='appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top'>AAA/AA+</td>
+					<td class='appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top'>2.75Y</td>
+					<td class='appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top'>过手型</td>
 				</tr>
-				</table>
+			</table>
 		</div>
+		<h2>重点强调内容示例</h2>
+		<div class="appH5_panel">
+			<div class="appH5_inner_panel appH5_important_div">
+                <div class="appH5_important_item">
+				   <div class="appH5_font_large appH5_margin_bottom10">120亿</div>
+				   <div class="appH5_color_green appH5_font_smaller">注册资金</div>
+			    </div>
+			    <div class="appH5_important_item">
+				   <div class="appH5_font_large appH5_margin_bottom10">120亿</div>
+				   <div class="appH5_color_green appH5_font_smaller">总资产</div>
+			    </div>
+				<div class="appH5_important_item">
+				   <div class="appH5_font_large appH5_margin_bottom10">5.00%</div>
+				   <div class="appH5_color_green appH5_font_smaller">负债率</div>
+			    </div>
+				<div class="appH5_important_item">
+				   <div class="appH5_font_large appH5_margin_bottom10">AAA+</div>
+				   <div class="appH5_color_green appH5_font_smaller">主体评级</div>
+			    </div>
+			</div>
+		</div>
+
         <h2>表单元素</h2>
 	    <div class="appH5_panel">
 	        <input type='text' placeholder='请输入内容'>
@@ -139,6 +160,15 @@
 			<div class="appH5_btn_save">保存</div>
 			<div class="appH5_btn_cancel">取消</div>
 		</div>
+		<h2>表格内图例</h2>
+		<div class="appH5_panel appH5_overhide">
+			<span class="appH5_square_dot appH5_bg_green"></span>
+			<span class="appH5_font_smaller appH5_fl">起息日</span>
+            <span class="appH5_square_dot appH5_bg_blue appH5_margin_left20"></span>
+			<span class="appH5_font_smaller appH5_fl">实际值</span>
+			<span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span>
+			<span class="appH5_font_smaller appH5_fl">预测值</span>
+		</div>
         <h2>示例表格</h2>
         <div class="appH5_panel">
             <table class="appH5_table">
@@ -154,14 +184,11 @@
                     <td class="text-right appH5_color_red">5</td>
                     <td class="text-right appH5_color_red">445</td>
                 </tr>
-                <tr class="appH5_bg_brightred">
+                <tr>
                     <td>信贷ABS</td>
                     <td class="text-right">1</td>
                     <td class="text-right appH5_color_red">5</td>
                     <td class="text-right appH5_color_red">445</td>
-                </tr>
-				<tr class="appH5_bg_brightred appH5_detail_tr">
-                    <td colspan=4 class="appH5_font_smaller appH5_color_Lightpink">偿付报告已出，尚未支付</td>
                 </tr>
                 <tr>
                     <td class="fontBold">总计</td>
@@ -230,7 +257,7 @@
 			    </tr>
 			</table>
 		</div>
-		<h2>小图标</h2>
+		<!-- <h2>小图标</h2>
 		<div class="appH5_panel">
             <img class="appH5_arrowDown" src="../../public/image/arrowdown.png" />
             <img class="appH5_commentIcon" src="../../public/image/commenticon.png" />
@@ -241,7 +268,7 @@
 		<div class="appH5_panel">
             <img class="appH5_returnIcon" src="../../public/image/returnicon.png" />
             <img class="appH5_threeDot" src="../../public/image/threedot.png" />
-		</div>
+		</div> -->
 		<h2>分割线</h2>
 		<div class="appH5_panel">
 		    <div class="appH5_border_top">borderTop</div>
