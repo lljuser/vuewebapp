@@ -17,7 +17,7 @@
               <table class="appH5_list_two" v-if="productDetail.Basic!=null">
                 <tr>
                     <td>总资产</td>
-                    <td>{{organDetail.TotalAssets}}(亿)</td>
+                    <td>{{organDetail.TotalAssets}}</td>
                 </tr>
                 <tr>
                     <td>资产负债率</td>
@@ -34,22 +34,11 @@
                 </tr> 
                 <tr>
                     <td>注册资金</td>
-                    <td>{{organDetail.Capital}}{{organDetail.CapitalCurrency}}</td>
+                    <td>{{organDetail.Capital}}</td>
                 </tr>                                                                                                                
               </table> 
           </div>
           <!-- 机构单页-资产方-END -->
-
-          <!-- 机构单页 -->
-          <div v-if="!organDetail.IsAsset">
-              <table class="appH5_list_two" v-if="productDetail.Basic!=null">                  
-                <tr v-if="organDetail.Website!=''">
-                    <td>机构网址</td>
-                    <td>{{organDetail.Website}}</td>
-                </tr> 
-              </table>
-          </div>         
-          <!-- 机构单页-END -->
           </div>
 
           <div class="organIconsDiv appH5_float_right appH5_panel appH5_panel_mb">
@@ -106,11 +95,11 @@
               <table class="appH5_list_two" v-if="productDetail.Basic!=null">
                 <tr>
                     <td>总数</td>
-                    <td>{{productDetail.Basic.TotalOffering}}单</td>
+                    <td>{{product.Count}}单</td>
                 </tr>
                 <tr>
                     <td>总额</td>
-                    <td>{{productDetail.Basic.TotalOffering}}亿</td>
+                    <td>{{product.Balance}}亿</td>
                 </tr>                                   
               </table>
           </div> 
@@ -186,7 +175,7 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <span class="fl ep_ellipsis ep_width262 ep_Link">{{item.Link}}</span>
+                                <span class='fl ep_ellipsis ep_Link' v-bind:class="isValidElement(item.AttachmentFileCode)? 'ep_width262': 'ep_width487'">{{item.Link}}</span>
                             </li>
                         </ul>
                         <span class="ep_sendMailBtn appH5_font_normal" v-on:click="sendAttachment(item.AttachmentFileCode)" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>
@@ -366,7 +355,7 @@
 /*机构文章*/
 .articleList
 {
-  padding-left: 0 !important;
+  padding-left: 0 !important;      
 }
 .articleContent, .articleListContent {
     background-color: #000;
@@ -443,6 +432,9 @@ ul.articleDetail .article_title {
 .ep_width262 {
     width: 3.5rem;
 }
+.ep_width487 {
+    width: 6.5rem;
+}
 ul.articleDetail li {
     overflow: hidden;
     margin-bottom: 0.133333rem;
@@ -486,6 +478,7 @@ export default {
       expertList:[],
       articleList:[],
       productList:[],
+      product:[],
       publishDate: "",
       noteConsTable: "",
       isProductLoading: false,
@@ -607,6 +600,32 @@ export default {
             }
             data.Prizes = newPrize;
           }
+          //总资产
+          if(data.TotalAssets){
+            var assets=data.TotalAssets/10000;
+            var totalAssetsInt =parseInt(assets);
+            var totalAssets=totalAssetsInt+"亿";
+            if(totalAssetsInt==0 && assets!=0){
+              totalAssetsInt=parseInt(data.TotalAssets);
+              totalAssets= totalAssetsInt+"万元";                      
+            }
+            data.TotalAssets=totalAssets;
+          }
+          // 注册资金
+          if(data.Capital){
+            var capital=data.Capital/10000;
+            var totalCapitalInt=parseInt(capital);
+            var totalCapital=totalCapitalInt+"亿";
+            if(totalCapitalInt==0 && capital!=0){
+              totalCapitalInt=parseInt(data.Capital);
+              totalCapital=totalCapitalInt+"万元";              
+            }
+            if(data.CapitalCurrencyName!="人民币"){
+              totalCapital=totalCapital+"("+data.CapitalCurrencyName+")";
+            }
+            data.Capital=totalCapital;
+          }
+
           this.isOrganLoading = false;
           this.organDetail = data;
         });
@@ -643,6 +662,7 @@ export default {
             if(response.data.status === "ok")
             {
               this.productList = response.data.data.Deal;
+              this.product=response.data.data;
             } 
           });
         }

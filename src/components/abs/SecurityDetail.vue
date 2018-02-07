@@ -282,77 +282,12 @@
        margin-top: 0.03rem;
     }
     .CurrentSecurities{
-        background-color: #B8B156;
-    }
-    /*   结构图样式   */
-    .St_Out_Div {
-        margin: 0 auto;
-    }
-    .St_Inner_Div {
-        border-top: 2px solid #000;
-        background-color: #000;
-        color: #FFF;
-    }
-
-    .St_Inner_Text {
-        display: inline-block;
-        color: #fff;
-        font-size: 10px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 99;
-    }
-
-    .St_Payment {
-        display: block;
-        background-image: url('../../public/images/table_bg.png');
-        opacity: 0.7;
-        position: absolute;
-        top: 0;
-        background-repeat: repeat;
-    }
-
-    .St_Inner_Td {
-        display: inline-block;
-        border-left: 1px solid #000;
-        border-right: 1px solid #000;
-        background-color: #615C55;
-        position: relative;
-    }
-
-    .St_Inner_Td_Single {
-        display: block;
-        background-color: #615C55;        
-        border-left: 1px solid #000;
-        border-right: 1px solid #000;
-        position: relative;
-    }
-
-    .St_Select {
-        background-color: #B8B156;
-        border-left: 1px solid #000;
-        border-right: 1px solid #000;
-        position: relative;
-        display: inline-block;
-    }
-
-    .St_Select_Single {
-        background-color: #B8B156;
-        border-left: 1px solid #000;
-        border-right: 1px solid #000;
-        position: relative;
-        display: block;
-    }
-
-    .St_Text_Min {
-        display: inline-block;
-        line-height: 13px;
-        vertical-align: middle;
+        background-color: #ffe40c;
     }
 </style>
 
 <script>
+import '@/public/css/structure.css';
 import BusUtil from './BusUtil';
 import Vue from 'vue';
 import VueHighcharts from 'vue-highcharts';
