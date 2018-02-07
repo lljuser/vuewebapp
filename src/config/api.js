@@ -43,6 +43,12 @@ export const Organ = {
   dealList: `${apiAddress}/MoOrganization/GetDealList`,
   expertList: `${apiAddress}/MoOrganization/GetOrganizationRelateProfessorList`,
   articleList: `${apiAddress}/MoOrganization/GetOrganizationArticleList`,
+<<<<<<< HEAD
+  followList: `${apiAddress}/MoOrganization/ChangeUserFollow`,
+=======
+  detail: `${apiAddress}/MoOrganization/GetOragnizationData`,
+
+>>>>>>> 5a29823d86a3ae8f050ae688a23ce16b2ee5cda0
 };
 
 export const Expert = {
