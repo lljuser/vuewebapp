@@ -1,8 +1,8 @@
 <template>
   <tr>
     <td style="padding-left:0;padding-right:0">
-      <div v-if="item.TradeTypeId==1" class="tradingMarketDiv appH5_bg_blue">P</div>
-      <div v-if="item.TradeTypeId==2" class="tradingMarketDiv appH5_bg_purple">S</div>
+      <div v-if="item.TradeTypeId==1" class="appH5_bg_blue appH5_square_char">P</div>
+      <div v-if="item.TradeTypeId==2" class="appH5_bg_purple appH5_square_char">S</div>
     </td>
     <td class="text-left">
       <router-link :to="`../../tradedetail/${ item.TradeId}/${ item.SecurityId}`" class="appH5_color_link">
