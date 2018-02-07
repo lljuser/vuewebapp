@@ -122,7 +122,7 @@
                   <span>机构简介</span>
               </div>
               <div class="organ_introduction">
-                  {{organDetail.Introduction}}
+                  <pre>{{organDetail.Introduction}}</pre>
               </div>              
           </div>
 
@@ -350,7 +350,12 @@
   width: 30px;
   height: 40px;
 }
-
+.organ_introduction pre{
+      margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    display: block;
+}
 /*机构专家*/
 .expertLsit .related-info {
   margin-left: 0.26667rem;
