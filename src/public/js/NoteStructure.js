@@ -2,7 +2,7 @@
  * @Author: CNABS 
  * @Date: 2018-02-02 11:18:42 
  * @Last Modified by: bzhou
- * @Last Modified time: 2018-02-07 14:53:37
+ * @Last Modified time: 2018-02-07 17:21:26
  * @Function: Get Note Structure Html
  */
 /* eslint-disable */
@@ -11,7 +11,7 @@ export
 function NoteStructure(options) {
         var defaults = {
             container: '',
-            width: 222,
+            width: 280,
             height: 200,
             maxCols: 5, // for more artistic, should be odd number
             data: [] //note data list
@@ -25,7 +25,10 @@ function NoteStructure(options) {
         //scope data
         var scope = {
             layerData: [],
-            totalNotional: 0
+            totalNotional: 0,
+            accuNotional: 0,
+            accuPercent: 0
+            //above two props used for the accuracy of each note percent
         }
         function buildStructureHtml() {
             let div = document.createElement('div');
@@ -207,7 +210,13 @@ function NoteStructure(options) {
         }
 
         function formatPercent(text, cur, total) {
+            if (total - cur === scope.accuNotional) {
+                let lastRatio = (100 - scope.accuPercent) + '%';
+                return [text, ' ', lastRatio].join('');
+            }
+            scope.accuNotional += cur;
             let ratio = ((cur / total) * 100).toFixed(0) + '%';
+            scope.accuPercent += parseInt(ratio.substr(0, ratio.length - 1));
             return [text, ' ', ratio].join('');
         }
         buildStructureHtml();

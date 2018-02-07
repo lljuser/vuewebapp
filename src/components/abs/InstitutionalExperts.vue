@@ -31,8 +31,6 @@
                       </div>
                   </div>
               </div>
-              <!-- <span v-if="!item.Followed" class="appH5_fr appH5_followBtn">+关注</span>
-              <span v-if="item.Followed" class="appH5_fr appH5_unfollowBtn">已关注</span> -->
               <span class="appH5_fr appH5_followBtn" v-bind:class="[!item.Followed?'appH5_followBtn':'appH5_unfollowBtn']" v-on:click="followHandle(item)">{{!item.Followed ? "+关注":'已关注'}}</span>
               <div class="clearfix"></div>
             </div>
@@ -69,7 +67,6 @@ export default {
     return {
       expertsInfo: [],
       isExpertsLoading: false,
-      CurrentStatus: [],
       loading: false,
       isFetchExpertsError: false,
       page: 1,

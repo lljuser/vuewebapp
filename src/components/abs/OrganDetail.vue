@@ -7,71 +7,78 @@
     <div class="appH5_content" v-else>
       <div>
         <div class="appH5_panel appH5_panel_mb">
-          <div class="appH5_title">
+          <div class="appH5_margin_bottom10 appH5_font_larger">
               <span>{{organDetail.FullName}}</span>
           </div>
+          <div class="appH5_margin_bottom10">{{organDetail.Website}}</div>          
           <div><span>{{organDetail.FoundDate}}</span><span style="padding-left:20px;">{{organDetail.Nature}}</span></div>
-          <div>{{organDetail.Website}}</div>
           <!-- 机构单页-资产方 -->
-          <div v-if="organDetail.IsAsset">
-              <table class="appH5_list_two" v-if="productDetail.Basic!=null">
-                <tr>
-                    <td>总资产</td>
-                    <td>{{organDetail.TotalAssets}}</td>
-                </tr>
-                <tr>
-                    <td>资产负债率</td>
-                    <td>{{organDetail.AssetLiabilityRatio}}</td>
-                </tr>
-                <tr>
-                    <td>评级</td>
-                    <td v-if="organDetail.Rating!=null">{{organDetail.Rating}}</td>
-                    <td v-if="organDetail.Rating==null">-</td>
-                </tr>                 
-                <tr>
-                    <td>企业性质</td>
-                    <td>{{organDetail.Nature}}</td>
-                </tr> 
-                <tr>
-                    <td>注册资金</td>
-                    <td>{{organDetail.Capital}}</td>
-                </tr>                                                                                                                
-              </table> 
+          <div class="organ_basic_info" v-if="organDetail.IsAsset">
+            <div class="appH5_inner_panel appH5_important_div">
+              <div class="appH5_important_item">
+				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.Capital}}</div>
+				        <div class="appH5_color_green appH5_font_smaller">注册资金</div>
+			        </div> 
+              <div class="appH5_important_item">
+				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.TotalAssets}}</div>
+				        <div class="appH5_color_green appH5_font_smaller">总资产</div>
+			        </div> 
+              <div class="appH5_important_item">
+				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.AssetLiabilityRatio}}</div>
+				        <div class="appH5_color_green appH5_font_smaller">负债率</div>
+			        </div> 
+              <div class="appH5_important_item">
+				        <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.Rating!=null">{{organDetail.Rating}}</div>
+				        <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.Rating==null">-</div>
+				        <div class="appH5_color_green appH5_font_smaller">主体评级</div>
+			        </div>                                                        
+            </div> 
           </div>
           <!-- 机构单页-资产方-END -->
           </div>
 
-          <div class="organIconsDiv appH5_float_right appH5_panel appH5_panel_mb">
-              <div class="appH5_float_left organIconDiv"> 
-                <router-link :to="`/institutionalExperts/1`"> 
+          <div class=" appH5_panel appH5_panel_mb">
+            <div class=" appH5_important_div">
+              <div class="appH5_important_item"> 
+                <router-link :to="`/institutionalExperts/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
-                    <div>
-                      <font-awesome-icon :icon="['far', 'user']" class="appH5_icon" />
-                      <div style="color:#fff;">机构专家</div>
-                    </div>                  
+                    <div class="appH5_margin_bottom10" >
+                      <div class="appH5_circle_icon_div appH5_bg_blue">
+                        <font-awesome-icon :icon="['far', 'user']" class="appH5_icon" />
+                      </div>
+                    </div>
+                      
+                     <div style="color:#fff;">机构专家</div>                 
                   </a>
                 </router-link>               
               </div>
-              <div class="appH5_float_left organIconDiv"> 
+              <div class="appH5_important_item">
                 <router-link :to="`/organDeal/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
-                    <div>
-                      <font-awesome-icon :icon="['far', 'chart-bar']" class="appH5_icon" />
+                    <div class="appH5_margin_bottom10">
+                      <div class=" appH5_bg_darkgreen appH5_circle_icon_div">
+                        <font-awesome-icon :icon="['far', 'chart-bar']" class="appH5_icon" />
+                        </div>
+                      </div>  
                       <div style="color:#fff;">参与项目</div>
-                    </div>                  
+                                    
                   </a>
                 </router-link>               
               </div>
-              <div class="appH5_float_left organIconDiv"> 
+              <div class="appH5_important_item"> 
                 <router-link :to="`/institutionalArticle/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
-                    <div>
-                      <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon"/>
+                    <div class="appH5_margin_bottom10">
+                      <div class="appH5_bg_darkpurple appH5_circle_icon_div">
+                        <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon"/>
+                      </div>
+                      </div> 
                       <div style="color:#fff;">机构文章</div>
-                    </div>                  
+                                     
                   </a>
                 </router-link>               
-              </div>                            
+              </div> 
+            </div>                           
           </div>
 
           <div style="clear:both"></div>
@@ -92,27 +99,22 @@
               <div class="appH5_title">
                   <span>累积参与项目</span>
               </div>
-              <table class="appH5_list_two" v-if="productDetail.Basic!=null">
-                <tr>
-                    <td>总数</td>
-                    <td>{{product.Count}}单</td>
-                </tr>
-                <tr>
-                    <td>总额</td>
-                    <td>{{product.Balance}}亿</td>
-                </tr>                                   
-              </table>
+              <div class="appH5_overhide">
+                <span class="appH5_font_larger appH5_color_red">{{product.Count}}</span>
+                <span class="appH5_font_smaller">单</span>
+                <span class="appH5_font_larger appH5_color_red appH5_margin_left30">{{product.Balance}}</span>
+                <span class="appH5_font_smaller">亿</span>
+              </div>
           </div> 
 
           <div class="appH5_panel appH5_panel_mb">
               <div class="appH5_title">
                   <span>机构简介</span>
               </div>
-              <div class="organ_introduction">
-                  {{organDetail.Introduction}}
-              </div>              
-          </div>
-
+              <div class="organ_introduction appH5_color_details">
+                  <pre>{{organDetail.Introduction}}</pre>
+             </div>
+           </div>
           <div class="appH5_panel appH5_panel_mb" v-if="!isArrayEmpty(expertList)">
             <header class="ep_part_title ep_part_item_border">
               <div class="appH5_title">
@@ -214,6 +216,10 @@
 </template>
 
 <style scoped>
+.organ_introduction{
+  line-height: 22px;
+  text-align: justify;
+}
 .backTablePic {
   float: left;
   margin: 4px 4px 4px 2px;
@@ -222,14 +228,13 @@
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC);
   background-repeat: repeat;
 }
-
+.organ_basic_info{
+  margin-top: 0.373333rem;
+}
 .organIconsDiv {
   width: 100%;
 }
-.organIconDiv {
-  width: 33%;
-  text-align: center;
-}
+
 .promptContent {
   color: #fec447;
   font-size: 14px;
@@ -336,41 +341,44 @@
   width: 62px;
   height: 50px;
 }
-.organ_prize_size{
+.organ_prize_size {
   width: 30px;
   height: 40px;
 }
-
-/*机构专家*/
-.expertLsit .related-info
-{
- margin-left: 0.26667rem;
+.organ_introduction pre{
+      margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    display: block;
 }
-.expertLsit .appH5_followBtn
-{
-      margin-top: 0.6rem;
-      margin-right: 0.6rem;
-      width: 1.4333rem;
+/*机构专家*/
+.expertLsit .related-info {
+  margin-left: 0.26667rem;
+}
+.expertLsit .appH5_followBtn {
+  margin-top: 0.6rem;
+  margin-right: 0.6rem;
+  width: 1.4333rem;
 }
 /*机构文章*/
-.articleList
-{
-  padding-left: 0 !important;      
+.articleList {
+  padding-left: 0 !important;
 }
-.articleContent, .articleListContent {
-    background-color: #000;
+.articleContent,
+.articleListContent {
+  background-color: #000;
 }
 .ep_content_div {
-    min-height: 16.0rem;
+  min-height: 16rem;
 }
 .divArticleDetail {
-    position: relative;
+  position: relative;
 }
 .divArticleDetail .ep_sendMailBtn {
-    margin-bottom: -0.05rem;
-    position: absolute;
-    bottom: 0rem;
-    right: 0rem;
+  margin-bottom: -0.05rem;
+  position: absolute;
+  bottom: 0rem;
+  right: 0rem;
 }
 .ep_ellipsis {
   text-overflow: ellipsis;
@@ -378,77 +386,76 @@
   overflow: hidden;
 }
 .ep_maxWidth577 {
-    max-width: 7.7rem;
+  max-width: 7.7rem;
 }
 .ep_width517 {
-    width: 6.9rem;
+  width: 6.9rem;
 }
-.ep_width450
-{
+.ep_width450 {
   width: 6rem;
 }
 ul.articleDetail .article_title {
-    width: 70px;
+  width: 70px;
 }
 .ep_decription {
-    line-height: 0.48rem;
-    margin-top: 0.133333rem;
+  line-height: 0.48rem;
+  margin-top: 0.133333rem;
 }
 .ep_padding30 {
-    padding: 0.266667rem 0.4rem;
+  padding: 0.266667rem 0.4rem;
 }
 .ep_overhide {
-    overflow: hidden;
+  overflow: hidden;
 }
 .ep_part_item_border {
-    border-bottom: 1px solid #3B3A39;
+  border-bottom: 1px solid #3b3a39;
 }
 .divArticleDetail {
-    position: relative;
+  position: relative;
 }
 
 .divArticleDetail .ep_sendMailBtn {
-    margin-bottom: -0.05rem;
-    position: absolute;
-    bottom: 0rem;
-    right: 0rem;
+  margin-bottom: -0.05rem;
+  position: absolute;
+  bottom: 0rem;
+  right: 0rem;
 }
 
 .ep_sendMailBtn {
-    padding-left: 0.2rem;
-    padding-right: 0.2rem;
-    padding-bottom: 0.1rem;
-    padding-top: 0.1rem; 
-    height: .42rem;
-    line-height: .42rem;
-    border: 1px solid #ffc446;
-    border-radius: 4px;
-    color: #ffc446;
-    background: #000;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  padding-bottom: 0.1rem;
+  padding-top: 0.1rem;
+  height: 0.42rem;
+  line-height: 0.42rem;
+  border: 1px solid #ffc446;
+  border-radius: 4px;
+  color: #ffc446;
+  background: #000;
 }
 .ep_width300 {
-    width: 4.0rem;
+  width: 4rem;
 }
 .ep_width262 {
-    width: 3.5rem;
+  width: 3.5rem;
 }
 .ep_width487 {
-    width: 6.5rem;
+  width: 6.5rem;
 }
 ul.articleDetail li {
-    overflow: hidden;
-    margin-bottom: 0.133333rem;
+  overflow: hidden;
+  margin-bottom: 0.133333rem;
 }
 
 ul.articleDetail li span:nth-of-type(1) {
-    float: left;
+  float: left;
 }
 
 ul.articleDetail li span:nth-of-type(2) {
-    float: left;
+  float: left;
 }
 ul.articleDetail .article_title {
-    width: 70px;
+  width: 70px;
 }
 </style>
 
@@ -463,8 +470,8 @@ import * as chartTheme from "@/public/js/chartTheme";
 import * as webApi from "@/config/api";
 import axios from "axios";
 import { Toast } from "mint-ui";
-import OrganDealItem from './OrganDealItem';
-import defaultAvatar from '@/public/images/defaultavatar.png';
+import OrganDealItem from "./OrganDealItem";
+import defaultAvatar from "@/public/images/defaultavatar.png";
 
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
@@ -474,7 +481,6 @@ export default {
   data() {
     return {
       id:0,
-      productDetail: {},
       expertList:[],
       articleList:[],
       productList:[],
@@ -483,7 +489,7 @@ export default {
       noteConsTable: "",
       isProductLoading: false,
       isShowHeader: false,
-      organDetail:{},
+      organDetail: {},
       publishDate: "",
       noteConsTable: "",
       firstPrizeCount: 0,
@@ -501,7 +507,12 @@ export default {
       chartWidthPx: 280,
       showChart: true,
       isFetchDetailError: false,
-      tableFlag: 0
+      tableFlag: 0,
+      routerLink: {
+        expert: 0,
+        deal: 0,
+        article: 0
+      }
     };
   },
   created() {
@@ -544,7 +555,6 @@ export default {
   activated() {
     //clear all data cache
     this.isOrganLoading = true;
-    this.productDetail = {};
     this.organDetail={};
     this.publishDate = "";
     this.noteConsTable = "";
@@ -565,17 +575,10 @@ export default {
     this.id = this.$route.params.id;
     if (this.id) {
       setTimeout(() => {
-        this.fetchProductDetail(this.id, data => {
-          busUtil.bus.$emit("headTitle", data.Basic.DealName);
-          this.productDetail = data;
-          if (data.DealId != null && data.DealId > 0) {
-            this.fetchNoteConsTable(data.DealId, 280, 200);
-            this.tableFlag = 0;
-          }
-        });
         this.fetchOrganDetail(this.id, data => {
+          busUtil.bus.$emit("headTitle", data.ShortName);
           //group奖章
-          if (data.Prizes) {
+          if (data.Prizes && data.Prizes.length > 0) {
             var newPrize = [];
             var newPrizeObj = { IconPath: "", count: 0, description: [] };
             var prize = data.Prizes;
@@ -586,7 +589,7 @@ export default {
             newPrize.push(newPrizeObj);
             var icount = 0;
             for (var i = 1; i < prize.length; i++) {
-              if (prize[i].PrizeId == prize[i-1].PrizeId) {
+              if (prize[i].PrizeId == prize[i - 1].PrizeId) {
                 newPrize[icount].count++;
                 newPrizeObj.description.push(prize[i].WinningReason);
               } else {
@@ -601,29 +604,30 @@ export default {
             data.Prizes = newPrize;
           }
           //总资产
-          if(data.TotalAssets){
-            var assets=data.TotalAssets/10000;
-            var totalAssetsInt =parseInt(assets);
-            var totalAssets=totalAssetsInt+"亿";
-            if(totalAssetsInt==0 && assets!=0){
-              totalAssetsInt=parseInt(data.TotalAssets);
-              totalAssets= totalAssetsInt+"万元";                      
+          if (data.TotalAssets) {
+            var assets = data.TotalAssets / 10000;
+            var totalAssetsInt = parseInt(assets);
+            var totalAssets = totalAssetsInt + "亿";
+            if (totalAssetsInt == 0 && assets != 0) {
+              totalAssetsInt = parseInt(data.TotalAssets);
+              totalAssets = totalAssetsInt + "万元";
             }
-            data.TotalAssets=totalAssets;
+            data.TotalAssets = totalAssets;
           }
           // 注册资金
-          if(data.Capital){
-            var capital=data.Capital/10000;
-            var totalCapitalInt=parseInt(capital);
-            var totalCapital=totalCapitalInt+"亿";
-            if(totalCapitalInt==0 && capital!=0){
-              totalCapitalInt=parseInt(data.Capital);
-              totalCapital=totalCapitalInt+"万元";              
+          if (data.Capital) {
+            var capital = data.Capital / 10000;
+            var totalCapitalInt = parseInt(capital);
+            var totalCapital = totalCapitalInt + "亿";
+            if (totalCapitalInt == 0 && capital != 0) {
+              totalCapitalInt = parseInt(data.Capital);
+              totalCapital = totalCapitalInt + "万元";
             }
-            if(data.CapitalCurrencyName!="人民币"){
-              totalCapital=totalCapital+"("+data.CapitalCurrencyName+")";
+            if (data.CapitalCurrencyName != "人民币") {
+              totalCapital =
+                totalCapital + "(" + data.CapitalCurrencyName + ")";
             }
-            data.Capital=totalCapital;
+            data.Capital = totalCapital;
           }
 
           this.isOrganLoading = false;
@@ -637,100 +641,72 @@ export default {
   },
   methods: {
     initData: function() {
-        if (this.id) {
-          axios(
-            `${webApi.Organ.expertList}/${this.id}/0/0/3`
-          ).then(response => {
-            if(response.data.status === "ok")
-            {
-              this.expertList = response.data.data;
-            } 
-          });
+      if (this.id) {
+        axios(`${webApi.Organ.expertList}/${this.id}/0/0/3`).then(response => {
+          if (response.data.status === "ok") {
+            this.expertList = response.data.data;
+          }
+        });
 
-          axios(
-            `${webApi.Organ.articleList}/${this.id}/0/0/3`
-          ).then(response => {
-            if(response.data.status === "ok")
-            {
-              this.articleList = response.data.data;
-            } 
-          });
+        axios(`${webApi.Organ.articleList}/${this.id}/0/0/3`).then(response => {
+          if (response.data.status === "ok") {
+            this.articleList = response.data.data;
+          }
+        });
 
-        axios(
-            `${webApi.Organ.dealList}/${this.id}/0/0/0/0/0/5`
-          ).then(response => {
-            if(response.data.status === "ok")
-            {
+        axios(`${webApi.Organ.dealList}/${this.id}/0/0/0/0/0/5`).then(
+          response => {
+            if (response.data.status === "ok") {
               this.productList = response.data.data.Deal;
-              this.product=response.data.data;
-            } 
-          });
-        }
+              this.product = response.data.data;
+            }
+          }
+        );
+      }
     },
-    isValidElement: function (item) {
-        return !(item === null || item === undefined || item === "");
+    isValidElement: function(item) {
+      return !(item === null || item === undefined || item === "");
     },
     isArrayEmpty: function(arr) {
       return arr === null || arr === undefined || arr.length === 0;
     },
     isValidAvatar: function(avatar) {
-      return this.isValidElement(avatar) ? avatar:defaultAvatar;
+      return this.isValidElement(avatar) ? avatar : defaultAvatar;
     },
     followHandle(exItem) {
       // 关注
-        axios(webApi.Organ.followList.concat(['',exItem.Followed,exItem.UserId].join('/'))).then(response => {
-              if (response.data.status == 'ok') {
-                exItem.Followed=!exItem.Followed;
-              }
-              else {
-                this.doCatch();
-              }
-        })
-    },
-    sendAttachment: function(fileCode) {
-        axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
-        .then(response => {
-            this.$toast(response.data.data);
-        });
-    },
-    productDetailUrl: function(id) {
-        return this.isShowHeader ? {path: `/InstitutionalArticle/${id}`, query: this.query} : `/ProductDetail/${id}`;
-    },
-    expertListUrl: function() {
-        return `/InstitutionalExperts/${this.id}`;
-    },
-    articleListUrl: function() {
-        return `/InstitutionalArticle/${this.id}`;
-    },
-    productListUrl: function() {
-        return `/OrganDeal/${this.id}`;
-    },
-    fetchNoteConsTable(dealId, width, height) {
       axios(
-        webApi.Product.structure + "/" + dealId + "/" + width + "/" + height
+        webApi.Organ.followList.concat(
+          ["", exItem.Followed, exItem.UserId].join("/")
+        )
       ).then(response => {
-        // console.log(response);
         if (response.data.status == "ok") {
-          this.noteConsTable = response.data.data;
+          exItem.Followed = !exItem.Followed;
+        } else {
+          this.doCatch();
         }
       });
     },
-    fetchProductDetail(id, callback) {
-      // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
-      axios(webApi.Product.detail.concat(["", id].join("/")))
+    sendAttachment: function(fileCode) {
+      axios
+        .post(webApi.Expert.sendPublishUrl, { fileCode: fileCode })
         .then(response => {
-          if (response.data.status == "ok") {
-            const data = response.data.data;
-            if (data) {
-              callback(data);
-            } else {
-              this.doCatch();
-            }
-          }
-        })
-        .catch(error => {
-          this.doCatch();
+          this.$toast(response.data.data);
         });
+    },
+    productDetailUrl: function(id) {
+      return this.isShowHeader
+        ? { path: `/InstitutionalArticle/${id}`, query: this.query }
+        : `/ProductDetail/${id}`;
+    },
+    expertListUrl: function() {
+      return `/InstitutionalExperts/${this.id}`;
+    },
+    articleListUrl: function() {
+      return `/InstitutionalArticle/${this.id}`;
+    },
+    productListUrl: function() {
+      return `/OrganDeal/${this.id}`;
     },
     fetchOrganDetail(id, callback) {
       var url = webApi.Organ.detail;
@@ -743,6 +719,7 @@ export default {
         }
       });
     },
+
     doCatch() {
       Toast("服务器繁忙，请重试！");
       this.isOrganLoading = false;

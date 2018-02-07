@@ -109,6 +109,22 @@ body{
 	margin-top:6px;
 	margin-right: 5px;
 }
+.appH5_square_char{
+	width: 16px;
+	height: 16px;
+	text-align: center;   
+	font-size: 13px;
+	line-height: 16px;
+	color: #ffffff;
+}
+.appH5_square_ch_char{
+	width: 16px;
+	height: 16px;
+	text-align: center;   
+	font-size: 12px;
+	line-height: 16px;
+	color: #ffffff;
+}
 .appH5_table{
     border-collapse: collapse;
     width:100%;
@@ -176,7 +192,7 @@ a:hover, a:focus {
    color:#33ffcc;
 }
 .appH5_color_red{
-	color:#ff3333!important;
+	color:#ff0000!important;
 }
 .appH5_color_pink{
 	color:#ff6666;
@@ -193,6 +209,9 @@ a:hover, a:focus {
 .appH5_bg_green{
 	background:#33ffcc;
  }
+ .appH5_bg_darkgreen{
+	background:#009900;
+ }
 .appH5_bg_pink{
 	background:#ff6666;
 }
@@ -205,6 +224,9 @@ a:hover, a:focus {
 .appH5_bg_purple{
 	background:#9966ff;
 }
+.appH5_bg_darkpurple{
+	background:#6600cc;
+ }
 .appH5_bg_senior{
 	background: #A23B1D;
 }
@@ -554,12 +576,23 @@ select{
 .appH5_absolute{
 	position: absolute;
 }
+.appH5_circle_icon_div{
+	width:1.333333rem;
+	height: 1.333333rem;
+	border-radius: 50%;
+	text-align: center;
+	display: inline-block;
+}
 .appH5_icon{
-	font-size:34px;
-	color:#ffc446;
+	margin-top:.266667rem;
+	font-size:.8rem;
+	color:#ffffff;
 }
 .appH5_margin_left20{
 	margin-left: .533333rem;
+}
+.appH5_margin_left30{
+	margin-left: .8rem;
 }
 .appH5_margin_bottom10{
 	margin-bottom: .133333rem;
