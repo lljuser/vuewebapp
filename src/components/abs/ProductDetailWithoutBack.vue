@@ -180,6 +180,7 @@ export default {
     this.publishDate = "";
     this.noteConsTable = "";
     this.showChart=true;
+
     this.options = {
       title: {
         text: "暂无数据"
@@ -200,7 +201,6 @@ export default {
           if (this.isShowHeader) {
             BusUtil.getInstance().bus.$emit("headTitle", data.Basic.DealName)
           }
-          
           if (data.DealId != null && data.DealId > 0) {
             this.fetchNoteConsTable(data.DealId, 280, 200);
             this.fetchProductPaymentChart(data.DealId);
@@ -359,6 +359,10 @@ export default {
                                 }],
                                 plotBands: [{
                                     color: "#333",
+
+
+
+
                                     from: Date.UTC(2e3, 1, 1),
                                     to: lineValue
                                 }]
@@ -561,6 +565,8 @@ export default {
     //     }
     //   });
     // }
+
+
   }
 };
 </script>
