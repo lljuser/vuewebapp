@@ -14,8 +14,6 @@
           infinite-scroll-distance="55">
           <div class="padStyle" v-for="item in expertsInfo">
               <div style="position: relative;">
-                
-                  <!-- <img :src="'http://10.1.1.35:8000/filestore/common/downloadimg/cnabs/'+item.Avatar+'/s'" class="related-image appH5_fl"/> -->
                   <img :src="item.Avatar" class="related-image appH5_fl"/>
               </div>
               <div class="related-info appH5_fl">

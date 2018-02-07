@@ -35,8 +35,9 @@
     <mt-loadmore :top-method="loadTop"  ref="loadmore">
       <table id="productTableId" class="appH5_table">
         <tr>
+          <th style="padding-left:0;width:8px;"></th>
           <th>证券简称</th>
-          <th class="text-left">金额(亿)</th>
+          <th class="text-right">金额(亿)</th>
           <th class="text-right">利率</th>
         </tr>
         <tbody  v-infinite-scroll="loadMore"
@@ -268,10 +269,10 @@ li {
   table-layout: fixed;
 }
 
-#productTableId th:nth-of-type(2){
+#productTableId th:nth-of-type(3){
 width: 67px;
 }
-#productTableId th:nth-of-type(3){
+#productTableId th:nth-of-type(4){
 width: 25%;
 }
 
