@@ -161,16 +161,32 @@
                 </div>                                                  
               </div>              
           </div>                  
-
           <div class="appH5_panel appH5_panel_mb">
               <div class="appH5_title">
                   <span>参与项目</span>
                   <router-link :to="`/organDeal/1`"> 
                   <div class="appH5_float_right appH5_font16">更多></div>
                   </router-link>
-              </div>            
+              </div>  
+                <table id="productTableId" class="appH5_table">
+                  <tr>
+                    <th class='text-left ep_width225'>名称</th>
+                    <th class='text-right'>金额(亿)</th>
+                    <th class='text-right'>类型</th>
+                  </tr>
+                   <tr v-for="(item, index) in productList" v-bind:key="index">
+                      <td class='text-left'>
+                          <router-link :to="productDetailUrl(item.DealId)" class="ep_font32 ep_ellipsis fl ep_width225 ep_color_yellow">
+                              {{item.DealName}}
+                          </router-link>
+                      </td>
+                      <td class='text-right appH5_color_red'>{{item.TotalOffering}}</td>
+                      <td class='text-right ep_ellipsis'>
+                          {{item.DealType}}
+                      </td>
+                  </tr>
+                </table>
           </div>          
-
           <div class="appH5_panel appH5_panel_mb">
               <div class="appH5_title">
                   <span>机构文章</span>
@@ -234,102 +250,103 @@
   color: #fec447;
   font-size: 14px;
 }
-.relevant-item{
+.relevant-item {
   border-bottom: #444444 solid 1px;
   height: 1.86667rem;
   width: 100%;
 }
-.related-image{
+.related-image {
   width: 1.0667rem;
   height: 1.0667rem;
   border-radius: 50%;
-  -webkit-border-radius:50%;
-  margin-top: .4rem;
+  -webkit-border-radius: 50%;
+  margin-top: 0.4rem;
 }
-.related-info{
+.related-info {
   display: table;
   margin-left: 1.26667rem;
 }
-.related-info-cont{
+.related-info-cont {
   display: table-cell;
   vertical-align: middle;
   height: 1.8667rem;
-  line-height: .55rem;
+  line-height: 0.55rem;
 }
-.content-truncate{
+.content-truncate {
   display: block;
   width: 5.7333rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.appH5_followBtn,.appH5_unfollowBtn{
-    width: 1.3333rem;
-    height:.61333rem;
-    line-height:.61333rem;
-    border-radius: .10667rem;
-    -webkit-border-radius: .10667rem;
-    text-align: center;
-    margin-top: -1.16rem;
-    display: block;
+.appH5_followBtn,
+.appH5_unfollowBtn {
+  width: 1.3333rem;
+  height: 0.61333rem;
+  line-height: 0.61333rem;
+  border-radius: 0.10667rem;
+  -webkit-border-radius: 0.10667rem;
+  text-align: center;
+  margin-top: -1.16rem;
+  display: block;
 }
-.appH5_followBtn{
-    border: #00FC00 solid 1px;
-    color: #00FC00;
+.appH5_followBtn {
+  border: #00fc00 solid 1px;
+  color: #00fc00;
 }
-.appH5_unfollowBtn{
-    border: #666666 solid 1px;
-    color: #666666;
+.appH5_unfollowBtn {
+  border: #666666 solid 1px;
+  color: #666666;
 }
-.appH5_font16{
+.appH5_font16 {
   font-size: 16px;
 }
-.appH5_font12{
+.appH5_font12 {
   font-size: 12px;
 }
-.clear_float{
+.clear_float {
   clear: both;
 }
-.clear_float{
+.clear_float {
   overflow: hidden;
 }
-.articleWidth{
+.articleWidth {
   max-width: 7.7rem;
 }
-.article_title{
+.article_title {
   width: 70px;
 }
-.overhide{
+.overhide {
   overflow: hidden;
 }
-.article_content{
+.article_content {
   line-height: 0.48rem;
   margin-top: 0.133333rem;
 }
-.article_content li{
+.article_content li {
   overflow: hidden;
   margin-bottom: 0.133333rem;
 }
-.article_border{
+.article_border {
   border-bottom: 1px solid #444444;
 }
-.article_position{
+.article_position {
   position: relative;
 }
-.article_padding30{
+.article_padding30 {
   padding: 0rem 0.4rem 0.266667rem 0.4rem;
 }
-.send_mail_btn{
+.send_mail_btn {
   position: absolute;
   bottom: 0.26667rem;
   right: 0rem;
-  padding: 0.1rem 0.2rem ;
-  height: .42rem;
-  line-height: .42rem;
-  border:1px solid #ffc446;
+  padding: 0.1rem 0.2rem;
+  height: 0.42rem;
+  line-height: 0.42rem;
+  border: 1px solid #ffc446;
   border-radius: 4px;
   color: #ffc446;
-  background:#000;
+  background: #000;
 }
 .organ_prize_img{
   width: 50px;
@@ -347,13 +364,13 @@ import Vue from "vue";
 import VueHighcharts from "vue-highcharts";
 import Highcharts from "highcharts";
 import getParams from "../../public/js/getParams";
-
 // some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
 import * as chartTheme from "@/public/js/chartTheme";
-
 import * as webApi from "@/config/api";
 import axios from "axios";
 import { Toast } from "mint-ui";
+import OrganDealItem from './OrganDealItem';
+
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
 
@@ -362,10 +379,18 @@ export default {
   data() {
     return {
       productDetail: {},
+<<<<<<< HEAD
+      productList:[],
+      publishDate: "",
+      noteConsTable: "",
+      isProductLoading: false,
+      isShowHeader: false,
+=======
       organDetail:{},
       publishDate: "",
       noteConsTable: "",
       isOrganLoading: false,
+>>>>>>> 5cc7509709a421a859260bce69ee2d09dfeec877
       options: {
         title: {
           text: "暂无数据"
@@ -464,9 +489,23 @@ export default {
     }
     busUtil.bus.$emit("showHeader", true);
     busUtil.bus.$emit("path", "/organ");
+    this.initData();
   },
 
   methods: {
+    initData: function() {
+      axios(
+        `${webApi.Organ.dealList}/1/0/0/0/0/0/3`
+      ).then(response => {
+        if(response.data.status === "ok")
+        {
+          this.productList = response.data.data.Deal;
+        } 
+      });
+    },
+    productDetailUrl: function(id) {
+        return this.isShowHeader ? {path: `/ProductDetail/${id}`, query: this.query} : `/ProductDetail/${id}`;
+    },
     fetchNoteConsTable(dealId, width, height) {
       axios(
         webApi.Product.structure + "/" + dealId + "/" + width + "/" + height

@@ -350,7 +350,7 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/security');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '证券信息');
         this.tableFlag=0;
     },
     mounted() {
@@ -366,12 +366,12 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/security');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '证券信息');
         this.id = this.$route.params.id;
         if (this.id) {
             setTimeout(()=>{
                     this.fetchSecurityDetail(this.id,data=>{
-                    busUtil.bus.$emit('headTitle', data.Basic.DealName); 
+                    // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
                     this.isSecurityLoading=false;
                 });
