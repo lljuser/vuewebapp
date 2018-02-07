@@ -166,9 +166,9 @@
                       </router-link>
                   </div>
                 </header>
-                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in articleList" v-bind:key="index">
+                <div class="ep_padding30 ep_part_item_border articleList" v-for="(item, index) in articleList" v-bind:key="index">
                     <div class=" ep_overhide">
-                        <span class="appH5_font_normal ep_ellipsis appH5_fl ep_maxWidth577 appH5_color_green">{{item.Name}}</span>
+                        <span class="appH5_font_normal appH5_fl appH5_color_green">{{item.Name}}</span>
                     </div>
                     <div class="divArticleDetail">
                         <ul class="appH5_color_details appH5_font_smaller ep_decription articleDetail">
@@ -364,6 +364,10 @@
       width: 1.4333rem;
 }
 /*机构文章*/
+.articleList
+{
+  padding-left: 0 !important;
+}
 .articleContent, .articleListContent {
     background-color: #000;
 }
