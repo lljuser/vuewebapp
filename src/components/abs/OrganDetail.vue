@@ -14,7 +14,7 @@
           <div>{{organDetail.Website}}</div>
           <!-- 机构单页-资产方 -->
           <div v-if="organDetail.IsAsset">
-              <table class="appH5_list_two" v-if="productDetail.Basic!=null">
+              <table class="appH5_list_two">
                 <tr>
                     <td>总资产</td>
                     <td>{{organDetail.TotalAssets}}</td>
@@ -105,7 +105,7 @@
               <div class="appH5_title">
                   <span>累积参与项目</span>
               </div>
-              <table class="appH5_list_two" v-if="productDetail.Basic!=null">
+              <table class="appH5_list_two">
                 <tr>
                     <td>总数</td>
                     <td>{{product.Count}}单</td>
@@ -480,12 +480,11 @@ export default {
   name: "organDetail",
   data() {
     return {
-      id: 0,
-      productDetail: {},
-      expertList: [],
-      articleList: [],
-      productList: [],
-      product: [],
+      id:0,
+      expertList:[],
+      articleList:[],
+      productList:[],
+      product:[],
       publishDate: "",
       noteConsTable: "",
       isProductLoading: false,
@@ -556,8 +555,7 @@ export default {
   activated() {
     //clear all data cache
     this.isOrganLoading = true;
-    this.productDetail = {};
-    this.organDetail = {};
+    this.organDetail={};
     this.publishDate = "";
     this.noteConsTable = "";
     this.options = {
@@ -710,7 +708,6 @@ export default {
     productListUrl: function() {
       return `/OrganDeal/${this.id}`;
     },
-
     fetchOrganDetail(id, callback) {
       var url = webApi.Organ.detail;
       url = url + "/" + id;

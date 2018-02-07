@@ -106,8 +106,8 @@
                     <span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span> 
                     <span class="appH5_font_smaller appH5_fl">预测值</span>
                 </div>
-                <span class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-on:click="cashflowShow()">展开</span>
-                <span class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" style="display:none;" v-on:click="cashflowHIde()">收起</span>
+                <span id="appH5lookAll" class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-if="securityDetail.Cashflow.length>0" v-on:click="cashflowShow()">展开</span>
+                <span id="appH5CloseAll" class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" style="display:none;" v-on:click="cashflowHide()">收起</span>
                 <div class="clearfix"></div>
             </p>
             <table class="appH5_table appH5martop appH5_font_smaller" border="0" cellspacing="0" cellpadding="0">
@@ -161,7 +161,7 @@
                     </tr>
                 </tbody>
             </table> 
-            <div id="appH5lookAll" v-if="securityDetail.Cashflow.length==0" class="appH5lookAll appH5bgColor">暂无现金流</div>
+            <div v-if="securityDetail.Cashflow.length==0" class="appH5lookAll appH5bgColor">暂无现金流</div>
         </div>
         </div>
     </div>
@@ -258,6 +258,9 @@
         height: 1rem;
         line-height: 1rem;
         background-color: #222222;
+    }
+    .structureTable {
+        width:100%;
     }
     .structureTable i{
         display: inline-block;
