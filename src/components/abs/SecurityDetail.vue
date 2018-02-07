@@ -1,11 +1,14 @@
 <template>
-  <div class="appH5_body">
+  <div class="appH5_body" style="margin-top:-.32rem;">
     <div class="product-spinner" v-if="isSecurityLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
-    <div class="appH5_content" v-else>
+    <div class="appH5_content" v-else  style="margin-top:0;">
         <div v-if="securityDetail.Basic!=null">
-            <div class="appH5_panel" style="padding-top:0;">
+            <div class="appH5_panel text-center appH5_color_white">
+                {{securityDetail.Basic.Description}}
+            </div>
+            <div class="appH5_panel" style="padding-top:0;margin-top:.32rem;">
                 <table class="appH5_list_five">
                     <tr>
                         <td colspan="2" rowspan="2" class="appH5_color_red">
@@ -15,12 +18,12 @@
                         </td> 
                         <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.DealType}}</td> 
                         <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td> 
-                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.SimpleExchange}}</td>
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space text-right" style="padding-right:0;">{{securityDetail.Basic.SimpleExchange}}</td>
                     </tr>
                     <tr>
                         <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentRatingCombine}}</td> 
                         <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentWal!=null&&securityDetail.Basic.CurrentWal!=""?securityDetail.Basic.CurrentWal+"Y":"-"}}</td> 
-                        <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
+                        <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top text-right" style="padding-right:0;">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
                     </tr>
                 </table>
                
@@ -106,8 +109,8 @@
                     <span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span> 
                     <span class="appH5_font_smaller appH5_fl">预测值</span>
                 </div>
-                <span id="appH5lookAll" class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-if="securityDetail.Cashflow.length>0" v-on:click="cashflowShow()">展开</span>
-                <span id="appH5CloseAll" class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" style="display:none;" v-on:click="cashflowHide()">收起</span>
+                <span  class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-if="securityDetail.Cashflow.length>0&&ExpandShowFlag" v-on:click="cashflowShow()">展开</span>
+                <span  class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-if="securityDetail.Cashflow.length>0&&!ExpandShowFlag" v-on:click="cashflowHide()">收起</span>
                 <div class="clearfix"></div>
             </p>
             <table class="appH5_table appH5martop appH5_font_smaller" border="0" cellspacing="0" cellpadding="0">
@@ -132,7 +135,7 @@
                         <td class="text-right">{{securityDetail.Cashflow[0].Total}}</td>
                     </tr>
                 </tbody> -->
-                <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&!!item.Default" v-for="item in securityDetail.Cashflow">
+                <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&!item.Default" v-for="item in securityDetail.Cashflow">
                     <tr>
                         <td>
                             <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
@@ -146,7 +149,7 @@
                         <td class="text-right">{{item.Total}}</td>
                     </tr>
                 </tbody>
-                <tbody v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag"  v-for="item in securityDetail.Cashflow">
+                <tbody v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag" v-for="item in securityDetail.Cashflow">
                     <tr v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')">
                         <td> 
                             <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
@@ -319,6 +322,7 @@ export default {
             isFetchDetailError: false,
             CashflowShowFlag:true,
             NoteStructureFlag:true,
+            ExpandShowFlag:true,
         };
     },
     created() {
@@ -337,6 +341,8 @@ export default {
         //clear all data cache
         this.isSecurityLoading=true;
         this.securityDetail = {};
+        this.CashflowShowFlag=true;
+        this.ExpandShowFlag=true;
         window.scrollTo(0,0);
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
@@ -348,6 +354,7 @@ export default {
                     this.fetchSecurityDetail(this.id,data=>{
                     // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
+                    console.log(this.securityDetail);
                     this.isSecurityLoading=false;
                 });
             },600);
@@ -382,21 +389,11 @@ export default {
         },
         cashflowShow(){
             this.CashflowShowFlag=false;
-            var buttonShow=document.getElementById("appH5lookAll");
-            // buttonShow.setAttribute("style","display:none");
-            buttonShow.style.display="none";
-            var buttonHide=document.getElementById("appH5CloseAll");
-            // buttonHide.setAttribute("style","display:block");
-            buttonHide.style.display="block";
+            this.ExpandShowFlag=false;
         },
         cashflowHide(){
             this.CashflowShowFlag=true;
-            var buttonHide=document.getElementById("appH5CloseAll");
-            // buttonHide.setAttribute("style","display:none");
-            buttonHide.style.display="none";
-            var buttonShow=document.getElementById("appH5lookAll");
-            // buttonShow.setAttribute("style","display:block");
-            buttonShow.style.display="block";
+            this.ExpandShowFlag=true;
         },
         fetchDealStructure(dealId, noteId) {
             axios(webApi.Security.structure.concat(['',dealId,noteId].join('/'))).then(response => {

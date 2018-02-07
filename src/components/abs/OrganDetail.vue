@@ -10,33 +10,29 @@
           <div class="appH5_title">
               <span>{{organDetail.FullName}}</span>
           </div>
+          <div>{{organDetail.Website}}</div>          
           <div><span>{{organDetail.FoundDate}}</span><span style="padding-left:20px;">{{organDetail.Nature}}</span></div>
-          <div>{{organDetail.Website}}</div>
           <!-- 机构单页-资产方 -->
-          <div v-if="organDetail.IsAsset">
-              <table class="appH5_list_two">
-                <tr>
-                    <td>总资产</td>
-                    <td>{{organDetail.TotalAssets}}</td>
-                </tr>
-                <tr>
-                    <td>资产负债率</td>
-                    <td>{{organDetail.AssetLiabilityRatio}}</td>
-                </tr>
-                <tr>
-                    <td>评级</td>
-                    <td v-if="organDetail.Rating!=null">{{organDetail.Rating}}</td>
-                    <td v-if="organDetail.Rating==null">-</td>
-                </tr>                 
-                <tr>
-                    <td>企业性质</td>
-                    <td>{{organDetail.Nature}}</td>
-                </tr> 
-                <tr>
-                    <td>注册资金</td>
-                    <td>{{organDetail.Capital}}</td>
-                </tr>                                                                                                                
-              </table> 
+          <div class="organ_basic_info" v-if="organDetail.IsAsset">
+            <div class="appH5_inner_panel appH5_important_div">
+              <div class="appH5_important_item">
+				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.Capital}}</div>
+				        <div class="appH5_color_green appH5_font_smaller">注册资金</div>
+			        </div> 
+              <div class="appH5_important_item">
+				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.TotalAssets}}</div>
+				        <div class="appH5_color_green appH5_font_smaller">总资产</div>
+			        </div> 
+              <div class="appH5_important_item">
+				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.AssetLiabilityRatio}}</div>
+				        <div class="appH5_color_green appH5_font_smaller">负债率</div>
+			        </div> 
+              <div class="appH5_important_item">
+				        <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.Rating!=null">{{organDetail.Rating}}</div>
+				        <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.Rating==null">-</div>
+				        <div class="appH5_color_green appH5_font_smaller">主体评级</div>
+			        </div>                                                        
+            </div> 
           </div>
           <!-- 机构单页-资产方-END -->
           </div>
@@ -105,27 +101,22 @@
               <div class="appH5_title">
                   <span>累积参与项目</span>
               </div>
-              <table class="appH5_list_two">
-                <tr>
-                    <td>总数</td>
-                    <td>{{product.Count}}单</td>
-                </tr>
-                <tr>
-                    <td>总额</td>
-                    <td>{{product.Balance}}亿</td>
-                </tr>                                   
-              </table>
+              <div class="appH5_overhide">
+                <span class="appH5_font_larger appH5_color_red">{{product.Count}}</span>
+                <span class="appH5_font_smaller">单</span>
+                <span class="appH5_font_larger appH5_color_red appH5_margin_left30">{{product.Balance}}</span>
+                <span class="appH5_font_smaller">亿</span>
+              </div>
           </div> 
 
           <div class="appH5_panel appH5_panel_mb">
               <div class="appH5_title">
                   <span>机构简介</span>
               </div>
-              <div class="organ_introduction">
-                  {{organDetail.Introduction}}
-              </div>              
-          </div>
-
+              <div class="organ_introduction appH5_color_details">
+                  <pre>{{organDetail.Introduction}}</pre>
+             </div>
+           </div>
           <div class="appH5_panel appH5_panel_mb" v-if="!isArrayEmpty(expertList)">
             <header class="ep_part_title ep_part_item_border">
               <div class="appH5_title">
@@ -227,6 +218,10 @@
 </template>
 
 <style scoped>
+.organ_introduction{
+  line-height: 22px;
+  text-align: justify;
+}
 .backTablePic {
   float: left;
   margin: 4px 4px 4px 2px;
@@ -235,7 +230,9 @@
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC);
   background-repeat: repeat;
 }
-
+.organ_basic_info{
+  margin-top: 0.373333rem;
+}
 .organIconsDiv {
   width: 100%;
 }
@@ -350,7 +347,12 @@
   width: 30px;
   height: 40px;
 }
-
+.organ_introduction pre{
+      margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    display: block;
+}
 /*机构专家*/
 .expertLsit .related-info {
   margin-left: 0.26667rem;
