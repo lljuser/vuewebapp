@@ -156,7 +156,7 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '产品信息');
         this.tableFlag=0;
     },
     mounted() {
@@ -216,12 +216,12 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '产品信息');
         this.id = this.$route.params.id;
         if (this.id) {
             setTimeout(()=>{
                     this.fetchProductDetail(this.id,data=>{
-                    busUtil.bus.$emit('headTitle', data.Basic.DealName); 
+                    // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.productDetail =data;
                     this.isProductLoading=false;
                     if(data.DealId!=null&&data.DealId>0){
