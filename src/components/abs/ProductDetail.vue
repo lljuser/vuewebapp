@@ -407,7 +407,7 @@ export default {
                                     text: ""
                                 },
                                 labels: {
-                                    format: "{value:.0f}%"
+                                    format: "{value:.0f}"
                                 },
                                 max: 100
                             },

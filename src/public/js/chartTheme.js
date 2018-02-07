@@ -55,7 +55,7 @@ module.exports = {
     labels: {
       style: {
         color: '#E0E0E3',
-        fontSize: '14px',
+        fontSize: '8px',
       },
     },
     lineColor: '#707073',
