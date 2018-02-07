@@ -7,7 +7,7 @@
     <div class="appH5_content" v-else>
       <div>
         <div class="appH5_panel appH5_panel_mb">
-          <div class="appH5_margin_bottom10 appH5_font_larger">
+          <div class="appH5_margin_bottom10 appH5_font_large">
               <span>{{organDetail.FullName}}</span>
           </div>
           <div class="appH5_margin_bottom10">{{organDetail.Website}}</div>          
