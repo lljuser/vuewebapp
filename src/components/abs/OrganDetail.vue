@@ -17,7 +17,7 @@
               <table class="appH5_list_two" v-if="productDetail.Basic!=null">
                 <tr>
                     <td>总资产</td>
-                    <td>{{organDetail.TotalAssets}}(亿)</td>
+                    <td>{{organDetail.TotalAssets}}</td>
                 </tr>
                 <tr>
                     <td>资产负债率</td>
@@ -34,27 +34,16 @@
                 </tr> 
                 <tr>
                     <td>注册资金</td>
-                    <td>{{organDetail.Capital}}{{organDetail.CapitalCurrency}}</td>
+                    <td>{{organDetail.Capital}}</td>
                 </tr>                                                                                                                
               </table> 
           </div>
           <!-- 机构单页-资产方-END -->
-
-          <!-- 机构单页 -->
-          <div v-if="!organDetail.IsAsset">
-              <table class="appH5_list_two" v-if="productDetail.Basic!=null">                  
-                <tr v-if="organDetail.Website!=''">
-                    <td>机构网址</td>
-                    <td>{{organDetail.Website}}</td>
-                </tr> 
-              </table>
-          </div>         
-          <!-- 机构单页-END -->
           </div>
 
           <div class="organIconsDiv appH5_float_right appH5_panel appH5_panel_mb">
               <div class="appH5_float_left organIconDiv"> 
-                <router-link :to="`/institutionalExperts/1`"> 
+                <router-link :to="`/institutionalExperts/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
                     <div>
                       <font-awesome-icon :icon="['far', 'user']" class="appH5_icon" />
@@ -106,11 +95,11 @@
               <table class="appH5_list_two" v-if="productDetail.Basic!=null">
                 <tr>
                     <td>总数</td>
-                    <td>{{productDetail.Basic.TotalOffering}}单</td>
+                    <td>{{product.Count}}单</td>
                 </tr>
                 <tr>
                     <td>总额</td>
-                    <td>{{productDetail.Basic.TotalOffering}}亿</td>
+                    <td>{{product.Balance}}亿</td>
                 </tr>                                   
               </table>
           </div> 
@@ -186,7 +175,7 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <span class="fl ep_ellipsis ep_width262 ep_Link">{{item.Link}}</span>
+                                <span class='fl ep_ellipsis ep_Link' v-bind:class="isValidElement(item.AttachmentFileCode)? 'ep_width262': 'ep_width487'">{{item.Link}}</span>
                             </li>
                         </ul>
                         <span class="ep_sendMailBtn appH5_font_normal" v-on:click="sendAttachment(item.AttachmentFileCode)" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>
@@ -366,7 +355,7 @@
 /*机构文章*/
 .articleList
 {
-  padding-left: 0 !important;
+  padding-left: 0 !important;      
 }
 .articleContent, .articleListContent {
     background-color: #000;
@@ -443,6 +432,9 @@ ul.articleDetail .article_title {
 .ep_width262 {
     width: 3.5rem;
 }
+.ep_width487 {
+    width: 6.5rem;
+}
 ul.articleDetail li {
     overflow: hidden;
     margin-bottom: 0.133333rem;
@@ -486,6 +478,7 @@ export default {
       expertList:[],
       articleList:[],
       productList:[],
+      product:[],
       publishDate: "",
       noteConsTable: "",
       isProductLoading: false,
@@ -508,7 +501,12 @@ export default {
       chartWidthPx: 280,
       showChart: true,
       isFetchDetailError: false,
-      tableFlag: 0
+      tableFlag: 0,
+      routerLink:{
+        expert:0,
+        deal:0,
+        article:0
+      }
     };
   },
   created() {
@@ -572,17 +570,11 @@ export default {
     this.id = this.$route.params.id;
     if (this.id) {
       setTimeout(() => {
-        this.fetchProductDetail(this.id, data => {
-          busUtil.bus.$emit("headTitle", data.Basic.DealName);
-          this.productDetail = data;
-          if (data.DealId != null && data.DealId > 0) {
-            this.fetchNoteConsTable(data.DealId, 280, 200);
-            this.tableFlag = 0;
-          }
-        });
+        
         this.fetchOrganDetail(this.id, data => {
+           busUtil.bus.$emit("headTitle", data.ShortName);
           //group奖章
-          if (data.Prizes) {
+          if (data.Prizes && data.Prizes.length>0) {
             var newPrize = [];
             var newPrizeObj = { IconPath: "", count: 0, description: [] };
             var prize = data.Prizes;
@@ -607,8 +599,38 @@ export default {
             }
             data.Prizes = newPrize;
           }
+          //总资产
+          if(data.TotalAssets){
+            var assets=data.TotalAssets/10000;
+            var totalAssetsInt =parseInt(assets);
+            var totalAssets=totalAssetsInt+"亿";
+            if(totalAssetsInt==0 && assets!=0){
+              totalAssetsInt=parseInt(data.TotalAssets);
+              totalAssets= totalAssetsInt+"万元";                      
+            }
+            data.TotalAssets=totalAssets;
+          }
+          // 注册资金
+          if(data.Capital){
+            var capital=data.Capital/10000;
+            var totalCapitalInt=parseInt(capital);
+            var totalCapital=totalCapitalInt+"亿";
+            if(totalCapitalInt==0 && capital!=0){
+              totalCapitalInt=parseInt(data.Capital);
+              totalCapital=totalCapitalInt+"万元";              
+            }
+            if(data.CapitalCurrencyName!="人民币"){
+              totalCapital=totalCapital+"("+data.CapitalCurrencyName+")";
+            }
+            data.Capital=totalCapital;
+          }
+
           this.isOrganLoading = false;
           this.organDetail = data;
+
+          
+
+
         });
       }, 600);
     }
@@ -643,6 +665,7 @@ export default {
             if(response.data.status === "ok")
             {
               this.productList = response.data.data.Deal;
+              this.product=response.data.data;
             } 
           });
         }
@@ -685,33 +708,7 @@ export default {
     productListUrl: function() {
         return `/OrganDeal/${this.id}`;
     },
-    fetchNoteConsTable(dealId, width, height) {
-      axios(
-        webApi.Product.structure + "/" + dealId + "/" + width + "/" + height
-      ).then(response => {
-        // console.log(response);
-        if (response.data.status == "ok") {
-          this.noteConsTable = response.data.data;
-        }
-      });
-    },
-    fetchProductDetail(id, callback) {
-      // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
-      axios(webApi.Product.detail.concat(["", id].join("/")))
-        .then(response => {
-          if (response.data.status == "ok") {
-            const data = response.data.data;
-            if (data) {
-              callback(data);
-            } else {
-              this.doCatch();
-            }
-          }
-        })
-        .catch(error => {
-          this.doCatch();
-        });
-    },
+     
     fetchOrganDetail(id, callback) {
       var url = webApi.Organ.detail;
       url = url + "/" + id;
@@ -723,6 +720,7 @@ export default {
         }
       });
     },
+
     doCatch() {
       Toast("服务器繁忙，请重试！");
       this.isOrganLoading = false;
