@@ -1,16 +1,16 @@
 <template>
   <tr>
-    <td>
-      <div v-if="item.TradeTypeId==1" class="tradingMarketDiv appH5_bg_blue">P</div>
-      <div v-if="item.TradeTypeId==2" class="tradingMarketDiv appH5_bg_purple">S</div>
+    <td style="padding-left:0;padding-right:0">
+      <div v-if="item.TradeTypeId==1" class="appH5_bg_blue appH5_square_char">P</div>
+      <div v-if="item.TradeTypeId==2" class="appH5_bg_purple appH5_square_char">S</div>
     </td>
     <td class="text-left">
-  <router-link :to="`../../tradedetail/${ item.TradeId}/${ item.SecurityId}`" class="appH5_color_link">
+      <router-link :to="`../../tradedetail/${ item.TradeId}/${ item.SecurityId}`" class="appH5_color_link">
         <div class='td_elips1'>{{item.SecurityName}}</div>
       </router-link>
     </td>
     <td class="text-right">
-      <div class="appH5_color_red">{{item.TotalOffering}}</div>
+      <div class="appH5_color_red" style="margin-bottom:-2px;">{{item.TotalOffering}}</div>
     </td>
     <td class="text-right">
       <div class="appH5_ellipsis" style="width:100%">{{item.AssetType}}</div>
@@ -48,4 +48,8 @@ export default {
    font-size: 13px;
    line-height: 15px;
  }
+
+
+
+ 
 </style>

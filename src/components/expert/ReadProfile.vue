@@ -363,6 +363,7 @@ export default {
             busUtil.bus.$emit('showHeader', true);
             busUtil.bus.$emit('path', 'abs.html#' + query.path);
             busUtil.bus.$emit('headTitle', '专家履历');
+            busUtil.bus.$emit('showClose', true,query.path);
          }
      });
   },

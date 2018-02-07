@@ -179,6 +179,7 @@ export default {
     this.productDetail = {};
     this.publishDate = "";
     this.noteConsTable = "";
+    this.showChart=true;
 
     this.options = {
       title: {
@@ -194,24 +195,21 @@ export default {
     const productId = util.isValidId(this.$route.params.dealId)
       ? this.$route.params.dealId
       : util.getQueryString().dealId;
-
     if (productId) {
       this.fetchProductDetail(productId, data => {
           this.productDetail = data;
           if (this.isShowHeader) {
             BusUtil.getInstance().bus.$emit("headTitle", data.Basic.DealName)
           }
-          
           if (data.DealId != null && data.DealId > 0) {
             this.fetchNoteConsTable(data.DealId, 280, 200);
-          }
-          if (data.ResultSetId != null && data.ResultSetId > 0) {
-            this.fetchProductPaymentChart(data.DealId, data.ResultSetId);
+            this.fetchProductPaymentChart(data.DealId);
           }
       });
     }
   },
   updated() {
+    
     var paidList = document.getElementsByClassName("divHasPaid");
     for (var i = 0; i < paidList.length; i++) {
       paidList[i].style.backgroundImage =
@@ -273,163 +271,145 @@ export default {
       this.isProductLoading = false;
       this.isFetchProductsError = true;
     },
-    fetchProductPaymentChart(dealId, resultId) {
-      axios(
-        webApi.Product.chart.concat(["", dealId, resultId].join("/"))
-      ).then(response => {
-        const json = response.data;
-        if (json.status == "ok") {
-          var chartData = json.data;
-          var o = [];
-          var hasLegal = chartData.HasLegalLine;
-          var colors = [
-            "#2b908f",
-            "#D8C46C",
-            "#f45b5b",
-            "#7798BF",
-            "#FF1495",
-            "#37FF14",
-            "#eeaaee",
-            "#55BF3B",
-            "#DF5353",
-            "#7798BF",
-            "#aaeeee",
-            "#00FFFF",
-            "#8B008B"
-          ];
-          var seriesLength = chartData.ListLineSeries.length / 2;
-          for (
-            var j = 0;
-            j <
-            Math.floor(
-              (hasLegal ? seriesLength : 2 * seriesLength) / colors.length
-            );
-            j++
-          )
-            colors = colors.concat(colors);
-          var i = 0;
-          chartData.ListLineSeries.forEach(function(e) {
-            var a = [];
-            e.Data.Data.forEach(function(e) {
-              a.push([e.X, e.Y]);
-            });
-            if (hasLegal == true) {
-              if (i < seriesLength) {
-                o.push({
-                  name: e.Name,
-                  data: a,
-                  type: "line",
-                  step: true,
-                  color: colors[i]
-                });
-              } else {
-                o.push({
-                  name: e.Name,
-                  data: a,
-                  dashStyle: "Dot",
-                  step: true,
-                  color: colors[i - seriesLength]
-                });
-              }
-              i++;
-            } else {
-              o.push({
-                name: e.Name,
-                data: a,
-                type: "spline"
-              });
-            }
-          });
-          var i = chartData.PlotValue,
-            s = chartData.PlotLabel;
-          var l = {
-            title: {
-              text: ""
-            },
-            xAxis: {
-              type: "datetime",
-              dateTimeLabelFormats: {
-                second: "%Y-%m-%d %H:%M:%S",
-                minute: "%Y-%m-%d %H:%M",
-                hour: "%Y-%m-%d %H:%M",
-                day: "%Y-%m-%d",
-                week: "%Y年%m月",
-                month: "%Y年",
-                year: "%Y年"
-              },
-              plotLines: [
-                {
-                  color: "white",
-                  width: 0.8,
-                  value: i,
-                  dashStyle: "dash",
-                  label: {
-                    text: s,
-                    verticalAlign: "middle",
-                    textAlign: "left",
-                    style: {
-                      color: "#E0E0E3"
+    fetchProductPaymentChart(dealId) {
+            var self = this;
+            axios(webApi.Product.chart.concat(['', dealId].join('/')))
+            .then((response) => {
+                const json = response.data;
+                if (json.status == "ok") {
+                var chartData = json.data;
+                var allSeries = [];
+                var lineValue;
+                var i = 0;
+                var colors = chartTheme.colors;
+                if (chartData && chartData.length > 0) {
+                    var allSeriesLth = chartData.length;
+                    var colorSeries = chartData.filter(function (item) { return item.Order > 100 }).length > 0 ?
+                        Math.ceil(chartData.length / colors.length) : chartData.length;
+                    for (var j = 0; j < colorSeries; j++) //get max color series
+                        colors = colors.concat(colors);
+                    var pSeries = chartData.filter(function (item) { return item.Order < 100 });
+                    var lSeries = chartData.filter(function (item) { return item.Order > 100 && item.Order != 1000 });
+                    var plotLine = chartData.filter(function (item) { return item.Order == 1000 });
+                    var minDate = new Date(1970,1,1).valueOf();
+                    pSeries.forEach(function (item, index) {
+                        var point = [];
+                        item.Points.forEach(function (e) {
+                            point.push([new Date(e.X).valueOf() - minDate, e.Y*1]);
+                        });
+                        allSeries.push({
+                            name: item.SeriesName,
+                            data: point,
+                            dashStyle: item.Type,
+                            step: true,
+                            color: colors[i]
+                        });
+                        i++;
+                    });
+                    if (lSeries.length > 0) {
+                        i = 0;
+                        lSeries.forEach(function (item, index) {
+                           var point = [];
+                           item.Points.forEach(function (e) {
+                              point.push([new Date(e.X).valueOf() - minDate, e.Y*1]);
+                           });
+                           allSeries.push({
+                               name: item.SeriesName,
+                               data: point,
+                               dashStyle: item.Type,
+                               step: true,
+                               color: colors[i],
+                               lineWidth: 3
+                           });
+                        i++;                           
+                        });
                     }
-                  }
+                    if (plotLine.length == 1) {
+                        lineValue = new Date(plotLine[0].Points[0].X).valueOf() - minDate;
+                    }
                 }
-              ],
-              plotBands: [
-                {
-                  color: "#333",
-                  from: Date.UTC(2e3, 1, 1),
-                  to: i
+                        var option = {
+                            title: {
+                                text: ''
+                            },
+                            xAxis: {
+                                type: "datetime",
+                                dateTimeLabelFormats: {
+                                    second: "%Y-%m-%d %H:%M:%S",
+                                    minute: "%Y-%m-%d %H:%M",
+                                    hour: "%Y-%m-%d %H:%M",
+                                    day: "%Y-%m-%d",
+                                    week: "%Y.%m",
+                                    month: "%Y.%m",
+                                    year: "%Y.%m"
+                                },
+                                plotLines: [{
+                                    color: "white",
+                                    width: .8,
+                                    value: lineValue,
+                                    dashStyle: "dash",
+                                    label: {
+                                        text: plotLine[0].Points[0].X,
+                                        verticalAlign: "middle",
+                                        textAlign: "left",
+                                        style: {
+                                            color: "#E0E0E3"
+                                        }
+                                    }
+                                }],
+                                plotBands: [{
+                                    color: "#333",
+
+
+
+
+                                    from: Date.UTC(2e3, 1, 1),
+                                    to: lineValue
+                                }]
+                            },
+                            yAxis: {
+                                title: {
+                                    enabled: !0,
+                                    text: ""
+                                },
+                                labels: {
+                                    format: "{value:.0f}"
+                                },
+                                max: 100
+                            },
+                            plotOptions: {
+                                series: {
+                                    marker: {
+                                        enabled: !1
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                formatter: function () {
+                                    var t,
+                                        e = new Date(this.x);
+                                    return t = e.getFullYear() + "-" + (e.getMonth() + 1) + "-" + e.getDate() + "<br/>" + this.series.name + "剩余本金:<br/>" + Math.round(100 * this.y) / 100 + "%"
+                                }
+                            },
+                            legend : {
+                                style: {
+                                    fontSize: '10px'
+                                }
+                            },
+                            credits: {
+                            href: '',
+                            text: 'CNABS'
+                            },
+                            series: allSeries
+                        };
+                this.options = option;
+                } else {
+                    self.showChart = false;
                 }
-              ]
-            },
-            yAxis: {
-              title: {
-                enabled: !0,
-                text: ""
-              },
-              labels: {
-                format: "{value:.0f}%"
-              },
-              max: 100
-            },
-            plotOptions: {
-              series: {
-                marker: {
-                  enabled: !1
-                }
-              }
-            },
-            tooltip: {
-              formatter: function() {
-                var t,
-                  e = new Date(this.x);
-                return (t =
-                  e.getFullYear() +
-                  "-" +
-                  (e.getMonth() + 1) +
-                  "-" +
-                  e.getDate() +
-                  "<br/>" +
-                  this.series.name +
-                  "剩余本金:<br/>" +
-                  Math.round(100 * this.y) / 100 +
-                  "%");
-              }
-            },
-            legend: {
-              style: {
-                fontSize: "10px"
-              }
-            },
-            credits: {
-              href: "",
-              text: "CNABS"
-            },
-            series: o
-          };
-          this.options = l;
+            });
         }
-      });
-    }
+
+
   }
 };
 </script>
