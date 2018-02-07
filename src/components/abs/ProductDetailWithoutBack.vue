@@ -195,7 +195,6 @@ export default {
     const productId = util.isValidId(this.$route.params.dealId)
       ? this.$route.params.dealId
       : util.getQueryString().dealId;
-
     if (productId) {
       this.fetchProductDetail(productId, data => {
           this.productDetail = data;
@@ -210,6 +209,7 @@ export default {
     }
   },
   updated() {
+    
     var paidList = document.getElementsByClassName("divHasPaid");
     for (var i = 0; i < paidList.length; i++) {
       paidList[i].style.backgroundImage =
