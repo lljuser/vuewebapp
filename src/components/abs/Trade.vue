@@ -34,7 +34,7 @@
   <mt-loadmore :top-method="loadTop"  ref="loadmore">
   <table id="tradeTableId" class="appH5_table" style="table-layout:fixed;">
     <tr>
-      <th></th>
+      <th  style="padding-left:0"></th>
       <th>证券简称</th>
       <th class="text-right">金额(亿)</th>
       <th class="text-right">资产类别</th>
@@ -292,6 +292,7 @@ width: 8px;
 #tradeTableId th:nth-of-type(3){
 width: 55px;
 }
+
 /* #tradeTableId th:nth-of-type(3){
 width: 20%;
 } */
