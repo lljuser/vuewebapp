@@ -14,8 +14,6 @@ export const Product = {
   detail: `${apiAddress}/modeal/getdealfactory`,
   // /{dealId}/{resultId}
   chart: `${apiAddress}/modeal/NoteCashFlowSeries`,
-  // 
-  structure: `${apiAddress}/modeal/getnotestructure`,
 };
 
 export const Trade = {
@@ -43,6 +41,8 @@ export const Organ = {
   dealList: `${apiAddress}/MoOrganization/GetDealList`,
   expertList: `${apiAddress}/MoOrganization/GetOrganizationRelateProfessorList`,
   articleList: `${apiAddress}/MoOrganization/GetOrganizationArticleList`,
+  followList: `${apiAddress}/MoOrganization/ChangeUserFollow`,
+  detail: `${apiAddress}/MoOrganization/GetOragnizationData`,
 };
 
 export const Expert = {

@@ -33,8 +33,9 @@
                       </div>
                   </div>
               </div>
-              <a href="javascript;" v-if="!item.Followed" class="appH5_fr appH5_followBtn">+关注</a>
-              <a href="javascript;" v-if="item.Followed" class="appH5_fr appH5_unfollowBtn">已关注</a>
+              <!-- <span v-if="!item.Followed" class="appH5_fr appH5_followBtn">+关注</span>
+              <span v-if="item.Followed" class="appH5_fr appH5_unfollowBtn">已关注</span> -->
+              <span class="appH5_fr appH5_followBtn" v-bind:class="[!item.Followed?'appH5_followBtn':'appH5_unfollowBtn']" v-on:click="followHandle(item)">{{!item.Followed ? "+关注":'已关注'}}</span>
               <div class="clearfix"></div>
             </div>
         </div>
@@ -76,13 +77,13 @@ export default {
       page: 1,
       pageSize: 10,
       noMore: false,
-      isLoadTop: false
+      isLoadTop: false,
     };
   },
   created() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organDetail/1912");
+    busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
     busUtil.bus.$emit("headTitle", "");
     this.tableFlag = 0;
   },
@@ -99,27 +100,10 @@ export default {
     window.scrollTo(0, 0);
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organDetail/1912");
-    busUtil.bus.$emit("headTitle", "");
-
-    var reLoadData = false;
-    if (reLoadData) {
-      this.loadFirstPageExperts();
-    }
-
+    busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
+    busUtil.bus.$emit("headTitle", "机构专家");
     if (this.isFetchExpertsError) {
       this.loadFirstPageExperts();
-    }
-
-    this.id = this.$route.params.id;
-    if (this.id) {
-      setTimeout(() => {
-        this.fetchExpertsDetail(1, 0, data => {
-          busUtil.bus.$emit("headTitle", "机构专家");
-          this.expertsInfo = data;
-          this.isExpertsLoading = false;
-        });
-      }, 600);
     }
   },
   deactivated() {
@@ -128,6 +112,17 @@ export default {
     this.loading = true;
   },
   methods: {
+    followHandle(exItem) {
+      // 关注
+        axios(webApi.Organ.followList.concat(['',exItem.Followed,exItem.UserId].join('/'))).then(response => {
+              if (response.data.status == 'ok') {
+                exItem.Followed=!exItem.Followed;
+              }
+              else {
+                this.doCatch();
+              }
+        })
+    },
     loadFirstPageExperts(showSpinnerLoad) {
       this.loading = false;
       this.isExpertsLoading = true;
