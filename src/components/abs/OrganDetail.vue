@@ -7,10 +7,10 @@
     <div class="appH5_content" v-else>
       <div>
         <div class="appH5_panel appH5_panel_mb">
-          <div class="appH5_title">
+          <div class="appH5_margin_bottom10 appH5_font_larger">
               <span>{{organDetail.FullName}}</span>
           </div>
-          <div>{{organDetail.Website}}</div>          
+          <div class="appH5_margin_bottom10">{{organDetail.Website}}</div>          
           <div><span>{{organDetail.FoundDate}}</span><span style="padding-left:20px;">{{organDetail.Nature}}</span></div>
           <!-- 机构单页-资产方 -->
           <div class="organ_basic_info" v-if="organDetail.IsAsset">
@@ -42,8 +42,6 @@
               <div class="appH5_important_item"> 
                 <router-link :to="`/institutionalExperts/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
-                     
-                    
                     <div class="appH5_margin_bottom10" >
                       <div class="appH5_circle_icon_div appH5_bg_blue">
                         <font-awesome-icon :icon="['far', 'user']" class="appH5_icon" />
@@ -57,26 +55,26 @@
               <div class="appH5_important_item">
                 <router-link :to="`/organDeal/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
-                    <div>
+                    <div class="appH5_margin_bottom10">
                       <div class=" appH5_bg_darkgreen appH5_circle_icon_div">
                         <font-awesome-icon :icon="['far', 'chart-bar']" class="appH5_icon" />
                         </div>
-                      
+                      </div>  
                       <div style="color:#fff;">参与项目</div>
-                    </div>                  
+                                    
                   </a>
                 </router-link>               
               </div>
               <div class="appH5_important_item"> 
                 <router-link :to="`/institutionalArticle/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
-                    <div>
+                    <div class="appH5_margin_bottom10">
                       <div class="appH5_bg_darkpurple appH5_circle_icon_div">
                         <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon"/>
-                        </div>
-                      
+                      </div>
+                      </div> 
                       <div style="color:#fff;">机构文章</div>
-                    </div>                  
+                                     
                   </a>
                 </router-link>               
               </div> 
