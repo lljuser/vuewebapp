@@ -14,8 +14,6 @@ export const Product = {
   detail: `${apiAddress}/modeal/getdealfactory`,
   // /{dealId}/{resultId}
   chart: `${apiAddress}/modeal/NoteCashFlowSeries`,
-  // 
-  structure: `${apiAddress}/modeal/getnotestructure`,
 };
 
 export const Trade = {

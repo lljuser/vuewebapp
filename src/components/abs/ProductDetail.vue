@@ -47,8 +47,8 @@
         <div class="appH5_title">
               <span>证券结构</span>
         </div>
-        <div v-if="noteConsTable.indexOf('table')!=-1">
-            <div style="text-align:center"><div v-html="noteConsTable" id="structureTable" v-bind:style="'margin:0 auto;width:'+chartWidthPx+'px'">{{noteConsTable}}</div></div>
+        <div v-show="NoteStructureFlag">
+            <div id="noteStructure"></div>
             <div style="text-align:center;height: 0.4rem;">
                 <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
                     <div class="backTablePic"></div>
@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div v-else class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
+        <div v-show="!NoteStructureFlag" class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
     </div>
     <div class="appH5_panel appH5_panel_mb">
         <div class="appH5_title">
@@ -109,7 +109,73 @@
     }
 </style>
 <style>
+    /*   结构图样式   */
+    .St_Out_Div {
+        margin: 0 auto;
+    }
+    .St_Inner_Div {
+        border-top: 2px solid #000;
+        background-color: #000;
+        color: #FFF;
+    }
 
+    .St_Inner_Text {
+        display: inline-block;
+        color: #fff;
+        font-size: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 99;
+        text-align: center;
+    }
+
+    .St_Payment {
+        display: block;
+        background-image: url('../../public/images/table_bg.png');
+        opacity: 0.7;
+        position: absolute;
+        top: 0;
+        background-repeat: repeat;
+    }
+
+    .St_Inner_Td {
+        display: inline-block;
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+        background-color: #615C55;
+        position: relative;
+    }
+
+    .St_Inner_Td_Single {
+        display: block;
+        background-color: #615C55;        
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+        position: relative;
+    }
+
+    .St_Select {
+        background-color: #B8B156;
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+        position: relative;
+        display: inline-block;
+    }
+
+    .St_Select_Single {
+        background-color: #B8B156;
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+        position: relative;
+        display: block;
+    }
+
+    .St_Text_Min {
+        display: inline-block;
+        line-height: 13px;
+        vertical-align: middle;
+    }
 </style>
 
 <script>
@@ -125,6 +191,7 @@ import * as chartTheme from '@/public/js/chartTheme';
 import * as webApi from '@/config/api';
 import axios from 'axios';
 import { Toast } from 'mint-ui';
+import { NoteStructure } from '../../public/js/NoteStructure.js';
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
 
@@ -134,7 +201,6 @@ export default {
         return {
             productDetail: {},
             publishDate:"",
-            noteConsTable:"",
             isProductLoading:false,
             options: {
                 title: {
@@ -148,6 +214,7 @@ export default {
             chartWidthRem:3,
             chartWidthPx:280,
             showChart: true,
+            NoteStructureFlag: true,
             isFetchDetailError: false,
             tableFlag:0,
         };
@@ -156,49 +223,17 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '产品信息');
         this.tableFlag=0;
     },
     mounted() {
         this.isProductLoading=true;
-        
     },
     updated(){
-        if(this.noteConsTable.indexOf('table')!=-1&&this.tableFlag==0){
-            // if(this.productDetail.NoteList!=null&&this.productDetail.NoteList.length>0){
-            //     let num=document.getElementById("structureTable").childNodes[0].childElementCount;
-            //     if(num>4){
-            //         this.chartWidthPx=320;
-            //     }else{
-            //         this.chartWidthPx=260;
-            //     }
-            // }
-            var paidList=document.getElementsByClassName("divHasPaid");
-            for(var i=0;i<paidList.length;i++){
-                paidList[i].style.backgroundImage="url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
-            }
-            var bgList=document.getElementsByClassName("structure_bg");
-            for(var i=0;i<bgList.length;i++){
-                bgList[i].style.backgroundColor="#B7AFA5";
-                var aList=bgList[i].getElementsByTagName('a');
-                for(var j=0;j<aList.length;j++){
-                    aList[j].href="javascript:;";
-                    aList[j].title="";
-                }
-            }
-            var nameList=document.getElementsByClassName("str_n");
-            for(var k=0;k<nameList.length;k++){
-                nameList[k].style.color="black";
-            }
-            var pctList=document.getElementsByClassName("str_npct");
-            for(var x=0;x<pctList.length;x++){
-                pctList[x].style.color="#06c";
-            }
-            this.tableFlag=1;
-        }
     },
     activated() {
         //clear all data cache
+        this.showChart=true;
         this.isProductLoading=true;
         this.productDetail = {};
         this.publishDate = "";
@@ -217,23 +252,23 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '产品信息');
         this.id = this.$route.params.id;
         if (this.id) {
             setTimeout(()=>{
                     this.fetchProductDetail(this.id,data=>{
-                    busUtil.bus.$emit('headTitle', data.Basic.DealName); 
+                    // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.productDetail =data;
                     this.isProductLoading=false;
                     if(data.DealId!=null&&data.DealId>0){
-                        
-                        this.fetchNoteConsTable(data.DealId,280,200);
+                        this.fetchDealStructure(this.id);                                    
                         this.tableFlag=0;
                     }
                 });
             },600);
             setTimeout(()=>{
             this.fetchProductPaymentChart(this.id);
+            //this.fetchDealStructure(this.id);            
             }, 600);
         }
         busUtil.bus.$emit('showHeader', true);
@@ -241,17 +276,20 @@ export default {
     },
   
     methods: {
-        fetchNoteConsTable(dealId,width,height){
-            axios(webApi.Product.structure+"/"+dealId+"/"+width+"/"+height)
-            .then((response)=>{
-            // console.log(response);
-                if(response.data.status=="ok"){
-                    this.noteConsTable=response.data.data;
+        fetchDealStructure(dealId) {
+             axios(webApi.Security.structure.concat(['',dealId].join('/'))).then(response => {
+                 if (response.data.status == 'ok') {
+                   this.NoteStructureFlag=true;
+                    NoteStructure({
+                       container: 'noteStructure',
+                       data: response.data.data.Notes
+                    });
+                }else{
+                    this.NoteStructureFlag=false;
                 }
-            });
+             });
         },
         fetchProductDetail(id,callback) {
-            // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
             axios(webApi.Product.detail.concat(['',id].join('/')))
             .then((response) => {
                 if (response.data.status == "ok") {
@@ -276,6 +314,7 @@ export default {
             axios(webApi.Product.chart.concat(['', dealId].join('/')))
             .then((response) => {
                 const json = response.data;
+                console.log(json);
                 if (json.status == "ok") {
                 var chartData = json.data;
                 var allSeries = [];

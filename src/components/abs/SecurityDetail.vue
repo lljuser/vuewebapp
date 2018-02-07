@@ -51,9 +51,15 @@
                 </div>
                 <table class="structureTable appH5_color_white appH5_font_smaller">
                     <tr>
-                        <td class="text-left"><i class="Surplus"></i><span>剩余</span></td>
-                        <td class="text-center"><i class="Reimbursement"></i><span>已偿付</span></td>
-                        <td class="text-right"><i class="CurrentSecurities"></i><span>当前证券</span></td>
+                        <td class="text-center">
+                             <div style="margin-left: 0.3rem;"><i class="Surplus"></i><span>剩余</span></div>
+                        </td>
+                        <td class="text-center">
+                            <div><i class="Reimbursement"></i><span>已偿付</span></div>
+                            </td>
+                        <td class="text-left">
+                             <div style="margin-left: 0.6rem;"><i class="CurrentSecurities"></i><span>当前证券</span></div>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -338,7 +344,7 @@ export default {
             securityDetail:{},
             isSecurityLoading:false,
             chartWidthRem:3,
-            chartWidthPx:280,
+            chartWidthPx:222,
             isFetchDetailError: false,
             CashflowShowFlag:true,
             NoteStructureFlag:true,
@@ -348,7 +354,7 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/security');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '证券信息');
         this.tableFlag=0;
     },
     mounted() {
@@ -364,12 +370,12 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/security');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '证券信息');
         this.id = this.$route.params.id;
         if (this.id) {
             setTimeout(()=>{
                     this.fetchSecurityDetail(this.id,data=>{
-                    busUtil.bus.$emit('headTitle', data.Basic.DealName); 
+                    // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
                     this.isSecurityLoading=false;
                 });
@@ -434,3 +440,9 @@ export default {
     },
 };
 </script>
+<style>
+/* #noteStructure{
+    width: 5.8667rem;
+    margin: 0 auto;
+} */
+</style>

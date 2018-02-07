@@ -90,7 +90,24 @@ body{
 	margin-bottom: 12px;
 }
 .appH5_inner_panel{
-	background-color: #444444;
+	background-color: #242424;
+	padding:.293333rem 0px .293333rem 0px; 
+}
+.appH5_important_div{
+	display: flex;
+}
+.appH5_important_item{
+	display: inline-block;
+	flex:1;
+	text-align: center;
+}
+.appH5_square_dot{
+	float: left;
+	width: 7px;
+	height: 7px;
+	border-radius:1.5px; 
+	margin-top:6px;
+	margin-right: 5px;
 }
 .appH5_table{
     border-collapse: collapse;
@@ -164,9 +181,6 @@ a:hover, a:focus {
 .appH5_color_pink{
 	color:#ff6666;
 }
-.appH5_color_Lightpink{
-	color: #EEB9B9;
-}
 .appH5_color_skyblue{
 	color:#00B5E6!important;
 }
@@ -176,8 +190,14 @@ a:hover, a:focus {
 .appH5_color_white{
 	color:#fff!important;
 }
+.appH5_bg_green{
+	background:#33ffcc;
+ }
 .appH5_bg_pink{
 	background:#ff6666;
+}
+.appH5_bg_brightpink{
+	background:#ff66cc;
 }
 .appH5_bg_blue{
 	background:#0066cc;
@@ -200,16 +220,6 @@ a:hover, a:focus {
 .appH5_bg_passthrough{
 	background: #BA1DA2;
 }
-.appH5_bg_brightgrayblue{
-	background: #364651;
-}
-.appH5_bg_grayblue{
-	background: #22303A;
-}
-.appH5_bg_brightred{
-	background: #594444;
-}
-
 input{
    padding-left:0.32rem;
    padding-right: 0.32rem;
@@ -426,6 +436,17 @@ select{
 .appH5_list_four tr:last-child td{
 	padding-bottom:0rem; 
 }
+.appH5_list_five{
+    border-collapse: collapse;
+    width:100%;
+}
+.appH5_list_five td{
+	font-family: "Microsoft YaHei","微软雅黑","SimSun","宋体","arial", "serif";
+	padding-bottom:0.2rem; 
+}
+.appH5_list_five td:nth-of-type(2n){
+	padding-right: 0.2rem;
+}
 .appH5_white_space{
 	white-space: nowrap;
 }
@@ -517,7 +538,9 @@ select{
 .mint-loadmore-top{
 	font-size: 12px;
 }
-
+.appH5_overhide{
+	overflow: hidden;
+}
 .appH5_float_left,.appH5_fl{
 	float: left;
 }
@@ -534,4 +557,10 @@ select{
 .appH5_icon{
 	font-size:34px;
 	color:#ffc446;
+}
+.appH5_margin_left20{
+	margin-left: .533333rem;
+}
+.appH5_margin_bottom10{
+	margin-bottom: .133333rem;
 }

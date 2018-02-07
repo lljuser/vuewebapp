@@ -163,11 +163,12 @@ export default {
     this.tradeId = this.$route.params.tradeId;
     this.noteId = this.$route.params.noteId;
     this.isProductLoading=true;
-    //debugger;
     this.fetchTradeDetail(this.tradeId,this.noteId,data => {   //59,9461,this.tradeId,this.noteId
       this.detailInfo = data;
       this.isProductLoading=false;
-      busUtil.bus.$emit('headTitle', data.SecurityName);
+      // busUtil.bus.$emit('headTitle', data.SecurityName);
+      var tradeTypeName= data.TradeTypeId==1?"一级市场":"二级市场";
+      busUtil.bus.$emit('headTitle', tradeTypeName);
     });
 },
 };
