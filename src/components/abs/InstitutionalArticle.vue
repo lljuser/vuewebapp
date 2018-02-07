@@ -6,7 +6,11 @@
   <div v-else>
     <div class="articleListContent ep_font32">
         <section class="ep_content_div">
-            <div v-cloak>
+      <mt-loadmore :top-method="loadTop"  ref="loadmore">
+            <div v-cloak  v-infinite-scroll="loadMore"
+          infinite-scroll-disabled="loading"
+          infinite-scroll-immediate-check="true"
+          infinite-scroll-distance="55">
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in articleInfo" v-bind:key="index">
                     <div class=" ep_overhide">
                         <!-- <span class="appH5_fl appH5_font_normal appH5_color_green">《</span> -->
@@ -36,6 +40,16 @@
                     </div>
                 </div>
             </div>
+            
+      </mt-loadmore>
+      
+         <div class="spinner_div" v-if="articleInfo.length==0">
+          <span  class="nomore">暂无数据</span>
+        </div>
+        <div class="spinner_div" v-else >
+          <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
+          <span v-if="noMore" class="nomore">没有更多了</span>
+        </div>
         </section>
     </div>
   </div>
@@ -50,69 +64,125 @@ import * as webApi from '@/config/api';
 import axios from 'axios';
 import getParams from '../../public/js/getParams';
 import { Toast } from 'mint-ui';
+import "mint-ui/lib/style.css";
 export default {
   name: 'institutionalArticle',
   data() {
     return {
       articleInfo:[],
       isArticleLoading:false,
+      loading: false,
+      isFetchArticlesError: false,
+      page: 1,
+      pageSize: 10,
+      noMore: false,
+      isLoadTop: false,
     };
   },
   created() {
     const busUtil = BusUtil.getInstance();
-    busUtil.bus.$emit('showHeader', true);
-    busUtil.bus.$emit('path', '/organDetail/1');
-    busUtil.bus.$emit('headTitle', '');
-    this.tableFlag=0;
-  }, 
+    busUtil.bus.$emit("showHeader", true);
+    busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
+    busUtil.bus.$emit("headTitle", "");
+    this.tableFlag = 0;
+  },
   mounted() {
+    this.isArticleLoading = true;
+    this.timer = setTimeout(() => {
+      this.loadFirstPageArticles();
+    }, 600);
   },
   activated(){
-    this.isArticleLoading=true;
+    this.loading = false;
+    this.isArticleLoading = true;
     this.articleInfo = {};
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     const busUtil = BusUtil.getInstance();
-    busUtil.bus.$emit('showHeader', true);
-    busUtil.bus.$emit('path', '/organDetail/'+this.$route.params.id);
-    busUtil.bus.$emit('headTitle', '');
-    this.id = this.$route.params.id;
-    if (this.id) {
-        setTimeout(()=>{
-            this.fetchArticleDetail(this.id,data=>{
-                busUtil.bus.$emit('headTitle', '机构文章'); 
-                this.articleInfo =data;
-                this.isArticleLoading=false;
-            });
-        },600);
+    busUtil.bus.$emit("showHeader", true);
+    busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
+    busUtil.bus.$emit("headTitle", "机构文章");
+    if (this.isFetchArticlesError) {
+      this.loadFirstPageArticles();
     }
   },
+  deactivated() {
+    this.timer && clearTimeout(this.timer);
+    // 防止在其他组件滚动时 此组件调用loadMore方法
+    this.loading = true;
+  },
+
   methods: {
-    newUpdateTime(updateTimes){
-        var newDate=updateTimes.substr(0,10);
-        return newDate;
+    loadFirstPageArticles(showSpinnerLoad) {
+      this.loading = false;
+      this.isArticleLoading = true;
+      if (showSpinnerLoad != null) this.isArticleLoading = false;
+      setTimeout(() => {
+        this.fetchArticlesDetail(1, 0, data => {
+          this.articleInfo = data;
+          this.isArticleLoading = false;
+          this.page = 1;
+          if (data.length < this.pageSize) {
+            this.noMore = true;
+          }
+          if (showSpinnerLoad != null) this.$refs.loadmore.onTopLoaded();
+        });
+      }, 600);
     },
+
     isValidElement: function (item) {
         return !(item === null || item === undefined || item === "");
     },
-    fetchArticleDetail(id,callback) {
-        axios(webApi.Organ.articleList.concat(['',id].join('/')))
-            .then((response) => {
-                if (response.data.status == "ok") {
-                    const data = response.data.data;
-                    if(data){
-                        callback(data);
-                    } else{
-                        this.doCatch();
-                    }
-                }
-            }).catch((error) => {
-                this.doCatch();
-            });
+    fetchArticlesDetail(page, direction, callback) {
+      var url = webApi.Organ.articleList + "/" + this.$route.params.id;
+      url =url +"/" +direction +"/" +page * this.pageSize +"/" +this.pageSize;
+      axios.post(url).then(response => {
+          if (response.data.status == "ok") {
+            const data = response.data.data;
+            if (data) {
+              callback(data);
+              if (data.length == 0) {
+                this.loading = true;
+                this.noMore = true;
+              }
+              this.isFetchArticlesError = false;
+              this.isLoadTop = false;
+            } else {
+              this.doCatch();
+            }
+          }
+        })
+        .catch(error => {
+          this.doCatch();
+        });
     },
-    doCatch(){
-        Toast('服务器繁忙，请重试！');
-        this.isArticleLoading = false;
-        this.isFetchDetailError=true;
+    loadTop() {
+      this.isLoadTop = true;
+      this.timer = setTimeout(() => {
+        this.loadFirstPageArticles(true);
+      }, 600);
+    },
+    loadMore() {
+      this.loading = true;
+      this.noMore = false;
+      setTimeout(() => {
+        this.fetchArticlesDetail(this.page, 1, data => {
+          this.articleInfo = this.articleInfo.concat(data);
+          this.page = this.page + 1;
+          this.loading = false;
+        });
+      }, 600);
+    },
+
+    doCatch() {
+      Toast("服务器繁忙，请重试！");
+      this.isArticleLoading = false;
+      this.isFetchArticlesError = true;
+      this.loading = false;
+      if (this.isLoadTop) {
+        setTimeout(() => {
+          this.$refs.loadmore.onTopLoaded();
+        }, 4000);
+      }
     },
     
     sendAttachment: function(fileCode) {

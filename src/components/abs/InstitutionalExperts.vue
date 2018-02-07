@@ -14,9 +14,7 @@
           infinite-scroll-distance="55">
           <div class="padStyle" v-for="item in expertsInfo">
               <div style="position: relative;">
-                
-                  <img :src="'http://10.1.1.35:8000/filestore/common/downloadimg/cnabs/'+item.Avatar+'/s'" class="related-image appH5_fl"/>
-                  <!-- <img :src="'https://file.cn-abs.com/filestore/common/downloadimg/cnabs/'+item.Avatar+'/s'" class="related-image appH5_fl"/> -->
+                  <img :src="item.Avatar" class="related-image appH5_fl"/>
               </div>
               <div class="related-info appH5_fl">
                   <div class="related-info-cont">
@@ -33,8 +31,6 @@
                       </div>
                   </div>
               </div>
-              <!-- <span v-if="!item.Followed" class="appH5_fr appH5_followBtn">+关注</span>
-              <span v-if="item.Followed" class="appH5_fr appH5_unfollowBtn">已关注</span> -->
               <span class="appH5_fr appH5_followBtn" v-bind:class="[!item.Followed?'appH5_followBtn':'appH5_unfollowBtn']" v-on:click="followHandle(item)">{{!item.Followed ? "+关注":'已关注'}}</span>
               <div class="clearfix"></div>
             </div>
@@ -71,7 +67,6 @@ export default {
     return {
       expertsInfo: [],
       isExpertsLoading: false,
-      CurrentStatus: [],
       loading: false,
       isFetchExpertsError: false,
       page: 1,
