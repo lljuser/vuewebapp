@@ -2,7 +2,7 @@
  * @Author: CNABS 
  * @Date: 2018-02-02 11:18:42 
  * @Last Modified by: bzhou
- * @Last Modified time: 2018-02-06 14:10:12
+ * @Last Modified time: 2018-02-07 14:53:37
  * @Function: Get Note Structure Html
  */
 /* eslint-disable */
@@ -195,6 +195,9 @@ function NoteStructure(options) {
                     span.appendChild(textSp);
                 }
                 span.className = 'St_Inner_Text';
+                if (note.HasShot) {
+                    span.style.color = '#000';
+                }
                 span.style.lineHeight = divHeiht + 'px';
                 span.style.width = noteDiv.style.width;
                 noteDiv.appendChild(span);

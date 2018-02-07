@@ -156,7 +156,7 @@
     }
 
     .St_Select {
-        background-color: #B8B156;
+        background-color: #ffe40c;
         border-left: 1px solid #000;
         border-right: 1px solid #000;
         position: relative;
@@ -164,7 +164,7 @@
     }
 
     .St_Select_Single {
-        background-color: #B8B156;
+        background-color: #ffe40c;
         border-left: 1px solid #000;
         border-right: 1px solid #000;
         position: relative;
