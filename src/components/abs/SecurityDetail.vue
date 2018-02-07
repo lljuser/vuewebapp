@@ -51,9 +51,11 @@
                 </div>
                 <table class="structureTable appH5_color_white appH5_font_smaller">
                     <tr>
-                        <td class="text-left"><i class="Surplus"></i><span>剩余</span></td>
-                        <td class="text-center"><i class="Reimbursement"></i><span>已偿付</span></td>
-                        <td class="text-right"><i class="CurrentSecurities"></i><span>当前证券</span></td>
+                        <td class="text-center"><i class="Surplus"></i><span>剩余</span></td>
+                        <td class="text-center">
+                            <div style="margin-left: -0.8rem;"><i class="Reimbursement"></i><span>已偿付</span></div>
+                            </td>
+                        <td class="text-left"><i class="CurrentSecurities"></i><span>当前证券</span></td>
                     </tr>
                 </table>
             </div>
