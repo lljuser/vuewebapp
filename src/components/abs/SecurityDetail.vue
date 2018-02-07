@@ -6,41 +6,42 @@
     <div class="appH5_content" v-else>
         <div v-if="securityDetail.Basic!=null">
             <div class="appH5_panel" style="padding-top:0;">
-                <table class="appH5_list_four borderBom">
+                <table class="appH5_list_five">
                     <tr>
-                        <td class='appH5_color_red' colspan="2" rowspan="2">
+                        <td colspan="2" rowspan="2" class="appH5_color_red">
                             <span class="appH5_font_largest" v-if="securityDetail.Basic.Principal>=10">{{Math.round(securityDetail.Basic.Principal)}}</span>
                             <span class="appH5_font_largest" v-else>{{securityDetail.Basic.Principal}}</span>
-                            <span>亿</span>
-                        </td>
-                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_details'  v-if="securityDetail.Basic.ClosingDate!=null">{{securityDetail.Basic.SimpleExchange}}</td>
-                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_details'  v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.ClosingDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(发行)</td>
-                        <td class='appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_color_details' v-else>{{securityDetail.Basic.SimpleExchange}}</td>
+                            <span class="appH5_font_normal">亿</span>
+                        </td> 
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.DealType}}</td> 
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td> 
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.SimpleExchange}}</td>
                     </tr>
-                   <tr>
-                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_details' v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
-                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_details' v-if="securityDetail.Basic.ExpectedMaturityDate!=null">{{securityDetail.Basic.ExpectedMaturityDate.toString() | moment("YYYY-MM-DD")}}&nbsp;(到期)</td>
-                        <td class='appH5_font_smaller appH5_white_space appH5_vertical_top appH5_color_details' v-else>{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
-                </tr>
-            </table>
-            <table class="spacialTable" border="0" cellspacing="0" cellpadding="0">
-                <tr class="appH5_color_skyblue">
-                    <td class="text-left">{{securityDetail.Basic.DealType}}</td>
-                    <td>{{securityDetail.Basic.CurrentRatingCombine}}</td>
-                    <td>{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td>
-                    <td class="text-right">{{securityDetail.Basic.CurrentWal!=null&&securityDetail.Basic.CurrentWal!=""?securityDetail.Basic.CurrentWal+"Y":"-"}}</td>
-                </tr>
-                <tr class="appH5_bg_grayblue">
-                    <td class="appH5_bg_brightgrayblue text-left">量化定价</td>
-                    <td class="appH5_bg_grayblue">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</td>
-                    <td class="appH5_bg_grayblue">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</td>
-                    <td class="appH5_bg_grayblue text-right">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</td>
-                </tr>
-            </table>
+                    <tr>
+                        <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentRatingCombine}}</td> 
+                        <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentWal!=null&&securityDetail.Basic.CurrentWal!=""?securityDetail.Basic.CurrentWal+"Y":"-"}}</td> 
+                        <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
+                    </tr>
+                </table>
+               
+            <div class="appH5_inner_panel appH5_important_div">
+                <div class="appH5_important_item">
+                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</div> 
+                    <div class="appH5_color_green appH5_font_smaller">量化评级</div>
+                </div>  
+                <div class="appH5_important_item">
+                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</div>
+                    <div class="appH5_color_green appH5_font_smaller">收益率</div>
+                </div>
+                <div class="appH5_important_item">
+                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</div> 
+                    <div class="appH5_color_green appH5_font_smaller">量化定价</div>
+                </div>
+            </div>
         </div>
         <!-- 证券结构 -->
         <div class="appH5_panel securityStructure appH5martop" v-show="NoteStructureFlag">
-            <p class="panel-title appH5_color_details appH5_font_large">
+            <p class="panel-title appH5_color_details appH5_font_larger">
                 <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">证券结构</span>
                 <div class="clearfix"></div>
@@ -51,16 +52,22 @@
                 </div>
                 <table class="structureTable appH5_color_white appH5_font_smaller">
                     <tr>
-                        <td class="text-left"><i class="Surplus"></i><span>剩余</span></td>
-                        <td class="text-center"><i class="Reimbursement"></i><span>已偿付</span></td>
-                        <td class="text-right"><i class="CurrentSecurities"></i><span>当前证券</span></td>
+                        <td class="text-center">
+                             <div style="margin-left: 0.3rem;"><i class="Surplus"></i><span>剩余</span></div>
+                        </td>
+                        <td class="text-center">
+                            <div><i class="Reimbursement"></i><span>已偿付</span></div>
+                            </td>
+                        <td class="text-left">
+                             <div style="margin-left: 0.6rem;"><i class="CurrentSecurities"></i><span>当前证券</span></div>
+                        </td>
                     </tr>
                 </table>
             </div>
         </div>
         <!-- 产品分类 -->
         <div class="appH5_panel securityStructure appH5martop">
-            <p class="panel-title appH5_color_details appH5_font_large">
+            <p class="panel-title appH5_color_details appH5_font_larger">
                 <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">产品分类</span>
                 <div class="clearfix"></div>
@@ -69,7 +76,7 @@
                 <span style="color:white">{{securityDetail.Basic.ProductType}}</span>
                 <div style="margin-left:0;">
                     <span>L</span>
-                    <router-link :to="`/security/${securityDetail.Basic.DealTypeId}`"><a href="javascript:;">{{securityDetail.Basic.DealType}}</a></router-link>
+                   {{securityDetail.Basic.DealType}}
                     <div v-if="securityDetail.Basic.AssetSubCategory!=null&&securityDetail.Basic.AssetSubCategory!=''">
                         <span>L</span>
                         <span style="color:white">{{securityDetail.Basic.AssetSubCategory}}</span>
@@ -88,52 +95,90 @@
 
         <!-- 现金流 -->
         <div class="appH5_panel securityStructure appH5martop">
-            <p class="panel-title appH5_color_details appH5_font_large">
+            <p class="panel-title appH5_color_details appH5_font_larger">
                <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">现金流</span>
+                <div class="appH5_overhide typeSpan appH5_fl appH5_margin_left20">
+                    <span class="appH5_square_dot appH5_bg_green"></span> 
+                    <span class="appH5_font_smaller appH5_fl">起息日</span> 
+                    <span class="appH5_square_dot appH5_bg_blue appH5_margin_left20"></span> 
+                    <span class="appH5_font_smaller appH5_fl">实际值</span> 
+                    <span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span> 
+                    <span class="appH5_font_smaller appH5_fl">预测值</span>
+                </div>
+                <span class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-on:click="cashflowShow()">展开</span>
+                <span class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" style="display:none;" v-on:click="cashflowHIde()">收起</span>
                 <div class="clearfix"></div>
             </p>
-            <table class="appH5_table appH5martop" border="0" cellspacing="0" cellpadding="0">
+            <table class="appH5_table appH5martop appH5_font_smaller" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <th class="text-left appH5_font_normal">偿付日期</th> 
-                    <th class="text-right appH5_font_normal">本金(元)</th>
-                    <th class="text-right appH5_font_normal">利息(元)</th> 
-                    <th class="text-right appH5_font_normal">本息(元)</th>
+                    <th class="text-left">偿付日期</th> 
+                    <th class="text-right">期初</th>
+                    <th class="text-right">本金</th>
+                    <th class="text-right">利息</th> 
+                    <th class="text-right">本息</th>
                 </tr>
-                <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag">
-                    <tr v-bind:class="(securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3?'appH5_bg_brightred':'')">
-                        <td class="appH5_font_normal">{{securityDetail.Cashflow[0].PaymentData.toString() | moment("YYYY-MM-DD")}}</td> 
-                        <td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Principal}}</td>
-                        <td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Interest+"%"}}</td>
-                        <td class="text-right appH5_color_red appH5_font_normal">{{securityDetail.Cashflow[0].Total}}</td>
+                <!-- <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag">
+                    <tr v-bind:class="(securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3||securityDetail.Cashflow[0].StatusId==11)">
+                        <td>
+                            <span v-if="securityDetail.Cashflow[0].StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
+                            <span v-if="securityDetail.Cashflow[0].StatusId==1||securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
+                            <span v-if="securityDetail.Cashflow[0].StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
+                             {{securityDetail.Cashflow[0].PaymentData.toString() | moment("YYYY-MM-DD")}}
+                        </td> 
+                        <td class="text-right">{{securityDetail.Cashflow[0].Begin}}</td>
+                        <td class="text-right">{{securityDetail.Cashflow[0].Principal}}</td>
+                        <td class="text-right">{{securityDetail.Cashflow[0].Interest}}</td>
+                        <td class="text-right">{{securityDetail.Cashflow[0].Total}}</td>
                     </tr>
-                    <tr v-if="securityDetail.Cashflow[0].StatusId==3" class="appH5_bg_brightred appH5_detail_tr">
-                        <td colspan="4" class="appH5_font_smaller appH5_color_Lightpink">数据更新至最新偿付报告</td>
+                </tbody> -->
+                <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&!!item.Default" v-for="item in securityDetail.Cashflow">
+                    <tr>
+                        <td>
+                            <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
+                            <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
+                            <span v-if="item.StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
+                             {{item.PaymentData.toString() | moment("YYYY-MM-DD")}}
+                        </td> 
+                        <td class="text-right">{{item.Begin}}</td>
+                        <td class="text-right">{{item.Principal}}</td>
+                        <td class="text-right">{{item.Interest}}</td>
+                        <td class="text-right">{{item.Total}}</td>
                     </tr>
                 </tbody>
                 <tbody v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag"  v-for="item in securityDetail.Cashflow">
-                    <tr  v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')">
-                        <td class="appH5_font_normal">{{item.PaymentData.toString() | moment("YYYY-MM-DD")}}</td>
-                        <td class="text-right appH5_color_red appH5_font_normal">{{item.Principal}}</td>
-                        <td class="text-right appH5_color_red appH5_font_normal">{{item.Interest+"%"}}</td>
-                        <td class="text-right appH5_color_red appH5_font_normal">{{item.Total}}</td>
-                    </tr>
-                    <tr v-if="item.StatusId==3" class="appH5_bg_brightred appH5_detail_tr">
-                        <td colspan="4" class="appH5_font_smaller appH5_color_Lightpink">数据更新至最新偿付报告</td>
+                    <tr v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')">
+                        <td> 
+                            <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
+                            <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
+                            <span v-if="item.StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
+                            {{item.PaymentData.toString() | moment("YYYY-MM-DD")}}
+                         </td>
+                        <td class="text-right">{{item.Begin}}</td>
+                        <td class="text-right">{{item.Principal}}</td>
+                        <td class="text-right">{{item.Interest}}</td>
+                        <td class="text-right">{{item.Total}}</td>
                     </tr>
                 </tbody>
-                
-                
             </table> 
             <div id="appH5lookAll" v-if="securityDetail.Cashflow.length==0" class="appH5lookAll appH5bgColor">暂无现金流</div>
-           <div id="appH5lookAll" v-else v-on:click="cashflowShow()" class="appH5lookAll appH5bgColor appH5_link">查看所有现金流</div>  
-           <div id="appH5CloseAll" v-on:click="cashflowHide()"  style="display: none;" class="appH5CloseAll appH5bgColor appH5_link">收起所有现金流</div>  
         </div>
         </div>
     </div>
   </div>
 </template>
 <style>
+    .appH5_table tr td:first-child{
+        position: relative;
+    }
+    .appH5_table .appH5_square_dot{
+        position: absolute;
+        top: .3rem;
+        left: 0;
+    }
+    .typeSpan{
+        margin-top: .18rem;
+    }
     .backTablePic{
         float:left;
         margin: 4px 4px 4px 2px;
@@ -164,7 +209,7 @@
         background-color: #F88B2B;
         display: inline-block;
         margin-right: 5px;
-        margin-top: 0.09rem;
+        margin-top: 0.12rem;
     }
     .structureTable{
         margin-top: .15rem;
@@ -238,12 +283,6 @@
     }
     .CurrentSecurities{
         background-color: #ffe40c;
-    }
-    .appH5_table th{
-        font-size: 15px;
-    } 
-    .appH5_table td{
-        font-size:15px;
     }
     /*   结构图样式   */
     .St_Out_Div {
@@ -338,7 +377,7 @@ export default {
             securityDetail:{},
             isSecurityLoading:false,
             chartWidthRem:3,
-            chartWidthPx:280,
+            chartWidthPx:222,
             isFetchDetailError: false,
             CashflowShowFlag:true,
             NoteStructureFlag:true,
@@ -348,7 +387,7 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/security');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '证券信息');
         this.tableFlag=0;
     },
     mounted() {
@@ -364,12 +403,12 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/security');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '证券信息');
         this.id = this.$route.params.id;
         if (this.id) {
             setTimeout(()=>{
                     this.fetchSecurityDetail(this.id,data=>{
-                    busUtil.bus.$emit('headTitle', data.Basic.DealName); 
+                    // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
                     this.isSecurityLoading=false;
                 });
@@ -406,17 +445,20 @@ export default {
         cashflowShow(){
             this.CashflowShowFlag=false;
             var buttonShow=document.getElementById("appH5lookAll");
-            buttonShow.setAttribute("style","display:none");
+            // buttonShow.setAttribute("style","display:none");
+            buttonShow.style.display="none";
             var buttonHide=document.getElementById("appH5CloseAll");
-            buttonHide.setAttribute("style","display:block");
-
+            // buttonHide.setAttribute("style","display:block");
+            buttonHide.style.display="block";
         },
         cashflowHide(){
             this.CashflowShowFlag=true;
             var buttonHide=document.getElementById("appH5CloseAll");
-            buttonHide.setAttribute("style","display:none");
+            // buttonHide.setAttribute("style","display:none");
+            buttonHide.style.display="none";
             var buttonShow=document.getElementById("appH5lookAll");
-            buttonShow.setAttribute("style","display:block");
+            // buttonShow.setAttribute("style","display:block");
+            buttonShow.style.display="block";
         },
         fetchDealStructure(dealId, noteId) {
             axios(webApi.Security.structure.concat(['',dealId,noteId].join('/'))).then(response => {
@@ -434,3 +476,9 @@ export default {
     },
 };
 </script>
+<style>
+/* #noteStructure{
+    width: 5.8667rem;
+    margin: 0 auto;
+} */
+</style>

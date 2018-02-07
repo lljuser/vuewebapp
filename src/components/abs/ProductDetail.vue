@@ -49,14 +49,25 @@
         </div>
         <div v-show="NoteStructureFlag">
             <div id="noteStructure"></div>
-            <div style="text-align:center;height: 0.4rem;">
+            
+                <table class="structureTable appH5_color_white appH5_font_smaller" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
+                    <tr>
+                        <td class="text-center">
+                            <div style="margin-left: 0.3rem;"><i class="Reimbursement"></i><span>已偿付</span></div>
+                        </td>
+                        <td class="text-center">
+                             <div style="margin-left: 0.3rem;"><i class="Surplus"></i><span>剩余</span></div>
+                        </td>
+                    </tr>
+                </table>
+            <!-- <div style="text-align:center;height: 0.4rem;">
                 <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
                     <div class="backTablePic"></div>
                     <div style="float:left;font-size: 11px;margin-top: 2px;">已偿付</div>
                     <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div>
                     <div style="float:left;font-size: 11px;margin-top: 2px;">剩余</div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div v-show="!NoteStructureFlag" class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
     </div>
@@ -109,6 +120,32 @@
     }
 </style>
 <style>
+    .structureTable {
+        margin-top: .2rem;
+        margin-left: 1.3rem;
+    }
+    .structureTable i {
+        display: inline-block;
+        width: .56rem;
+        height: .3467rem;
+        vertical-align: middle;
+    }
+    .structureTable tr td {
+        padding-top: .1333rem;
+        width: 3.12rem;
+    }
+    .Surplus{
+        background-color: #615C55;
+    }
+    .Reimbursement{
+       background-image: url('../../public/images/table_bg.png');
+       background-repeat: repeat;
+       margin-top: 0.03rem;
+    }
+    .structureTable span {
+        vertical-align: middle;
+        padding-left: .2rem;
+    }
     /*   结构图样式   */
     .St_Out_Div {
         margin: 0 auto;
@@ -223,7 +260,7 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '产品信息');
         this.tableFlag=0;
     },
     mounted() {
@@ -233,9 +270,12 @@ export default {
     },
     activated() {
         //clear all data cache
+        this.showChart=true;
         this.isProductLoading=true;
         this.productDetail = {};
         this.publishDate = "";
+        this.noteConsTable="";
+        this.showChart=true;
         this.options =  {
             title: {
                 text: '暂无数据'
@@ -249,12 +289,12 @@ export default {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/product');
-        busUtil.bus.$emit('headTitle', '');
+        busUtil.bus.$emit('headTitle', '产品信息');
         this.id = this.$route.params.id;
         if (this.id) {
             setTimeout(()=>{
                     this.fetchProductDetail(this.id,data=>{
-                    busUtil.bus.$emit('headTitle', data.Basic.DealName); 
+                    // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.productDetail =data;
                     this.isProductLoading=false;
                     if(data.DealId!=null&&data.DealId>0){
@@ -311,6 +351,7 @@ export default {
             axios(webApi.Product.chart.concat(['', dealId].join('/')))
             .then((response) => {
                 const json = response.data;
+                console.log(json);
                 if (json.status == "ok") {
                 var chartData = json.data;
                 var allSeries = [];
