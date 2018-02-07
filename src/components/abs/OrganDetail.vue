@@ -54,7 +54,7 @@
 
           <div class="organIconsDiv appH5_float_right appH5_panel appH5_panel_mb">
               <div class="appH5_float_left organIconDiv"> 
-                <router-link :to="`/institutionalExperts/1`"> 
+                <router-link :to="`/institutionalExperts/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
                     <div>
                       <font-awesome-icon :icon="['far', 'user']" class="appH5_icon" />
@@ -508,7 +508,12 @@ export default {
       chartWidthPx: 280,
       showChart: true,
       isFetchDetailError: false,
-      tableFlag: 0
+      tableFlag: 0,
+      routerLink:{
+        expert:0,
+        deal:0,
+        article:0
+      }
     };
   },
   created() {
@@ -572,17 +577,11 @@ export default {
     this.id = this.$route.params.id;
     if (this.id) {
       setTimeout(() => {
-        this.fetchProductDetail(this.id, data => {
-          busUtil.bus.$emit("headTitle", data.Basic.DealName);
-          this.productDetail = data;
-          if (data.DealId != null && data.DealId > 0) {
-            this.fetchNoteConsTable(data.DealId, 280, 200);
-            this.tableFlag = 0;
-          }
-        });
+        
         this.fetchOrganDetail(this.id, data => {
+           busUtil.bus.$emit("headTitle", data.ShortName);
           //group奖章
-          if (data.Prizes) {
+          if (data.Prizes && data.Prizes.length>0) {
             var newPrize = [];
             var newPrizeObj = { IconPath: "", count: 0, description: [] };
             var prize = data.Prizes;
@@ -609,6 +608,10 @@ export default {
           }
           this.isOrganLoading = false;
           this.organDetail = data;
+
+          
+
+
         });
       }, 600);
     }
@@ -685,33 +688,7 @@ export default {
     productListUrl: function() {
         return `/OrganDeal/${this.id}`;
     },
-    fetchNoteConsTable(dealId, width, height) {
-      axios(
-        webApi.Product.structure + "/" + dealId + "/" + width + "/" + height
-      ).then(response => {
-        // console.log(response);
-        if (response.data.status == "ok") {
-          this.noteConsTable = response.data.data;
-        }
-      });
-    },
-    fetchProductDetail(id, callback) {
-      // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
-      axios(webApi.Product.detail.concat(["", id].join("/")))
-        .then(response => {
-          if (response.data.status == "ok") {
-            const data = response.data.data;
-            if (data) {
-              callback(data);
-            } else {
-              this.doCatch();
-            }
-          }
-        })
-        .catch(error => {
-          this.doCatch();
-        });
-    },
+     
     fetchOrganDetail(id, callback) {
       var url = webApi.Organ.detail;
       url = url + "/" + id;
@@ -723,6 +700,7 @@ export default {
         }
       });
     },
+
     doCatch() {
       Toast("服务器繁忙，请重试！");
       this.isOrganLoading = false;

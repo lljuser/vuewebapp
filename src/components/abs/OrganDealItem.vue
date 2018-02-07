@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td class="text-left">
-      <router-link :to="`../../OrganDetail/${ item.OrganizationId}`" class="appH5_color_link" style=""  >
+      <router-link :to="`../../productDetail/${ item.DealId}`" class="appH5_color_link" style=""  >
        <div class='td_elips1'> {{ item.DealName }}</div>
       </router-link>
     </td>
