@@ -9,9 +9,9 @@
             <div v-cloak>
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in articleInfo" v-bind:key="index">
                     <div class=" ep_overhide">
-                        <span class="appH5_fl appH5_font_normal appH5_color_green">《</span>
+                        <!-- <span class="appH5_fl appH5_font_normal appH5_color_green">《</span> -->
                         <span class="appH5_font_normal ep_ellipsis appH5_fl ep_maxWidth577 appH5_color_green">{{item.Name}}</span>
-                        <span class="appH5_fl appH5_font_normal appH5_color_green">》</span>
+                        <!-- <span class="appH5_fl appH5_font_normal appH5_color_green">》</span> -->
                     </div>
                     <div class="divArticleDetail">
                         <ul class="appH5_color_details appH5_font_smaller ep_decription articleDetail">
@@ -29,10 +29,10 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <span class="fl ep_ellipsis ep_width300 ep_Link appH5_link">{{item.Link}}</span>
+                                <span class="fl ep_ellipsis ep_width300">{{item.Link}}</span>
                             </li>
                         </ul>
-                        <span class="ep_sendMailBtn appH5_font_normal">发送到邮箱</span>
+                        <span class="ep_sendMailBtn appH5_font_normal" v-on:click="sendAttachment(item.AttachmentFileCode)" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>
                     </div>
                 </div>
             </div>
@@ -113,6 +113,13 @@ export default {
         Toast('服务器繁忙，请重试！');
         this.isArticleLoading = false;
         this.isFetchDetailError=true;
+    },
+    
+    sendAttachment: function(fileCode) {
+        axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
+        .then(response => {
+            this.$toast(response.data.data);
+        });
     },
   },
 };

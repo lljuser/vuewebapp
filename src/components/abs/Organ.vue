@@ -115,7 +115,7 @@ export default {
     this.isProductLoading = true;
     this.timer = setTimeout(() => {
       this.loadFirstPageProducts();
-    }, 600);
+    }, 100);
   },
   activated() {
     document.body.scrollTop=0;
@@ -184,7 +184,7 @@ export default {
           this.page = this.page + 1;
           this.loading = false;
         });
-      }, 600);
+      }, 100);
     },
 
 
