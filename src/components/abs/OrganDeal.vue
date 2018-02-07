@@ -122,7 +122,7 @@ export default {
     
     busUtil.bus.$emit('showHeader', true);
     busUtil.bus.$emit('path', '/organ');
-    busUtil.bus.$emit('headTitle', '');
+    busUtil.bus.$emit('headTitle', '参与项目');
 
     var idParam = this.$route.params.id;
     var reLoadData=false;    
@@ -191,7 +191,7 @@ export default {
       axios.post(url).then((response) => { 
         const data = response.data.data;
         if (data) {
-           busUtil.bus.$emit('headTitle', data.Organization);
+          //  busUtil.bus.$emit('headTitle', data.Organization);
            this.Count=data.Count;
            this.Balance=data.Balance;
            this.UnderwritingBalance=data.UnderwritingBalance;
