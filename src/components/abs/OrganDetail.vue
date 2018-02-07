@@ -11,7 +11,7 @@
               <span>{{organDetail.FullName}}</span>
           </div>
           <div class="appH5_margin_bottom10">{{organDetail.Website}}</div>          
-          <div><span>{{organDetail.FoundDate}}</span><span style="padding-left:20px;">{{organDetail.Nature}}</span></div>
+          <div><span>{{organDetail.FoundDate}}</span><span class="appH5_margin_left20">{{organDetail.Nature}}</span></div>
           <!-- 机构单页-资产方 -->
           <div class="organ_basic_info" v-if="organDetail.IsAsset">
             <div class="appH5_inner_panel appH5_important_div">
