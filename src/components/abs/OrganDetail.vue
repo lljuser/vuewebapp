@@ -194,34 +194,32 @@
                   <div class="appH5_float_right appH5_font16">更多></div>
                   </router-link>
               </div>
-              <div class="article_padding30 article_border article_position">
-                <div class="overhide">
-                  <span class="appH5_fl appH5_font_normal appH5_color_green">《</span>
-                  <span class="appH5_fl appH5_font_normal appH5_color_green appH5_ellipsis articleWidth">书名</span>
-                  <span class="appH5_fl appH5_font_normal appH5_color_green">》</span>
-                </div>
-                <div>
-                  <ul class="article_content appH5_font_smaller appH5_color_details">
-                    <li>
-                      <span class="article_title appH5_float_left">作者：</span>
-                      <span class="appH5_ellipsis article_detail appH5_float_left">晓蕾晓蕾晓蕾晓蕾晓蕾</span>
-                      </li>
-                    <li>
-                      <span class="article_title appH5_float_left">报告分类：</span>
-                      <span class="appH5_ellipsis article_detail appH5_float_left">报告分类</span>
-                    </li>
-                    <li>
-                      <span class="article_title appH5_float_left">更新时间：</span>
-                      <span class="appH5_ellipsis article_detail appH5_float_left">2018-02-12</span>
-                    </li>
-                    <li>
-                      <span class="article_title appH5_float_left">作品网址：</span>
-                      <span class="appH5_ellipsis article_detail appH5_float_left">http://cn.bing.com/</span>
-                    </li>                                                                                                        
-                  </ul>
-                  <span class="send_mail_btn appH5_font_normal">发送到邮箱</span>
-                </div>
-              </div>                          
+                <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in articleInfo" v-bind:key="index">
+                    <div class=" ep_overhide">
+                        <span class="appH5_font_normal ep_ellipsis appH5_fl ep_maxWidth577 appH5_color_green">{{item.Name}}</span>
+                    </div>
+                    <div class="divArticleDetail">
+                        <ul class="appH5_color_details appH5_font_smaller ep_decription articleDetail">
+                            <li>
+                                <span class='article_title'>作者：</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Author}}</span>
+                            </li>
+                            <li v-if="isValidElement(item.Category)">
+                                <span class='article_title'>报告分类：</span>
+                                <span class="ep_ellipsis ep_width517">{{item.Category}}</span>
+                            </li>
+                            <li v-if="isValidElement(item.UpdateTime)">
+                                <span class='article_title'>更新时间：</span>
+                                <span class="ep_ellipsis ep_width517">{{item.UpdateTime.toString() | moment("YYYY-MM-DD")}}</span>
+                            </li>
+                            <li v-if="isValidElement(item.Link)">
+                                <span class='article_title'>作品网址：</span>
+                                <span class="fl ep_ellipsis ep_width300 ep_Link appH5_link">{{item.Link}}</span>
+                            </li>
+                        </ul>
+                        <span class="ep_sendMailBtn appH5_font_normal">发送到邮箱</span>
+                    </div>
+                </div>                         
           </div> 
                                      
       </div>
@@ -379,18 +377,17 @@ export default {
   data() {
     return {
       productDetail: {},
-<<<<<<< HEAD
+      expertList:[],
+      articleList:[],
       productList:[],
       publishDate: "",
       noteConsTable: "",
       isProductLoading: false,
       isShowHeader: false,
-=======
       organDetail:{},
       publishDate: "",
       noteConsTable: "",
       isOrganLoading: false,
->>>>>>> 5cc7509709a421a859260bce69ee2d09dfeec877
       options: {
         title: {
           text: "暂无数据"
@@ -495,7 +492,25 @@ export default {
   methods: {
     initData: function() {
       axios(
-        `${webApi.Organ.dealList}/1/0/0/0/0/0/3`
+        `${webApi.Organ.expertList}/1/0/0/0/0/0/3`
+      ).then(response => {
+        if(response.data.status === "ok")
+        {
+          this.productList = response.data.data.Deal;
+        } 
+      });
+
+      axios(
+        `${webApi.Organ.articleList}/1/0/0/0/0/0/3`
+      ).then(response => {
+        if(response.data.status === "ok")
+        {
+          this.productList = response.data.data.Deal;
+        } 
+      });
+
+     axios(
+        `${webApi.Organ.dealList}/1/0/0/0/0/0/5`
       ).then(response => {
         if(response.data.status === "ok")
         {
