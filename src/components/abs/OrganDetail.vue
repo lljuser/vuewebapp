@@ -89,7 +89,7 @@
               </div>
               <div>
                 <div class="organ_prize_img appH5_float_left" v-for="(item,index) in organDetail.Prizes" :key=index>
-                  <img class="organ_prize_size" v-bind:src="item.IconPath"><span v-show="item.count>1">X{{item.count}}</span>   
+                  <img class="organ_prize_size" v-bind:src="item.IconPath"><span v-show="item.count>1">x{{item.count}}</span>   
                 </div>
               </div> 
               <div style="clear:both"></div>             
@@ -343,6 +343,9 @@
   height: 50px;
   padding-left: 0.36rem;
   margin-top: 0.3rem;
+}
+.organ_prize_img span{
+  padding-left: 3px;
 }
 .organ_prize_size {
   height: 35px;
