@@ -1,6 +1,6 @@
 <template>
   <div class="appH5_body">
-    <div class="product-spinner" v-if="isProductLoading">
+    <div class="product-spinner" v-if="isOrganLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
 
@@ -8,30 +8,42 @@
       <div>
         <div class="appH5_panel appH5_panel_mb">
           <div class="appH5_title">
-              <span>{{productDetail.Basic.DealNameChinese}}</span>
+              <span>{{organDetail.FullName}}</span>
           </div>
           <!-- 机构单页-资产方 -->
           <div v-if="1>0">
               <table class="appH5_list_two" v-if="productDetail.Basic!=null">
                 <tr>
                     <td>总资产</td>
-                    <td>{{productDetail.Basic.TotalOffering}}(亿)</td>
-                </tr>   
+                    <td>{{organDetail.TotalAssets}}(亿)</td>
+                </tr>  
+                <tr>
+                    <td>总负债</td>
+                    <td>{{organDetail.TotalLiability}}</td>
+                </tr>                 
                 <tr>
                     <td>资产负债率</td>
-                    <td>{{productDetail.Basic.TotalOffering}}%</td>
-                </tr> 
+                    <td>{{organDetail.AssetLiabilityRatio}}</td>
+                </tr>
+                <tr>
+                    <td>评级</td>
+                    <td>{{organDetail.Rating}}</td>
+                </tr>                 
                 <tr>
                     <td>企业性质</td>
-                    <td>{{productDetail.Basic.CurrentStatus}}</td>
+                    <td>{{organDetail.Nature}}</td>
                 </tr> 
                 <tr>
+                    <td>注册资金</td>
+                    <td>{{organDetail.Capital}}{{organDetail.CapitalCurrency}}</td>
+                </tr>                 
+                <tr>
                     <td>成立日期</td>
-                    <td>2017-11-18</td>
+                    <td>{{organDetail.FoundDate}}</td>
                 </tr>   
                 <tr>
                     <td>公司网址</td>
-                    <td>http://cn.bing.com/</td>
+                    <td>{{organDetail.Website}}</td>
                 </tr>                                                                                             
               </table> 
           </div>
@@ -71,7 +83,7 @@
                 </router-link>               
               </div>
               <div class="appH5_float_left organIconDiv"> 
-                <router-link :to="`/institutionalArticle/1`"> 
+                <router-link :to="`/institutionalArticle/${$route.params.id}`"> 
                   <a href="javascript:;" style="color:#FEC447">
                     <div>
                       <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon"/>
@@ -88,6 +100,12 @@
               <div class="appH5_title">
                   <span>机构奖章</span>
               </div>
+              <div>
+                <div class="organ_prize_img appH5_float_left" v-for="(item,index) in organDetail.Prizes" :key=index>
+                  <img class="organ_prize_size" v-bind:src="item.IconPath">   
+                </div>
+              </div> 
+              <div style="clear:both"></div>             
           </div>
 
           <div class="appH5_panel appH5_panel_mb">
@@ -313,6 +331,14 @@
   color: #ffc446;
   background:#000;
 }
+.organ_prize_img{
+  width: 50px;
+  height: 50px;
+}
+.organ_prize_size{
+  width: 30px;
+  height: 40px;
+}
 </style>
 
 <script>
@@ -336,9 +362,10 @@ export default {
   data() {
     return {
       productDetail: {},
+      organDetail:{},
       publishDate: "",
       noteConsTable: "",
-      isProductLoading: false,
+      isOrganLoading: false,
       options: {
         title: {
           text: "暂无数据"
@@ -363,7 +390,7 @@ export default {
     this.tableFlag = 0;
   },
   mounted() {
-    this.isProductLoading = true;
+    this.isOrganLoading = true;
   },
   updated() {
     if (this.noteConsTable.indexOf("table") != -1 && this.tableFlag == 0) {
@@ -394,8 +421,9 @@ export default {
   },
   activated() {
     //clear all data cache
-    this.isProductLoading = true;
+    this.isOrganLoading = true;
     this.productDetail = {};
+    this.organDetail={};
     this.publishDate = "";
     this.noteConsTable = "";
     this.options = {
@@ -418,15 +446,20 @@ export default {
         this.fetchProductDetail(this.id, data => {
           busUtil.bus.$emit("headTitle", data.Basic.DealName);
           this.productDetail = data;
-          this.isProductLoading = false;
           if (data.DealId != null && data.DealId > 0) {
             this.fetchNoteConsTable(data.DealId, 280, 200);
             this.tableFlag = 0;
           }
         });
-      }, 600);
-      setTimeout(() => {
-        this.fetchProductPaymentChart(this.id);
+        this.fetchOrganDetail(this.id,data=>{
+          this.organDetail = data;           
+          // if(data.Prizes){
+          //   return data.Prizes.filter(function(item){
+          //     return item.PrizeId==1
+          //   })
+          // }
+          this.isOrganLoading = false;     
+        });
       }, 600);
     }
     busUtil.bus.$emit("showHeader", true);
@@ -461,18 +494,21 @@ export default {
           this.doCatch();
         });
     },
+    fetchOrganDetail(id,callback){
+      var url=webApi.Organ.detail;
+      url=url+"/"+id;
+      axios(url).then((response) => {
+        const data = response.data.data;
+        console.log(data);
+        if(data){
+          callback(data);
+        }
+      })
+    },
     doCatch() {
       Toast("服务器繁忙，请重试！");
-      this.isProductLoading = false;
+      this.isOrganLoading = false;
       this.isFetchDetailError = true;
-    },
-    fetchProductPaymentChart(dealId) {
-      var self = this;
-      axios(webApi.Product.chart.concat(["", dealId].join("/"))).then(
-        response => {
-          const json = response.data;
-        }
-      );
     }
   }
 };
