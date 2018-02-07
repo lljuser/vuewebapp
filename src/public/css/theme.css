@@ -110,19 +110,19 @@ body{
 	margin-right: 5px;
 }
 .appH5_square_char{
-	width: 15px;
-	height: 15px;
+	width: 16px;
+	height: 16px;
 	text-align: center;   
 	font-size: 13px;
-	line-height: 15px;
+	line-height: 16px;
 	color: #ffffff;
 }
 .appH5_square_ch_char{
-	width: 15px;
-	height: 15px;
+	width: 16px;
+	height: 16px;
 	text-align: center;   
 	font-size: 12px;
-	line-height: 15px;
+	line-height: 16px;
 	color: #ffffff;
 }
 .appH5_table{
