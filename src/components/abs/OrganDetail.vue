@@ -186,7 +186,7 @@
                             </li>
                             <li v-if="isValidElement(item.Link)">
                                 <span class='article_title'>作品网址：</span>
-                                <span class="fl ep_ellipsis ep_width262 ep_Link">{{item.Link}}</span>
+                                <span class='fl ep_ellipsis ep_Link' v-bind:class="isValidElement(item.AttachmentFileCode)? 'ep_width262': 'ep_width487'">{{item.Link}}</span>
                             </li>
                         </ul>
                         <span class="ep_sendMailBtn appH5_font_normal" v-on:click="sendAttachment(item.AttachmentFileCode)" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>
@@ -366,7 +366,7 @@
 /*机构文章*/
 .articleList
 {
-  padding-left: 0 !important;
+  padding-left: 0 !important;      
 }
 .articleContent, .articleListContent {
     background-color: #000;
@@ -442,6 +442,9 @@ ul.articleDetail .article_title {
 }
 .ep_width262 {
     width: 3.5rem;
+}
+.ep_width487 {
+    width: 6.5rem;
 }
 ul.articleDetail li {
     overflow: hidden;
