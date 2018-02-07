@@ -196,7 +196,7 @@
               <div class="appH5_panel appH5_panel_mb" v-if="!isArrayEmpty(productList)">
               <div class="appH5_title">
                   <span>参与项目</span>
-                  <router-link :to="articleListUrl()"> 
+                  <router-link :to="productListUrl()"> 
                   <div class="appH5_float_right appH5_font16">更多></div>
                   </router-link>
               </div>  
@@ -360,8 +360,9 @@
 .expertLsit .appH5_followBtn
 {
       margin-top: 0.6rem;
+      margin-right: 0.6rem;
+      width: 1.4333rem;
 }
-
 /*机构文章*/
 .articleContent, .articleListContent {
     background-color: #000;
@@ -615,17 +616,16 @@ export default {
     initData: function() {
         if (this.id) {
           axios(
-            `${webApi.Organ.expertList}/{this.id}/0/0/3`
+            `${webApi.Organ.expertList}/${this.id}/0/0/3`
           ).then(response => {
             if(response.data.status === "ok")
             {
-              console.log(response);
               this.expertList = response.data.data;
             } 
           });
 
           axios(
-            `${webApi.Organ.articleList}/{this.id}/0/0/3`
+            `${webApi.Organ.articleList}/${this.id}/0/0/3`
           ).then(response => {
             if(response.data.status === "ok")
             {
@@ -634,7 +634,7 @@ export default {
           });
 
         axios(
-            `${webApi.Organ.dealList}/{this.id}/0/0/0/0/0/5`
+            `${webApi.Organ.dealList}/${this.id}/0/0/0/0/0/5`
           ).then(response => {
             if(response.data.status === "ok")
             {
@@ -679,7 +679,7 @@ export default {
         return `/InstitutionalArticle/${this.id}`;
     },
     productListUrl: function() {
-        return `/OrganDeal/${id}`;
+        return `/OrganDeal/${this.id}`;
     },
     fetchNoteConsTable(dealId, width, height) {
       axios(
