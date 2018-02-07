@@ -203,6 +203,7 @@ export default {
         this.productDetail = {};
         this.publishDate = "";
         this.noteConsTable="";
+        this.showChart=true;
         this.options =  {
             title: {
                 text: '暂无数据'
