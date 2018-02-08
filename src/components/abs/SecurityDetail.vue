@@ -17,7 +17,9 @@
                             <span class="appH5_font_normal">亿</span>
                         </td> 
                         <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.DealType}}</td> 
-                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td> 
+                        <!-- <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td>  -->
+                        <td v-if="securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=''&&securityDetail.Basic.CurrentCoupon!='-'" class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.CurrentCoupon}}%</td> 
+                        <td v-else class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">-</td>
                         <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space text-right appH5_padding_top12" style="padding-right:0;">{{securityDetail.Basic.SimpleExchange}}</td>
                     </tr>
                     <tr>
@@ -32,7 +34,9 @@
                         <div class="appH5_color_green appH5_font_smaller">量化评级</div>
                     </div>  
                     <div class="appH5_important_item">
-                        <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</div>
+                        <!-- <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</div> -->
+                        <div v-if="securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=''&&securityDetail.Basic.QuantYield!='-'" class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield}}%</div>
+                        <div v-else class="appH5_font_large appH5_margin_bottom10">-</div>
                         <div class="appH5_color_green appH5_font_smaller">收益率</div>
                     </div>
                     <div class="appH5_important_item">
