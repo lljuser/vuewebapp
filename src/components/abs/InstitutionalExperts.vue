@@ -84,10 +84,10 @@ export default {
     this.tableFlag = 0;
   },
   mounted() {
-    this.isExpertsLoading = true;
-    this.timer = setTimeout(() => {
-      this.loadFirstPageExperts();
-    }, 600);
+    // this.isExpertsLoading = true;
+    // this.timer = setTimeout(() => {
+    //   this.loadFirstPageExperts();
+    // }, 600);
   },
   activated() {
     this.loading = false;
@@ -98,6 +98,9 @@ export default {
     busUtil.bus.$emit("showHeader", true);
     busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
     busUtil.bus.$emit("headTitle", "机构专家");
+    this.timer = setTimeout(() => {
+      this.loadFirstPageExperts();
+    }, 600);
     if (this.isFetchExpertsError) {
       this.loadFirstPageExperts();
     }
