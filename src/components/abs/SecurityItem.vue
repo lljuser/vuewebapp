@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td class="text-left" style="padding-left:0;padding-right:0">      
-      <div v-if="item.RepaymentOfPrincipal=='摊'" class="appH5_square_ch_char appH5_bg_amortization">{{item.RepaymentOfPrincipal}}</div>      
+      <div v-if="item.RepaymentOfPrincipal=='摊'" class="appH5_square_ch_char appH5_bg_blue">{{item.RepaymentOfPrincipal}}</div>      
       <div v-if="item.RepaymentOfPrincipal=='过'" class="appH5_square_ch_char appH5_bg_passthrough">{{item.RepaymentOfPrincipal}}</div>      
     </td>
     <td> 
