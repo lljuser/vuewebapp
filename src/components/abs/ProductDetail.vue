@@ -78,20 +78,24 @@
         <div v-if="productDetail.NoteList != null && productDetail.Basic!=null&&productDetail.NoteList.length!=0">
             <table class="appH5_table">
                 <tr>
+                    <th></th>
                     <th>简称</th>
                     <th class="text-right">初始(亿)</th>
                     <th class="text-right">利率</th>
                     <th class="text-right">期限(年)</th>
                     <th class="text-right">量化评级</th>
-                    <th class="text-right">类型</th>
+                    <!-- <th class="text-right">类型</th> -->
                 </tr>
                 <tr v-for="(item,index) in productDetail.NoteList" v-bind:key='index'>
+                    <td class="text-left" style="padding-left:0;padding-right:0">      
+                      <div v-if="item.RepaymentOfPrincipal.indexOf('摊')>=0" class="appH5_square_ch_char appH5_bg_blue">摊</div>      
+                      <div v-if="item.RepaymentOfPrincipal.indexOf('过')>=0" class="appH5_square_ch_char appH5_bg_passthrough">过</div>      
+                    </td>
                     <td><div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">{{item.Name}}</div></td>
                     <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentWal}}</span></td>
-                    <td class="text-center"><span class="appH5_color_skyblue">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
-                    <td class="text-right"><span>{{item.RepaymentOfPrincipal.replace("型","")}}</span></td>
+                    <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
                 </tr>
             </table>
         </div>
@@ -243,6 +247,7 @@ export default {
         this.fetchProductDetail(this.id, data => {
           // busUtil.bus.$emit('headTitle', data.Basic.DealName);
           this.productDetail = data;
+          console.log(data);
           this.isProductLoading = false;
           if (data.DealId != null && data.DealId > 0) {
             this.fetchDealStructure(this.id);
