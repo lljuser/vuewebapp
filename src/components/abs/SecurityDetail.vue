@@ -99,7 +99,7 @@
             <p class="panel-title appH5_color_details appH5_font_larger">
                <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">现金流</span>
-                <div class="appH5_panel">
+                <div class="appH5_fl cashflowLegend">
                     <table>
                         <tr>
                             <td class="appH5_vertical_middle"><span class="appH5_square_dot appH5_bg_green"></span></td>
@@ -193,8 +193,12 @@
     }
     .securityCashflowTable .appH5_square_dot{
         position: absolute;
-        top: .21rem;
+        top: .38rem;
         left: 0;
+    }
+    .cashflowLegend{
+        padding-top: .1rem; 
+        margin-left: .6rem;
     }
     .typeSpan{
         margin-top: .18rem;
@@ -313,6 +317,9 @@
     @media only screen and (min-width: 320px) and (max-width: 374px){
         .appH5_margin_left20 {
             margin-left: .4rem;
+        }
+        .cashflowLegend{
+            margin-left: .2rem;
         }
     }
 </style>
