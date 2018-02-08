@@ -8,7 +8,7 @@
             <div class="appH5_panel text-center appH5_color_white">
                 {{securityDetail.Basic.Description}}
             </div>
-            <div class="appH5_panel" style="padding-top:0;margin-top:.32rem;">
+            <div class="appH5_panel" style="padding-top:0px;margin-top:.32rem;">
                 <table class="appH5_list_five">
                     <tr>
                         <td colspan="2" rowspan="2" class="appH5_color_red">
@@ -16,9 +16,9 @@
                             <span class="appH5_font_largest" v-else>{{securityDetail.Basic.Principal}}</span>
                             <span class="appH5_font_normal">亿</span>
                         </td> 
-                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.DealType}}</td> 
-                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td> 
-                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space text-right" style="padding-right:0;">{{securityDetail.Basic.SimpleExchange}}</td>
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.DealType}}</td> 
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td> 
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space text-right appH5_padding_top12" style="padding-right:0;">{{securityDetail.Basic.SimpleExchange}}</td>
                     </tr>
                     <tr>
                         <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentRatingCombine}}</td> 
