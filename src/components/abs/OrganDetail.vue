@@ -7,11 +7,11 @@
     <div class="appH5_content" v-else>
       <div>
         <div class="appH5_panel appH5_panel_mb">
-          <div class="appH5_margin_bottom10 appH5_font_larger">
+          <div class="appH5_margin_bottom10 appH5_font_large">
               <span>{{organDetail.FullName}}</span>
           </div>
           <div class="appH5_margin_bottom10">{{organDetail.Website}}</div>          
-          <div><span>{{organDetail.FoundDate}}</span><span style="padding-left:20px;">{{organDetail.Nature}}</span></div>
+          <div><span>{{organDetail.FoundDate}}</span><span class="appH5_margin_left20">{{organDetail.Nature}}</span></div>
           <!-- 机构单页-资产方 -->
           <div class="organ_basic_info" v-if="organDetail.IsAsset">
             <div class="appH5_inner_panel appH5_important_div">
@@ -209,7 +209,8 @@
                       </td>
                   </tr>
                 </table>
-          </div>                           
+          </div> 
+          <div class="appH5_panel_mb promt appH5_color_pink"><span>温馨提示：如对机构数据有疑问，请登录CNABS网页端反馈或申请机构管家后修改。</span></div>                          
       </div>
     </div>
   </div>
@@ -340,10 +341,11 @@
 .organ_prize_img {
   width: 62px;
   height: 50px;
+  padding-left: 0.36rem;
+  margin-top: 0.3rem;
 }
 .organ_prize_size {
-  width: 30px;
-  height: 40px;
+  height: 35px;
 }
 .organ_introduction pre{
       margin: 0;
@@ -456,6 +458,9 @@ ul.articleDetail li span:nth-of-type(2) {
 }
 ul.articleDetail .article_title {
   width: 70px;
+}
+.promt{
+  padding: 0 0.32rem;
 }
 </style>
 
