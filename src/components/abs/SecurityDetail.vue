@@ -53,7 +53,7 @@
                 <div id="noteStructure" class="text-center">
 
                 </div>
-                <table class="structureTable appH5_color_white appH5_font_smaller">
+                <table class="structureTable appH5_color_white appH5_font_smaller" style="margin-left: -.35rem!important;">
                     <tr>
                         <td class="text-center">
                              <div style="margin-left: 0.6rem;"><i class="Surplus"></i><span>剩余</span></div>
@@ -223,7 +223,6 @@
     }
     .structureTable{
         margin-top: .15rem;
-        margin-left: -.35rem!important;
     }
     .proList {
         margin-left: .5rem;

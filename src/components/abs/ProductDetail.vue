@@ -50,7 +50,7 @@
         <div v-show="NoteStructureFlag">
             <div id="noteStructure"></div>
             
-                <table class="structureTable appH5_color_white appH5_font_smaller" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
+                <table class="structureTable appH5_color_white appH5_font_smaller" style="width:auto;margin-left: 1.3rem;" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
                     <tr>
                         <td class="text-center">
                             <div style="margin-left: 0.3rem;"><i class="Reimbursement"></i><span>已偿付</span></div>
@@ -125,7 +125,6 @@
 }
 .structureTable {
   margin-top: 0.2rem;
-  margin-left: 1.3rem;
 }
 .structureTable i {
   display: inline-block;
