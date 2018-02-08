@@ -99,30 +99,26 @@
             <p class="panel-title appH5_color_details appH5_font_larger">
                <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">现金流</span>
-                <div class="appH5_overhide typeSpan appH5_fl appH5_margin_left20">
+                <div class="appH5_fl cashflowLegend">
                     <table>
                         <tr>
-                            <td class="appH5_vertical_middle">
-                                <span class="appH5_square_dot appH5_bg_green"></span>
-                            </td>
-                            <td class="appH5_vertical_middle">
-                                <span class="appH5_font_smaller appH5_fl">起息日</span>
-                            </td>
-                            <td class="appH5_vertical_middle">
-                                <span class="appH5_square_dot appH5_bg_blue appH5_margin_left20"></span>
-                            </td>
-                            <td class="appH5_vertical_middle">
-                                <span class="appH5_font_smaller appH5_fl">实际值</span>
-                            </td>
-                            <td class="appH5_vertical_middle">
-                                <span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span>
-                            </td>
-                            <td class="appH5_vertical_middle">
-                                <span class="appH5_font_smaller appH5_fl">预测值</span>
-                            </td>
+                            <td class="appH5_vertical_middle"><span class="appH5_square_dot appH5_bg_green"></span></td>
+                            <td class="appH5_vertical_middle"><span class="appH5_font_smaller appH5_fl">起息日</span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_square_dot appH5_bg_blue appH5_margin_left20"></span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_font_smaller appH5_fl">实际值</span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_font_smaller appH5_fl">预测值</span></td>
                         </tr>
-			       </table>
+                    </table>
                 </div>
+                <!-- <div class="appH5_overhide typeSpan appH5_fl appH5_margin_left20">
+                    <span class="appH5_square_dot appH5_bg_green"></span> 
+                    <span class="appH5_font_smaller appH5_fl">起息日</span> 
+                    <span class="appH5_square_dot appH5_bg_blue appH5_margin_left20"></span> 
+                    <span class="appH5_font_smaller appH5_fl">实际值</span> 
+                    <span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span> 
+                    <span class="appH5_font_smaller appH5_fl">预测值</span>
+                </div> -->
                 <span  class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-if="securityDetail.Cashflow.length>0&&ExpandShowFlag" v-on:click="cashflowShow()">展开</span>
                 <span  class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-if="securityDetail.Cashflow.length>0&&!ExpandShowFlag" v-on:click="cashflowHide()">收起</span>
                 <div class="clearfix"></div>
@@ -197,14 +193,15 @@
     }
     .securityCashflowTable .appH5_square_dot{
         position: absolute;
-        top: .22rem;
+        top: .38rem;
         left: 0;
+    }
+    .cashflowLegend{
+        padding-top: .1rem; 
+        margin-left: .6rem;
     }
     .typeSpan{
         margin-top: .18rem;
-    }
-    .securityStructure .typeSpan{
-        margin-top: .12rem;
     }
     .backTablePic{
         float:left;
@@ -319,7 +316,10 @@
     }
     @media only screen and (min-width: 320px) and (max-width: 374px){
         .appH5_margin_left20 {
-            margin-left: .4rem;
+            margin-left: .35rem!important;
+        }
+        .cashflowLegend{
+            margin-left: .2rem;
         }
     }
 </style>
