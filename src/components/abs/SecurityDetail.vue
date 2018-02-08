@@ -17,24 +17,24 @@
                             <span class="appH5_font_normal">亿</span>
                         </td> 
                         <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.DealType}}</td> 
-                        <!-- <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td>  -->
                         <td v-if="securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=''&&securityDetail.Basic.CurrentCoupon!='-'" class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.CurrentCoupon}}%</td> 
                         <td v-else class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">-</td>
                         <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space text-right appH5_padding_top12" style="padding-right:0;">{{securityDetail.Basic.SimpleExchange}}</td>
                     </tr>
                     <tr>
-                        <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentRatingCombine}}</td> 
+                        <td v-if="securityDetail.Basic.CurrentRatingCombine==null||securityDetail.Basic.CurrentRatingCombine==''||securityDetail.Basic.CurrentRatingCombine=='NR'||securityDetail.Basic.CurrentRatingCombine=='NR/NR'" class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">无评级</td> 
+                        <td v-else class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentRatingCombine}}</td> 
                         <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentWal!=null&&securityDetail.Basic.CurrentWal!=""?securityDetail.Basic.CurrentWal+"Y":"-"}}</td> 
                         <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top text-right" style="padding-right:0;">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
                     </tr>
                 </table>
                 <div class="appH5_inner_panel appH5_important_div">
                     <div class="appH5_important_item">
-                        <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</div> 
+                        <div v-if="securityDetail.Basic.QuantRating==null||securityDetail.Basic.QuantRating==''||securityDetail.Basic.QuantRating=='NR'||securityDetail.Basic.QuantRating=='NR/NR'" class="appH5_font_large appH5_margin_bottom10">无评级</div> 
+                        <div v-else class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantRating}}</div> 
                         <div class="appH5_color_green appH5_font_smaller">量化评级</div>
                     </div>  
                     <div class="appH5_important_item">
-                        <!-- <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</div> -->
                         <div v-if="securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=''&&securityDetail.Basic.QuantYield!='-'" class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield}}%</div>
                         <div v-else class="appH5_font_large appH5_margin_bottom10">-</div>
                         <div class="appH5_color_green appH5_font_smaller">收益率</div>
