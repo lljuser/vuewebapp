@@ -56,13 +56,13 @@
                 <table class="structureTable appH5_color_white appH5_font_smaller">
                     <tr>
                         <td class="text-center">
-                             <div style="margin-left: 0.3rem;"><i class="Surplus"></i><span>剩余</span></div>
+                             <div style="margin-left: 0.6rem;"><i class="Surplus"></i><span>剩余</span></div>
                         </td>
                         <td class="text-center">
-                            <div><i class="Reimbursement"></i><span>已偿付</span></div>
+                            <div style="margin-left: 0.1rem;"><i class="Reimbursement"></i><span>已偿付</span></div>
                             </td>
                         <td class="text-left">
-                             <div style="margin-left: 0.6rem;"><i class="CurrentSecurities"></i><span>当前证券</span></div>
+                             <div style="margin-left: 0.5rem;"><i class="CurrentSecurities"></i><span>当前证券</span></div>
                         </td>
                     </tr>
                 </table>
@@ -121,20 +121,6 @@
                     <th class="text-right">利息</th> 
                     <th class="text-right">本息</th>
                 </tr>
-                <!-- <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag">
-                    <tr v-bind:class="(securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3||securityDetail.Cashflow[0].StatusId==11)">
-                        <td>
-                            <span v-if="securityDetail.Cashflow[0].StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
-                            <span v-if="securityDetail.Cashflow[0].StatusId==1||securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
-                            <span v-if="securityDetail.Cashflow[0].StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
-                             {{securityDetail.Cashflow[0].PaymentData.toString() | moment("YYYY-MM-DD")}}
-                        </td> 
-                        <td class="text-right">{{securityDetail.Cashflow[0].Begin}}</td>
-                        <td class="text-right">{{securityDetail.Cashflow[0].Principal}}</td>
-                        <td class="text-right">{{securityDetail.Cashflow[0].Interest}}</td>
-                        <td class="text-right">{{securityDetail.Cashflow[0].Total}}</td>
-                    </tr>
-                </tbody> -->
                 <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&!item.Default" v-for="item in securityDetail.Cashflow">
                     <tr>
                         <td>
@@ -216,6 +202,7 @@
     }
     .structureTable{
         margin-top: .15rem;
+        margin-left: -.35rem!important;
     }
     .proList {
         margin-left: .5rem;
@@ -289,6 +276,14 @@
     }
     .CurrentSecurities{
         background-color: #ffe40c;
+    }
+    @media only screen and (min-width: 320px) and (max-width: 374px){
+        .appH5_table td{
+            font-size: 15px!important;
+        }
+        .appH5_margin_left20 {
+            margin-left: .4rem;
+        }
     }
 </style>
 
