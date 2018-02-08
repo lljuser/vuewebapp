@@ -316,7 +316,7 @@
     }
     @media only screen and (min-width: 320px) and (max-width: 374px){
         .appH5_margin_left20 {
-            margin-left: .4rem;
+            margin-left: .35rem!important;
         }
         .cashflowLegend{
             margin-left: .2rem;
