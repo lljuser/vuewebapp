@@ -87,10 +87,10 @@ export default {
     this.tableFlag = 0;
   },
   mounted() {
-    this.isArticleLoading = true;
-    this.timer = setTimeout(() => {
-      this.loadFirstPageArticles();
-    }, 600);
+    // this.isArticleLoading = true;
+    // this.timer = setTimeout(() => {
+    //   this.loadFirstPageArticles();
+    // }, 600);
   },
   activated(){
     this.loading = false;
@@ -101,6 +101,9 @@ export default {
     busUtil.bus.$emit("showHeader", true);
     busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
     busUtil.bus.$emit("headTitle", "机构文章");
+    this.timer = setTimeout(() => {
+      this.loadFirstPageArticles();
+    }, 600);
     if (this.isFetchArticlesError) {
       this.loadFirstPageArticles();
     }
