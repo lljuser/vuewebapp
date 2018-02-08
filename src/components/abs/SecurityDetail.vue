@@ -121,8 +121,7 @@
                     <th class="text-right">利息</th> 
                     <th class="text-right">本息</th>
                 </tr>
-                <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&!item.Default" v-for="item in securityDetail.Cashflow">
-                    <tr>
+                <tr v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&!item.Default" v-for="item in securityDetail.Cashflow">
                         <td>
                             <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
                             <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
@@ -133,22 +132,19 @@
                         <td class="text-right">{{item.Principal}}</td>
                         <td class="text-right">{{item.Interest}}</td>
                         <td class="text-right">{{item.Total}}</td>
-                    </tr>
-                </tbody>
-                <tbody v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag" v-for="item in securityDetail.Cashflow">
-                    <tr v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')">
-                        <td> 
-                            <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
-                            <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
-                            <span v-if="item.StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
-                            {{item.PaymentData.toString() | moment("YYYY-MM-DD")}}
-                         </td>
-                        <td class="text-right">{{item.Begin}}</td>
-                        <td class="text-right">{{item.Principal}}</td>
-                        <td class="text-right">{{item.Interest}}</td>
-                        <td class="text-right">{{item.Total}}</td>
-                    </tr>
-                </tbody>
+                </tr>
+                <tr v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')" v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag" v-for="item in securityDetail.Cashflow">
+                    <td> 
+                        <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
+                        <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
+                        <span v-if="item.StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
+                        {{item.PaymentData.toString() | moment("YYYY-MM-DD")}}
+                        </td>
+                    <td class="text-right">{{item.Begin}}</td>
+                    <td class="text-right">{{item.Principal}}</td>
+                    <td class="text-right">{{item.Interest}}</td>
+                    <td class="text-right">{{item.Total}}</td>
+                </tr>
             </table> 
             <div v-if="securityDetail.Cashflow.length==0" class="appH5lookAll appH5bgColor">暂无现金流</div>
         </div>
@@ -157,12 +153,37 @@
   </div>
 </template>
 <style>
+.appH5_table tr td:nth-child(1),.appH5_table tr th:nth-child(1){
+    max-width: 2rem;
+    min-width: 2rem;
+    width: 2rem;
+}
+.appH5_table tr td:nth-child(2),.appH5_table tr th:nth-child(2){
+    max-width: 1.4rem;
+    min-width: 1.4rem;
+    width: 1.4rem;
+}
+.appH5_table tr td:nth-child(3),.appH5_table tr th:nth-child(3){
+    max-width: 1.4rem;
+    min-width: 1.4rem;
+    width: 1.4rem;
+}
+.appH5_table tr td:nth-child(4),.appH5_table tr th:nth-child(4){
+    max-width: 1.3rem;
+    min-width: 1.3rem;
+    width: 1.3rem;
+}
+.appH5_table tr td:nth-child(5),.appH5_table tr th:nth-child(5){
+    max-width: 1.4rem;
+    min-width: 1.4rem;
+    width: 1.4rem;
+} 
     .appH5_table tr td:first-child{
         position: relative;
     }
     .appH5_table .appH5_square_dot{
         position: absolute;
-        top: .3rem;
+        top: .22rem;
         left: 0;
     }
     .typeSpan{
@@ -277,10 +298,10 @@
     .CurrentSecurities{
         background-color: #ffe40c;
     }
+    .appH5_table td{
+        font-size: 13px!important;
+    }
     @media only screen and (min-width: 320px) and (max-width: 374px){
-        .appH5_table td{
-            font-size: 15px!important;
-        }
         .appH5_margin_left20 {
             margin-left: .4rem;
         }
