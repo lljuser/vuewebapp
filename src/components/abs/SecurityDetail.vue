@@ -5,10 +5,10 @@
     </div>
     <div class="appH5_content" v-else  style="margin-top:0;">
         <div v-if="securityDetail.Basic!=null">
-            <div class="appH5_panel text-center appH5_color_white">
+            <div class="appH5_panel text-center appH5_color_white appH5_panel_mb">
                 {{securityDetail.Basic.Description}}
             </div>
-            <div class="appH5_panel" style="padding-top:0px;margin-top:.32rem;">
+            <div class="appH5_panel appH5_panel_mb" style="padding-top:0px;">
                 <table class="appH5_list_five">
                     <tr>
                         <td colspan="2" rowspan="2" class="appH5_color_red">
@@ -26,24 +26,23 @@
                         <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top text-right" style="padding-right:0;">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
                     </tr>
                 </table>
-               
-            <div class="appH5_inner_panel appH5_important_div">
-                <div class="appH5_important_item">
-                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</div> 
-                    <div class="appH5_color_green appH5_font_smaller">量化评级</div>
-                </div>  
-                <div class="appH5_important_item">
-                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</div>
-                    <div class="appH5_color_green appH5_font_smaller">收益率</div>
-                </div>
-                <div class="appH5_important_item">
-                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</div> 
-                    <div class="appH5_color_green appH5_font_smaller">量化定价</div>
+                <div class="appH5_inner_panel appH5_important_div">
+                    <div class="appH5_important_item">
+                        <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</div> 
+                        <div class="appH5_color_green appH5_font_smaller">量化评级</div>
+                    </div>  
+                    <div class="appH5_important_item">
+                        <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</div>
+                        <div class="appH5_color_green appH5_font_smaller">收益率</div>
+                    </div>
+                    <div class="appH5_important_item">
+                        <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</div> 
+                        <div class="appH5_color_green appH5_font_smaller">量化定价</div>
+                    </div>
                 </div>
             </div>
-        </div>
         <!-- 证券结构 -->
-        <div class="appH5_panel securityStructure appH5martop" v-show="NoteStructureFlag">
+        <div class="appH5_panel securityStructure appH5_panel_mb" v-show="NoteStructureFlag">
             <p class="panel-title appH5_color_details appH5_font_larger">
                 <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">证券结构</span>
@@ -69,7 +68,7 @@
             </div>
         </div>
         <!-- 产品分类 -->
-        <div class="appH5_panel securityStructure appH5martop">
+        <div class="appH5_panel securityStructure appH5_panel_mb">
             <p class="panel-title appH5_color_details appH5_font_larger">
                 <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">产品分类</span>
@@ -95,9 +94,8 @@
                 </div>
             </div>
         </div>
-
         <!-- 现金流 -->
-        <div class="appH5_panel securityStructure appH5martop">
+        <div class="appH5_panel securityStructure">
             <p class="panel-title appH5_color_details appH5_font_larger">
                <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">现金流</span>
