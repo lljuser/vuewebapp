@@ -121,7 +121,7 @@
                     <th class="text-right">利息</th> 
                     <th class="text-right">本息</th>
                 </tr>
-                <tr v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&!item.Default" v-for="item in securityDetail.Cashflow">
+                <tr v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&item.Default" v-for="item in securityDetail.Cashflow">
                         <td>
                             <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
                             <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
