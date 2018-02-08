@@ -43,8 +43,11 @@
             
       </mt-loadmore>
       
-         <div class="spinner_div" v-if="articleInfo.length==0">
-          <span  class="nomore">暂无数据</span>
+         <div class="spinner_div" style="margin-top:1.86667rem;" v-if="articleInfo.length==0">
+            <div>
+              <img class="appH5_null" src="../../public/images/null.png" alt="">
+              <div class="nomore text-center appH5_null" style="margin-top: 3px;">暂无数据</div>
+          </div>
         </div>
         <div class="spinner_div" v-else >
           <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
