@@ -113,7 +113,7 @@
                 <span  class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-if="securityDetail.Cashflow.length>0&&!ExpandShowFlag" v-on:click="cashflowHide()">收起</span>
                 <div class="clearfix"></div>
             </p>
-            <table class="appH5_table appH5martop appH5_font_smaller" border="0" cellspacing="0" cellpadding="0">
+            <table class="appH5_table appH5martop appH5_font_smaller securityCashflowTable" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <th class="text-left">偿付日期</th> 
                     <th class="text-right">期初</th>
@@ -153,35 +153,35 @@
   </div>
 </template>
 <style>
-.appH5_table tr td:nth-child(1),.appH5_table tr th:nth-child(1){
+.securityCashflowTable tr td:nth-child(1),.securityCashflowTable tr th:nth-child(1){
     max-width: 2rem;
     min-width: 2rem;
     width: 2rem;
 }
-.appH5_table tr td:nth-child(2),.appH5_table tr th:nth-child(2){
+.securityCashflowTable tr td:nth-child(2),.securityCashflowTable tr th:nth-child(2){
     max-width: 1.4rem;
     min-width: 1.4rem;
     width: 1.4rem;
 }
-.appH5_table tr td:nth-child(3),.appH5_table tr th:nth-child(3){
+.securityCashflowTable tr td:nth-child(3),.securityCashflowTable tr th:nth-child(3){
     max-width: 1.4rem;
     min-width: 1.4rem;
     width: 1.4rem;
 }
-.appH5_table tr td:nth-child(4),.appH5_table tr th:nth-child(4){
+.securityCashflowTable tr td:nth-child(4),.securityCashflowTable tr th:nth-child(4){
     max-width: 1.3rem;
     min-width: 1.3rem;
     width: 1.3rem;
 }
-.appH5_table tr td:nth-child(5),.appH5_table tr th:nth-child(5){
+.securityCashflowTable tr td:nth-child(5),.securityCashflowTable tr th:nth-child(5){
     max-width: 1.4rem;
     min-width: 1.4rem;
     width: 1.4rem;
 } 
-    .appH5_table tr td:first-child{
+    .securityCashflowTable tr td:first-child{
         position: relative;
     }
-    .appH5_table .appH5_square_dot{
+    .securityCashflowTable .appH5_square_dot{
         position: absolute;
         top: .22rem;
         left: 0;
@@ -298,7 +298,7 @@
     .CurrentSecurities{
         background-color: #ffe40c;
     }
-    .appH5_table td{
+    .securityCashflowTable td{
         font-size: 13px!important;
     }
     @media only screen and (min-width: 320px) and (max-width: 374px){
