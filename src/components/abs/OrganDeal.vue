@@ -154,7 +154,6 @@ export default {
       setTimeout(() => {
         this.fetchProducts(1,0, data => {
           this.list = data;
-          console.log(data);
           this.isProductLoading = false;
           this.page=1;
           if(data.length<this.pageSize)

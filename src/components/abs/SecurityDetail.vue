@@ -56,13 +56,13 @@
                 <table class="structureTable appH5_color_white appH5_font_smaller">
                     <tr>
                         <td class="text-center">
-                             <div style="margin-left: 0.3rem;"><i class="Surplus"></i><span>剩余</span></div>
+                             <div style="margin-left: 0.6rem;"><i class="Surplus"></i><span>剩余</span></div>
                         </td>
                         <td class="text-center">
-                            <div><i class="Reimbursement"></i><span>已偿付</span></div>
+                            <div style="margin-left: 0.1rem;"><i class="Reimbursement"></i><span>已偿付</span></div>
                             </td>
                         <td class="text-left">
-                             <div style="margin-left: 0.6rem;"><i class="CurrentSecurities"></i><span>当前证券</span></div>
+                             <div style="margin-left: 0.5rem;"><i class="CurrentSecurities"></i><span>当前证券</span></div>
                         </td>
                     </tr>
                 </table>
@@ -121,22 +121,7 @@
                     <th class="text-right">利息</th> 
                     <th class="text-right">本息</th>
                 </tr>
-                <!-- <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag">
-                    <tr v-bind:class="(securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3||securityDetail.Cashflow[0].StatusId==11)">
-                        <td>
-                            <span v-if="securityDetail.Cashflow[0].StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
-                            <span v-if="securityDetail.Cashflow[0].StatusId==1||securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
-                            <span v-if="securityDetail.Cashflow[0].StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
-                             {{securityDetail.Cashflow[0].PaymentData.toString() | moment("YYYY-MM-DD")}}
-                        </td> 
-                        <td class="text-right">{{securityDetail.Cashflow[0].Begin}}</td>
-                        <td class="text-right">{{securityDetail.Cashflow[0].Principal}}</td>
-                        <td class="text-right">{{securityDetail.Cashflow[0].Interest}}</td>
-                        <td class="text-right">{{securityDetail.Cashflow[0].Total}}</td>
-                    </tr>
-                </tbody> -->
-                <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&!item.Default" v-for="item in securityDetail.Cashflow">
-                    <tr>
+                <tr v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&item.Default" v-for="item in securityDetail.Cashflow">
                         <td>
                             <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
                             <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
@@ -147,22 +132,19 @@
                         <td class="text-right">{{item.Principal}}</td>
                         <td class="text-right">{{item.Interest}}</td>
                         <td class="text-right">{{item.Total}}</td>
-                    </tr>
-                </tbody>
-                <tbody v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag" v-for="item in securityDetail.Cashflow">
-                    <tr v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')">
-                        <td> 
-                            <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
-                            <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
-                            <span v-if="item.StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
-                            {{item.PaymentData.toString() | moment("YYYY-MM-DD")}}
-                         </td>
-                        <td class="text-right">{{item.Begin}}</td>
-                        <td class="text-right">{{item.Principal}}</td>
-                        <td class="text-right">{{item.Interest}}</td>
-                        <td class="text-right">{{item.Total}}</td>
-                    </tr>
-                </tbody>
+                </tr>
+                <tr v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')" v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag" v-for="item in securityDetail.Cashflow">
+                    <td> 
+                        <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
+                        <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
+                        <span v-if="item.StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
+                        {{item.PaymentData.toString() | moment("YYYY-MM-DD")}}
+                        </td>
+                    <td class="text-right">{{item.Begin}}</td>
+                    <td class="text-right">{{item.Principal}}</td>
+                    <td class="text-right">{{item.Interest}}</td>
+                    <td class="text-right">{{item.Total}}</td>
+                </tr>
             </table> 
             <div v-if="securityDetail.Cashflow.length==0" class="appH5lookAll appH5bgColor">暂无现金流</div>
         </div>
@@ -171,12 +153,37 @@
   </div>
 </template>
 <style>
+.appH5_table tr td:nth-child(1),.appH5_table tr th:nth-child(1){
+    max-width: 2rem;
+    min-width: 2rem;
+    width: 2rem;
+}
+.appH5_table tr td:nth-child(2),.appH5_table tr th:nth-child(2){
+    max-width: 1.4rem;
+    min-width: 1.4rem;
+    width: 1.4rem;
+}
+.appH5_table tr td:nth-child(3),.appH5_table tr th:nth-child(3){
+    max-width: 1.4rem;
+    min-width: 1.4rem;
+    width: 1.4rem;
+}
+.appH5_table tr td:nth-child(4),.appH5_table tr th:nth-child(4){
+    max-width: 1.3rem;
+    min-width: 1.3rem;
+    width: 1.3rem;
+}
+.appH5_table tr td:nth-child(5),.appH5_table tr th:nth-child(5){
+    max-width: 1.4rem;
+    min-width: 1.4rem;
+    width: 1.4rem;
+} 
     .appH5_table tr td:first-child{
         position: relative;
     }
     .appH5_table .appH5_square_dot{
         position: absolute;
-        top: .3rem;
+        top: .22rem;
         left: 0;
     }
     .typeSpan{
@@ -216,6 +223,7 @@
     }
     .structureTable{
         margin-top: .15rem;
+        margin-left: -.35rem!important;
     }
     .proList {
         margin-left: .5rem;
@@ -290,6 +298,14 @@
     .CurrentSecurities{
         background-color: #ffe40c;
     }
+    .appH5_table td{
+        font-size: 13px!important;
+    }
+    @media only screen and (min-width: 320px) and (max-width: 374px){
+        .appH5_margin_left20 {
+            margin-left: .4rem;
+        }
+    }
 </style>
 
 <script>
@@ -354,7 +370,6 @@ export default {
                     this.fetchSecurityDetail(this.id,data=>{
                     // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
-                    console.log(this.securityDetail);
                     this.isSecurityLoading=false;
                 });
             },600);

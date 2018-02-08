@@ -6,36 +6,37 @@
     </div>
   <div v-else>
     <div class="appH5_content" >
-      <div class="appH5_panel">
+      <div class="appH5_panel ep_content_div">
       <mt-loadmore :top-method="loadTop"  ref="loadmore">
-        <div class="relevant-item"  v-infinite-scroll="loadMore"
+        <div   v-infinite-scroll="loadMore"
           infinite-scroll-disabled="loading"
           infinite-scroll-immediate-check="true"
           infinite-scroll-distance="55">
-          <div class="padStyle" v-for="item in expertsInfo">
-              <div style="position: relative;">
-                  <img :src="item.Avatar" class="related-image appH5_fl"/>
-              </div>
-              <div class="related-info appH5_fl">
-                  <div class="related-info-cont">
-                      <div class="relevant-item-name">
-                        <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}`" class="appH5_font16 appH5_link">{{item.UserName}}</a>
-                        <span v-if="item.Verified===1" class="authenticated">已认证</span>
-                      </div>
-                      <div class="relevant-item-conts appH5_font12">
-                          <div class="relevant-item-info">
-                            <div class="content-truncate" v-if="item.Department!=''&&item.Department!=null&&item.Title!=''&&item.Title!=null">{{item.Department}}-{{item.Title}}</div>
-                            <div class="content-truncate" v-if="item.Department==''||item.Department==null">{{item.Title}}</div>
-                            <div class="content-truncate" v-if="item.Title==''||item.Title==null">{{item.Department}}</div>
+            <div class="relevant-item">
+              <div class="padStyle" v-for="item in expertsInfo">
+                  <div style="position: relative;">
+                      <img :src="item.Avatar" class="related-image appH5_fl"/>
+                  </div>
+                  <div class="related-info appH5_fl">
+                      <div class="related-info-cont">
+                          <div class="relevant-item-name">
+                            <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}`" class="appH5_font16 appH5_link">{{item.UserName}}</a>
+                            <span v-if="item.Verified===1" class="authenticated">已认证</span>
+                          </div>
+                          <div class="relevant-item-conts appH5_font12">
+                              <div class="relevant-item-info">
+                                <div class="content-truncate" v-if="item.Department!=''&&item.Department!=null&&item.Title!=''&&item.Title!=null">{{item.Department}}-{{item.Title}}</div>
+                                <div class="content-truncate" v-if="item.Department==''||item.Department==null">{{item.Title}}</div>
+                                <div class="content-truncate" v-if="item.Title==''||item.Title==null">{{item.Department}}</div>
+                              </div>
                           </div>
                       </div>
                   </div>
-              </div>
-              <span class="appH5_fr appH5_followBtn" v-bind:class="[!item.Followed?'appH5_followBtn':'appH5_unfollowBtn']" v-on:click="followHandle(item)">{{!item.Followed ? "+关注":'已关注'}}</span>
-              <div class="clearfix"></div>
+                  <span class="appH5_fr appH5_followBtn" v-bind:class="[!item.Followed?'appH5_followBtn':'appH5_unfollowBtn']" v-on:click="followHandle(item)">{{!item.Followed ? "+关注":'已关注'}}</span>
+                  <div class="clearfix"></div>
+                </div>
             </div>
         </div>
-         
       </mt-loadmore>
          <div class="spinner_div" v-if="expertsInfo.length==0">
           <span  class="nomore">暂无数据</span>
@@ -83,10 +84,10 @@ export default {
     this.tableFlag = 0;
   },
   mounted() {
-    this.isExpertsLoading = true;
-    this.timer = setTimeout(() => {
-      this.loadFirstPageExperts();
-    }, 600);
+    // this.isExpertsLoading = true;
+    // this.timer = setTimeout(() => {
+    //   this.loadFirstPageExperts();
+    // }, 600);
   },
   activated() {
     this.loading = false;
@@ -97,6 +98,9 @@ export default {
     busUtil.bus.$emit("showHeader", true);
     busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
     busUtil.bus.$emit("headTitle", "机构专家");
+    this.timer = setTimeout(() => {
+      this.loadFirstPageExperts();
+    }, 600);
     if (this.isFetchExpertsError) {
       this.loadFirstPageExperts();
     }
@@ -190,6 +194,9 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.ep_content_div {
+    min-height: 16.0rem;
+}
 .appH5_font12 {
   font-size: 12px;
 }

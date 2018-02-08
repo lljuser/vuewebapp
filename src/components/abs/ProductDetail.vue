@@ -121,6 +121,9 @@
 </style>
 <style>
 .structureTable {
+    width: auto;
+}
+.structureTable {
   margin-top: 0.2rem;
   margin-left: 1.3rem;
 }

@@ -206,6 +206,9 @@ a:hover, a:focus {
 .appH5_color_white{
 	color:#fff!important;
 }
+.appH5_color_prompt{
+	color:#ff9999;
+}
 .appH5_bg_green{
 	background:#33ffcc;
  }
