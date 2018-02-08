@@ -5,10 +5,10 @@
     </div>
     <div class="appH5_content" v-else  style="margin-top:0;">
         <div v-if="securityDetail.Basic!=null">
-            <div class="appH5_panel text-center appH5_color_white">
+            <div class="appH5_panel text-center appH5_color_white appH5_panel_mb">
                 {{securityDetail.Basic.Description}}
             </div>
-            <div class="appH5_panel" style="padding-top:0;margin-top:.32rem;">
+            <div class="appH5_panel appH5_panel_mb" style="padding-top:0px;">
                 <table class="appH5_list_five">
                     <tr>
                         <td colspan="2" rowspan="2" class="appH5_color_red">
@@ -16,9 +16,9 @@
                             <span class="appH5_font_largest" v-else>{{securityDetail.Basic.Principal}}</span>
                             <span class="appH5_font_normal">亿</span>
                         </td> 
-                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.DealType}}</td> 
-                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td> 
-                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space text-right" style="padding-right:0;">{{securityDetail.Basic.SimpleExchange}}</td>
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.DealType}}</td> 
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td> 
+                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space text-right appH5_padding_top12" style="padding-right:0;">{{securityDetail.Basic.SimpleExchange}}</td>
                     </tr>
                     <tr>
                         <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">{{securityDetail.Basic.CurrentRatingCombine}}</td> 
@@ -26,24 +26,23 @@
                         <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top text-right" style="padding-right:0;">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
                     </tr>
                 </table>
-               
-            <div class="appH5_inner_panel appH5_important_div">
-                <div class="appH5_important_item">
-                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</div> 
-                    <div class="appH5_color_green appH5_font_smaller">量化评级</div>
-                </div>  
-                <div class="appH5_important_item">
-                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</div>
-                    <div class="appH5_color_green appH5_font_smaller">收益率</div>
-                </div>
-                <div class="appH5_important_item">
-                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</div> 
-                    <div class="appH5_color_green appH5_font_smaller">量化定价</div>
+                <div class="appH5_inner_panel appH5_important_div">
+                    <div class="appH5_important_item">
+                        <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</div> 
+                        <div class="appH5_color_green appH5_font_smaller">量化评级</div>
+                    </div>  
+                    <div class="appH5_important_item">
+                        <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</div>
+                        <div class="appH5_color_green appH5_font_smaller">收益率</div>
+                    </div>
+                    <div class="appH5_important_item">
+                        <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</div> 
+                        <div class="appH5_color_green appH5_font_smaller">量化定价</div>
+                    </div>
                 </div>
             </div>
-        </div>
         <!-- 证券结构 -->
-        <div class="appH5_panel securityStructure appH5martop" v-show="NoteStructureFlag">
+        <div class="appH5_panel securityStructure appH5_panel_mb" v-show="NoteStructureFlag">
             <p class="panel-title appH5_color_details appH5_font_larger">
                 <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">证券结构</span>
@@ -53,23 +52,23 @@
                 <div id="noteStructure" class="text-center">
 
                 </div>
-                <table class="structureTable appH5_color_white appH5_font_smaller">
+                <table class="structureTable appH5_color_white appH5_font_smaller" style="margin-left: -.35rem!important;">
                     <tr>
                         <td class="text-center">
-                             <div style="margin-left: 0.3rem;"><i class="Surplus"></i><span>剩余</span></div>
+                             <div style="margin-left: 0.6rem;"><i class="Surplus"></i><span>剩余</span></div>
                         </td>
                         <td class="text-center">
-                            <div><i class="Reimbursement"></i><span>已偿付</span></div>
+                            <div style="margin-left: 0.1rem;"><i class="Reimbursement"></i><span>已偿付</span></div>
                             </td>
                         <td class="text-left">
-                             <div style="margin-left: 0.6rem;"><i class="CurrentSecurities"></i><span>当前证券</span></div>
+                             <div style="margin-left: 0.5rem;"><i class="CurrentSecurities"></i><span>当前证券</span></div>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
         <!-- 产品分类 -->
-        <div class="appH5_panel securityStructure appH5martop">
+        <div class="appH5_panel securityStructure appH5_panel_mb">
             <p class="panel-title appH5_color_details appH5_font_larger">
                 <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">产品分类</span>
@@ -95,25 +94,36 @@
                 </div>
             </div>
         </div>
-
         <!-- 现金流 -->
-        <div class="appH5_panel securityStructure appH5martop">
+        <div class="appH5_panel securityStructure">
             <p class="panel-title appH5_color_details appH5_font_larger">
                <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">现金流</span>
-                <div class="appH5_overhide typeSpan appH5_fl appH5_margin_left20">
+                <div class="appH5_fl cashflowLegend">
+                    <table>
+                        <tr>
+                            <td class="appH5_vertical_middle"><span class="appH5_square_dot appH5_bg_green"></span></td>
+                            <td class="appH5_vertical_middle"><span class="appH5_font_smaller appH5_fl">起息日</span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_square_dot appH5_bg_blue appH5_margin_left20"></span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_font_smaller appH5_fl">实际值</span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_font_smaller appH5_fl">预测值</span></td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- <div class="appH5_overhide typeSpan appH5_fl appH5_margin_left20">
                     <span class="appH5_square_dot appH5_bg_green"></span> 
                     <span class="appH5_font_smaller appH5_fl">起息日</span> 
                     <span class="appH5_square_dot appH5_bg_blue appH5_margin_left20"></span> 
                     <span class="appH5_font_smaller appH5_fl">实际值</span> 
                     <span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span> 
                     <span class="appH5_font_smaller appH5_fl">预测值</span>
-                </div>
+                </div> -->
                 <span  class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-if="securityDetail.Cashflow.length>0&&ExpandShowFlag" v-on:click="cashflowShow()">展开</span>
                 <span  class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-if="securityDetail.Cashflow.length>0&&!ExpandShowFlag" v-on:click="cashflowHide()">收起</span>
                 <div class="clearfix"></div>
             </p>
-            <table class="appH5_table appH5martop appH5_font_smaller" border="0" cellspacing="0" cellpadding="0">
+            <table class="appH5_table appH5martop appH5_font_smaller securityCashflowTable" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <th class="text-left">偿付日期</th> 
                     <th class="text-right">期初</th>
@@ -121,22 +131,7 @@
                     <th class="text-right">利息</th> 
                     <th class="text-right">本息</th>
                 </tr>
-                <!-- <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag">
-                    <tr v-bind:class="(securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3||securityDetail.Cashflow[0].StatusId==11)">
-                        <td>
-                            <span v-if="securityDetail.Cashflow[0].StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
-                            <span v-if="securityDetail.Cashflow[0].StatusId==1||securityDetail.Cashflow[0].StatusId==2||securityDetail.Cashflow[0].StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
-                            <span v-if="securityDetail.Cashflow[0].StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
-                             {{securityDetail.Cashflow[0].PaymentData.toString() | moment("YYYY-MM-DD")}}
-                        </td> 
-                        <td class="text-right">{{securityDetail.Cashflow[0].Begin}}</td>
-                        <td class="text-right">{{securityDetail.Cashflow[0].Principal}}</td>
-                        <td class="text-right">{{securityDetail.Cashflow[0].Interest}}</td>
-                        <td class="text-right">{{securityDetail.Cashflow[0].Total}}</td>
-                    </tr>
-                </tbody> -->
-                <tbody v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&!item.Default" v-for="item in securityDetail.Cashflow">
-                    <tr>
+                <tr v-if="securityDetail.Cashflow.length>0&&CashflowShowFlag&&item.Default" v-for="item in securityDetail.Cashflow">
                         <td>
                             <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
                             <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
@@ -147,22 +142,19 @@
                         <td class="text-right">{{item.Principal}}</td>
                         <td class="text-right">{{item.Interest}}</td>
                         <td class="text-right">{{item.Total}}</td>
-                    </tr>
-                </tbody>
-                <tbody v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag" v-for="item in securityDetail.Cashflow">
-                    <tr v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')">
-                        <td> 
-                            <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
-                            <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
-                            <span v-if="item.StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
-                            {{item.PaymentData.toString() | moment("YYYY-MM-DD")}}
-                         </td>
-                        <td class="text-right">{{item.Begin}}</td>
-                        <td class="text-right">{{item.Principal}}</td>
-                        <td class="text-right">{{item.Interest}}</td>
-                        <td class="text-right">{{item.Total}}</td>
-                    </tr>
-                </tbody>
+                </tr>
+                <tr v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')" v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag" v-for="item in securityDetail.Cashflow">
+                    <td> 
+                        <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
+                        <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
+                        <span v-if="item.StatusId==4" class="appH5_square_dot appH5_bg_brightpink"></span> 
+                        {{item.PaymentData.toString() | moment("YYYY-MM-DD")}}
+                        </td>
+                    <td class="text-right">{{item.Begin}}</td>
+                    <td class="text-right">{{item.Principal}}</td>
+                    <td class="text-right">{{item.Interest}}</td>
+                    <td class="text-right">{{item.Total}}</td>
+                </tr>
             </table> 
             <div v-if="securityDetail.Cashflow.length==0" class="appH5lookAll appH5bgColor">暂无现金流</div>
         </div>
@@ -171,13 +163,42 @@
   </div>
 </template>
 <style>
-    .appH5_table tr td:first-child{
+.securityCashflowTable tr td:nth-child(1),.securityCashflowTable tr th:nth-child(1){
+    max-width: 2rem;
+    min-width: 2rem;
+    width: 2rem;
+}
+.securityCashflowTable tr td:nth-child(2),.securityCashflowTable tr th:nth-child(2){
+    max-width: 1.4rem;
+    min-width: 1.4rem;
+    width: 1.4rem;
+}
+.securityCashflowTable tr td:nth-child(3),.securityCashflowTable tr th:nth-child(3){
+    max-width: 1.4rem;
+    min-width: 1.4rem;
+    width: 1.4rem;
+}
+.securityCashflowTable tr td:nth-child(4),.securityCashflowTable tr th:nth-child(4){
+    max-width: 1.3rem;
+    min-width: 1.3rem;
+    width: 1.3rem;
+}
+.securityCashflowTable tr td:nth-child(5),.securityCashflowTable tr th:nth-child(5){
+    max-width: 1.4rem;
+    min-width: 1.4rem;
+    width: 1.4rem;
+} 
+    .securityCashflowTable tr td:first-child{
         position: relative;
     }
-    .appH5_table .appH5_square_dot{
+    .securityCashflowTable .appH5_square_dot{
         position: absolute;
-        top: .3rem;
+        top: .38rem;
         left: 0;
+    }
+    .cashflowLegend{
+        padding-top: .1rem; 
+        margin-left: .6rem;
     }
     .typeSpan{
         margin-top: .18rem;
@@ -289,6 +310,17 @@
     }
     .CurrentSecurities{
         background-color: #ffe40c;
+    }
+    .securityCashflowTable td{
+        font-size: 13px!important;
+    }
+    @media only screen and (min-width: 320px) and (max-width: 374px){
+        .appH5_margin_left20 {
+            margin-left: .35rem!important;
+        }
+        .cashflowLegend{
+            margin-left: .2rem;
+        }
     }
 </style>
 

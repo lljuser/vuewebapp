@@ -118,16 +118,16 @@
 	        </table>
 	    </div>
 		<h2>五列示例</h2>
-        <div class="appH5_panel">
+        <div class="appH5_panel" style="padding-top:0px;">
 		    <table class="appH5_list_five">
 				<tr>
 	        		<td class='appH5_color_red' colspan="2" rowspan="2">
 						<span class="appH5_font_largest">253</span>
 						<span class="appH5_font_normal">亿</span>
 					</td>
-	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space'>汽车贷款</td>
-	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space'>5.8%</td>
-					<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space'>上交所</td>
+	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12'>汽车贷款</td>
+	        		<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12'>5.8%</td>
+					<td class='appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12'>上交所</td>
 	        	</tr>
 				<tr>
 					<td class='appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top'>AAA/AA+</td>
@@ -187,13 +187,29 @@
 			<div class="appH5_btn_cancel">取消</div>
 		</div>
 		<h2>表格内纯色图例</h2>
-		<div class="appH5_panel appH5_overhide">
-			<span class="appH5_square_dot appH5_bg_green"></span>
-			<span class="appH5_font_smaller appH5_fl">起息日</span>
-            <span class="appH5_square_dot appH5_bg_blue appH5_margin_left20"></span>
-			<span class="appH5_font_smaller appH5_fl">实际值</span>
-			<span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span>
-			<span class="appH5_font_smaller appH5_fl">预测值</span>
+		<div class="appH5_panel">
+			<table>
+				<tr>
+					<td class="appH5_vertical_middle">
+						<span class="appH5_square_dot appH5_bg_green"></span>
+					</td>
+					<td class="appH5_vertical_middle">
+                        <span class="appH5_font_smaller appH5_fl">起息日</span>
+					</td>
+					<td class="appH5_vertical_middle">
+						<span class="appH5_square_dot appH5_bg_blue appH5_margin_left20"></span>
+					</td>
+					<td class="appH5_vertical_middle">
+						<span class="appH5_font_smaller appH5_fl">实际值</span>
+					</td>
+				    <td class="appH5_vertical_middle">
+						<span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span>
+					</td>
+					<td class="appH5_vertical_middle">
+						<span class="appH5_font_smaller appH5_fl">预测值</span>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<h2>表格内带字图例</h2>
 		<div class="appH5_panel appH5_overhide">

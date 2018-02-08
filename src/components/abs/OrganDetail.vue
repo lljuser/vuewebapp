@@ -11,7 +11,7 @@
               <span>{{organDetail.FullName}}</span>
           </div>
           <div class="appH5_margin_bottom10">{{organDetail.Website}}</div>          
-          <div><span>{{organDetail.FoundDate}}</span><span class="appH5_margin_left20">{{organDetail.Nature}}</span></div>
+          <div><span v-bind:class="[(organDetail.FoundDate===null||organDetail.Nature==='')?'':'appH5_margin_right20']">{{organDetail.FoundDate}}</span><span>{{organDetail.Nature}}</span></div>
           <!-- 机构单页-资产方 -->
           <div class="organ_basic_info" v-if="organDetail.IsAsset">
             <div class="appH5_inner_panel appH5_important_div">
@@ -89,8 +89,8 @@
               </div>
               <div>
                 <div class="organ_prize_img appH5_float_left" v-for="(item,index) in organDetail.Prizes" :key=index>
-                  <img class="organ_prize_size" v-bind:src="item.IconPath"><span v-show="item.count>1">x{{item.count}}</span>   
-                </div>
+                  <img class="organ_prize_size appH5_float_left" v-bind:src="item.IconPath"><div class="appH5_float_left organ_prize_count" v-show="item.count>1">×{{item.count}}</div> 
+                </div>                                                                
               </div> 
               <div style="clear:both"></div>             
           </div>
@@ -339,8 +339,6 @@
   background: #000;
 }
 .organ_prize_img {
-  width: 62px;
-  height: 50px;
   padding-left: 0.36rem;
   margin-top: 0.3rem;
 }
@@ -349,6 +347,11 @@
 }
 .organ_prize_size {
   height: 35px;
+}
+.organ_prize_count{
+  padding-left: 4px;
+  height: 35px;
+  line-height: 35px;
 }
 .organ_introduction pre{
       margin: 0;
