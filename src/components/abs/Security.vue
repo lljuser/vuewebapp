@@ -35,7 +35,7 @@
     <mt-loadmore :top-method="loadTop"  ref="loadmore">
       <table id="productTableId" class="appH5_table">
         <tr>
-          <th style="padding-left:0;width:8px;"></th>
+          <th style="padding-left:0;width:5%"></th>
           <th style="width:56%">证券简称</th>
           <th class="text-right">金额(亿)</th>
           <th class="text-right">利率</th>
