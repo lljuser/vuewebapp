@@ -5,10 +5,10 @@
     </div>
     <div class="appH5_content" v-else  style="margin-top:0;">
         <div v-if="securityDetail.Basic!=null">
-            <div class="appH5_panel text-center appH5_color_white">
+            <div class="appH5_panel text-center appH5_color_white appH5_panel_mb">
                 {{securityDetail.Basic.Description}}
             </div>
-            <div class="appH5_panel" style="padding-top:0px;margin-top:.32rem;">
+            <div class="appH5_panel appH5_panel_mb" style="padding-top:0px;">
                 <table class="appH5_list_five">
                     <tr>
                         <td colspan="2" rowspan="2" class="appH5_color_red">
@@ -17,7 +17,9 @@
                             <span class="appH5_font_normal">亿</span>
                         </td> 
                         <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.DealType}}</td> 
-                        <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td> 
+                        <!-- <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=""?securityDetail.Basic.CurrentCoupon+"%":"-"}}</td>  -->
+                        <td v-if="securityDetail.Basic.CurrentCoupon!=null&&securityDetail.Basic.CurrentCoupon!=''&&securityDetail.Basic.CurrentCoupon!='-'" class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.CurrentCoupon}}%</td> 
+                        <td v-else class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">-</td>
                         <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space text-right appH5_padding_top12" style="padding-right:0;">{{securityDetail.Basic.SimpleExchange}}</td>
                     </tr>
                     <tr>
@@ -26,24 +28,25 @@
                         <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top text-right" style="padding-right:0;">{{securityDetail.Basic.RepaymentOfPrincipal}}</td>
                     </tr>
                 </table>
-               
-            <div class="appH5_inner_panel appH5_important_div">
-                <div class="appH5_important_item">
-                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</div> 
-                    <div class="appH5_color_green appH5_font_smaller">量化评级</div>
-                </div>  
-                <div class="appH5_important_item">
-                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</div>
-                    <div class="appH5_color_green appH5_font_smaller">收益率</div>
-                </div>
-                <div class="appH5_important_item">
-                    <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</div> 
-                    <div class="appH5_color_green appH5_font_smaller">量化定价</div>
+                <div class="appH5_inner_panel appH5_important_div">
+                    <div class="appH5_important_item">
+                        <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantRating!=null&&securityDetail.Basic.QuantRating!=""?securityDetail.Basic.QuantRating:"-"}}</div> 
+                        <div class="appH5_color_green appH5_font_smaller">量化评级</div>
+                    </div>  
+                    <div class="appH5_important_item">
+                        <!-- <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=""?securityDetail.Basic.QuantYield+"%":"-"}}</div> -->
+                        <div v-if="securityDetail.Basic.QuantYield!=null&&securityDetail.Basic.QuantYield!=''&&securityDetail.Basic.QuantYield!='-'" class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantYield}}%</div>
+                        <div v-else class="appH5_font_large appH5_margin_bottom10">-</div>
+                        <div class="appH5_color_green appH5_font_smaller">收益率</div>
+                    </div>
+                    <div class="appH5_important_item">
+                        <div class="appH5_font_large appH5_margin_bottom10">{{securityDetail.Basic.QuantPrice!=null&&securityDetail.Basic.QuantPrice!=""?securityDetail.Basic.QuantPrice:"-"}}</div> 
+                        <div class="appH5_color_green appH5_font_smaller">量化定价</div>
+                    </div>
                 </div>
             </div>
-        </div>
         <!-- 证券结构 -->
-        <div class="appH5_panel securityStructure appH5martop" v-show="NoteStructureFlag">
+        <div class="appH5_panel securityStructure appH5_panel_mb" v-show="NoteStructureFlag">
             <p class="panel-title appH5_color_details appH5_font_larger">
                 <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">证券结构</span>
@@ -53,7 +56,7 @@
                 <div id="noteStructure" class="text-center">
 
                 </div>
-                <table class="structureTable appH5_color_white appH5_font_smaller">
+                <table class="structureTable appH5_color_white appH5_font_smaller" style="margin-left: -.35rem!important;">
                     <tr>
                         <td class="text-center">
                              <div style="margin-left: 0.6rem;"><i class="Surplus"></i><span>剩余</span></div>
@@ -69,7 +72,7 @@
             </div>
         </div>
         <!-- 产品分类 -->
-        <div class="appH5_panel securityStructure appH5martop">
+        <div class="appH5_panel securityStructure appH5_panel_mb">
             <p class="panel-title appH5_color_details appH5_font_larger">
                 <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">产品分类</span>
@@ -95,20 +98,31 @@
                 </div>
             </div>
         </div>
-
         <!-- 现金流 -->
-        <div class="appH5_panel securityStructure appH5martop">
+        <div class="appH5_panel securityStructure">
             <p class="panel-title appH5_color_details appH5_font_larger">
                <span class="titLine appH5_fl"></span>
                 <span class="appH5_fl">现金流</span>
-                <div class="appH5_overhide typeSpan appH5_fl appH5_margin_left20">
+                <div class="appH5_fl cashflowLegend">
+                    <table>
+                        <tr>
+                            <td class="appH5_vertical_middle"><span class="appH5_square_dot appH5_bg_green"></span></td>
+                            <td class="appH5_vertical_middle"><span class="appH5_font_smaller appH5_fl">起息日</span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_square_dot appH5_bg_blue appH5_margin_left20"></span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_font_smaller appH5_fl">实际值</span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span></td> 
+                            <td class="appH5_vertical_middle"><span class="appH5_font_smaller appH5_fl">预测值</span></td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- <div class="appH5_overhide typeSpan appH5_fl appH5_margin_left20">
                     <span class="appH5_square_dot appH5_bg_green"></span> 
                     <span class="appH5_font_smaller appH5_fl">起息日</span> 
                     <span class="appH5_square_dot appH5_bg_blue appH5_margin_left20"></span> 
                     <span class="appH5_font_smaller appH5_fl">实际值</span> 
                     <span class="appH5_square_dot appH5_bg_brightpink appH5_margin_left20"></span> 
                     <span class="appH5_font_smaller appH5_fl">预测值</span>
-                </div>
+                </div> -->
                 <span  class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-if="securityDetail.Cashflow.length>0&&ExpandShowFlag" v-on:click="cashflowShow()">展开</span>
                 <span  class="appH5_color_link appH5_fr appH5_font_smaller typeSpan" v-if="securityDetail.Cashflow.length>0&&!ExpandShowFlag" v-on:click="cashflowHide()">收起</span>
                 <div class="clearfix"></div>
@@ -183,8 +197,12 @@
     }
     .securityCashflowTable .appH5_square_dot{
         position: absolute;
-        top: .22rem;
+        top: .38rem;
         left: 0;
+    }
+    .cashflowLegend{
+        padding-top: .1rem; 
+        margin-left: .6rem;
     }
     .typeSpan{
         margin-top: .18rem;
@@ -223,7 +241,6 @@
     }
     .structureTable{
         margin-top: .15rem;
-        margin-left: -.35rem!important;
     }
     .proList {
         margin-left: .5rem;
@@ -303,7 +320,10 @@
     }
     @media only screen and (min-width: 320px) and (max-width: 374px){
         .appH5_margin_left20 {
-            margin-left: .4rem;
+            margin-left: .35rem!important;
+        }
+        .cashflowLegend{
+            margin-left: .2rem;
         }
     }
 </style>

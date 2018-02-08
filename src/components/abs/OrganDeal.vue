@@ -12,7 +12,7 @@
       <div class="div_desc">
         <div><span class="appH5_font_larger appH5_color_red">{{Count}}</span><span class="appH5_font_smaller">单</span></div>
         <div><span class="appH5_font_larger appH5_color_red appH5_margin_left10">{{Balance}}</span><span class="appH5_font_smaller">亿</span></div>
-        <div><span class="appH5_font_larger appH5_color_red appH5_margin_left10">{{UnderwritingBalance}}</span><span class="appH5_font_smaller">亿(承销)</span></div>
+        <div v-show="UnderwritingBalance>0"><span class="appH5_font_larger appH5_color_red appH5_margin_left10">{{UnderwritingBalance}}</span><span class="appH5_font_smaller">亿(承销)</span></div>
       </div>
       <table class="appH5_select_div select_div" cellspacing="0"  cellpadding="0" >
         <tr>
@@ -60,8 +60,11 @@
           <tfoot>
             <tr>
               <td colspan="3" style="border-bottom:none">
-                <div class="spinner_div" v-if="list.length==0">
-                  <span  class="nomore">暂无数据</span>
+                <div class="spinner_div" v-if="list.length==0" style="height:670px;">
+                <div>
+                  <img class="appH5_null" src="../../public/images/null.png" alt="">
+                  <div class="nomore text-center appH5_null" style="margin-top: 3px;">暂无数据</div>
+                </div>
                 </div>
                 <div class="spinner_div" v-else >
                   <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
@@ -153,7 +156,7 @@ export default {
       if(showSpinnerLoad!=null)this.isProductLoading = false;
       setTimeout(() => {
         this.fetchProducts(1,0, data => {
-          this.list = data;
+          this.list =data ;
           this.isProductLoading = false;
           this.page=1;
           if(data.length<this.pageSize)
