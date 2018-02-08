@@ -354,7 +354,6 @@ export default {
                     this.fetchSecurityDetail(this.id,data=>{
                     // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
-                    console.log(this.securityDetail);
                     this.isSecurityLoading=false;
                 });
             },600);
