@@ -7,10 +7,10 @@
     <div class="appH5_content" v-else>
       <div>
         <div class="appH5_panel appH5_panel_mb">
-          <div class="appH5_margin_bottom10 appH5_font_large">
+          <div class="appH5_margin_bottom10 appH5_font_large appH5_color_green">
               <span>{{organDetail.FullName}}</span>
           </div>
-          <div class="appH5_margin_bottom10 appH5_font_smaller">{{organDetail.Website}}</div>          
+          <div class="appH5_margin_bottom10 appH5_font_smaller">{{organDetail.Website}}</div>
           <div class="appH5_font_smaller"><span v-bind:class="[(organDetail.FoundDate===null||organDetail.Nature==='')?'':'appH5_margin_right20']">{{organDetail.FoundDate}}</span><span>{{organDetail.Nature}}</span></div>
           <!-- 机构单页-资产方 -->
           <div class="organ_basic_info" v-if="organDetail.IsAsset">
@@ -18,81 +18,81 @@
               <div class="appH5_important_item">
 				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.Capital}}</div>
 				        <div class="appH5_color_green appH5_font_smaller">注册资金</div>
-			        </div> 
+			        </div>
               <div class="appH5_important_item">
 				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.TotalAssets}}</div>
 				        <div class="appH5_color_green appH5_font_smaller">总资产</div>
-			        </div> 
+			        </div>
               <div class="appH5_important_item">
 				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.AssetLiabilityRatio}}</div>
 				        <div class="appH5_color_green appH5_font_smaller">负债率</div>
-			        </div> 
+			        </div>
               <div class="appH5_important_item">
 				        <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.Rating!=null">{{organDetail.Rating}}</div>
 				        <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.Rating==null">-</div>
 				        <div class="appH5_color_green appH5_font_smaller">主体评级</div>
-			        </div>                                                        
-            </div> 
+			        </div>
+            </div>
           </div>
           <!-- 机构单页-资产方-END -->
           </div>
 
           <div class=" appH5_panel appH5_panel_mb">
             <div class=" appH5_important_div">
-              <div class="appH5_important_item"> 
-                <router-link :to="`/institutionalExperts/${$route.params.id}`"> 
+              <div class="appH5_important_item">
+                <router-link :to="`/institutionalExperts/${$route.params.id}`">
                   <a href="javascript:;" style="color:#FEC447">
                     <div class="appH5_margin_bottom10" >
                       <div class="appH5_circle_icon_div appH5_bg_blue">
                         <font-awesome-icon :icon="['far', 'user']" class="appH5_icon" />
                       </div>
                     </div>
-                      
-                     <div style="color:#fff;">机构专家</div>                 
+
+                     <div style="color:#fff;">机构专家</div>
                   </a>
-                </router-link>               
+                </router-link>
               </div>
               <div class="appH5_important_item">
-                <router-link :to="`/organDeal/${$route.params.id}`"> 
+                <router-link :to="`/organDeal/${$route.params.id}`">
                   <a href="javascript:;" style="color:#FEC447">
                     <div class="appH5_margin_bottom10">
                       <div class=" appH5_bg_darkgreen appH5_circle_icon_div">
                         <font-awesome-icon :icon="['far', 'chart-bar']" class="appH5_icon appH5_margin_left2" />
                         </div>
-                      </div>  
+                      </div>
                       <div style="color:#fff;">参与项目</div>
-                                    
+
                   </a>
-                </router-link>               
+                </router-link>
               </div>
-              <div class="appH5_important_item"> 
-                <router-link :to="`/institutionalArticle/${$route.params.id}`"> 
+              <div class="appH5_important_item">
+                <router-link :to="`/institutionalArticle/${$route.params.id}`">
                   <a href="javascript:;" style="color:#FEC447">
                     <div class="appH5_margin_bottom10">
                       <div class="appH5_bg_darkpurple appH5_circle_icon_div">
                         <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon appH5_margin_left5"/>
                       </div>
-                      </div> 
+                      </div>
                       <div style="color:#fff;">机构文章</div>
-                                     
+
                   </a>
-                </router-link>               
-              </div> 
-            </div>                           
+                </router-link>
+              </div>
+            </div>
           </div>
 
           <div style="clear:both"></div>
 
-          <div class="appH5_panel appH5_panel_mb" v-show="organDetail.Prizes.lenght==0">
+          <div class="appH5_panel appH5_panel_mb" v-show="organDetail.Prizes.length!=0">
               <div class="appH5_title">
                   <span>机构奖章</span>
               </div>
               <div>
                 <div class="organ_prize_img appH5_float_left" :id="`tooltip${index}`" v-for="(item,index) in organDetail.Prizes" :key=index>
-                  <img class="organ_prize_size appH5_float_left" v-bind:src="item.IconPath"><div class="appH5_float_left organ_prize_count" v-show="item.count>1">×{{item.count}}</div> 
-                </div>                                                                
-              </div> 
-              <div style="clear:both"></div>             
+                  <img class="organ_prize_size appH5_float_left" v-bind:src="item.IconPath"><div class="appH5_float_left organ_prize_count" v-show="item.count>1">×{{item.count}}</div>
+                </div>
+              </div>
+              <div style="clear:both"></div>
           </div>
 
           <div class="appH5_panel appH5_panel_mb">
@@ -102,10 +102,11 @@
               <div class="appH5_overhide">
                 <span class="appH5_font_larger">{{product.Count}}</span>
                 <span class="appH5_font_smaller">单</span>
-                <span class="appH5_font_larger appH5_color_red appH5_margin_left30">{{product.Balance}}</span>
+                <span v-show="product.Balance!=null && product.Balance!=0 && product.Balance!=''" class="appH5_font_larger appH5_color_red appH5_margin_left30">{{product.Balance}}</span>
+                <span v-show="product.Balance==null || product.Balance==0 || product.Balance==''" class="appH5_font_larger appH5_color_red appH5_margin_left30">0</span>
                 <span class="appH5_font_smaller appH5_color_red">亿</span>
               </div>
-          </div> 
+          </div>
 
           <div class="appH5_panel appH5_panel_mb">
               <div class="appH5_title">
@@ -120,7 +121,7 @@
             <header class="ep_part_title ep_part_item_border">
               <div class="appH5_title">
                   <span>机构专家</span>
-                  <router-link v-bind:to="expertListUrl()"> 
+                  <router-link v-bind:to="expertListUrl()">
                   <div class="appH5_float_right appH5_font16">更多></div>
                   </router-link>
               </div>
@@ -146,14 +147,14 @@
               </div>
               <span class="appH5_fr appH5_followBtn" v-bind:class="[!item.Followed?'appH5_followBtn':'appH5_unfollowBtn']" v-on:click="followHandle(item)">{{!item.Followed ? "+关注":'已关注'}}</span>
               <div class="clearfix"></div>
-            </div>                  
-          </div>                  
-                
+            </div>
+          </div>
+
           <div class="appH5_panel appH5_panel_mb" v-if="!isArrayEmpty(articleList)">
                 <header class="ep_part_title ep_part_item_border">
                   <div class="appH5_title">
                       <span>机构文章</span>
-                      <router-link :to="articleListUrl()"> 
+                      <router-link :to="articleListUrl()">
                       <div class="appH5_float_right appH5_font16">更多></div>
                       </router-link>
                   </div>
@@ -183,15 +184,15 @@
                         </ul>
                         <span class="ep_sendMailBtn appH5_font_normal" v-on:click="sendAttachment(item.AttachmentFileCode)" v-show="isValidElement(item.AttachmentFileCode)">发送到邮箱</span>
                     </div>
-                </div>                         
-          </div> 
+                </div>
+          </div>
               <div class="appH5_panel appH5_panel_mb" v-if="!isArrayEmpty(productList)">
               <div class="appH5_title">
                   <span>参与项目</span>
-                  <router-link :to="productListUrl()"> 
+                  <router-link :to="productListUrl()">
                   <div class="appH5_float_right appH5_font16">更多></div>
                   </router-link>
-              </div>  
+              </div>
                 <table id="productTableId" class="appH5_table">
                   <tr>
                     <th class='text-left ep_width225'>名称</th>
@@ -210,9 +211,14 @@
                       </td>
                   </tr>
                 </table>
-          </div> 
-          <div class="appH5_panel_mb promt appH5_color_prompt"><span>机构门户页面管理员现已开放申请。<br/>诚邀您进入www.cn-abs.com，成为机构管家。</span></div>                          
+          </div>
+          <div class="appH5_panel_mb promt appH5_color_prompt"><span>机构门户页面管理员现已开放申请。<br/>诚邀您进入www.cn-abs.com，成为机构管家。</span></div>
       </div>
+      
+        <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
+            <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
+            <div class="ep_align_center ep_font30 ep_submitColor">发送中...</div>
+        </mt-popup>
       <div id="toolTipTemplate" class="dn"></div>
     </div>
   </div>
@@ -473,9 +479,30 @@ ul.articleDetail .article_title {
 .promt span{
   word-break: break-all;
 }
+
+.ep_align_center {
+    text-align: center;
+}
+.ep_font30 {
+    font-size: 15px;
+}
+.ep_submitColor {
+    color: #ccc;
+}
+.ep_divSpinner {
+    width: 39px;
+    margin: 6.5rem auto 0.266667rem;
+}
+.ep_submitPopup {
+    background: transparent !important;
+    width: 100%;
+    height: 100%;
+}
 </style>
 
 <script>
+import _ from "lodash";
+import util from "@/public/modules/expert/utils";
 import BusUtil from "./BusUtil";
 import Vue from "vue";
 import VueHighcharts from "vue-highcharts";
@@ -505,8 +532,10 @@ export default {
       publishDate: "",
       noteConsTable: "",
       isProductLoading: false,
+      submitPopupVisible: false,
       isShowHeader: false,
-      organDetail: {},
+      // 给奖章重定义，为处理html的.length报错
+      organDetail: {Prizes:[]},
       publishDate: "",
       noteConsTable: "",
       firstPrizeCount: 0,
@@ -529,7 +558,7 @@ export default {
         expert: 0,
         deal: 0,
         article: 0
-      }
+      },
     };
   },
   created() {
@@ -601,7 +630,7 @@ export default {
             var newPrizeObj = { IconPath: "", count: 0, description: [] };
             var prize = data.Prizes;
             var prize_id = prize[0].PrizeId;
-            newPrizeObj.PrizeName = prize[0].PrizeName; 
+            newPrizeObj.PrizeName = prize[0].PrizeName;
             newPrizeObj.IconPath = prize[0].IconPath;
             newPrizeObj.description.push(prize[0].WinningReason);
             newPrizeObj.count = 1;
@@ -708,9 +737,11 @@ export default {
       });
     },
     sendAttachment: function(fileCode) {
+      this.submitPopupVisible = true;
       axios
         .post(webApi.Expert.sendPublishUrl, { fileCode: fileCode })
         .then(response => {
+          this.submitPopupVisible = false;
           this.$toast(response.data.data);
         });
     },
@@ -756,10 +787,10 @@ export default {
               const content = this.querySelector(".tippy-content");
               content.innerHTML = `<h1 style="font-size:15px;text-align:left">${model.PrizeName}</h1>`;
               var i=0;
-              for (let reason of model.description) {                
-                content.innerHTML += `<li style="font-size:13px;text-align:left">${reason}</li>`;                
+              for (let reason of model.description) {
+                content.innerHTML += `<li style="font-size:13px;text-align:left">${reason}</li>`;
                 if(i>=2){
-                content.innerHTML += `<p style="font-size:13px;text-align:left">······</p>`;                                  
+                content.innerHTML += `<p style="font-size:13px;text-align:left">······</p>`;
                   break;
                 }
                 i++;
@@ -799,7 +830,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #78bcff;
-  max-width: 200px; 
+  max-width: 200px;
 }
 .tippy-popper[x-placement^="bottom"] .tippy-arrow {
   border-bottom: 7px solid #78bcff;
