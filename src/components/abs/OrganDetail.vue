@@ -57,7 +57,7 @@
                   <a href="javascript:;" style="color:#FEC447">
                     <div class="appH5_margin_bottom10">
                       <div class=" appH5_bg_darkgreen appH5_circle_icon_div">
-                        <font-awesome-icon :icon="['far', 'chart-bar']" class="appH5_icon" />
+                        <font-awesome-icon :icon="['far', 'chart-bar']" class="appH5_icon appH5_margin_left2" />
                         </div>
                       </div>  
                       <div style="color:#fff;">参与项目</div>
@@ -70,7 +70,7 @@
                   <a href="javascript:;" style="color:#FEC447">
                     <div class="appH5_margin_bottom10">
                       <div class="appH5_bg_darkpurple appH5_circle_icon_div">
-                        <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon"/>
+                        <font-awesome-icon :icon="['far', 'edit']" class="appH5_icon appH5_margin_left5"/>
                       </div>
                       </div> 
                       <div style="color:#fff;">机构文章</div>
@@ -100,10 +100,10 @@
                   <span>累积参与项目</span>
               </div>
               <div class="appH5_overhide">
-                <span class="appH5_font_larger appH5_color_red">{{product.Count}}</span>
+                <span class="appH5_font_larger">{{product.Count}}</span>
                 <span class="appH5_font_smaller">单</span>
                 <span class="appH5_font_larger appH5_color_red appH5_margin_left30">{{product.Balance}}</span>
-                <span class="appH5_font_smaller">亿</span>
+                <span class="appH5_font_smaller appH5_color_red">亿</span>
               </div>
           </div> 
 
