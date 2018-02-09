@@ -15,7 +15,8 @@
             <div class="relevant-item">
               <div class="padStyle" v-for="item in expertsInfo">
                   <div style="position: relative;">
-                      <img :src="(item.Avatar==null||item.Avatar.endsWith('filestore/common/download/cnabs/'))?'/Content/modules/expert/image/headerDefault.jpg':item.Avatar" class="related-image appH5_fl"/>
+                      <!-- <img :src="(item.Avatar==null||item.Avatar.endsWith('filestore/common/download/cnabs/'))?'/Content/modules/expert/image/headerDefault.jpg':item.Avatar" class="related-image appH5_fl"/> -->
+                      <img :src="isValidAvatar(item.Avatar)" class="related-image appH5_fl"/>
                   </div>
                   <div class="related-info appH5_fl">
                       <div class="related-info-cont">
@@ -64,6 +65,7 @@ import axios from "axios";
 import getParams from "../../public/js/getParams";
 import { Toast } from "mint-ui";
 import "mint-ui/lib/style.css";
+import defaultAvatar from "@/public/images/defaultavatar.png";
 
 export default {
   name: "institutionalExperts",
@@ -114,6 +116,23 @@ export default {
     this.loading = true;
   },
   methods: {
+    isValidElement: function(item) {
+      return !(item === null || item === undefined || item === "");
+    },
+    isValidAvatar: function(avatar) {
+      if(avatar.endsWith('filestore/common/download/cnabs/'))
+      {
+        return defaultAvatar;
+      }
+      else if(!this.isValidElement(avatar))
+      {
+        return defaultAvatar;
+      }
+      else
+      {
+        return avatar;
+      }
+    },
     followHandle(exItem) {
       // 关注
         axios(webApi.Organ.followList.concat(['',exItem.Followed,exItem.UserId].join('/'))).then(response => {
