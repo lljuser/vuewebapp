@@ -211,7 +211,7 @@
                   </tr>
                 </table>
           </div> 
-          <div class="appH5_panel_mb promt appH5_color_prompt"><span>温馨提示：如对机构数据有疑问，请登录CNABS网页端反馈或申请机构管家后修改。</span></div>                          
+          <div class="appH5_panel_mb promt appH5_color_prompt"><span>机构门户页面管理员现已开放申请。<br/>诚邀您进入www.cn-abs.com，成为机构管家。</span></div>                          
       </div>
       <div id="toolTipTemplate" class="dn"></div>
     </div>
@@ -469,6 +469,9 @@ ul.articleDetail .article_title {
 }
 .promt{
   padding: 0 0.32rem;
+}
+.promt span{
+  word-break: break-all;
 }
 </style>
 
