@@ -93,7 +93,7 @@
                     </div>
                     <div v-else>
                         <span>L</span>
-                        <router-link :to="`/security/${securityDetail.Basic.DealId}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
+                        <router-link :to="`/productDetail/${securityDetail.Basic.DealId}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
                     </div>
                 </div>
             </div>
