@@ -49,7 +49,7 @@
         <div class="appH5_panel securityStructure appH5_panel_mb" v-show="NoteStructureFlag">
             <p class="panel-title appH5_color_details appH5_font_larger">
                 <span class="titLine appH5_fl"></span>
-                <span class="appH5_fl">证券结构</span>
+                <span class="appH5_fl appH5_color_white">证券结构</span>
                 <div class="clearfix"></div>
             </p>
             <div class="appH5martop">
@@ -75,7 +75,7 @@
         <div class="appH5_panel securityStructure appH5_panel_mb">
             <p class="panel-title appH5_color_details appH5_font_larger">
                 <span class="titLine appH5_fl"></span>
-                <span class="appH5_fl">产品分类</span>
+                <span class="appH5_fl appH5_color_white">产品分类</span>
                 <div class="clearfix"></div>
             </p>
             <div class="appH5martop proList">
@@ -102,7 +102,7 @@
         <div class="appH5_panel securityStructure">
             <p class="panel-title appH5_color_details appH5_font_larger">
                <span class="titLine appH5_fl"></span>
-                <span class="appH5_fl">现金流</span>
+                <span class="appH5_fl appH5_color_white">现金流</span>
                 <div class="appH5_fl cashflowLegend">
                     <table>
                         <tr>
