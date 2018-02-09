@@ -50,10 +50,11 @@
                     <span class='fl'>ABS项目</span>
                     <span class="fl ep_marginLeft15 ep_font28 ep_overhide ep_line_height22" v-if="!isArrayEmpty(userInfo.ABSProjects)">
                         <span class="fl appH5_font_smaller">(共&nbsp;</span>
-                        <span class="appH5_color_red appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
+                        <span class="appH5_font_larger fl">{{projectHistoriesSummary.totalCount>9999?'9999+':projectHistoriesSummary.totalCount}}</span>
                         <span class="fl appH5_font_smaller">&nbsp;单，</span>
                         <span class="appH5_color_red appH5_font_larger fl">{{projectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':projectHistoriesSummary.totalOffering.toFixed(2)}}</span>
-                        <span class="fl appH5_font_smaller">&nbsp;亿)</span>
+                        <span class="fl appH5_font_smaller appH5_color_red">&nbsp;亿</span>
+                        <span class="fl appH5_font_smaller">)</span>
                     </span>
                 </div>
                 <router-link to="/AbsHistory" class="fr">
@@ -97,10 +98,11 @@
                     <span class='fl'>其它项目</span>
                     <span class="fl ep_marginLeft15 ep_font28 ep_overhide ep_line_height22" v-if="!isArrayEmpty(userInfo.OtherProjects)">
                         <span class="fl appH5_font_smaller">(共&nbsp;</span>
-                        <span class="appH5_color_red appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
+                        <span class="appH5_font_larger fl">{{otherProjectHistoriesSummary.totalCount>9999?'9999+':otherProjectHistoriesSummary.totalCount}}</span>
                         <span class="fl appH5_font_smaller">&nbsp;单，</span>
                         <span class="appH5_color_red appH5_font_larger fl">{{otherProjectHistoriesSummary.totalOffering.toFixed(2)>9999?'9999+':otherProjectHistoriesSummary.totalOffering.toFixed(2)}}</span>
-                        <span class="fl appH5_font_smaller">&nbsp;亿)</span>
+                        <span class="fl appH5_font_smaller appH5_color_red">&nbsp;亿</span>
+                        <span class="fl appH5_font_smaller">)</span>
                     </span>
                 </div>
                 <router-link to="/OtherProject" class="fr">
