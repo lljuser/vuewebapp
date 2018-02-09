@@ -48,22 +48,25 @@
                 </tr>
           </table>
     </div>
-    <div class="appH5_panel appH5_panel_mb">
+        <div class="appH5_panel appH5_panel_mb">
         <div class="appH5_title">
               <span>证券结构</span>
         </div>
-        <div v-if="noteConsTable.indexOf('table')!=-1">
-            <div style="text-align:center"><div v-html="noteConsTable" id="test" v-bind:style="'margin:0 auto;width:'+this.chartWidthPx+'px'">{{noteConsTable}}</div></div>
-            <div style="text-align:center;height: 0.4rem;">
-                <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
-                    <div class="backTablePic"></div>
-                    <div style="float:left;font-size: 11px;margin-top: 2px;">已偿付</div>
-                    <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div>
-                    <div style="float:left;font-size: 11px;margin-top: 2px;">剩余</div>
-                </div>
-            </div>
+        <div v-show="NoteStructureFlag">
+            <div id="noteStructure"></div>
+            
+                <table class="structureTable appH5_color_white appH5_font_smaller" style="width:auto;margin-left: 1.3rem;" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
+                    <tr>
+                        <td class="text-center">
+                            <div style="margin-left: 0.3rem;"><i class="Reimbursement"></i><span>已偿付</span></div>
+                        </td>
+                        <td class="text-center">
+                             <div style="margin-left: 0.3rem;"><i class="Surplus"></i><span>剩余</span></div>
+                        </td>
+                    </tr>
+                </table>
         </div>
-        <div v-else class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
+        <div v-show="!NoteStructureFlag" class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
     </div>
     <div class="appH5_panel appH5_panel_mb">
         <div class="appH5_title">
@@ -118,10 +121,38 @@
 }
 </style>
 <style>
-
+.structureTable {
+    width: auto;
+}
+.structureTable {
+  margin-top: 0.2rem;
+}
+.structureTable i {
+  display: inline-block;
+  width: 0.56rem;
+  height: 0.3467rem;
+  vertical-align: middle;
+}
+.structureTable tr td {
+  padding-top: 0.1333rem;
+  width: 3.12rem;
+}
+.Surplus {
+  background-color: #615c55;
+}
+.Reimbursement {
+  background-image: url("../../public/images/table_bg.png");
+  background-repeat: repeat;
+  margin-top: 0.03rem;
+}
+.structureTable span {
+  vertical-align: middle;
+  padding-left: 0.2rem;
+}
 </style>
 
 <script>
+import "@/public/css/structure.css";
 import BusUtil from "./BusUtil";
 import Vue from "vue";
 import VueHighcharts from "vue-highcharts";
@@ -132,6 +163,7 @@ import * as chartTheme from "@/public/js/chartTheme";
 
 import * as webApi from "@/config/api";
 import axios from "axios";
+import { NoteStructure } from "../../public/js/NoteStructure.js";
 
 Vue.use(VueHighcharts, { Highcharts });
 Vue.use(require('vue-moment'));
@@ -156,6 +188,7 @@ export default {
       },
       chartWidthRem: 3,
       chartWidthPx: 280,
+      NoteStructureFlag: true,
       isFetchDetailError: false,
       isExpertJump: false,
       isShowHeader: false
@@ -202,50 +235,33 @@ export default {
             BusUtil.getInstance().bus.$emit("headTitle", data.Basic.DealName)
           }
           if (data.DealId != null && data.DealId > 0) {
-            this.fetchNoteConsTable(data.DealId, 280, 200);
+            this.fetchDealStructure(data.DealId);
             this.fetchProductPaymentChart(data.DealId);
           }
       });
     }
   },
   updated() {
-    
-    var paidList = document.getElementsByClassName("divHasPaid");
-    for (var i = 0; i < paidList.length; i++) {
-      paidList[i].style.backgroundImage =
-        "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC)";
-    }
-    var bgList = document.getElementsByClassName("structure_bg");
-    for (var i = 0; i < bgList.length; i++) {
-      bgList[i].style.backgroundColor = "#B7AFA5";
-      var aList = bgList[i].getElementsByTagName("a");
-      for (var j = 0; j < aList.length; j++) {
-        aList[j].href = "javascript:;";
-        aList[j].title = "";
-      }
-    }
-    var nameList = document.getElementsByClassName("str_n");
-    for (var k = 0; k < nameList.length; k++) {
-      nameList[k].style.color = "black";
-    }
-    var pctList = document.getElementsByClassName("str_npct");
-    for (var x = 0; x < pctList.length; x++) {
-      pctList[x].style.color = "#06c";
-    }
   },
   activated() {
 
   },
 
   methods: {
-    fetchNoteConsTable(dealId, width, height) {
-      axios(
-        webApi.Product.structure + "/" + dealId + "/" + width + "/" + height
-      ).then(response => {
-        if (response.data.status == "ok") {
-          this.noteConsTable = response.data.data;
+    fetchDealStructure(dealId) {
+      axios(webApi.Security.structure.concat(["", dealId].join("/"))).then(
+        response => {
+          if (response.data.status == "ok") {
+            this.NoteStructureFlag = true;
+            NoteStructure({
+              container: "noteStructure",
+              data: response.data.data.Notes
+            });
+          } else {
+            this.NoteStructureFlag = false;
+          }
         }
-      });
+      );
     },
     fetchProductDetail(id, callback) {
       // consoleconsole.log(webApi.Product.detail.concat(['',id].join('/')));
