@@ -147,7 +147,7 @@
                 <div class="ep_padding30 ep_part_item_border" v-for="(item, index) in userInfo.WorkHistories" v-bind:key="index">
                     <div class="ep_overhide">
                         <span class="ep_font28 ep_ellipsis fl ep_width510 appH5_color_green">{{item.Position}}</span>
-                        <span v-if="item.IsAuthenticated" class="fr appH5_color_pink ep_font28 ep_lineHeight32">机构已认证</span>
+                        <span v-if="item.IsAuthenticated" class="fr ep_authenticated">已认证</span>
                     </div>
                     <div class="ep_font24 ep_color_grey2 ep_marginTop10 ep_overhide">
                         <span class="fl ep_maxWidth400 ep_ellipsis">{{item.Company}}</span>
