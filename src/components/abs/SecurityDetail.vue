@@ -12,8 +12,8 @@
                 <table class="appH5_list_five">
                     <tr>
                         <td colspan="2" rowspan="2" class="appH5_color_red">
-                            <span class="appH5_font_largest" v-if="securityDetail.Basic.Principal>=10">{{Math.round(securityDetail.Basic.Principal)}}</span>
-                            <span class="appH5_font_largest" v-else>{{securityDetail.Basic.Principal}}</span>
+                            <span class="appH5_font_largest" v-if="securityDetail.Basic.Notional>=10">{{Math.round(securityDetail.Basic.Notional)}}</span>
+                            <span class="appH5_font_largest" v-else>{{securityDetail.Basic.Notional}}</span>
                             <span class="appH5_font_normal">亿</span>
                         </td> 
                         <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">{{securityDetail.Basic.DealType}}</td> 
