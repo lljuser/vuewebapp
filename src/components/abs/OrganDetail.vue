@@ -112,7 +112,8 @@
                   <span>机构简介</span>
               </div>
               <div class="organ_introduction appH5_color_details">
-                  <pre>{{organDetail.Introduction}}</pre>
+                  <pre v-show="organDetail.Introduction!=''">{{organDetail.Introduction}}</pre>
+                  <pre v-show="organDetail.Introduction==''">暂无简介</pre>
              </div>
            </div>
           <div class="appH5_panel appH5_panel_mb" v-if="!isArrayEmpty(expertList)">
