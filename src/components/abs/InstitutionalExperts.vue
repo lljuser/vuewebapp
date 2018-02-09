@@ -40,7 +40,7 @@
       </mt-loadmore>
          <div class="spinner_div" v-if="expertsInfo.length==0">
            <div>
-              <img class="appH5_null" src="../../public/images/null.png" alt="">
+              <img class="appH5_null" src="/Content/modules/expert/image/null.png" alt="">
               <div class="nomore text-center appH5_null" style="margin-top: -5px;">暂无数据</div>
           </div>
         </div>
