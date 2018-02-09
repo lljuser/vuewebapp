@@ -83,7 +83,7 @@
 
           <div style="clear:both"></div>
 
-          <div class="appH5_panel appH5_panel_mb" v-show="organDetail.Prizes!=null">
+          <div class="appH5_panel appH5_panel_mb" v-show="organDetail.Prizes.lenght==0">
               <div class="appH5_title">
                   <span>机构奖章</span>
               </div>
@@ -113,7 +113,7 @@
               </div>
               <div class="organ_introduction appH5_color_details">
                   <pre v-show="organDetail.Introduction!=''">{{organDetail.Introduction}}</pre>
-                  <pre v-show="organDetail.Introduction==''">暂无简介</pre>
+                  <pre v-show="organDetail.Introduction==''">等待完善</pre>
              </div>
            </div>
           <div class="appH5_panel appH5_panel_mb" v-if="!isArrayEmpty(expertList)">
@@ -691,18 +691,7 @@ export default {
       return arr === null || arr === undefined || arr.length === 0;
     },
     isValidAvatar: function(avatar) {
-      if(avatar.endsWith('filestore/common/download/cnabs/'))
-      {
-        return defaultAvatar;
-      }
-      else if(!this.isValidElement(avatar))
-      {
-        return defaultAvatar;
-      }
-      else
-      {
-        return avatar;
-      }
+      return this.isValidElement(avatar) ? avatar : defaultAvatar;
     },
     followHandle(exItem) {
       // 关注
