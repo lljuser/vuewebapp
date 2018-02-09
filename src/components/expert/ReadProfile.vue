@@ -59,7 +59,7 @@
                     </span>
                 </div>
                 <router-link v-if="userInfo.ABSProjects && userInfo.ABSProjects.length > 3" v-bind:to="routeUrls().ReadAbsHistoryList" class="fr text_right_link">
-                    更多
+                    更多>
                 </router-link>
             </header>
             <div>
@@ -105,7 +105,7 @@
                     </span>
                 </div>
                 <router-link v-if="userInfo.OtherProjects && userInfo.OtherProjects.length > 3" v-bind:to="routeUrls().ReadOtherProjectList" class="fr text_right_link">
-                    更多
+                    更多>
                 </router-link>
             </header>
             <div>
@@ -201,7 +201,7 @@
                     <span class='fl'>近期活动</span>
                  </div>
                 <router-link v-if="userInfo.RecentActivities && userInfo.RecentActivities.length > 3" v-bind:to="routeUrls().ReadActivityList" class="fr text_right_link">
-                    更多
+                    更多>
                 </router-link>
             </header>
             <div class="ep_panel_padding_bottom">
@@ -220,7 +220,7 @@
                     <span class='fl'>著作与文章</span>
                 </div>
                 <router-link v-if="userInfo.Publishs && userInfo.Publishs.length > 3" v-bind:to="routeUrls().ReadArticleList"  class="fr text_right_link">
-                   更多
+                   更多>
                 </router-link>
             </header>
             <div class="ep_panel_padding_bottom">
