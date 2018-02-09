@@ -8,7 +8,13 @@ import ProductDetail from '@/components/abs/ProductDetail';
 import ProductDetailWithoutBack from '@/components/abs/ProductDetailWithoutBack';
 import FlexDemo from '@/components/abs/FlexDemo';
 import TradeDetail from '@/components/abs/TradeDetail';
-
+import Security from '@/components/abs/Security';
+import Organ from '@/components/abs/Organ';
+import SecurityDetail from '@/components/abs/SecurityDetail';
+import OrganDetail from '@/components/abs/OrganDetail';
+import InstitutionalExperts from '@/components/abs/InstitutionalExperts';
+import InstitutionalArticle from '@/components/abs/InstitutionalArticle';
+import OrganDeal from '@/components/abs/OrganDeal';
 
 Vue.use(Router);
 
@@ -77,6 +83,46 @@ export default new Router({
       path: '/tradedetail/:tradeId/:noteId',
       name: 'tradedetail',
       component: TradeDetail,
+    },
+    {
+      path: '/security',
+      name: 'security',
+      component: Security,
+    },
+    {
+      path: '/security/:dealType',
+      name: 'security1',
+      component: Security,
+    },
+    {
+      path: '/securityDetail/:id',
+      name: 'securityDetail',
+      component: SecurityDetail,
+    },
+    {
+      path: '/organ',
+      name: 'organ',
+      component: Organ,
+    },
+    {
+      path: '/organDetail/:id',
+      name: 'organDetail',
+      component: OrganDetail,
+    },
+    {
+      path: '/organDeal/:id',
+      name: 'organDeal',
+      component: OrganDeal,
+    },
+    {
+      path: '/institutionalExperts/:id',
+      name: 'institutionalExperts',
+      component: InstitutionalExperts,
+    },
+    {
+      path: '/institutionalArticle/:id',
+      name: 'institutionalArticle',
+      component: InstitutionalArticle,
     },
   ],
 });

@@ -11,6 +11,12 @@
         <router-link to="/trade" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">交易</a>
         </router-link>
+        <router-link to="/security" tag="div" class="navbar-item">
+          <a class="appH5_tab" href="javascript:;">证券</a>
+        </router-link>
+        <router-link to="/organ" tag="div" class="navbar-item">
+          <a class="appH5_tab" href="javascript:;">机构</a>
+        </router-link>
       </div>
     </div> 
 
@@ -32,6 +38,14 @@
 import 'mint-ui/lib/style.css'
 import '@/public/css/theme.css';
 import BusUtil from './abs/BusUtil';
+import fontawesome from '@fortawesome/fontawesome';
+import faCircle from '@fortawesome/fontawesome-free-regular';
+
+fontawesome.library.add(faCircle);
+import Vue from 'vue';
+
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 export default {
   name: 'abs',
@@ -40,7 +54,7 @@ export default {
       showHeader: false,
       path: '',
       headTitle:'产品信息',
-      tabs: ['market', 'product', 'trade'],
+      tabs: ['market', 'product', 'trade','security','organ'],
       startX: 0,
       startY: 0,
       isVertical: false
