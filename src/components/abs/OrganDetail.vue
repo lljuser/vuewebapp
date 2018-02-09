@@ -210,7 +210,7 @@
                   </tr>
                 </table>
           </div> 
-          <div class="appH5_panel_mb promt appH5_color_pink"><span>温馨提示：如对机构数据有疑问，请登录CNABS网页端反馈或申请机构管家后修改。</span></div>                          
+          <div class="appH5_panel_mb promt appH5_color_prompt"><span>温馨提示：如对机构数据有疑问，请登录CNABS网页端反馈或申请机构管家后修改。</span></div>                          
       </div>
       <div id="toolTipTemplate" class="dn"></div>
     </div>
