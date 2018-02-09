@@ -2,7 +2,7 @@
  * @Author: CNABS 
  * @Date: 2018-02-02 11:18:42 
  * @Last Modified by: bzhou
- * @Last Modified time: 2018-02-07 17:21:26
+ * @Last Modified time: 2018-02-09 09:13:29
  * @Function: Get Note Structure Html
  */
 /* eslint-disable */
@@ -13,9 +13,12 @@ function NoteStructure(options) {
             container: '',
             width: 280,
             height: 200,
+            minWidth: 15,
+            minHeight: 15,
             maxCols: 5, // for more artistic, should be odd number
             data: [] //note data list
         }
+        const px = 'px';
         // Populate defaults
         for (var key in defaults) {
             if (typeof options[key] == 'undefined') {
@@ -26,14 +29,18 @@ function NoteStructure(options) {
         var scope = {
             layerData: [],
             totalNotional: 0,
+            minLayerNum: 0,
+            minLayerNotional: 0,
+            minNoteNum: 0,  //each layer should clear the value
+            minNoteNotional: 0, //each layer should clear the value
             accuNotional: 0,
             accuPercent: 0
             //above two props used for the accuracy of each note percent
         }
         function buildStructureHtml() {
             let div = document.createElement('div');
-            div.style.width = options.width + 'px';
-            div.style.height = options.height + 'px';
+            div.style.width = options.width + px;
+            div.style.height = options.height + px;
             div.className = 'St_Out_Div';
             let data = options.data;
             if (data instanceof Array && 
@@ -51,10 +58,27 @@ function NoteStructure(options) {
                 }
                 //build layer html
                 if (scope.layerData.length > 0) {
+                    //determine the minus height for each layer
+                    let layerArr = [];
                     scope.layerData.forEach(function (layer, index) {
                         if (layer instanceof Array && 
                             layer.length > 0) {
-                                div.appendChild(getLayerHtml(layer));
+                                let sums = 0;
+                                layer.forEach(r => sums += r.Notional);
+                                let isMinusHeight = (sums / scope.totalNotional) < (options.minHeight / options.height);
+                                if (isMinusHeight) {
+                                    scope.minLayerNum++;
+                                    scope.minLayerNotional += sums;
+                                    layerArr[index] = true;
+                                } else {
+                                    layerArr[index] = false;
+                                }
+                        }
+                    });
+                    scope.layerData.forEach(function (layer, index) {
+                        if (layer instanceof Array && 
+                            layer.length > 0) {
+                                div.appendChild(getLayerHtml(layer, scope.minLayerNotional, layerArr[index]));
                         }
                     });
                 }
@@ -94,17 +118,23 @@ function NoteStructure(options) {
             })
         }
         //get each layer html format
-        function getLayerHtml(layer) {
+        function getLayerHtml(layer, minLayerNotional, isMinHeight) {
             let data = options.data;
             let outDiv = document.createElement('div');
             //define table width, height
-            outDiv.style.width = options.width + 'px';
+            outDiv.style.width = options.width + px;
             let layerNotional = 0;
             layer.forEach((r) => layerNotional += r.Notional);
-            let divHeiht = (layerNotional / scope.totalNotional) * options.height;
-            outDiv.style.height = divHeiht + 'px';
-            outDiv.style.width = options.width + 'px';
+
+            let divHegiht = isMinHeight ? options.minHeight :  
+            layerNotional / (scope.totalNotional - scope.minLayerNotional) * (options.height - scope.minLayerNum * options.minHeight);
+
+            outDiv.style.height = divHegiht + px;
+            outDiv.style.width = options.width + px;
             outDiv.className = 'St_Inner_Div';
+            //set the default width
+            scope.minNoteNum = 0;
+            scope.minNoteNotional = 0;
             //define each note width, name, payment info
             //tip: show only maxCol note
             if (layer.length > options.maxCols) {
@@ -119,7 +149,7 @@ function NoteStructure(options) {
                 //choose the method to display col
                 if (selectIdx === -1) {
                     layer.length = options.maxCols;
-                    buildEachNoteHtml(layer, outDiv, divHeiht, false, true);
+                    buildEachNoteHtml(layer, outDiv, divHegiht, false, true);
                 } else {
                     let idxContainer = [], transferFlag = true; //a container to store the max col note
                     let leftExtra = true, rightExtra = true;
@@ -154,23 +184,38 @@ function NoteStructure(options) {
                         }
                     });
                     if (tempLayer.length > 0) {
-                        buildEachNoteHtml(tempLayer, outDiv, divHeiht, leftExtra, rightExtra);
+                        buildEachNoteHtml(tempLayer, outDiv, divHegiht, leftExtra, rightExtra);
                     }
                 }
             } else {
-                buildEachNoteHtml(layer, outDiv, divHeiht, false, false);
+                buildEachNoteHtml(layer, outDiv, divHegiht, false, false);
             }
             return outDiv;
         }
 
-        function buildEachNoteHtml(layer, outDiv, divHeiht, hasLeftExtra, hasRightExtra) {
+        function buildEachNoteHtml(layer, outDiv, divHegiht, hasLeftExtra, hasRightExtra) {
             let layerNotional = 0;
             layer.forEach((r) => layerNotional += r.Notional);
+            // determine the min height num
+            let layerArr = [];
+            layer.forEach(function(r, index) {
+                if (r.Notional / layerNotional < (options.minWidth / options.width)) {
+                    scope.minNoteNum++;
+                    scope.minNoteNotional += r.Notional;
+                    layerArr[index] = true;
+                } else {
+                    layerArr[index] = false;
+                }
+            });
+
             layer.forEach(function(note, idx) {
                 let noteDiv = document.createElement('div');
                 //define td width
-                noteDiv.style.width = ((note.Notional / layerNotional) * options.width - 2) + 'px'; //minus the border px
-                noteDiv.style.height = divHeiht + 'px';
+                let noteWidth = layerArr[idx] ? options.minWidth :  
+                note.Notional / (layerNotional - scope.minNoteNotional) * (options.width - scope.minNoteNum * (options.minWidth + 2)) - 2;
+
+                noteDiv.style.width = noteWidth + px;
+                noteDiv.style.height = divHegiht + px;
                 noteDiv.className = layer.length > 1 ? 'St_Inner_Td' : 'St_Inner_Td_Single';
                 //add background yellow color
                 if (note.HasShot) {
@@ -201,7 +246,7 @@ function NoteStructure(options) {
                 if (note.HasShot) {
                     span.style.color = '#000';
                 }
-                span.style.lineHeight = divHeiht + 'px';
+                span.style.lineHeight = divHegiht + px;
                 span.style.width = noteDiv.style.width;
                 noteDiv.appendChild(span);
                 noteDiv.appendChild(payDiv);

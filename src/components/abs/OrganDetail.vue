@@ -83,12 +83,12 @@
 
           <div style="clear:both"></div>
 
-          <div class="appH5_panel appH5_panel_mb">
+          <div class="appH5_panel appH5_panel_mb" v-show="organDetail.Prizes!=null">
               <div class="appH5_title">
                   <span>机构奖章</span>
               </div>
               <div>
-                <div class="organ_prize_img appH5_float_left" v-for="(item,index) in organDetail.Prizes" :key=index>
+                <div class="organ_prize_img appH5_float_left" :id="`tooltip${index}`" v-for="(item,index) in organDetail.Prizes" :key=index>
                   <img class="organ_prize_size appH5_float_left" v-bind:src="item.IconPath"><div class="appH5_float_left organ_prize_count" v-show="item.count>1">×{{item.count}}</div> 
                 </div>                                                                
               </div> 
@@ -210,8 +210,9 @@
                   </tr>
                 </table>
           </div> 
-          <div class="appH5_panel_mb promt appH5_color_pink"><span>温馨提示：如对机构数据有疑问，请登录CNABS网页端反馈或申请机构管家后修改。</span></div>                          
+          <div class="appH5_panel_mb promt appH5_color_prompt"><span>温馨提示：如对机构数据有疑问，请登录CNABS网页端反馈或申请机构管家后修改。</span></div>                          
       </div>
+      <div id="toolTipTemplate" class="dn"></div>
     </div>
   </div>
 </template>
@@ -339,19 +340,19 @@
   background: #000;
 }
 .organ_prize_img {
-  padding-left: 0.36rem;
+  margin-left: 0.36rem;
   margin-top: 0.3rem;
 }
 .organ_prize_img span{
   padding-left: 3px;
 }
 .organ_prize_size {
-  height: 35px;
+  height: 30px;
 }
 .organ_prize_count{
-  padding-left: 4px;
-  height: 35px;
-  line-height: 35px;
+  padding-left: 3px;
+  height: 30px;
+  line-height: 30px;
 }
 .organ_introduction pre{
       margin: 0;
@@ -483,6 +484,7 @@ import axios from "axios";
 import { Toast } from "mint-ui";
 import OrganDealItem from "./OrganDealItem";
 import defaultAvatar from "@/public/images/defaultavatar.png";
+import tippy from "tippy.js";
 
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
@@ -537,6 +539,7 @@ export default {
     this.isOrganLoading = true;
   },
   updated() {
+    this.registerTippy(); //注册徽章Tooltips
     if (this.noteConsTable.indexOf("table") != -1 && this.tableFlag == 0) {
       var paidList = document.getElementsByClassName("divHasPaid");
       for (var i = 0; i < paidList.length; i++) {
@@ -594,6 +597,7 @@ export default {
             var newPrizeObj = { IconPath: "", count: 0, description: [] };
             var prize = data.Prizes;
             var prize_id = prize[0].PrizeId;
+            newPrizeObj.PrizeName = prize[0].PrizeName; 
             newPrizeObj.IconPath = prize[0].IconPath;
             newPrizeObj.description.push(prize[0].WinningReason);
             newPrizeObj.count = 1;
@@ -606,6 +610,7 @@ export default {
               } else {
                 icount++;
                 var newPrizeObj2 = { IconPath: "", count: 0, description: [] };
+                newPrizeObj2.PrizeName = prize[i].PrizeName;
                 newPrizeObj2.IconPath = prize[i].IconPath;
                 newPrizeObj2.count = 1;
                 newPrizeObj2.description.push(prize[i].WinningReason);
@@ -724,13 +729,52 @@ export default {
       url = url + "/" + id;
       axios(url).then(response => {
         const data = response.data.data;
-        console.log(data);
+        // console.log(data);
         if (data) {
           callback(data);
         }
       });
     },
+    // 点击之后显示奖章的详细信息
+    registerTippy() {
+      if (this.organDetail.Prizes == null) return;
 
+      for (const [index, item] of this.organDetail.Prizes.entries()) {
+        const id = `#tooltip${index}`;
+        const model = item;
+        if (document.querySelector(id)._tippy === undefined) {
+          tippy(id, {
+            html: "#toolTipTemplate",
+            placement: "bottom",
+            animation: "scale",
+            arrow: true,
+            onShow() {
+              const content = this.querySelector(".tippy-content");
+              content.innerHTML = `<h1 style="font-size:15px;text-align:left">${model.PrizeName}</h1>`;
+              var i=0;
+              for (let reason of model.description) {                
+                content.innerHTML += `<li style="font-size:13px;text-align:left">${reason}</li>`;                
+                if(i>=2){
+                content.innerHTML += `<p style="font-size:13px;text-align:left">······</p>`;                                  
+                  break;
+                }
+                i++;
+              }
+            },
+            popperOptions: {
+              modifiers: {
+                preventOverflow: {
+                  enabled: true
+                },
+                hide: {
+                  enabled: true
+                }
+              }
+            }
+          });
+        }
+      }
+    },
     doCatch() {
       Toast("服务器繁忙，请重试！");
       this.isOrganLoading = false;
@@ -739,3 +783,26 @@ export default {
   }
 };
 </script>
+<style>
+.tippy-tooltip {
+  position: relative;
+  color: white;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.6rem;
+  text-align: center;
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #78bcff;
+  max-width: 200px; 
+}
+.tippy-popper[x-placement^="bottom"] .tippy-arrow {
+  border-bottom: 7px solid #78bcff;
+  border-right: 7px solid transparent;
+  border-left: 7px solid transparent;
+  top: -7px;
+  margin: 0 7px;
+}
+</style>
+
