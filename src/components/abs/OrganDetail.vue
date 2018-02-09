@@ -10,8 +10,8 @@
           <div class="appH5_margin_bottom10 appH5_font_large">
               <span>{{organDetail.FullName}}</span>
           </div>
-          <div class="appH5_margin_bottom10">{{organDetail.Website}}</div>          
-          <div><span v-bind:class="[(organDetail.FoundDate===null||organDetail.Nature==='')?'':'appH5_margin_right20']">{{organDetail.FoundDate}}</span><span>{{organDetail.Nature}}</span></div>
+          <div class="appH5_margin_bottom10 appH5_font_smaller">{{organDetail.Website}}</div>          
+          <div class="appH5_font_smaller"><span v-bind:class="[(organDetail.FoundDate===null||organDetail.Nature==='')?'':'appH5_margin_right20']">{{organDetail.FoundDate}}</span><span>{{organDetail.Nature}}</span></div>
           <!-- 机构单页-资产方 -->
           <div class="organ_basic_info" v-if="organDetail.IsAsset">
             <div class="appH5_inner_panel appH5_important_div">
