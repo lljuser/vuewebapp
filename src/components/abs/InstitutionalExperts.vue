@@ -15,7 +15,7 @@
             <div class="relevant-item">
               <div class="padStyle" v-for="item in expertsInfo">
                   <div style="position: relative;">
-                      <img :src="item.Avatar" class="related-image appH5_fl"/>
+                      <img :src="(item.Avatar==null||item.Avatar.endsWith('filestore/common/download/cnabs/'))?'/src/public/images/headerDefault.jpg':item.Avatar" class="related-image appH5_fl"/>
                   </div>
                   <div class="related-info appH5_fl">
                       <div class="related-info-cont">
@@ -240,7 +240,7 @@ export default {
   border-radius: 0.10667rem;
   -webkit-border-radius: 0.10667rem;
   text-align: center;
-  margin-top: 0.66rem;
+  margin-top: 0.55rem;
   display: block;
 }
 .appH5_followBtn {
