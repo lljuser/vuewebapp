@@ -83,7 +83,7 @@
 
           <div style="clear:both"></div>
 
-          <div class="appH5_panel appH5_panel_mb" v-show="organDetail.Prizes.lenght==0">
+          <div class="appH5_panel appH5_panel_mb" v-show="organDetail.Prizes!=0">
               <div class="appH5_title">
                   <span>机构奖章</span>
               </div>
@@ -102,7 +102,8 @@
               <div class="appH5_overhide">
                 <span class="appH5_font_larger">{{product.Count}}</span>
                 <span class="appH5_font_smaller">单</span>
-                <span class="appH5_font_larger appH5_color_red appH5_margin_left30">{{product.Balance}}</span>
+                <span v-show="product.Balance!=null && product.Balance!=0 && product.Balance!=''" class="appH5_font_larger appH5_color_red appH5_margin_left30">{{product.Balance}}</span>
+                <span v-show="product.Balance==null || product.Balance==0 || product.Balance==''" class="appH5_font_larger appH5_color_red appH5_margin_left30">0</span>
                 <span class="appH5_font_smaller appH5_color_red">亿</span>
               </div>
           </div>
