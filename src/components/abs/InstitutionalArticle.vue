@@ -45,7 +45,7 @@
       
          <div class="spinner_div" style="margin-top:1.86667rem;" v-if="articleInfo.length==0">
             <div>
-              <img class="appH5_null" src="../../public/images/null.png" alt="">
+              <img class="appH5_null" src="/Content/modules/expert/image/null.png" alt="">
               <div class="nomore text-center appH5_null" style="margin-top: 3px;">暂无数据</div>
           </div>
         </div>

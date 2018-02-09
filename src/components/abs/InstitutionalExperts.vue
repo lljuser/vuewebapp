@@ -15,7 +15,8 @@
             <div class="relevant-item">
               <div class="padStyle" v-for="item in expertsInfo">
                   <div style="position: relative;">
-                      <img :src="item.Avatar" class="related-image appH5_fl"/>
+                      <!-- <img :src="(item.Avatar==null||item.Avatar.endsWith('filestore/common/download/cnabs/'))?'/Content/modules/expert/image/headerDefault.jpg':item.Avatar" class="related-image appH5_fl"/> -->
+                      <img :src="isValidAvatar(item.Avatar)" class="related-image appH5_fl"/>
                   </div>
                   <div class="related-info appH5_fl">
                       <div class="related-info-cont">
@@ -40,7 +41,7 @@
       </mt-loadmore>
          <div class="spinner_div" v-if="expertsInfo.length==0">
            <div>
-              <img class="appH5_null" src="../../public/images/null.png" alt="">
+              <img class="appH5_null" src="/Content/modules/expert/image/null.png" alt="">
               <div class="nomore text-center appH5_null" style="margin-top: -5px;">暂无数据</div>
           </div>
         </div>
@@ -64,6 +65,7 @@ import axios from "axios";
 import getParams from "../../public/js/getParams";
 import { Toast } from "mint-ui";
 import "mint-ui/lib/style.css";
+import defaultAvatar from "@/public/images/defaultavatar.png";
 
 export default {
   name: "institutionalExperts",
@@ -87,10 +89,6 @@ export default {
     this.tableFlag = 0;
   },
   mounted() {
-    // this.isExpertsLoading = true;
-    // this.timer = setTimeout(() => {
-    //   this.loadFirstPageExperts();
-    // }, 600);
   },
   activated() {
     this.loading = false;
@@ -114,6 +112,12 @@ export default {
     this.loading = true;
   },
   methods: {
+    isValidElement: function(item) {
+      return !(item === null || item === undefined || item === "");
+    },
+    isValidAvatar: function(avatar) {
+      return this.isValidElement(avatar) ? avatar : defaultAvatar;
+    },
     followHandle(exItem) {
       // 关注
         axios(webApi.Organ.followList.concat(['',exItem.Followed,exItem.UserId].join('/'))).then(response => {
@@ -240,7 +244,7 @@ export default {
   border-radius: 0.10667rem;
   -webkit-border-radius: 0.10667rem;
   text-align: center;
-  margin-top: 0.66rem;
+  margin-top: 0.55rem;
   display: block;
 }
 .appH5_followBtn {

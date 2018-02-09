@@ -62,7 +62,7 @@
               <td colspan="3" style="border-bottom:none">
                 <div class="spinner_div" v-if="list.length==0" style="height:670px;">
                 <div>
-                  <img class="appH5_null" src="../../public/images/null.png" alt="">
+                  <img class="appH5_null" src="/Content/modules/expert/image/null.png" alt="">
                   <div class="nomore text-center appH5_null" style="margin-top: 3px;">暂无数据</div>
                 </div>
                 </div>
