@@ -15,16 +15,17 @@
                 </tr>
                 <tr>
                   <td>产品分类</td>
-                  <td v-if="isShowHeader">
+                  <!-- <td v-if="isShowHeader"> -->
+                  <td>
                     <div>{{productDetail.Basic.ProductType}}</div>
                     <div>&nbsp;└&nbsp;{{productDetail.Basic.DealType}}</div>
                     <div v-if="productDetail.Basic.AssetSubCategoryId != null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
                   </td>
-                  <td v-else>
+                  <!-- <td v-else>
                       <div><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a></router-link></div>
-                      <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div><!---->
+                      <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div>
                       <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
-                  </td>
+                  </td> -->
                 </tr>
                 <tr>
                 <td>产品状态</td>
