@@ -53,7 +53,13 @@
           <van-loading type="spinner" v-if="!noMore" color="white" class="spinner-circle"/>
           <span v-if="noMore" class="nomore">没有更多了</span>
         </div>
+        
+        <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
+            <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
+            <div class="ep_align_center ep_font30 ep_submitColor">发送中...</div>
+        </mt-popup>
         </section>
+        
     </div>
   </div>
   
@@ -61,6 +67,9 @@
 </template>
 
 <script> 
+import _ from "lodash";
+import util from "@/public/modules/expert/utils";
+import tippy from 'tippy.js';
 import BusUtil from './BusUtil';
 import Vue from 'vue';
 import * as webApi from '@/config/api';
@@ -80,6 +89,7 @@ export default {
       pageSize: 10,
       noMore: false,
       isLoadTop: false,
+      submitPopupVisible: false,
     };
   },
   created() {
@@ -192,8 +202,10 @@ export default {
     },
     
     sendAttachment: function(fileCode) {
+      this.submitPopupVisible = true;
         axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
         .then(response => {
+          this.submitPopupVisible = false;
             this.$toast(response.data.data);
         });
     },
@@ -284,5 +296,23 @@ ul.articleDetail li span:nth-of-type(2) {
 }
 ul.articleDetail .article_title {
     width: 70px;
+}
+.ep_align_center {
+    text-align: center;
+}
+.ep_font30 {
+    font-size: 15px;
+}
+.ep_submitColor {
+    color: #ccc;
+}
+.ep_divSpinner {
+    width: 39px;
+    margin: 6.5rem auto 0.266667rem;
+}
+.ep_submitPopup {
+    background: transparent !important;
+    width: 100%;
+    height: 100%;
 }
 </style>

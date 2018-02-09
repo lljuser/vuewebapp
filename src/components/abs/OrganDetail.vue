@@ -213,6 +213,11 @@
           </div> 
           <div class="appH5_panel_mb promt appH5_color_prompt"><span>机构门户页面管理员现已开放申请。<br/>诚邀您进入www.cn-abs.com，成为机构管家。</span></div>                          
       </div>
+      
+        <mt-popup v-model="submitPopupVisible" class="ep_submitPopup">
+            <div class="ep_divSpinner"><mt-spinner type="snake"></mt-spinner></div>
+            <div class="ep_align_center ep_font30 ep_submitColor">发送中...</div>
+        </mt-popup>
       <div id="toolTipTemplate" class="dn"></div>
     </div>
   </div>
@@ -473,9 +478,30 @@ ul.articleDetail .article_title {
 .promt span{
   word-break: break-all;
 }
+
+.ep_align_center {
+    text-align: center;
+}
+.ep_font30 {
+    font-size: 15px;
+}
+.ep_submitColor {
+    color: #ccc;
+}
+.ep_divSpinner {
+    width: 39px;
+    margin: 6.5rem auto 0.266667rem;
+}
+.ep_submitPopup {
+    background: transparent !important;
+    width: 100%;
+    height: 100%;
+}
 </style>
 
 <script>
+import _ from "lodash";
+import util from "@/public/modules/expert/utils";
 import BusUtil from "./BusUtil";
 import Vue from "vue";
 import VueHighcharts from "vue-highcharts";
@@ -505,6 +531,7 @@ export default {
       publishDate: "",
       noteConsTable: "",
       isProductLoading: false,
+      submitPopupVisible: false,
       isShowHeader: false,
       organDetail: {},
       publishDate: "",
@@ -529,7 +556,7 @@ export default {
         expert: 0,
         deal: 0,
         article: 0
-      }
+      },
     };
   },
   created() {
@@ -708,9 +735,11 @@ export default {
       });
     },
     sendAttachment: function(fileCode) {
+      this.submitPopupVisible = true;
       axios
         .post(webApi.Expert.sendPublishUrl, { fileCode: fileCode })
         .then(response => {
+          this.submitPopupVisible = false;
           this.$toast(response.data.data);
         });
     },
