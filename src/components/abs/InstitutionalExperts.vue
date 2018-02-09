@@ -234,7 +234,7 @@ export default {
 }
 .appH5_followBtn,
 .appH5_unfollowBtn {
-  width: 1.3333rem;
+  padding: .05rem 0.1rem;
   height: 0.61333rem;
   line-height: 0.61333rem;
   border-radius: 0.10667rem;
