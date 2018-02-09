@@ -147,7 +147,7 @@
                         <td class="text-right">{{item.Interest}}</td>
                         <td class="text-right">{{item.Total}}</td>
                 </tr>
-                <tr v-bind:class="(item.StatusId==2||item.StatusId==3?'appH5_bg_brightred':'')" v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag" v-for="item in securityDetail.Cashflow">
+                <tr v-bind:class="(index==ExpectFlag?'expectBorder':'')" v-if="securityDetail.Cashflow.length>0&&!CashflowShowFlag" v-for="(item,index) in securityDetail.Cashflow" >
                     <td> 
                         <span v-if="item.StatusId==0" class="appH5_square_dot appH5_bg_green"></span>
                         <span v-if="item.StatusId==1||item.StatusId==2||item.StatusId==3" class="appH5_square_dot appH5_bg_blue"></span> 
@@ -318,6 +318,9 @@
     .securityCashflowTable td{
         font-size: 13px!important;
     }
+    .securityCashflowTable .expectBorder td {
+        border-bottom: 1px #ffc446 solid!important;
+    }
     @media only screen and (min-width: 320px) and (max-width: 374px){
         .appH5_margin_left20 {
             margin-left: .35rem!important;
@@ -359,6 +362,7 @@ export default {
             CashflowShowFlag:true,
             NoteStructureFlag:true,
             ExpandShowFlag:true,
+            ExpectFlag:0,
         };
     },
     created() {
@@ -375,10 +379,12 @@ export default {
     },
     activated() {
         //clear all data cache
+        var self=this;
         this.isSecurityLoading=true;
         this.securityDetail = {};
         this.CashflowShowFlag=true;
         this.ExpandShowFlag=true;
+        this.ExpectFlag=0;
         window.scrollTo(0,0);
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
@@ -390,6 +396,14 @@ export default {
                     this.fetchSecurityDetail(this.id,data=>{
                     // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
+                    console.log(this.securityDetail.Cashflow);
+                    if(this.securityDetail.Cashflow!=null){
+                        this.securityDetail.Cashflow.forEach(function(item,index){
+                            if(item.Default==true){
+                                self.ExpectFlag=index-1;
+                            }
+                        })
+                    }
                     this.isSecurityLoading=false;
                 });
             },600);
@@ -398,7 +412,6 @@ export default {
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/security');
   },
-  
     methods: {
         fetchSecurityDetail(id,callback) {
             axios(webApi.Security.detail.concat(['',id].join('/')))
@@ -447,9 +460,3 @@ export default {
     },
 };
 </script>
-<style>
-/* #noteStructure{
-    width: 5.8667rem;
-    margin: 0 auto;
-} */
-</style>
