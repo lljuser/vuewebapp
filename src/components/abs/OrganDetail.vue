@@ -83,7 +83,7 @@
 
           <div style="clear:both"></div>
 
-          <div class="appH5_panel appH5_panel_mb" v-show="organDetail.Prizes!=0">
+          <div class="appH5_panel appH5_panel_mb" v-show="organDetail.Prizes.length!=0">
               <div class="appH5_title">
                   <span>机构奖章</span>
               </div>
@@ -534,7 +534,8 @@ export default {
       isProductLoading: false,
       submitPopupVisible: false,
       isShowHeader: false,
-      organDetail: {},
+      // 给奖章重定义，为处理html的.length报错
+      organDetail: {Prizes:[]},
       publishDate: "",
       noteConsTable: "",
       firstPrizeCount: 0,
