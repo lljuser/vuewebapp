@@ -15,16 +15,17 @@
                 </tr>
                 <tr>
                   <td>产品分类</td>
-                  <td v-if="isShowHeader">
+                  <!-- <td v-if="isShowHeader"> -->
+                  <td>
                     <div>{{productDetail.Basic.ProductType}}</div>
                     <div>&nbsp;└&nbsp;{{productDetail.Basic.DealType}}</div>
                     <div v-if="productDetail.Basic.AssetSubCategoryId != null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
                   </td>
-                  <td v-else>
+                  <!-- <td v-else>
                       <div><router-link to="/product"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a></router-link></div>
-                      <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div><!---->
+                      <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div>
                       <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
-                  </td>
+                  </td> -->
                 </tr>
                 <tr>
                 <td>产品状态</td>
@@ -75,20 +76,23 @@
         <div v-if="productDetail.NoteList != null && productDetail.Basic!=null&&productDetail.NoteList.length!=0">
             <table class="appH5_table">
                 <tr>
+                    <th></th>
                     <th>简称</th>
                     <th class="text-right">初始(亿)</th>
                     <th class="text-right">利率</th>
                     <th class="text-right">期限(年)</th>
                     <th class="text-right">量化评级</th>
-                    <th class="text-right">类型</th>
                 </tr>
                 <tr v-for="(item,index) in productDetail.NoteList" v-bind:key='index'>
+                    <td class="text-left" style="padding-left:0;padding-right:0">      
+                      <div v-if="item.RepaymentOfPrincipal.indexOf('摊')>=0" class="appH5_square_ch_char appH5_bg_blue">摊</div>      
+                      <div v-if="item.RepaymentOfPrincipal.indexOf('过')>=0" class="appH5_square_ch_char appH5_bg_passthrough">过</div>      
+                    </td>
                     <td><div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">{{item.Name}}</div></td>
                     <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentWal}}</span></td>
-                    <td class="text-center"><span class="appH5_color_skyblue">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
-                    <td class="text-right"><span>{{item.RepaymentOfPrincipal.replace("型","")}}</span></td>
+                    <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentSuggestRatingCombineString==null||item.CurrentSuggestRatingCombineString==""?"-":item.CurrentSuggestRatingCombineString}}</span></td>
                 </tr>
             </table>
         </div>
