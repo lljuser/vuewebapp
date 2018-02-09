@@ -5,7 +5,7 @@
     </div>
     <div class="appH5_content" v-else  style="margin-top:0;">
         <div v-if="securityDetail.Basic!=null">
-            <div class="appH5_panel text-center appH5_color_white appH5_panel_mb">
+            <div class="appH5_panel appH5_color_white appH5_panel_mb appH5_font_large">
                 {{securityDetail.Basic.Description}}
             </div>
             <div class="appH5_panel appH5_panel_mb" style="padding-top:0px;">
