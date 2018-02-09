@@ -89,10 +89,6 @@ export default {
     this.tableFlag = 0;
   },
   mounted() {
-    // this.isExpertsLoading = true;
-    // this.timer = setTimeout(() => {
-    //   this.loadFirstPageExperts();
-    // }, 600);
   },
   activated() {
     this.loading = false;
@@ -120,18 +116,7 @@ export default {
       return !(item === null || item === undefined || item === "");
     },
     isValidAvatar: function(avatar) {
-      if(avatar.endsWith('filestore/common/download/cnabs/'))
-      {
-        return defaultAvatar;
-      }
-      else if(!this.isValidElement(avatar))
-      {
-        return defaultAvatar;
-      }
-      else
-      {
-        return avatar;
-      }
+      return this.isValidElement(avatar) ? avatar : defaultAvatar;
     },
     followHandle(exItem) {
       // 关注

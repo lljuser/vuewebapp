@@ -691,18 +691,7 @@ export default {
       return arr === null || arr === undefined || arr.length === 0;
     },
     isValidAvatar: function(avatar) {
-      if(avatar.endsWith('filestore/common/download/cnabs/'))
-      {
-        return defaultAvatar;
-      }
-      else if(!this.isValidElement(avatar))
-      {
-        return defaultAvatar;
-      }
-      else
-      {
-        return avatar;
-      }
+      return this.isValidElement(avatar) ? avatar : defaultAvatar;
     },
     followHandle(exItem) {
       // 关注
