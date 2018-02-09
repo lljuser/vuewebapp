@@ -240,7 +240,7 @@ export default {
   border-radius: 0.10667rem;
   -webkit-border-radius: 0.10667rem;
   text-align: center;
-  margin-top: 0.66rem;
+  margin-top: 0.55rem;
   display: block;
 }
 .appH5_followBtn {
