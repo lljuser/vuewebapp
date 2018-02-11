@@ -348,7 +348,7 @@ import axios from 'axios';
 import { Toast } from 'mint-ui';
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
-
+const busUtil = BusUtil.getInstance();
 
 export default {
     name: 'securityDetail',
@@ -365,10 +365,19 @@ export default {
             ExpectFlag:0,
         };
     },
+    beforeRouteEnter: (to, from, next) => {
+        next(vm => {
+        if (from.path != "/") {
+            busUtil.bus.$emit("path", from.path);
+        } else {
+            busUtil.bus.$emit("path", "/security");
+        }
+        });
+    },
     created() {
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
-        busUtil.bus.$emit('path', '/security');
+      //  busUtil.bus.$emit('path', '/security');
         busUtil.bus.$emit('headTitle', '证券信息');
         this.tableFlag=0;
     },
@@ -388,7 +397,7 @@ export default {
         window.scrollTo(0,0);
         const busUtil = BusUtil.getInstance();
         busUtil.bus.$emit('showHeader', true);
-        busUtil.bus.$emit('path', '/security');
+      //  busUtil.bus.$emit('path', '/security');
         busUtil.bus.$emit('headTitle', '证券信息');
         this.id = this.$route.params.id;
         if (this.id) {
@@ -396,7 +405,6 @@ export default {
                     this.fetchSecurityDetail(this.id,data=>{
                     // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
-                    console.log(this.securityDetail.Cashflow);
                     if(this.securityDetail.Cashflow!=null){
                         this.securityDetail.Cashflow.forEach(function(item,index){
                             if(item.Default==true){
@@ -409,8 +417,6 @@ export default {
             },600);
             
         }
-        busUtil.bus.$emit('showHeader', true);
-        busUtil.bus.$emit('path', '/security');
   },
     methods: {
         fetchSecurityDetail(id,callback) {

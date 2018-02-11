@@ -17,7 +17,7 @@
                 <td>产品分类</td>
                 <td>
                     <div><router-link :to="`/product/${productDetail.Basic.ProductTypeId}`"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a></router-link></div>
-                    <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div><!---->
+                    <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div>
                     <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
                 </td>
                 </tr>
@@ -91,7 +91,7 @@
                       <div v-if="item.RepaymentOfPrincipal.indexOf('摊')>=0" class="appH5_square_ch_char appH5_bg_blue">摊</div>      
                       <div v-if="item.RepaymentOfPrincipal.indexOf('过')>=0" class="appH5_square_ch_char appH5_bg_passthrough">过</div>      
                     </td>
-                    <td><div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">{{item.Name}}</div></td>
+                    <td><div class="appH5_white_space appH5_font_normal" style="width:0.8rem;"> <router-link :to="`/securityDetail/${item.NoteId}`">{{item.Name}}</router-link></div></td>
                     <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentWal}}</span></td>
@@ -246,7 +246,6 @@ export default {
         this.fetchProductDetail(this.id, data => {
           // busUtil.bus.$emit('headTitle', data.Basic.DealName);
           this.productDetail = data;
-          console.log(data);
           this.isProductLoading = false;
           if (data.DealId != null && data.DealId > 0) {
             this.fetchDealStructure(this.id);
