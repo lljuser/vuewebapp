@@ -366,10 +366,19 @@ export default {
             noheader:false,
         };
     },
+    beforeRouteEnter: (to, from, next) => {
+        next(vm => {
+        if (from.path != "/") {
+            busUtil.bus.$emit("path", from.path);
+        } else {
+            busUtil.bus.$emit("path", "/security");
+        }
+        });
+    },
     created() {
         
         busUtil.bus.$emit('showHeader', true);
-        busUtil.bus.$emit('path', '/security');
+      //  busUtil.bus.$emit('path', '/security');
         busUtil.bus.$emit('headTitle', '证券信息');
         this.tableFlag=0;
     },
@@ -390,7 +399,7 @@ export default {
         // const busUtil = BusUtil.getInstance();
          
         busUtil.bus.$emit('showHeader', true);
-        busUtil.bus.$emit('path', '/security');
+      //  busUtil.bus.$emit('path', '/security');
         busUtil.bus.$emit('headTitle', '证券信息');
         // console.log();
         if(this.$route.query.noheader=="1")
@@ -406,7 +415,6 @@ export default {
                     this.fetchSecurityDetail(this.id,data=>{
                     // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
                     this.securityDetail =data;
-                    console.log(this.securityDetail.Cashflow);
                     if(this.securityDetail.Cashflow!=null){
                         this.securityDetail.Cashflow.forEach(function(item,index){
                             if(item.Default==true){

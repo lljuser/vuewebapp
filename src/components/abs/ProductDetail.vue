@@ -105,7 +105,9 @@
                       <div v-if="item.RepaymentOfPrincipal.indexOf('摊')>=0" class="appH5_square_ch_char appH5_bg_blue">摊</div>      
                       <div v-if="item.RepaymentOfPrincipal.indexOf('过')>=0" class="appH5_square_ch_char appH5_bg_passthrough">过</div>      
                     </td>
-                    <td><div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">{{item.Name}}</div></td>
+                    <td><div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">
+                       <router-link :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link>
+                       </div></td>
                     <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentWal}}</span></td>
@@ -209,6 +211,7 @@ export default {
       isFetchDetailError: false,
       tableFlag: 0,
       linkDisable:false,
+      noheader:false,
     };
   },
 
@@ -249,6 +252,7 @@ export default {
         busUtil.bus.$emit('noHeader', true);
         document.getElementById("productDetailDiv").style.paddingTop=0;
         this.linkDisable=true;
+        this.noheader=true;
     }
   },
 
