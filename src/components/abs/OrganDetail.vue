@@ -1,5 +1,5 @@
 <template>
-  <div class="appH5_body">
+  <div class="appH5_body" id="organDetailDiv">
     <div class="product-spinner" v-if="isOrganLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
@@ -40,7 +40,7 @@
           <div class=" appH5_panel appH5_panel_mb">
             <div class=" appH5_important_div">
               <div class="appH5_important_item">
-                <router-link :to="`/institutionalExperts/${$route.params.id}`">
+                <router-link :to="`/institutionalExperts/${$route.params.id}${this.noheader?'?noheader=1':''}`">
                   <a href="javascript:;" style="color:#FEC447">
                     <div class="appH5_margin_bottom10" >
                       <div class="appH5_circle_icon_div appH5_bg_blue">
@@ -53,7 +53,7 @@
                 </router-link>
               </div>
               <div class="appH5_important_item">
-                <router-link :to="`/organDeal/${$route.params.id}`">
+                <router-link :to="`/organDeal/${$route.params.id}${this.noheader?'?noheader=1':''}`">
                   <a href="javascript:;" style="color:#FEC447">
                     <div class="appH5_margin_bottom10">
                       <div class=" appH5_bg_darkgreen appH5_circle_icon_div">
@@ -66,7 +66,7 @@
                 </router-link>
               </div>
               <div class="appH5_important_item">
-                <router-link :to="`/institutionalArticle/${$route.params.id}`">
+                <router-link :to="`/institutionalArticle/${$route.params.id}${this.noheader?'?noheader=1':''}`">
                   <a href="javascript:;" style="color:#FEC447">
                     <div class="appH5_margin_bottom10">
                       <div class="appH5_bg_darkpurple appH5_circle_icon_div">
@@ -559,6 +559,7 @@ export default {
         deal: 0,
         article: 0
       },
+      noheader:false,
     };
   },
   created() {
@@ -686,6 +687,12 @@ export default {
     }
     busUtil.bus.$emit("showHeader", true);
     busUtil.bus.$emit("path", "/organ");
+    if(this.$route.query.noheader=="1")
+    {
+        busUtil.bus.$emit('noHeader', true);
+        document.getElementById("organDetailDiv").style.paddingTop=0;
+        this.noheader=true;
+    }
     this.initData();
   },
   methods: {
@@ -748,16 +755,16 @@ export default {
     productDetailUrl: function(id) {
       return this.isShowHeader
         ? { path: `/InstitutionalArticle/${id}`, query: this.query }
-        : `/ProductDetail/${id}`;
+        : `/ProductDetail/${id}${this.noheader?'?noheader=1':''}`;
     },
     expertListUrl: function() {
-      return `/InstitutionalExperts/${this.id}`;
+      return `/InstitutionalExperts/${this.id}${this.noheader?'?noheader=1':''}`;
     },
     articleListUrl: function() {
-      return `/InstitutionalArticle/${this.id}`;
+      return `/InstitutionalArticle/${this.id}${this.noheader?'?noheader=1':''}`;
     },
     productListUrl: function() {
-      return `/OrganDeal/${this.id}`;
+      return `/OrganDeal/${this.id}${this.noheader?'?noheader=1':''}`;
     },
     fetchOrganDetail(id, callback) {
       var url = webApi.Organ.detail;
@@ -777,6 +784,7 @@ export default {
       for (const [index, item] of this.organDetail.Prizes.entries()) {
         const id = `#tooltip${index}`;
         const model = item;
+        try{
         if (document.querySelector(id)._tippy === undefined) {
           tippy(id, {
             html: "#toolTipTemplate",
@@ -808,6 +816,10 @@ export default {
             }
           });
         }
+      }
+      catch(err){
+        
+      }
       }
     },
     doCatch() {

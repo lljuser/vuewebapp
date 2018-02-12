@@ -46,7 +46,13 @@ export default {
   },
   methods: {
     clearPath: function() {
-      location.href = this.path;
+      if(this.path=="fromAbs")
+      {
+        history.back();
+      }
+      else{
+        location.href=this.path;
+      }
     },
     handleClose: function() {
       location.href = "abs.html#" + this.lastPath;

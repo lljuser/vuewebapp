@@ -1,6 +1,6 @@
 <template>
 <div class="appH5_body">
-  <div class="product-spinner" v-if="isArticleLoading">
+  <div class="product-spinner" v-if="isArticleLoading" id="InstitutionalArticleDiv">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
   <div v-else>
@@ -119,6 +119,11 @@ export default {
     }, 600);
     if (this.isFetchArticlesError) {
       this.loadFirstPageArticles();
+    }
+    if(this.$route.query.noheader=="1")
+    {
+        busUtil.bus.$emit('noHeader', true);
+        document.getElementById("InstitutionalArticleDiv").style.paddingTop=0;
     }
   },
   deactivated() {

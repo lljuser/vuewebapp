@@ -2,34 +2,40 @@
   <div id="app" class="cnabs-bg">
     <div v-if="!showHeader" class="appH5_navbar_bg">
       <div class="appH5_navbar" >
-        <router-link to="/market" tag="div" class="navbar-item">
+        <router-link to="/market" tag="div" class="navbar-item" >
           <a class="appH5_tab" href="javascript:;">市场</a>
         </router-link>
-        <router-link to="/product" tag="div" class="navbar-item">
+        <router-link to="/product" tag="div" class="navbar-item" @click.native="toTop" >
           <a class="appH5_tab" href="javascript:;">产品</a>
         </router-link>
-        <router-link to="/trade" tag="div" class="navbar-item">
+        <router-link to="/trade" tag="div" class="navbar-item" @click.native="toTop">
           <a class="appH5_tab" href="javascript:;">交易</a>
         </router-link>
-        <router-link to="/security" tag="div" class="navbar-item">
+        <router-link to="/security" tag="div" class="navbar-item" @click.native="toTop">
           <a class="appH5_tab" href="javascript:;">证券</a>
         </router-link>
-        <router-link to="/organ" tag="div" class="navbar-item">
+        <router-link to="/organ" tag="div" class="navbar-item" @click.native="toTop">
           <a class="appH5_tab" href="javascript:;">机构</a>
         </router-link>
       </div>
     </div> 
 
-    <div v-else class="appH5_navbar_bg">
-      <mt-header :title="headTitle">
-        <router-link :to="path" slot="left">
-          <mt-button icon="back" @click.stop="clearPath"></mt-button>
-        </router-link>
-      </mt-header>
+    <div v-else>
+      <div v-if="noHeader">
+
+      </div>
+      <div v-else class="appH5_navbar_bg">
+        <mt-header :title="headTitle">
+          <router-link :to="path" slot="left">
+            <mt-button icon="back" @click.stop="clearPath"></mt-button>
+          </router-link>
+        </mt-header>
+      </div>
     </div>
+    
     <transition>
       <keep-alive>
-        <router-view />
+        <router-view  />
       </keep-alive>
     </transition>
   </div>
@@ -44,6 +50,7 @@ import faCircle from '@fortawesome/fontawesome-free-regular';
 fontawesome.library.add(faCircle);
 import Vue from 'vue';
 
+
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
@@ -57,7 +64,8 @@ export default {
       tabs: ['market', 'product', 'trade','security','organ'],
       startX: 0,
       startY: 0,
-      isVertical: false
+      isVertical: false,
+      noHeader:false,
     };
   },
   created() {
@@ -72,7 +80,10 @@ export default {
     busUtil.bus.$on('headTitle', (headTitle) => {
       this.headTitle = headTitle;
     });
-
+    busUtil.bus.$on('noHeader', (noHeader) => {
+      this.noHeader = noHeader;
+      document.getElementsByClassName("appH5_body")[0].style.paddingTop=0;
+    });
     //checkout route by swipe
     let isTouch = 'ontouchstart' in window;
     let mouseEvents = isTouch ?
@@ -134,6 +145,13 @@ export default {
           }
       });
       return rlt;
+    },
+    toTop(){
+      // alert();
+      // document.body.scrollTop=0;
+     // document.scrollTo(0,0)
+    //  alert();
+      window.scrollTo(0,0);
     }
   },
 };

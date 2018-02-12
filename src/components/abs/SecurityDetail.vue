@@ -1,5 +1,5 @@
 <template>
-  <div class="appH5_body" style="margin-top:-.32rem;">
+  <div class="appH5_body" style="margin-top:-.32rem;" id="securityDetailDiv">
     <div class="product-spinner" v-if="isSecurityLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
@@ -88,12 +88,12 @@
                         <span style="color:white">{{securityDetail.Basic.AssetSubCategory}}</span>
                         <div>
                             <span>L</span>
-                            <router-link :to="`/productDetail/${securityDetail.Basic.DealId}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
+                            <router-link :to="`/productDetail/${securityDetail.Basic.DealId}${noheader?'?noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
                         </div>
                     </div>
                     <div v-else>
                         <span>L</span>
-                        <router-link :to="`/productDetail/${securityDetail.Basic.DealId}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
+                        <router-link :to="`/productDetail/${securityDetail.Basic.DealId}${noheader?'?noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
                     </div>
                 </div>
             </div>
@@ -348,7 +348,7 @@ import axios from 'axios';
 import { Toast } from 'mint-ui';
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
-
+const busUtil = BusUtil.getInstance();
 
 export default {
     name: 'securityDetail',
@@ -363,10 +363,11 @@ export default {
             NoteStructureFlag:true,
             ExpandShowFlag:true,
             ExpectFlag:0,
+            noheader:false,
         };
     },
     created() {
-        const busUtil = BusUtil.getInstance();
+        
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/security');
         busUtil.bus.$emit('headTitle', '证券信息');
@@ -386,10 +387,19 @@ export default {
         this.ExpandShowFlag=true;
         this.ExpectFlag=0;
         window.scrollTo(0,0);
-        const busUtil = BusUtil.getInstance();
+        // const busUtil = BusUtil.getInstance();
+         
         busUtil.bus.$emit('showHeader', true);
         busUtil.bus.$emit('path', '/security');
         busUtil.bus.$emit('headTitle', '证券信息');
+        // console.log();
+        if(this.$route.query.noheader=="1")
+        {
+            busUtil.bus.$emit('noHeader', true);
+            document.getElementById("securityDetailDiv").style.paddingTop=0;
+            this.noheader=true;
+        }
+
         this.id = this.$route.params.id;
         if (this.id) {
             setTimeout(()=>{
@@ -409,8 +419,6 @@ export default {
             },600);
             
         }
-        busUtil.bus.$emit('showHeader', true);
-        busUtil.bus.$emit('path', '/security');
   },
     methods: {
         fetchSecurityDetail(id,callback) {

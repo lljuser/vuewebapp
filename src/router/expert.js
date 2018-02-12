@@ -29,7 +29,7 @@ import BriefIntroducation from '@/components/expert/BriefIntroducation';
 import WorkHistory from '@/components/expert/WorkHistory';
 import DealSearch from '@/components/expert/DealSearch';
 import OrganizationSearch from '@/components/expert/OrganizationSearch';
-import ProductDetail from '@/components/abs/ProductDetailWithoutBack';
+import ProductDetail from '@/components/abs/ProductDetail';
 
 Vue.use(Router);
 Vue.use(MintUI);
@@ -147,9 +147,10 @@ export default new Router({
       component: OrganizationSearch,
     },
     {
-      path: '/ProductDetail/:dealId?',
+      path: '/ProductDetail/:id?',
       name: 'ProductDetail',
       component: ProductDetail,
+      meta: { fromExp: true },
     },
   ],
 });

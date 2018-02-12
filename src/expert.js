@@ -8,7 +8,7 @@ import App from './components/Expert';
 // cors doamin
 axios.defaults.withCredentials = true; 
 Vue.config.productionTip = false;
-
+Vue.use(require('vue-moment'));
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

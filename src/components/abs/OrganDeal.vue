@@ -1,5 +1,5 @@
 <template>
-<div class="appH5_body">
+<div class="appH5_body" id="organDealDiv">
   
   <div class="product-spinner" v-if="isProductLoading">
     <mt-spinner type="triple-bounce"></mt-spinner>
@@ -55,7 +55,9 @@
               v-for="(item, index) in list" 
               :item="item"
               :id="index"
-              :key="index"/>
+              :key="index"
+              :noheader="{noheader}"
+              />
           </tbody>
           <tfoot>
             <tr>
@@ -111,11 +113,19 @@ export default {
       isLoadTop:false,
       Count:0,
       Balance:0,
-      UnderwritingBalance:0
+      UnderwritingBalance:0,
+      noheader:false,
     };
   },
   mounted() {
     this.isProductLoading = true;
+    
+    if(this.$route.query.noheader=="1")
+    {
+        busUtil.bus.$emit('noHeader', true);
+        document.getElementById("organDealDiv").style.paddingTop=0;
+        this.noheader=true;
+    }
     this.timer = setTimeout(() => {
       this.loadFirstPageProducts();
     }, 600);
@@ -142,6 +152,7 @@ export default {
     if (this.isFetchProductsError) {
       this.loadFirstPageProducts();
     }
+
     //this.$refs.loadmore.onTopLoaded();
   },
   deactivated() {

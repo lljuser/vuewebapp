@@ -108,7 +108,6 @@ export default {
     }, 600);
   },
   activated() {
-    document.body.scrollTop=0;
     this.loading = false;
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit('showHeader', false);

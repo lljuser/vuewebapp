@@ -1,5 +1,5 @@
 <template>
-  <div class="appH5_body">
+  <div class="appH5_body" id="productDetailDiv">
     <div class="product-spinner" v-if="isProductLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
@@ -16,9 +16,23 @@
                 <tr>
                 <td>产品分类</td>
                 <td>
-                    <div><router-link :to="`/product/${productDetail.Basic.ProductTypeId}`"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a></router-link></div>
-                    <div>&nbsp;└&nbsp;<router-link v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a></router-link></div><!---->
-                    <div v-if="productDetail.Basic.AssetSubCategoryId!=null">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└&nbsp;{{productDetail.Basic.AssetSubCategory}}</div>
+                    <div>
+                      <div v-if='linkDisable'>{{productDetail.Basic.ProductType}}</div>
+                      <router-link v-else :to="`/product/${productDetail.Basic.ProductTypeId}`">
+                       <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
+                      </router-link>
+                    </div>
+                    <div style="display:inline-flex">
+                      &nbsp;└&nbsp;
+                    <div v-if='linkDisable'>{{productDetail.Basic.DealType}}</div>
+                    <router-link  v-else v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> 
+                      <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a>
+                    </router-link>
+                    </div><!---->
+                    <div v-if="productDetail.Basic.AssetSubCategoryId!=null">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└&nbsp;
+                      {{productDetail.Basic.AssetSubCategory}}
+                    </div>
                 </td>
                 </tr>
                 <tr>
@@ -194,16 +208,22 @@ export default {
       NoteStructureFlag: true,
       isFetchDetailError: false,
       tableFlag: 0,
-      fromPath: ""
+      linkDisable:false,
     };
   },
 
   beforeRouteEnter: (to, from, next) => {
     next(vm => {
-      if (from.path != "/") {
-        busUtil.bus.$emit("path", from.path);
-      } else {
-        busUtil.bus.$emit("path", "/product");
+      if(!to.meta.fromExp)
+      {
+        if (from.path != "/") {
+          busUtil.bus.$emit("path", from.path);
+        } else {
+          busUtil.bus.$emit("path", "/product");
+        }
+      }
+      else{
+          busUtil.bus.$emit("path", "fromAbs");
       }
     });
   },
@@ -212,12 +232,28 @@ export default {
     busUtil.bus.$emit("showHeader", true);
     busUtil.bus.$emit("headTitle", "产品信息");
     this.tableFlag = 0;
+    if(this.$route.meta.fromExp)
+    {
+      this.linkDisable=true;
+      this.LoadData();
+    }
   },
   mounted() {
     this.isProductLoading = true;
   },
   updated() {},
   activated() {
+    this.LoadData();
+    if(this.$route.query.noheader=="1")
+    {
+        busUtil.bus.$emit('noHeader', true);
+        document.getElementById("productDetailDiv").style.paddingTop=0;
+        this.linkDisable=true;
+    }
+  },
+
+  methods: {
+    LoadData(){
     //clear all data cache
     this.showChart = true;
     this.isProductLoading = true;
@@ -235,18 +271,15 @@ export default {
       }
     };
     window.scrollTo(0, 0);
-    const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit("showHeader", true);
-
-    // busUtil.bus.$emit('path', this.fromPath);
     busUtil.bus.$emit("headTitle", "产品信息");
     this.id = this.$route.params.id;
+    
     if (this.id) {
       setTimeout(() => {
         this.fetchProductDetail(this.id, data => {
           // busUtil.bus.$emit('headTitle', data.Basic.DealName);
           this.productDetail = data;
-          console.log(data);
           this.isProductLoading = false;
           if (data.DealId != null && data.DealId > 0) {
             this.fetchDealStructure(this.id);
@@ -260,10 +293,10 @@ export default {
       }, 600);
     }
     busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/product");
-  },
+    // busUtil.bus.$emit("path", "/product");
 
-  methods: {
+    },
+
     fetchDealStructure(dealId) {
       axios(webApi.Security.structure.concat(["", dealId].join("/"))).then(
         response => {
