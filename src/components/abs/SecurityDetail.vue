@@ -88,12 +88,14 @@
                         <span style="color:white">{{securityDetail.Basic.AssetSubCategory}}</span>
                         <div>
                             <span>L</span>
-                            <router-link :to="`/productDetail/${securityDetail.Basic.DealId}${noheader?'?noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
+                            <div v-if="linkDisable" style="display:inline-flex">{{securityDetail.Basic.DealName}}</div>
+                            <router-link v-else :to="`/productDetail/${securityDetail.Basic.DealId}?fromtab=securityDetail&id=${id}${noheader?'&noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
                         </div>
                     </div>
                     <div v-else>
                         <span>L</span>
-                        <router-link :to="`/productDetail/${securityDetail.Basic.DealId}${noheader?'?noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
+                        <div v-if="linkDisable" style="display:inline-flex">{{securityDetail.Basic.DealName}}</div>
+                        <router-link v-else :to="`/productDetail/${securityDetail.Basic.DealId}?fromtab=securityDetail&id=${id}${noheader?'&noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
                     </div>
                 </div>
             </div>
@@ -364,17 +366,35 @@ export default {
             ExpandShowFlag:true,
             ExpectFlag:0,
             noheader:false,
+            linkDisable:false,
         };
     },
     beforeRouteEnter: (to, from, next) => {
         next(vm => {
-        if (from.path != "/") {
-            busUtil.bus.$emit("path", from.path);
+        if (from.path != "/" && from.query.fromtab!="securityDetail") {
+            var queryObj= from.query;
+            let pathStr=from.path+"?";
+            for(var obj in queryObj)
+            {
+                pathStr=pathStr+obj+"="+queryObj[obj]+"&";
+            }
+            pathStr=pathStr.replace(/&$/g,"");
+            busUtil.bus.$emit("path", pathStr);
         } else {
             busUtil.bus.$emit("path", "/security");
         }
+
+        var reg= new RegExp(/\/ProductDetail\//i);
+        if(reg.test(from.path) && from.query.fromtab!="securityDetail")
+        {
+            vm.linkDisable=true;
+        }
+        else{
+            vm.linkDisable=false;
+        }
         });
     },
+    
     created() {
         
         busUtil.bus.$emit('showHeader', true);
@@ -408,6 +428,13 @@ export default {
             document.getElementById("securityDetailDiv").style.paddingTop=0;
             this.noheader=true;
         }
+        else
+        {
+            busUtil.bus.$emit('noHeader', false);
+            document.getElementById("securityDetailDiv").style.paddingTop="56px";
+            this.noheader=false;
+        }
+        
 
         this.id = this.$route.params.id;
         if (this.id) {
@@ -427,6 +454,9 @@ export default {
             },600);
             
         }
+
+        // console.log(this.$route)
+        // console.log(this.linkDisable)
   },
     methods: {
         fetchSecurityDetail(id,callback) {

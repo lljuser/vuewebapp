@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td class="text-left">
-      <router-link :to="`../../productDetail/${ item.DealId}${noheader.noheader?'?noheader=1':''}`" class="appH5_color_link" style=""  >
+      <router-link :to="`../../productDetail/${ item.DealId}?fromtab=organDeal&dealid=${dealid.dealid}${noheader.noheader?'&noheader=1':''}`" class="appH5_color_link" style=""  >
        <div class='td_elips1'> {{ item.DealName }}</div>
       </router-link>
     </td>
@@ -15,7 +15,7 @@ import { Toast } from 'mint-ui';
 
 export default {
   name: 'organDealItem',
-  props: ['id', 'item','noheader'],
+  props: ['id', 'item','noheader','dealid'],
   mounted() {
   },
   data() {

@@ -1,6 +1,6 @@
 <template>
-<div class="appH5_body">
-  <div class="product-spinner" v-if="isArticleLoading" id="InstitutionalArticleDiv">
+<div class="appH5_body" id="InstitutionalArticleDiv">
+  <div class="product-spinner" v-if="isArticleLoading">
       <mt-spinner type="triple-bounce"></mt-spinner>
     </div>
   <div v-else>
@@ -77,6 +77,7 @@ import axios from 'axios';
 import getParams from '../../public/js/getParams';
 import { Toast } from 'mint-ui';
 import "mint-ui/lib/style.css";
+const busUtil = BusUtil.getInstance();
 export default {
   name: 'institutionalArticle',
   data() {
@@ -93,24 +94,20 @@ export default {
     };
   },
   created() {
-    const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit("showHeader", true);
     busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
     busUtil.bus.$emit("headTitle", "");
     this.tableFlag = 0;
   },
   mounted() {
-    // this.isArticleLoading = true;
-    // this.timer = setTimeout(() => {
-    //   this.loadFirstPageArticles();
-    // }, 600);
+
   },
   activated(){
     this.loading = false;
     this.isArticleLoading = true;
     this.articleInfo = {};
     window.scrollTo(0, 0);
-    const busUtil = BusUtil.getInstance();
+    
     busUtil.bus.$emit("showHeader", true);
     busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
     busUtil.bus.$emit("headTitle", "机构文章");
@@ -120,10 +117,15 @@ export default {
     if (this.isFetchArticlesError) {
       this.loadFirstPageArticles();
     }
+
     if(this.$route.query.noheader=="1")
     {
         busUtil.bus.$emit('noHeader', true);
         document.getElementById("InstitutionalArticleDiv").style.paddingTop=0;
+    }
+    else{
+        busUtil.bus.$emit('noHeader', false);
+        document.getElementById("InstitutionalArticleDiv").style.paddingTop="56px";
     }
   },
   deactivated() {

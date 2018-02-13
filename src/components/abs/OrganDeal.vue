@@ -57,6 +57,7 @@
               :id="index"
               :key="index"
               :noheader="{noheader}"
+              :dealid="{dealid}"
               />
           </tbody>
           <tfoot>
@@ -115,6 +116,7 @@ export default {
       Balance:0,
       UnderwritingBalance:0,
       noheader:false,
+      dealid:0,
     };
   },
   mounted() {
@@ -125,6 +127,11 @@ export default {
         busUtil.bus.$emit('noHeader', true);
         document.getElementById("organDealDiv").style.paddingTop=0;
         this.noheader=true;
+    }
+    else{
+        busUtil.bus.$emit('noHeader', false);
+        document.getElementById("organDealDiv").style.paddingTop="56px";
+        this.noheader=false;
     }
     this.timer = setTimeout(() => {
       this.loadFirstPageProducts();
@@ -139,6 +146,7 @@ export default {
     busUtil.bus.$emit('headTitle', '参与项目');
 
     var idParam = this.$route.params.id;
+    this.dealid=idParam;
     var reLoadData=false;    
     if(idParam!=null )
     {

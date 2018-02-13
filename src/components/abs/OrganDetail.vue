@@ -693,6 +693,11 @@ export default {
         document.getElementById("organDetailDiv").style.paddingTop=0;
         this.noheader=true;
     }
+    else{
+      busUtil.bus.$emit('noHeader', false);
+      document.getElementById("organDetailDiv").style.paddingTop="56px";
+      this.noheader=false;
+  }
     this.initData();
   },
   methods: {
@@ -755,7 +760,7 @@ export default {
     productDetailUrl: function(id) {
       return this.isShowHeader
         ? { path: `/InstitutionalArticle/${id}`, query: this.query }
-        : `/ProductDetail/${id}${this.noheader?'?noheader=1':''}`;
+        : `/ProductDetail/${id}?fromtab=organDetail&id=${this.id}${this.noheader?'&noheader=1':''}`;
     },
     expertListUrl: function() {
       return `/InstitutionalExperts/${this.id}${this.noheader?'?noheader=1':''}`;

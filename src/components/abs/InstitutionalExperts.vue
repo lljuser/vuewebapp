@@ -110,6 +110,11 @@ export default {
         busUtil.bus.$emit('noHeader', true);
         document.getElementById("InstitutionalExpertsDiv").style.paddingTop=0;
     }
+    else
+    {
+        busUtil.bus.$emit('noHeader', false);
+        document.getElementById("InstitutionalExpertsDiv").style.paddingTop="56px";
+    }
   },
   deactivated() {
     this.timer && clearTimeout(this.timer);

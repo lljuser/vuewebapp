@@ -106,7 +106,8 @@
                       <div v-if="item.RepaymentOfPrincipal.indexOf('过')>=0" class="appH5_square_ch_char appH5_bg_passthrough">过</div>      
                     </td>
                     <td><div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">
-                       <router-link :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link>
+                      <div v-if="linkDisable">{{item.Name}}</div>
+                       <router-link v-else :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link>
                        </div></td>
                     <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
@@ -212,21 +213,52 @@ export default {
       tableFlag: 0,
       linkDisable:false,
       noheader:false,
+      linkDisable:false,
     };
   },
 
   beforeRouteEnter: (to, from, next) => {
+    
     next(vm => {
       if(!to.meta.fromExp)
       {
-        if (from.path != "/") {
+        if (from.path != "/" && !new RegExp(/\/securityDetail\//i).test(from.path)) {
           busUtil.bus.$emit("path", from.path);
         } else {
           busUtil.bus.$emit("path", "/product");
         }
+
+        var fromtab=to.query.fromtab;
+        var backPathstr="";
+        switch(fromtab)
+        {
+          case "securityDetail":{  vm.linkDisable=true;backPathstr="/securityDetail/"+to.query.id;break;}
+          case "organDetail":{backPathstr="/organDetail/"+to.query.id;break;}
+          case "organDeal":{vm.linkDisable=false;backPathstr="/organDeal/"+to.query.dealid;break}
+          default:{vm.linkDisable=false;break;}
+        }
+        if(backPathstr!="")
+        {
+          busUtil.bus.$emit("path",backPathstr );
+        }
       }
       else{
           busUtil.bus.$emit("path", "fromAbs");
+          vm.linkDisable=true;
+      }
+      
+     
+      if(vm.$route.query.noheader=="1")
+      {
+          busUtil.bus.$emit('noHeader', true);
+          document.getElementById("productDetailDiv").style.paddingTop=0;
+          vm.linkDisable=true;
+          vm.noheader=true;
+      }
+      else{
+          busUtil.bus.$emit('noHeader', false);
+          document.getElementById("productDetailDiv").style.paddingTop="56px";
+          vm.noheader=false;
       }
     });
   },
@@ -247,13 +279,6 @@ export default {
   updated() {},
   activated() {
     this.LoadData();
-    if(this.$route.query.noheader=="1")
-    {
-        busUtil.bus.$emit('noHeader', true);
-        document.getElementById("productDetailDiv").style.paddingTop=0;
-        this.linkDisable=true;
-        this.noheader=true;
-    }
   },
 
   methods: {
