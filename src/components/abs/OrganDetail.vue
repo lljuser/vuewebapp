@@ -16,15 +16,18 @@
           <div class="organ_basic_info" v-if="organDetail.IsAsset">
             <div class="appH5_inner_panel appH5_important_div">
               <div class="appH5_important_item">
-				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.Capital}}</div>
+                <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.Capital!=null">{{organDetail.Capital}}</div>
+				        <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.Capital==null">-</div>
 				        <div class="appH5_color_green appH5_font_smaller">注册资金</div>
 			        </div>
               <div class="appH5_important_item">
-				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.TotalAssets}}</div>
+                <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.TotalAssets!=null">{{organDetail.TotalAssets}}</div>
+				        <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.TotalAssets==null">-</div>
 				        <div class="appH5_color_green appH5_font_smaller">总资产</div>
 			        </div>
               <div class="appH5_important_item">
-				        <div class="appH5_font_large appH5_margin_bottom10">{{organDetail.AssetLiabilityRatio}}</div>
+                <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.AssetLiabilityRatio!=null">{{organDetail.AssetLiabilityRatio}}</div>
+				        <div class="appH5_font_large appH5_margin_bottom10" v-if="organDetail.AssetLiabilityRatio==null">-</div>
 				        <div class="appH5_color_green appH5_font_smaller">负债率</div>
 			        </div>
               <div class="appH5_important_item">
