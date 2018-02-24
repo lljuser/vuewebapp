@@ -1,8 +1,10 @@
+import router from '../../router/abs';
+// import router from ' ./router/abs';
 /*
  * @Author: CNABS 
  * @Date: 2018-02-02 11:18:42 
- * @Last Modified by: bzhou
- * @Last Modified time: 2018-02-09 09:13:29
+ * @Last Modified by: mingxia.dong
+ * @Last Modified time: 2018-02-24 10:44:55
  * @Function: Get Note Structure Html
  */
 /* eslint-disable */
@@ -82,7 +84,12 @@ function NoteStructure(options) {
                         }
                     });
                 }
+                try{
                 document.getElementById(options.container).appendChild(div);
+                }
+                catch(error){
+
+                }
             }
         }
         //sperate layer due to different note name
@@ -243,6 +250,24 @@ function NoteStructure(options) {
                     span.appendChild(textSp);
                 }
                 span.className = 'St_Inner_Text';
+                span.onclick=function(){
+                    var pathStr = '/securityDetail/'+note.NoteId;
+                    if(options.fromExp)
+                    {
+                        location.href = 'abs.html#/securityDetail/'+note.NoteId;
+                    }
+                    else{
+                        if(JSON.stringify(router.history.current.query)=='{}')
+                        {
+                            pathStr = pathStr+'?id='+note.NoteId
+                        }
+                        router.push(
+                            {
+                            path:pathStr,
+                            },
+                        );
+                 }
+                }
                 if (note.HasShot) {
                     span.style.color = '#000';
                 }

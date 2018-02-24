@@ -125,4 +125,19 @@ export default new Router({
       component: InstitutionalArticle,
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }  
+    return { x: 0, y: 0 };
+  },
+  // history: true,
+  // scrollBehavior: (to, from, savedPosition) => {
+  //   if (savedPosition) {
+  //     console.log(savedPosition);
+  //     return savedPosition;
+  //     // return { x: savedPosition.x, y: savedPosition.y + 667 };
+  //   }  
+  //   return { x: 0, y: 0 };
+  // },
 });

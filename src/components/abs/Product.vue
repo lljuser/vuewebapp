@@ -131,7 +131,7 @@ export default {
     busUtil.bus.$emit('showHeader', false);
     var productTypeParam = this.$route.params.productType;
     var dealTypeParam=this.$route.params.dealType;
-    var reLoadData=false;    
+    var reLoadData=false;  
     if(productTypeParam!=null )
     {
       this.ProductTypeVal= productTypeParam;
@@ -142,6 +142,14 @@ export default {
       this.DealTypeVal= dealTypeParam;
       reLoadData=true;
     }
+
+    if(this.$route.query.frommarket)
+    {
+      this.DealTypeVal=0;
+      this.CurrentStatusVal=0;
+    }
+
+
     if(reLoadData){
       this.loadFirstPageProducts();
     }

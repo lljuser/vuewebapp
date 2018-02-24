@@ -18,17 +18,19 @@
                 <td>
                     <div>
                       <div v-if='linkDisable'>{{productDetail.Basic.ProductType}}</div>
-                      <router-link v-else :to="`/product/${productDetail.Basic.ProductTypeId}`">
+                      <router-link v-else-if='!isfromExp' :to="`/product/${productDetail.Basic.ProductTypeId}`">
                        <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
                       </router-link>
+                      <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}`" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
                     </div>
                     <div style="display:inline-flex">
                       &nbsp;└&nbsp;
                     <div v-if='linkDisable'>{{productDetail.Basic.DealType}}</div>
-                    <router-link  v-else v-bind:to="'/product/'+productDetail.Basic.ProductTypeId+'/'+productDetail.Basic.DealTypeId"> 
-                      <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a>
-                    </router-link>
-                    </div><!---->
+                      <router-link  v-else-if='!isfromExp' v-bind:to="`/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`"> 
+                        <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a>
+                      </router-link>
+                      <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
+                    </div>
                     <div v-if="productDetail.Basic.AssetSubCategoryId!=null">
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└&nbsp;
                       {{productDetail.Basic.AssetSubCategory}}
@@ -74,16 +76,8 @@
                         </td>
                     </tr>
                 </table>
-            <!-- <div style="text-align:center;height: 0.4rem;">
-                <div style="margin:0 auto;width:3rem" v-if="productDetail.NoteList!=null&&productDetail.NoteList.length!=0">
-                    <div class="backTablePic"></div>
-                    <div style="float:left;font-size: 11px;margin-top: 2px;">已偿付</div>
-                    <div style="float:left;margin: 4px 4px 4px 2px; width: 12px; height: 11px; background-color: #B7AFA5;"></div>
-                    <div style="float:left;font-size: 11px;margin-top: 2px;">剩余</div>
-                </div>
-            </div> -->
         </div>
-        <div v-show="!NoteStructureFlag" class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span> </div>
+        <div v-show="!NoteStructureFlag" class="appH5_color_details appH5_font_smaller" style="text-align:center"> <span>暂无数据</span></div>
     </div>
     <div class="appH5_panel appH5_panel_mb">
         <div class="appH5_title">
@@ -105,10 +99,13 @@
                       <div v-if="item.RepaymentOfPrincipal.indexOf('摊')>=0" class="appH5_square_ch_char appH5_bg_blue">摊</div>      
                       <div v-if="item.RepaymentOfPrincipal.indexOf('过')>=0" class="appH5_square_ch_char appH5_bg_passthrough">过</div>      
                     </td>
-                    <td><div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">
-                      <div v-if="linkDisable">{{item.Name}}</div>
-                       <router-link v-else :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link>
-                       </div></td>
+                    <td>
+                      <div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">
+                        <div v-if="linkDisable">{{item.Name}}</div>
+                        <router-link v-else-if="!isfromExp" :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link>
+                        <a v-else :href="`abs.html#/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</a>
+                      </div>
+                    </td>
                     <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentCoupon}}</span></td>
                     <td class="text-right"><span class="appH5_color_skyblue">{{item.CurrentWal}}</span></td>
@@ -213,7 +210,7 @@ export default {
       tableFlag: 0,
       linkDisable:false,
       noheader:false,
-      linkDisable:false,
+      isfromExp:false,
     };
   },
 
@@ -241,25 +238,38 @@ export default {
         {
           busUtil.bus.$emit("path",backPathstr );
         }
+
+        if(vm.$route.query.noheader=="1")
+        {
+            busUtil.bus.$emit('noHeader', true);
+            document.getElementById("productDetailDiv").style.paddingTop=0;
+            vm.linkDisable=true;
+            vm.noheader=true;
+        }
+        else{
+            busUtil.bus.$emit('noHeader', false);
+            document.getElementById("productDetailDiv").style.paddingTop="56px";
+            vm.noheader=false;
+        }
       }
       else{
           busUtil.bus.$emit("path", "fromAbs");
-          vm.linkDisable=true;
+          vm.linkDisable=false;
+          vm.isfromExp=true;
+          
+          if( to.query.isShowHeader==null || to.query.isShowHeader==false )
+          {
+            busUtil.bus.$emit('showHeader', false);
+            document.getElementById("productDetailDiv").style.paddingTop=0;
+          }
+          else{
+            busUtil.bus.$emit('showHeader', true);
+            document.getElementById("productDetailDiv").style.paddingTop="56px";
+          }
       }
-      
      
-      if(vm.$route.query.noheader=="1")
-      {
-          busUtil.bus.$emit('noHeader', true);
-          document.getElementById("productDetailDiv").style.paddingTop=0;
-          vm.linkDisable=true;
-          vm.noheader=true;
-      }
-      else{
-          busUtil.bus.$emit('noHeader', false);
-          document.getElementById("productDetailDiv").style.paddingTop="56px";
-          vm.noheader=false;
-      }
+     
+
     });
   },
 
@@ -323,7 +333,6 @@ export default {
     }
     busUtil.bus.$emit("showHeader", true);
     // busUtil.bus.$emit("path", "/product");
-
     },
 
     fetchDealStructure(dealId) {
@@ -333,7 +342,8 @@ export default {
             this.NoteStructureFlag = true;
             NoteStructure({
               container: "noteStructure",
-              data: response.data.data.Notes
+              data: response.data.data.Notes,
+              fromExp:this.isfromExp,
             });
           } else {
             this.NoteStructureFlag = false;
@@ -351,6 +361,10 @@ export default {
             } else {
               this.doCatch();
             }
+          }
+          else{
+              Toast(response.data.data);
+               this.isProductLoading = false;
           }
         })
         .catch(error => {

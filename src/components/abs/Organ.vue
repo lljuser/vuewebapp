@@ -15,7 +15,7 @@
               </option>
           </select>
         </td>
-        <td style="text-align:center">
+        <td style="text-align:right">
           <select v-model="RoleVal" v-on:change="selectChange()">
              <option v-for="option in Role" :value="option.Value" :key="option.Value" selected="option.Selected">
               {{ option.Text }}
@@ -257,7 +257,7 @@ export default {
 }
 
 .select_div select {
-  width:90%;
+  width:95%;
   border-radius: 0;
 }
 

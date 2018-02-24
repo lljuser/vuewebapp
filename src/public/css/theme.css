@@ -620,3 +620,7 @@ select{
 	height:83.5px;
 	margin:0 auto;
 }
+
+.tippy-popper[x-placement^=top] .tippy-arrow {
+    border-top: 7px solid #78bcff;
+}

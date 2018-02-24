@@ -169,340 +169,342 @@
   </div>
 </template>
 <style>
-.securityCashflowTable tr td:nth-child(1),.securityCashflowTable tr th:nth-child(1){
-    max-width: 2rem;
-    min-width: 2rem;
-    width: 2rem;
+.securityCashflowTable tr td:nth-child(1),
+.securityCashflowTable tr th:nth-child(1) {
+  max-width: 2rem;
+  min-width: 2rem;
+  width: 2rem;
 }
-.securityCashflowTable tr td:nth-child(2),.securityCashflowTable tr th:nth-child(2){
-    max-width: 1.4rem;
-    min-width: 1.4rem;
-    width: 1.4rem;
+.securityCashflowTable tr td:nth-child(2),
+.securityCashflowTable tr th:nth-child(2) {
+  max-width: 1.4rem;
+  min-width: 1.4rem;
+  width: 1.4rem;
 }
-.securityCashflowTable tr td:nth-child(3),.securityCashflowTable tr th:nth-child(3){
-    max-width: 1.4rem;
-    min-width: 1.4rem;
-    width: 1.4rem;
+.securityCashflowTable tr td:nth-child(3),
+.securityCashflowTable tr th:nth-child(3) {
+  max-width: 1.4rem;
+  min-width: 1.4rem;
+  width: 1.4rem;
 }
-.securityCashflowTable tr td:nth-child(4),.securityCashflowTable tr th:nth-child(4){
-    max-width: 1.3rem;
-    min-width: 1.3rem;
-    width: 1.3rem;
+.securityCashflowTable tr td:nth-child(4),
+.securityCashflowTable tr th:nth-child(4) {
+  max-width: 1.3rem;
+  min-width: 1.3rem;
+  width: 1.3rem;
 }
-.securityCashflowTable tr td:nth-child(5),.securityCashflowTable tr th:nth-child(5){
-    max-width: 1.4rem;
-    min-width: 1.4rem;
-    width: 1.4rem;
-} 
-    .securityCashflowTable tr td:first-child{
-        position: relative;
-    }
-    .securityCashflowTable .appH5_square_dot{
-        position: absolute;
-        top: .38rem;
-        left: 0;
-    }
-    .cashflowLegend{
-        padding-top: .1rem; 
-        margin-left: .6rem;
-    }
-    .typeSpan{
-        margin-top: .18rem;
-    }
-    .backTablePic{
-        float:left;
-        margin: 4px 4px 4px 2px;
-        width: 12px;
-        height: 11px;
-        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC);
-        background-repeat: repeat;
-    }
-    .appH5_content{
-        width: 100%;
-    }
-    .appH5martop{
-        margin-top: .32rem;
-    }
-    .borderBom{
-        border-bottom: #343E46 solid 1px;
-    }
-    .deatilheaderR{
-        margin-top: 0.35rem;
-        line-height: .65rem;
-    }
-    .deatilheaderR span{
-        padding-left: .25rem;
-    }
-    .panel-title .titLine {
-        width: .1067rem;
-        height: 17px;
-        background-color: #F88B2B;
-        display: inline-block;
-        margin-right: 5px;
-        margin-top: 0.12rem;
-    }
-    .structureTable{
-        margin-top: .15rem;
-    }
-    .proList {
-        margin-left: .5rem;
-    }
-    .proList  div{
-       margin-left: .32rem;
-    }
-    .proList span{
-        color:#676767;
-    }
-    .spacialTable {
-        border: none!important;
-        margin: none;
-        padding:0;
-        width: 100%;  
-    }
-   .spacialTable tr td:first-child{
-       width: 1.65rem;
-       overflow: hidden;
-       text-overflow: ellipsis;
-       white-space: nowrap;
-       padding-left: .32rem;
-       padding-right: .32rem;
-   }
-   .spacialTable tr td:nth-child(2){
-       width: 3rem;
-       overflow: hidden;
-       text-overflow: ellipsis;
-       white-space: nowrap;
-       padding-left: .32rem;
-   }
-   .spacialTable tr td{
-       height: 1.06rem;
-       line-height: 1.06rem;
-   }
-   .spacialTable tr td:last-child{
-       padding-right: .32rem;
-   }
-    .appH5lookAll,.appH5CloseAll{
-        cursor: pointer;
-        text-align: center;
-        margin-top: .32rem;
-        height: 1rem;
-        line-height: 1rem;
-        background-color: #222222;
-    }
-    .structureTable {
-        width:100%;
-    }
-    .structureTable i{
-        display: inline-block;
-        width:.56rem;
-        height: .3467rem;
-        vertical-align: middle;
-    }
-    .structureTable span{
-        vertical-align: middle;
-        padding-left: .2rem;
-    }
-    .structureTable tr td{
-        padding-top: .1333rem;
-        width: 3.12rem;
-    }
-    .Surplus{
-        background-color: #615C55;
-    }
-    .Reimbursement{
-       background-image: url('../../public/images/table_bg.png');
-       background-repeat: repeat;
-       margin-top: 0.03rem;
-    }
-    .CurrentSecurities{
-        background-color: #ffe40c;
-    }
-    .securityCashflowTable td{
-        font-size: 13px!important;
-    }
-    .securityCashflowTable .expectBorder td {
-        border-bottom: 1px #ffc446 solid!important;
-    }
-    @media only screen and (min-width: 320px) and (max-width: 374px){
-        .appH5_margin_left20 {
-            margin-left: .35rem!important;
-        }
-        .cashflowLegend{
-            margin-left: .2rem;
-        }
-    }
+.securityCashflowTable tr td:nth-child(5),
+.securityCashflowTable tr th:nth-child(5) {
+  max-width: 1.4rem;
+  min-width: 1.4rem;
+  width: 1.4rem;
+}
+.securityCashflowTable tr td:first-child {
+  position: relative;
+}
+.securityCashflowTable .appH5_square_dot {
+  position: absolute;
+  top: 0.38rem;
+  left: 0;
+}
+.cashflowLegend {
+  padding-top: 0.1rem;
+  margin-left: 0.6rem;
+}
+.typeSpan {
+  margin-top: 0.18rem;
+}
+.backTablePic {
+  float: left;
+  margin: 4px 4px 4px 2px;
+  width: 12px;
+  height: 11px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC);
+  background-repeat: repeat;
+}
+.appH5_content {
+  width: 100%;
+}
+.appH5martop {
+  margin-top: 0.32rem;
+}
+.borderBom {
+  border-bottom: #343e46 solid 1px;
+}
+.deatilheaderR {
+  margin-top: 0.35rem;
+  line-height: 0.65rem;
+}
+.deatilheaderR span {
+  padding-left: 0.25rem;
+}
+.panel-title .titLine {
+  width: 0.1067rem;
+  height: 17px;
+  background-color: #f88b2b;
+  display: inline-block;
+  margin-right: 5px;
+  margin-top: 0.12rem;
+}
+.structureTable {
+  margin-top: 0.15rem;
+}
+.proList {
+  margin-left: 0.5rem;
+}
+.proList div {
+  margin-left: 0.32rem;
+}
+.proList span {
+  color: #676767;
+}
+.spacialTable {
+  border: none !important;
+  margin: none;
+  padding: 0;
+  width: 100%;
+}
+.spacialTable tr td:first-child {
+  width: 1.65rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 0.32rem;
+  padding-right: 0.32rem;
+}
+.spacialTable tr td:nth-child(2) {
+  width: 3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 0.32rem;
+}
+.spacialTable tr td {
+  height: 1.06rem;
+  line-height: 1.06rem;
+}
+.spacialTable tr td:last-child {
+  padding-right: 0.32rem;
+}
+.appH5lookAll,
+.appH5CloseAll {
+  cursor: pointer;
+  text-align: center;
+  margin-top: 0.32rem;
+  height: 1rem;
+  line-height: 1rem;
+  background-color: #222222;
+}
+.structureTable {
+  width: 100%;
+}
+.structureTable i {
+  display: inline-block;
+  width: 0.56rem;
+  height: 0.3467rem;
+  vertical-align: middle;
+}
+.structureTable span {
+  vertical-align: middle;
+  padding-left: 0.2rem;
+}
+.structureTable tr td {
+  padding-top: 0.1333rem;
+  width: 3.12rem;
+}
+.Surplus {
+  background-color: #615c55;
+}
+.Reimbursement {
+  background-image: url("../../public/images/table_bg.png");
+  background-repeat: repeat;
+  margin-top: 0.03rem;
+}
+.CurrentSecurities {
+  background-color: #ffe40c;
+}
+.securityCashflowTable td {
+  font-size: 13px !important;
+}
+.securityCashflowTable .expectBorder td {
+  border-bottom: 1px #ffc446 solid !important;
+}
+@media only screen and (min-width: 320px) and (max-width: 374px) {
+  .appH5_margin_left20 {
+    margin-left: 0.35rem !important;
+  }
+  .cashflowLegend {
+    margin-left: 0.2rem;
+  }
+}
 </style>
 
 <script>
-import '@/public/css/structure.css';
-import BusUtil from './BusUtil';
-import Vue from 'vue';
-import VueHighcharts from 'vue-highcharts';
-import Highcharts from 'highcharts';
-import getParams from '../../public/js/getParams';
-import { NoteStructure } from '../../public/js/NoteStructure.js';
+import "@/public/css/structure.css";
+import BusUtil from "./BusUtil";
+import Vue from "vue";
+import VueHighcharts from "vue-highcharts";
+import Highcharts from "highcharts";
+import getParams from "../../public/js/getParams";
+import { NoteStructure } from "../../public/js/NoteStructure.js";
 
 // some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
-import * as chartTheme from '@/public/js/chartTheme';
+import * as chartTheme from "@/public/js/chartTheme";
 
-import * as webApi from '@/config/api';
-import axios from 'axios';
-import { Toast } from 'mint-ui';
+import * as webApi from "@/config/api";
+import axios from "axios";
+import { Toast } from "mint-ui";
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
 const busUtil = BusUtil.getInstance();
 
 export default {
-    name: 'securityDetail',
-    data() {
-        return {
-            securityDetail:{},
-            isSecurityLoading:false,
-            chartWidthRem:3,
-            chartWidthPx:280,
-            isFetchDetailError: false,
-            CashflowShowFlag:true,
-            NoteStructureFlag:true,
-            ExpandShowFlag:true,
-            ExpectFlag:0,
-            noheader:false,
-            linkDisable:false,
-        };
-    },
-    beforeRouteEnter: (to, from, next) => {
-        next(vm => {
-        if (from.path != "/" && from.query.fromtab!="securityDetail") {
-            var queryObj= from.query;
-            let pathStr=from.path+"?";
-            for(var obj in queryObj)
-            {
-                pathStr=pathStr+obj+"="+queryObj[obj]+"&";
-            }
-            pathStr=pathStr.replace(/&$/g,"");
-            busUtil.bus.$emit("path", pathStr);
-        } else {
-            busUtil.bus.$emit("path", "/security");
+  name: "securityDetail",
+  data() {
+    return {
+      securityDetail: {},
+      isSecurityLoading: false,
+      chartWidthRem: 3,
+      chartWidthPx: 280,
+      isFetchDetailError: false,
+      CashflowShowFlag: true,
+      NoteStructureFlag: true,
+      ExpandShowFlag: true,
+      ExpectFlag: 0,
+      noheader: false,
+      linkDisable: false
+    };
+  },
+  beforeRouteEnter: (to, from, next) => {
+    next(vm => {
+      if (from.path != "/" && from.query.fromtab != "securityDetail") {
+        var queryObj = from.query;
+        let pathStr = from.path + "?";
+        for (var obj in queryObj) {
+          pathStr = pathStr + obj + "=" + queryObj[obj] + "&";
         }
+        pathStr = pathStr.replace(/&$/g, "");
+        busUtil.bus.$emit("path", pathStr);
+      } else {
+        busUtil.bus.$emit("path", "/security");
+      }
 
-        var reg= new RegExp(/\/ProductDetail\//i);
-        if(reg.test(from.path) && from.query.fromtab!="securityDetail")
-        {
-            vm.linkDisable=true;
-        }
-        else{
-            vm.linkDisable=false;
-        }
+      var reg = new RegExp(/\/ProductDetail\//i);
+      if (reg.test(from.path) && from.query.fromtab != "securityDetail") {
+        vm.linkDisable = true;
+      } else {
+        vm.linkDisable = false;
+      }
+    });
+  },
+
+  beforeRouteUpdate(to, from, next) {
+    this.loadData(to.params.id);
+  },
+
+  created() {
+    // this.tableFlag=0;
+    //this.loadData();
+  },
+  mounted() {},
+  updated() {},
+  activated() {
+    this.loadData();
+  },
+  methods: {
+    loadData(id) {
+      //clear all data cache
+      this.tableFlag = 0;
+      var self = this;
+      this.isSecurityLoading = true;
+      this.securityDetail = {};
+      this.CashflowShowFlag = true;
+      this.ExpandShowFlag = true;
+      this.ExpectFlag = 0;
+      window.scrollTo(0, 0);
+
+      busUtil.bus.$emit("showHeader", true);
+      busUtil.bus.$emit("headTitle", "证券信息");
+
+      if (this.$route.query.noheader == "1") {
+        busUtil.bus.$emit("noHeader", true);
+        document.getElementById("securityDetailDiv").style.paddingTop = 0;
+        this.noheader = true;
+      } else {
+        busUtil.bus.$emit("noHeader", false);
+        document.getElementById("securityDetailDiv").style.paddingTop = "56px";
+        this.noheader = false;
+      }
+
+      this.id = id == null ? this.$route.params.id : id;
+      
+      //     if(this.id==null)this.id=this.$route.query.id;
+      //    debugger;
+      if (this.id) {
+        setTimeout(() => {
+          this.fetchSecurityDetail(this.id, data => {
+            // busUtil.bus.$emit('headTitle', data.Basic.DealName);
+            this.securityDetail = data;
+            if (this.securityDetail.Cashflow != null) {
+              this.securityDetail.Cashflow.forEach(function(item, index) {
+                if (item.Default == true) {
+                  self.ExpectFlag = index - 1;
+                }
+              });
+            }
+            this.isSecurityLoading = false;
+          });
+        }, 600);
+      }
+    },
+
+    fetchSecurityDetail(id, callback) {
+      axios(webApi.Security.detail.concat(["", id].join("/")))
+        .then(response => {
+          if (response.data.status == "ok") {
+            const data = response.data.data;
+            if (data) {
+              callback(data);
+            } else {
+              this.doCatch();
+            }
+            //load deal structure
+            this.fetchDealStructure(data.DealId, data.NoteId);
+          }
+        })
+        .catch(error => {
+          this.doCatch();
         });
     },
-    
-    created() {
-        
-        busUtil.bus.$emit('showHeader', true);
-      //  busUtil.bus.$emit('path', '/security');
-        busUtil.bus.$emit('headTitle', '证券信息');
-        this.tableFlag=0;
+    doCatch() {
+      Toast("服务器繁忙，请重试！");
+      this.isSecurityLoading = false;
+      this.isFetchDetailError = true;
     },
-    mounted() {
+    cashflowShow() {
+      this.CashflowShowFlag = false;
+      this.ExpandShowFlag = false;
     },
-    updated(){
-
+    cashflowHide() {
+      this.CashflowShowFlag = true;
+      this.ExpandShowFlag = true;
     },
-    activated() {
-        //clear all data cache
-        var self=this;
-        this.isSecurityLoading=true;
-        this.securityDetail = {};
-        this.CashflowShowFlag=true;
-        this.ExpandShowFlag=true;
-        this.ExpectFlag=0;
-        window.scrollTo(0,0);
-        // const busUtil = BusUtil.getInstance();
-         
-        busUtil.bus.$emit('showHeader', true);
-      //  busUtil.bus.$emit('path', '/security');
-        busUtil.bus.$emit('headTitle', '证券信息');
-        // console.log();
-        if(this.$route.query.noheader=="1")
-        {
-            busUtil.bus.$emit('noHeader', true);
-            document.getElementById("securityDetailDiv").style.paddingTop=0;
-            this.noheader=true;
+    fetchDealStructure(dealId, noteId) {
+      axios(
+        webApi.Security.structure.concat(["", dealId, noteId].join("/"))
+      ).then(response => {
+        if (response.data.status == "ok") {
+          this.NoteStructureFlag = true;
+          NoteStructure({
+            container: "noteStructure",
+            data: response.data.data.Notes,
+            width: 220
+          });
+        } else {
+          this.NoteStructureFlag = false;
         }
-        else
-        {
-            busUtil.bus.$emit('noHeader', false);
-            document.getElementById("securityDetailDiv").style.paddingTop="56px";
-            this.noheader=false;
-        }
-        
-
-        this.id = this.$route.params.id;
-        if (this.id) {
-            setTimeout(()=>{
-                    this.fetchSecurityDetail(this.id,data=>{
-                    // busUtil.bus.$emit('headTitle', data.Basic.DealName); 
-                    this.securityDetail =data;
-                    if(this.securityDetail.Cashflow!=null){
-                        this.securityDetail.Cashflow.forEach(function(item,index){
-                            if(item.Default==true){
-                                self.ExpectFlag=index-1;
-                            }
-                        })
-                    }
-                    this.isSecurityLoading=false;
-                });
-            },600);
-            
-        }
-
-        // console.log(this.$route)
-        // console.log(this.linkDisable)
-  },
-    methods: {
-        fetchSecurityDetail(id,callback) {
-            axios(webApi.Security.detail.concat(['',id].join('/')))
-            .then((response) => {
-                if (response.data.status == "ok") {
-                    const data = response.data.data;
-                    if(data){
-                        callback(data);
-                    } else{
-                        this.doCatch();
-                    }
-                    //load deal structure
-                    this.fetchDealStructure(data.DealId,data.NoteId);
-                }
-            }).catch((error) => {
-                this.doCatch();
-            });
-        },
-        doCatch(){
-            Toast('服务器繁忙，请重试！');
-            this.isSecurityLoading = false;
-            this.isFetchDetailError=true;
-        },
-        cashflowShow(){
-            this.CashflowShowFlag=false;
-            this.ExpandShowFlag=false;
-        },
-        cashflowHide(){
-            this.CashflowShowFlag=true;
-            this.ExpandShowFlag=true;
-        },
-        fetchDealStructure(dealId, noteId) {
-            axios(webApi.Security.structure.concat(['',dealId,noteId].join('/'))).then(response => {
-                if (response.data.status == 'ok') {
-                   this.NoteStructureFlag=true;
-                    NoteStructure({
-                       container: 'noteStructure',
-                       data: response.data.data.Notes,
-                       width: 220,
-                    });
-                }else{
-                    this.NoteStructureFlag=false;
-                }
-            })
-        }
-    },
+      });
+    }
+  }
 };
 </script>

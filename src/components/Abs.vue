@@ -2,19 +2,19 @@
   <div id="app" class="cnabs-bg">
     <div v-if="!showHeader" class="appH5_navbar_bg">
       <div class="appH5_navbar" >
-        <router-link to="/market" tag="div" class="navbar-item" >
+        <router-link to="/market" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">市场</a>
         </router-link>
-        <router-link to="/product" tag="div" class="navbar-item" @click.native="toTop" >
+        <router-link to="/product" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">产品</a>
         </router-link>
-        <router-link to="/trade" tag="div" class="navbar-item" @click.native="toTop">
+        <router-link to="/trade" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">交易</a>
         </router-link>
-        <router-link to="/security" tag="div" class="navbar-item" @click.native="toTop">
+        <router-link to="/security" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">证券</a>
         </router-link>
-        <router-link to="/organ" tag="div" class="navbar-item" @click.native="toTop">
+        <router-link to="/organ" tag="div" class="navbar-item">
           <a class="appH5_tab" href="javascript:;">机构</a>
         </router-link>
       </div>
@@ -26,18 +26,21 @@
       </div>
       <div v-else class="appH5_navbar_bg">
         <mt-header :title="headTitle">
-          <router-link :to="path" slot="left">
+          <!-- <router-link :to="path" slot="left">
             <mt-button icon="back" @click.stop="clearPath"></mt-button>
-          </router-link>
+          </router-link> -->
+          <a href="javascript:" slot="left">
+            <mt-button icon="back" @click.stop="clearPath"></mt-button>
+         </a>
         </mt-header>
       </div>
     </div>
     
-    <transition>
+    <!-- <transition> -->
       <keep-alive>
         <router-view  />
       </keep-alive>
-    </transition>
+    <!-- </transition> -->
   </div>
 </template>   
 <script> 
@@ -46,6 +49,7 @@ import '@/public/css/theme.css';
 import BusUtil from './abs/BusUtil';
 import fontawesome from '@fortawesome/fontawesome';
 import faCircle from '@fortawesome/fontawesome-free-regular';
+import Router from '../router/abs';
 
 fontawesome.library.add(faCircle);
 import Vue from 'vue';
@@ -82,7 +86,6 @@ export default {
     });
     busUtil.bus.$on('noHeader', (noHeader) => {
       this.noHeader = noHeader;
-      document.getElementsByClassName("appH5_body")[0].style.paddingTop=0;
     });
     //checkout route by swipe
     let isTouch = 'ontouchstart' in window;
@@ -126,8 +129,15 @@ export default {
   },
   methods: {
     clearPath() {
-      this.showHeader = false;
-      this.path = '';
+        this.showHeader = false;
+        // this.path = '';
+        if(new RegExp(/tradedetail/i).test(this.$route.name))
+        {
+          Router.push({path:"/trade"});
+        }
+        else{
+            history.back();
+        }
     },
     getRouterIndex() {
        var tabs = this.tabs;
@@ -146,13 +156,6 @@ export default {
       });
       return rlt;
     },
-    toTop(){
-      // alert();
-      // document.body.scrollTop=0;
-     // document.scrollTo(0,0)
-    //  alert();
-      window.scrollTo(0,0);
-    }
   },
 };
 </script>
