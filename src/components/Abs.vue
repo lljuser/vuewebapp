@@ -131,12 +131,12 @@ export default {
     clearPath() {
         this.showHeader = false;
         // this.path = '';
-        if(new RegExp(/tradedetail/i).test(this.$route.name))
+        if(new RegExp(/tradedetail/i).test(this.$route.name) && "fromAbs" in this.$route.query )
         {
           Router.push({path:"/trade"});
         }
         else{
-            history.back();
+           history.back();
         }
     },
     getRouterIndex() {
