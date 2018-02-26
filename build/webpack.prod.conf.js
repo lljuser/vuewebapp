@@ -122,6 +122,18 @@ const webpackConfig = merge(baseWebpackConfig, {
         removeAttributeQuotes: true 
       },
     }),
+    new HtmlWebpackPlugin({
+      filename: cnabsConfig.login.output,
+      template: cnabsConfig.login.tmpl,
+      chunks: [ 'vendor','manifest','cnabs', cnabsConfig.login.name ],
+      chunksSortMode: 'dependency',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true 
+      },
+    }),
     // keep module.id stable when vender modules does not change
     new webpack.HashedModuleIdsPlugin(),
     // enable scope hoisting

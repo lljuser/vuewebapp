@@ -73,6 +73,12 @@ module.exports = {
         tmpl: resovePublicFile('organDeal').path,
         output: resovePublicFile('organDeal').filename
     },
+    login:{
+        name: 'login',
+        entry: resoveEntryFile('login').path,
+        tmpl: resovePublicFile('login').path,
+        output: resovePublicFile('login').filename
+    },
 }
 
 

@@ -27,6 +27,7 @@ module.exports = {
     expert: cnabsConfig.expert.entry,
     product: cnabsConfig.product.entry,
     trade: cnabsConfig.trade.entry,
+    login:cnabsConfig.login.entry,
   },
   output: {
     path: config.build.assetsRoot,
