@@ -103,7 +103,7 @@
                       <div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">
                         <div v-if="linkDisable">{{item.Name}}</div>
                         <router-link v-else-if="!isfromExp" :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link>
-                        <a v-else :href="`abs.html#/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</a>
+                        <a style="color:#ffc446" v-else :href="`abs.html#/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</a>
                       </div>
                     </td>
                     <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
@@ -229,9 +229,20 @@ export default {
         var backPathstr="";
         switch(fromtab)
         {
-          case "securityDetail":{  vm.linkDisable=true;backPathstr="/securityDetail/"+to.query.id;break;}
-          case "organDetail":{backPathstr="/organDetail/"+to.query.id;break;}
-          case "organDeal":{vm.linkDisable=false;backPathstr="/organDeal/"+to.query.dealid;break}
+          case "securityDetail":{  
+            //vm.linkDisable=true;
+            backPathstr="/securityDetail/"+to.query.id;
+            break;
+            }
+          case "organDetail":{
+            backPathstr="/organDetail/"+to.query.id;
+            break;
+            }
+          case "organDeal":{
+            vm.linkDisable=false;
+            backPathstr="/organDeal/"+to.query.dealid;
+            break;
+            }
           default:{vm.linkDisable=false;break;}
         }
         if(backPathstr!="")
@@ -267,7 +278,7 @@ export default {
             document.getElementById("productDetailDiv").style.paddingTop="56px";
           }
       }
-     
+      
      
 
     });

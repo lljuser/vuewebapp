@@ -391,7 +391,7 @@ export default {
 
       var reg = new RegExp(/\/ProductDetail\//i);
       if (reg.test(from.path) && from.query.fromtab != "securityDetail") {
-        vm.linkDisable = true;
+        // vm.linkDisable = true;
       } else {
         vm.linkDisable = false;
       }
