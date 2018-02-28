@@ -5,59 +5,89 @@
     </div>
     <div class="appH5_content" v-else>
       <div class="appH5_panel appH5_panel_mb">
-          <div class="appH5_title">
-              <span>产品要素</span>
-          </div>
-            <table class="appH5_list_two" v-if="productDetail.Basic!=null">
-                <tr>
-                    <td>产品名称</td>
-                    <td>{{productDetail.Basic.DealNameChinese}}</td>
-                </tr>
-                <tr>
-                <td>产品分类</td>
-                <td>
-                    <div>
-                      <div v-if='linkDisable'>{{productDetail.Basic.ProductType}}</div>
-                      <router-link v-else-if='!isfromExp' :to="`/product/${productDetail.Basic.ProductTypeId}`">
-                       <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
-                      </router-link>
-                      <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}`" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
-                    </div>
-                    <div style="display:inline-flex">
-                      &nbsp;└&nbsp;
-                    <div v-if='linkDisable'>{{productDetail.Basic.DealType}}</div>
-                      <router-link  v-else-if='!isfromExp' v-bind:to="`/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`"> 
-                        <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a>
-                      </router-link>
-                      <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
-                    </div>
-                    <div v-if="productDetail.Basic.AssetSubCategoryId!=null">
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└&nbsp;
-                      {{productDetail.Basic.AssetSubCategory}}
-                    </div>
+          <div v-if="productDetail.Basic!=null">
+            <div>{{productDetail.Basic.DealNameChinese}}</div>
+            <table class="appH5_list_five">
+              <tr>
+                <td colspan="2" rowspan="2" class="appH5_color_red">
+                  <span class="appH5_font_largest">{{productDetail.Basic.TotalOffering}}</span>
+                  <span class="appH5_font_normal">亿</span>
                 </td>
-                </tr>
-                <tr>
-                <td>产品状态</td>
-                <td>{{productDetail.Basic.CurrentStatus}}</td>
-                </tr>
-                <tr>
-                <td>成立日期</td>
-                <td v-if="productDetail.Basic.ClosingDate!=null">{{productDetail.Basic.ClosingDate.toString() | moment("YYYY年MM月DD日")}}</td>
-                <td v-else>-</td>
-                </tr>
-                <tr>
-                <td>发起机构</td>
-                <td>
-                    <div v-if="productDetail.Basic.DealOriginator!==null"><span v-for="(item,index) in productDetail.Basic.DealOriginator" style="display:block">{{item}}</span></div>
-                    <div v-else>-</div>
+                <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">
+		              <div v-if="productDetail.Basic.ClosingDate!=null">
+                    <span>{{productDetail.Basic.ClosingDate.toString() | moment("YYYY-MM-DD")}}</span>
+                    <span>成立</span>
+		              </div>
+		              <div v-else>暂无成立时间</div>
                 </td>
-                </tr>
-                <tr>
-                <td style="vertical-align: middle;">金额(亿)</td>
-                <td class="appH5_font_largest appH5_color_red">{{productDetail.Basic.TotalOffering}}</td>
-                </tr>
-          </table>
+                <td class="appH5_color_skyblue appH5_vertical_bottom appH5_font_smaller appH5_white_space appH5_padding_top12">
+                  {{productDetail.Basic.CurrentStatus}}
+                </td>                                
+              </tr>
+              <tr>
+                <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">
+                  {{productDetail.Basic.Exchange}}
+                </td>  
+                <td class="appH5_color_skyblue appH5_font_smaller appH5_white_space appH5_vertical_top">
+                  {{productDetail.Basic.Reinvestment}}
+                </td>                               
+              </tr>
+            </table> 
+            <div class="appH5_inner_panel appH5_important_div">
+              <div class="appH5_important_item">
+                <div v-if="productDetail.Basic.DealOriginator!=null">
+                  <div v-show="productDetail.Basic.DealOriginator.length>1" class="appH5_font_large appH5_margin_bottom10 appH5_ellipsis organEllipsis">{{productDetail.Basic.Originator}}</div>
+                  <div v-show="productDetail.Basic.DealOriginator.length==1" class="appH5_color_link appH5_font_large appH5_margin_bottom10">
+                    <router-link :to="`../../OrganDetail/${ productDetail.Basic.OriginatorId}`" class="appH5_ellipsis organEllipsis">
+                    {{productDetail.Basic.Originator}}
+                    </router-link>
+                  </div>
+                </div>
+		            <div v-else class="appH5_font_large appH5_margin_bottom10 appH5_ellipsis organEllipsis">-</div>
+                <div class="appH5_color_green appH5_font_smaller appH5_ellipsis organEllipsis">{{productDetail.Basic.OriginatorTitle}}</div>
+              </div>
+              <div class="appH5_important_item">
+                <div v-if="productDetail.Basic.LeadUnderwriter!='-'" class="appH5_color_link appH5_font_large appH5_margin_bottom10">
+                  <router-link :to="`../../OrganDetail/${ productDetail.Basic.LeadUnderwriterId}`" class="appH5_ellipsis organEllipsis">{{productDetail.Basic.LeadUnderwriter}}</router-link>
+                </div>
+                <div v-else class="appH5_font_large appH5_margin_bottom10 appH5_ellipsis organEllipsis">{{productDetail.Basic.LeadUnderwriter}}</div>
+                <div class="appH5_color_green appH5_font_smaller appH5_ellipsis organEllipsis">{{productDetail.Basic.LeadUnderwriterTitle}}</div>
+              </div>
+              <div class="appH5_important_item">
+                <div v-if="productDetail.Basic.Issuer!='-'" class="appH5_color_link appH5_font_large appH5_margin_bottom10">
+                  <router-link :to="`../../OrganDetail/${ productDetail.Basic.IssuerId}`" class="appH5_ellipsis organEllipsis">{{productDetail.Basic.Issuer}}</router-link>
+                </div>
+                <div v-else class="appH5_font_large appH5_margin_bottom10 appH5_ellipsis organEllipsis">{{productDetail.Basic.Issuer}}</div>
+                <div class="appH5_color_green appH5_font_smaller appH5_ellipsis organEllipsis">{{productDetail.Basic.IssuerTitle}}</div>
+              </div>                         
+            </div>           
+          </div>          
+    </div>
+    <div class="appH5_panel appH5_panel_mb">
+        <div class="appH5_title">
+              <span>产品分类</span>
+        </div>
+        <div style="padding-left:0.4rem;" v-if="productDetail.Basic!=null">
+        <div>
+          <div v-if='linkDisable'>{{productDetail.Basic.ProductType}}</div>
+          <router-link v-else-if='!isfromExp' :to="`/product/${productDetail.Basic.ProductTypeId}`">
+            <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
+          </router-link>
+          <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}`" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
+        </div>
+        <div style="display:inline-flex">
+          &nbsp;└&nbsp;
+          <div v-if='linkDisable'>{{productDetail.Basic.DealType}}</div>
+          <router-link  v-else-if='!isfromExp' v-bind:to="`/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`">
+            <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a>          
+          </router-link>
+          <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
+        </div>
+        <div v-if="productDetail.Basic.AssetSubCategoryId!=null"> 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└&nbsp;
+          {{productDetail.Basic.AssetSubCategory}}
+        </div> 
+        </div>                               
     </div>
     <div class="appH5_panel appH5_panel_mb">
         <div class="appH5_title">
@@ -167,6 +197,10 @@
 .structureTable span {
   vertical-align: middle;
   padding-left: 0.2rem;
+}
+.organEllipsis{
+  display:inline-block;
+  width:2.8rem;
 }
 </style>
 
