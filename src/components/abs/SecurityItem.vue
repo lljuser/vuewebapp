@@ -5,7 +5,7 @@
       <div v-if="item.RepaymentOfPrincipal=='过'" class="appH5_square_ch_char appH5_bg_passthrough">{{item.RepaymentOfPrincipal}}</div>      
     </td>
     <td> 
-      <router-link :to="`../../securityDetail/${ item.NoteId}`" class="appH5_color_link appH5_float_left" style="width:100%"> 
+      <router-link :to="`../../securityDetail/${ item.NoteId}`" class="appH5_color_link appH5_float_left" style="width:100%" @click.native='setOriginPath'> 
        <div class='td_elips1'> {{ item.Description }}</div>
       </router-link></td>
     <td style="font-size:17px" class="text-right" >
@@ -16,23 +16,19 @@
 </template>
 
 <script>
-import { Toast } from "mint-ui";
+import BusUtil from "./BusUtil";
+const busUtil = BusUtil.getInstance();
 
 export default {
   name: "securityItem",
   props: ["id", "item"],
   mounted() {},
   data() {
-    return {
-      msg: "Welcome to Your Vue.js App"
-    };
+    return {};
   },
   methods: {
-    onClick() {
-      const instance = Toast("提示信息");
-      setTimeout(() => {
-        instance.close();
-      }, 2000);
+    setOriginPath() {
+      busUtil.bus.$emit("originPath", "security");
     }
   }
 };

@@ -69,52 +69,67 @@
 </div>
 </template>
 <script>
-import BusUtil from './BusUtil';
-import * as webApi from '@/config/api';
+import BusUtil from "./BusUtil";
+import * as webApi from "@/config/api";
 import TradeItem from "./TradeItem";
-import axios from 'axios';  
-import { Toast } from 'mint-ui';
+import axios from "axios";
+import { Toast } from "mint-ui";
 
 export default {
   name: "trade",
   data() {
     return {
       list: [],
-      walbuckList:[],
-      couponList:[],
-      ratingList:[],
+      walbuckList: [],
+      couponList: [],
+      ratingList: [],
       loading: false,
-      TradeRating:"0",
-      TradeCoupon:"0",
-      TradeWalbuck:"0",
+      TradeRating: "0",
+      TradeCoupon: "0",
+      TradeWalbuck: "0",
       page: 1,
-      pageSize:15,
-      direction:0,
-      isTradeLoading:false,
-      isFetchTradesError:false,
-      noMore:false,
-      isLoadTop:false
+      pageSize: 15,
+      direction: 0,
+      isTradeLoading: false,
+      isFetchTradesError: false,
+      noMore: false,
+      isLoadTop: false
     };
   },
-   activated() {
-    this.loading = false;     
+  beforeRouteLeave: (to, from, next) => {
+    if (new RegExp(/tradeDetail/i).test(to.name)) {
+      let top = document.documentElement.scrollTop || document.body.scrollTop;
+      sessionStorage.setItem("listScrollTop", top);
+    } else {
+      sessionStorage.setItem("listScrollTop", 0);
+    }
+    next();
+  },
+  activated() {
+    //设置为历史滚动条高度
+    var listScrollTop = sessionStorage.getItem("listScrollTop");
+    if (listScrollTop != 0) {
+      setTimeout(() => {
+        window.scrollTo(0, listScrollTop);
+      }, 0);
+    }
+
+    this.loading = false;
     const busUtil = BusUtil.getInstance();
-    busUtil.bus.$emit('showHeader', false);
+    busUtil.bus.$emit("showHeader", false);
 
     var gradeIdParam = this.$route.params.gradeId;
-    var couponIdParam=this.$route.params.couponId;
-    var reLoadData=false;
-    if(gradeIdParam!=null && gradeIdParam!="0" )
-    {
-      this.TradeRating= gradeIdParam;
-      reLoadData=true;
+    var couponIdParam = this.$route.params.couponId;
+    var reLoadData = false;
+    if (gradeIdParam != null && gradeIdParam != "0") {
+      this.TradeRating = gradeIdParam;
+      reLoadData = true;
     }
-    if(couponIdParam!=null && couponIdParam!="0" )
-    {
-      this.TradeCoupon= couponIdParam;
-      reLoadData=true;
+    if (couponIdParam != null && couponIdParam != "0") {
+      this.TradeCoupon = couponIdParam;
+      reLoadData = true;
     }
-    if(reLoadData){
+    if (reLoadData) {
       this.loadFirstPageTrades();
     }
 
@@ -122,130 +137,145 @@ export default {
       this.loadFirstPageTrades();
     }
   },
-  mounted(){
+  mounted() {
     this.isTradeLoading = true;
     setTimeout(() => {
       this.loadFirstPageTrades();
       this.loadSelectOptions();
     }, 600);
   },
-  deactivated(){
+  deactivated() {
     //防止其他组件滚动时，此组件调用loadMore方法
-    this.loading=true;
+    this.loading = true;
   },
-  methods:{ 
-    loadSelectOptions(){
-      this.getWalbuckList(data=>{
+  methods: {
+    loadSelectOptions() {
+      this.getWalbuckList(data => {
         this.walbuckList = data;
       });
-      this.getCouponList(data=>{
-        this.couponList=data;
+      this.getCouponList(data => {
+        this.couponList = data;
       });
-      this.getRatingList(data=>{
-        this.ratingList=data;
+      this.getRatingList(data => {
+        this.ratingList = data;
       });
     },
-    loadFirstPageTrades(showSpinnerLoad){
+    loadFirstPageTrades(showSpinnerLoad) {
       this.isTradeLoading = true;
-      if(showSpinnerLoad!=null)this.isTradeLoading = false;
+      if (showSpinnerLoad != null) this.isTradeLoading = false;
       this.loading = false;
       setTimeout(() => {
-        this.fetchTrades(1,0, data => {
+        this.fetchTrades(1, 0, data => {
           this.list = data;
           this.isTradeLoading = false;
-          this.page=1;
-          if(data.length<this.pageSize)
-          {
-            this.noMore=true;
+          this.page = 1;
+          if (data.length < this.pageSize) {
+            this.noMore = true;
           }
-          if(showSpinnerLoad!=null) this.$refs.loadmore.onTopLoaded();
+          if (showSpinnerLoad != null) this.$refs.loadmore.onTopLoaded();
         });
       }, 600);
-    },  
-    fetchTrades(page, direction,callback) {
-      var url=webApi.Trade.list;
-      url=url+"/"+this.TradeRating+"/"+this.TradeCoupon+"/"+this.TradeWalbuck;
-      url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
-      axios.post(url).then((response) => { 
-        const data = response.data.data;
-        if (data) {
-          callback(data);
-          if(data.length==0){
-            this.loading=true;
-            this.noMore=true;
+    },
+    fetchTrades(page, direction, callback) {
+      var url = webApi.Trade.list;
+      url =
+        url +
+        "/" +
+        this.TradeRating +
+        "/" +
+        this.TradeCoupon +
+        "/" +
+        this.TradeWalbuck;
+      url =
+        url +
+        "/" +
+        direction +
+        "/" +
+        page * this.pageSize +
+        "/" +
+        this.pageSize;
+      axios
+        .post(url)
+        .then(response => {
+          const data = response.data.data;
+          if (data) {
+            callback(data);
+            if (data.length == 0) {
+              this.loading = true;
+              this.noMore = true;
+            }
+            this.isFetchTradesError = false;
+            this.isLoadTop = false;
+          } else {
+            this.doCatch();
           }
-          this.isFetchTradesError=false;
-          this.isLoadTop=false;
-        }
-        else{
+        })
+        .catch(error => {
           this.doCatch();
-        }
-      }).catch((error)=>{    
-        this.doCatch();
-      });    
+        });
     },
 
-    doCatch(){
-        Toast('服务器繁忙，请重试！');    
-        this.loading = false;
-        this.isTradeLoading=false;
-        this.isFetchTradesError=true;
-        if(this.isLoadTop){
-          setTimeout(() => {
-            this.$refs.loadmore.onTopLoaded();
-          }, 4000);
-        }
+    doCatch() {
+      Toast("服务器繁忙，请重试！");
+      this.loading = false;
+      this.isTradeLoading = false;
+      this.isFetchTradesError = true;
+      if (this.isLoadTop) {
+        setTimeout(() => {
+          this.$refs.loadmore.onTopLoaded();
+        }, 4000);
+      }
     },
 
-    loadTop(){
-      this.isLoadTop=true;
+    loadTop() {
+      this.isLoadTop = true;
       this.timer = setTimeout(() => {
         this.loadFirstPageTrades(true);
         this.loadSelectOptions();
-      }, 600);   
+      }, 600);
     },
 
-    loadMore(){
+    loadMore() {
       this.loading = true;
-      this.noMore=false;
+      this.noMore = false;
       setTimeout(() => {
-        this.fetchTrades(this.page, 1,data => {
+        this.fetchTrades(this.page, 1, data => {
           this.list = this.list.concat(data);
           this.page = this.page + 1;
           this.loading = false;
         });
       }, 300);
     },
-    getWalbuckList(callback){ 
-      axios.post(webApi.Trade.walbuckList).then((response) => { 
+    getWalbuckList(callback) {
+      axios.post(webApi.Trade.walbuckList).then(response => {
         const data = response.data.data;
-        if(data && data.length > 0){
+        if (data && data.length > 0) {
           callback(data);
         }
       });
     },
-    getCouponList(callback){
-      axios.post(webApi.Trade.couponList).then((response) => { 
-        const data=response.data.data;        
-        if(data && data.length > 0 ){
-          callback(data);          
-        }
-      });      
-    },
-    getRatingList(callback){
-      axios.post(webApi.Trade.ratingList).then((response) => { 
-        const data=response.data.data;        
-        if(data && data.length > 0 ){
-          callback(data);          
+    getCouponList(callback) {
+      axios.post(webApi.Trade.couponList).then(response => {
+        const data = response.data.data;
+        if (data && data.length > 0) {
+          callback(data);
         }
       });
     },
-    selectChange(){
-      this.loadFirstPageTrades();
+    getRatingList(callback) {
+      axios.post(webApi.Trade.ratingList).then(response => {
+        const data = response.data.data;
+        if (data && data.length > 0) {
+          callback(data);
+        }
+      });
     },
+    selectChange() {
+      this.loadFirstPageTrades();
+    }
   },
   components: {
-    TradeItem,
+    TradeItem
   }
 };
 </script>
@@ -267,27 +297,27 @@ li {
 a {
   color: #ffc446;
 }
-.trade_select_div select{
+.trade_select_div select {
   min-width: 2.6rem;
 }
 .trade_select_div div {
-   width:33%;
-   float: left;
+  width: 33%;
+  float: left;
 }
- .th_tworows{
-   padding:0 0.146667rem 0 0;
- }
+.th_tworows {
+  padding: 0 0.146667rem 0 0;
+}
 .trade_select_div div:last-child {
-    width:34%;
-    text-align: right;
+  width: 34%;
+  text-align: right;
 }
 .trade_select_div select {
-  width:90%;
+  width: 90%;
   border-radius: 0;
 }
 
-#tradeTableId th:nth-of-type(3){
-width: 55px;
+#tradeTableId th:nth-of-type(3) {
+  width: 55px;
 }
 
 /* #tradeTableId th:nth-of-type(3){

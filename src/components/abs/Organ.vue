@@ -24,26 +24,6 @@
         </td>
       </tr>
     </table>
- 
-
-
-      <!-- <table id="productTableId" class="appH5_table">
-        <tr>
-          <th>产品名称</th>
-          <th class="text-right">总额(亿)</th>
-          <th class="text-right">产品分类</th>
-        </tr>
-        <tbody  v-infinite-scroll="loadMore"
-          infinite-scroll-disabled="loading"
-          infinite-scroll-immediate-check="true"
-          infinite-scroll-distance="55">
-          <ProductItem 
-            v-for="(item, index) in list" 
-            :item="item"
-            :id="index"
-            :key="index"/>
-        </tbody>
-    </table> -->
     <mt-loadmore :top-method="loadTop"  ref="loadmore">
       <table id="productTableId" class="appH5_table">
         <tr>
@@ -111,6 +91,15 @@ export default {
       isLoadTop:false
     };
   },
+  beforeRouteLeave: (to, from, next) => {
+    if (new RegExp(/organDetail/i).test(to.name)) {
+      let top = document.documentElement.scrollTop || document.body.scrollTop;
+      sessionStorage.setItem("listScrollTop", top);
+    }else{
+      sessionStorage.setItem("listScrollTop", 0);
+    }
+    next();
+  },
   mounted() {
     this.isProductLoading = true;
     this.timer = setTimeout(() => {
@@ -118,6 +107,14 @@ export default {
     }, 100);
   },
   activated() {
+  //设置为历史滚动条高度
+    var listScrollTop = sessionStorage.getItem("listScrollTop");
+    if (listScrollTop != 0) {
+      setTimeout(() => {
+        window.scrollTo(0, listScrollTop);
+      }, 0);
+    }
+
     document.body.scrollTop=0;
     this.loading = false;
     const busUtil = BusUtil.getInstance();

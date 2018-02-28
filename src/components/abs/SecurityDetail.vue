@@ -88,14 +88,14 @@
                         <span style="color:white">{{securityDetail.Basic.AssetSubCategory}}</span>
                         <div>
                             <span>L</span>
-                            <div v-if="linkDisable" style="display:inline-flex">{{securityDetail.Basic.DealName}}</div>
-                            <router-link v-else :to="`/productDetail/${securityDetail.Basic.DealId}?fromtab=securityDetail&id=${id}${noheader?'&noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
+                            <div v-if="linkDisable">{{securityDetail.Basic.DealName}}</div>
+                            <router-link style="display:inline-flex" v-else :to="`/productDetail/${securityDetail.Basic.DealId}?fromtab=securityDetail&id=${id}${noheader?'&noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
                         </div>
                     </div>
                     <div v-else>
                         <span>L</span>
-                        <div v-if="linkDisable" style="display:inline-flex">{{securityDetail.Basic.DealName}}</div>
-                        <router-link v-else :to="`/productDetail/${securityDetail.Basic.DealId}?fromtab=securityDetail&id=${id}${noheader?'&noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
+                        <div v-if="linkDisable">{{securityDetail.Basic.DealName}}</div>
+                        <router-link style="display:inline-flex" v-else :to="`/productDetail/${securityDetail.Basic.DealId}?fromtab=securityDetail&id=${id}${noheader?'&noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
                     </div>
                 </div>
             </div>
@@ -347,6 +347,7 @@ import VueHighcharts from "vue-highcharts";
 import Highcharts from "highcharts";
 import getParams from "../../public/js/getParams";
 import { NoteStructure } from "../../public/js/NoteStructure.js";
+import util from "@/public/modules/expert/utils";
 
 // some charts like solid gauge require `highcharts-more.js`, you can find it in official demo.
 import * as chartTheme from "@/public/js/chartTheme";
@@ -377,34 +378,71 @@ export default {
   },
   beforeRouteEnter: (to, from, next) => {
     next(vm => {
-      if (from.path != "/" && from.query.fromtab != "securityDetail") {
-        var queryObj = from.query;
-        let pathStr = from.path + "?";
-        for (var obj in queryObj) {
-          pathStr = pathStr + obj + "=" + queryObj[obj] + "&";
+      if(!to.meta.fromExp)
+      {
+        busUtil.bus.$emit('showHeader', true);
+        if (from.path != "/" && from.query.fromtab != "securityDetail") {
+          var queryObj = from.query;
+          let pathStr = from.path + "?";
+          for (var obj in queryObj) {
+            pathStr = pathStr + obj + "=" + queryObj[obj] + "&";
+          }
+          pathStr = pathStr.replace(/&$/g, "");
+          busUtil.bus.$emit("path", pathStr);
+        } else {
+          busUtil.bus.$emit("path", "/security");
         }
-        pathStr = pathStr.replace(/&$/g, "");
-        busUtil.bus.$emit("path", pathStr);
-      } else {
-        busUtil.bus.$emit("path", "/security");
-      }
 
-      var reg = new RegExp(/\/ProductDetail\//i);
-      if (reg.test(from.path) && from.query.fromtab != "securityDetail") {
-        // vm.linkDisable = true;
-      } else {
-        vm.linkDisable = false;
+        var reg = new RegExp(/\/ProductDetail\//i);
+        if (reg.test(from.path) && from.query.fromtab != "securityDetail") {
+          // vm.linkDisable = true;
+        } else {
+          vm.linkDisable = false;
+        }
+
+        if(vm.$route.query.noheader=="1")
+        {
+            busUtil.bus.$emit('noHeader', true);
+            document.getElementById("securityDetailDiv").style.paddingTop=0;
+            vm.linkDisable=true;
+            vm.noheader=true;
+        }
+        else{
+            busUtil.bus.$emit('noHeader', false);
+            document.getElementById("securityDetailDiv").style.paddingTop="56px";
+            vm.noheader=false;
+        }
+      }
+      else{
+          busUtil.bus.$emit("path", "fromAbs");
+          vm.isfromExp=true;
+          var querys= util.getQueryString();
+          if( (to.query.isShowHeader==null || to.query.isShowHeader==false) && !new RegExp(/isShowHeader=true/i).test(location.href))
+          {
+            busUtil.bus.$emit('showHeader', false);
+            document.getElementById("securityDetailDiv").style.paddingTop=0;
+          }
+          else{
+            busUtil.bus.$emit('showHeader', true);
+            busUtil.bus.$emit('showClose', true,querys.path);
+            document.getElementById("securityDetailDiv").style.paddingTop="56px";
+          }
+
       }
     });
   },
 
   beforeRouteUpdate(to, from, next) {
-    this.loadData(to.params.id);
+      this.loadData(to.params.id);
   },
 
   created() {
     // this.tableFlag=0;
     //this.loadData();
+    if(this.$route.meta.fromExp)
+    {
+      this.loadData();
+    }
   },
   mounted() {},
   updated() {},
@@ -423,23 +461,11 @@ export default {
       this.ExpectFlag = 0;
       window.scrollTo(0, 0);
 
-      busUtil.bus.$emit("showHeader", true);
+      // busUtil.bus.$emit("showHeader", true);
       busUtil.bus.$emit("headTitle", "证券信息");
 
-      if (this.$route.query.noheader == "1") {
-        busUtil.bus.$emit("noHeader", true);
-        document.getElementById("securityDetailDiv").style.paddingTop = 0;
-        this.noheader = true;
-      } else {
-        busUtil.bus.$emit("noHeader", false);
-        document.getElementById("securityDetailDiv").style.paddingTop = "56px";
-        this.noheader = false;
-      }
-
       this.id = id == null ? this.$route.params.id : id;
-      
-      //     if(this.id==null)this.id=this.$route.query.id;
-      //    debugger;
+ 
       if (this.id) {
         setTimeout(() => {
           this.fetchSecurityDetail(this.id, data => {
@@ -498,7 +524,8 @@ export default {
           NoteStructure({
             container: "noteStructure",
             data: response.data.data.Notes,
-            width: 220
+            // width: 220,
+            fromExp:this.isfromExp,
           });
         } else {
           this.NoteStructureFlag = false;

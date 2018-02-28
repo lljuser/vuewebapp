@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td class="text-left">
-      <router-link :to="`../../productDetail/${ item.DealId}?fromtab=product`" class="appH5_color_link" style=""  >
+      <router-link :to="`../../productDetail/${ item.DealId}?fromtab=product`" class="appH5_color_link" @click.native="setOriginPath">
        <div class='td_elips1'> {{ item.DealName }}</div>
       </router-link>
     </td>
@@ -12,7 +12,8 @@
 
 <script>
 import { Toast } from 'mint-ui';
-
+import BusUtil from "./BusUtil";
+const busUtil = BusUtil.getInstance();
 export default {
   name: 'productItem',
   props: ['id', 'item'],
@@ -20,17 +21,14 @@ export default {
   },
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
     };
   },
   methods: {
-    onClick() {
-      const instance = Toast('提示信息');
-      setTimeout(() => {
-        instance.close();
-      }, 2000);
+    setOriginPath() {
+      busUtil.bus.$emit("originPath", 'product');
     },
   },
+ 
 };
 </script>
 

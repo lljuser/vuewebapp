@@ -74,32 +74,41 @@
 </div>
 </template>
 
-<script> 
-import BusUtil from './BusUtil';
-import * as webApi from '@/config/api';
-import SecurityItem from './SecurityItem';
-import axios from 'axios';
-import { Toast } from 'mint-ui';
-import 'mint-ui/lib/style.css'
+<script>
+import BusUtil from "./BusUtil";
+import * as webApi from "@/config/api";
+import SecurityItem from "./SecurityItem";
+import axios from "axios";
+import { Toast } from "mint-ui";
+import "mint-ui/lib/style.css";
 export default {
   name: "security",
   data() {
     return {
       list: [],
       page: 1,
-      pageSize:15,
+      pageSize: 15,
       loading: false,
       YearVal: "0",
       DealTypeVal: "0",
       TrancheVal: "0",
-      Year:[],
-      DealType:[],
-      Tranche:[],
+      Year: [],
+      DealType: [],
+      Tranche: [],
       isProductLoading: false,
       isFetchProductsError: false,
-      noMore:false,
-      isLoadTop:false
+      noMore: false,
+      isLoadTop: false
     };
+  },
+  beforeRouteLeave: (to, from, next) => {
+    if (new RegExp(/securityDetail/i).test(to.name)) {
+      let top = document.documentElement.scrollTop || document.body.scrollTop;
+      sessionStorage.setItem("listScrollTop", top);
+    } else {
+      sessionStorage.setItem("listScrollTop", 0);
+    }
+    next();
   },
   mounted() {
     this.isProductLoading = true;
@@ -108,23 +117,28 @@ export default {
     }, 600);
   },
   activated() {
+    //设置为历史滚动条高度
+    var listScrollTop = sessionStorage.getItem("listScrollTop");
+    if (listScrollTop != 0) {
+      setTimeout(() => {
+        window.scrollTo(0, listScrollTop);
+      }, 0);
+    }
     this.loading = false;
     const busUtil = BusUtil.getInstance();
-    busUtil.bus.$emit('showHeader', false);
+    busUtil.bus.$emit("showHeader", false);
     var productTypeParam = this.$route.params.productType;
-    var dealTypeParam=this.$route.params.dealType;
-    var reLoadData=false;    
-    if(productTypeParam!=null )
-    {
-      this.YearVal= productTypeParam;
-      reLoadData=true;
+    var dealTypeParam = this.$route.params.dealType;
+    var reLoadData = false;
+    if (productTypeParam != null) {
+      this.YearVal = productTypeParam;
+      reLoadData = true;
     }
-    if(dealTypeParam!=null && dealTypeParam!="0" )
-    {
-      this.DealTypeVal= dealTypeParam;
-      reLoadData=true;
+    if (dealTypeParam != null && dealTypeParam != "0") {
+      this.DealTypeVal = dealTypeParam;
+      reLoadData = true;
     }
-    if(reLoadData){
+    if (reLoadData) {
       this.loadFirstPageProducts();
     }
 
@@ -142,33 +156,32 @@ export default {
     loadFirstPageProducts(showSpinnerLoad) {
       this.loading = false;
       this.isProductLoading = true;
-      if(showSpinnerLoad!=null)this.isProductLoading = false;
+      if (showSpinnerLoad != null) this.isProductLoading = false;
       setTimeout(() => {
-        this.fetchProducts(1,0, data => {
+        this.fetchProducts(1, 0, data => {
           this.list = data;
           this.isProductLoading = false;
-          this.page=1;
-          if(data.length<this.pageSize)
-          {
-            this.noMore=true;
+          this.page = 1;
+          if (data.length < this.pageSize) {
+            this.noMore = true;
           }
-          if(showSpinnerLoad!=null) this.$refs.loadmore.onTopLoaded();
+          if (showSpinnerLoad != null) this.$refs.loadmore.onTopLoaded();
         });
       }, 600);
     },
 
-    loadTop(){
-      this.isLoadTop=true;
+    loadTop() {
+      this.isLoadTop = true;
       this.timer = setTimeout(() => {
         this.loadFirstPageProducts(true);
-      }, 600);   
+      }, 600);
     },
 
     loadMore() {
       this.loading = true;
-      this.noMore=false;
+      this.noMore = false;
       setTimeout(() => {
-        this.fetchProducts(this.page,1, data => {
+        this.fetchProducts(this.page, 1, data => {
           this.list = this.list.concat(data);
           this.page = this.page + 1;
           this.loading = false;
@@ -176,57 +189,71 @@ export default {
       }, 600);
     },
 
-
-    fetchProducts(page,direction,callback) {
-      var url=webApi.Security.list;
-      url=url+"/"+this.YearVal+"/"+this.DealTypeVal+"/"+this.TrancheVal;
-      url=url+"/"+direction+"/"+page*this.pageSize+"/"+this.pageSize;
-      axios.post(url).then((response) => { 
-        const data = response.data.data;
-        if (data) {
-            var YearSel=data.Year.filter(x=>x.Selected==true);
-            this.YearVal=YearSel.length>0?YearSel[0].Value:"";
-            var dealTypeSel=data.DealType.filter(x=>x.Selected==true)
-            this.DealTypeVal=dealTypeSel.length>0?dealTypeSel[0].Value:"";
-            var TrancheSel=data.Tranche.filter(x=>x.Selected==true);
-            this.TrancheVal=TrancheSel.length>0?TrancheSel[0].Value:"";
-            this.Year=data.Year;
-            this.DealType=data.DealType;
-            this.Tranche=data.Tranche;
+    fetchProducts(page, direction, callback) {
+      var url = webApi.Security.list;
+      url =
+        url +
+        "/" +
+        this.YearVal +
+        "/" +
+        this.DealTypeVal +
+        "/" +
+        this.TrancheVal;
+      url =
+        url +
+        "/" +
+        direction +
+        "/" +
+        page * this.pageSize +
+        "/" +
+        this.pageSize;
+      axios
+        .post(url)
+        .then(response => {
+          const data = response.data.data;
+          if (data) {
+            var YearSel = data.Year.filter(x => x.Selected == true);
+            this.YearVal = YearSel.length > 0 ? YearSel[0].Value : "";
+            var dealTypeSel = data.DealType.filter(x => x.Selected == true);
+            this.DealTypeVal =
+              dealTypeSel.length > 0 ? dealTypeSel[0].Value : "";
+            var TrancheSel = data.Tranche.filter(x => x.Selected == true);
+            this.TrancheVal = TrancheSel.length > 0 ? TrancheSel[0].Value : "";
+            this.Year = data.Year;
+            this.DealType = data.DealType;
+            this.Tranche = data.Tranche;
             callback(data.Note);
-            if(data.Note.length==0){ 
-              this.loading=true;
-              this.noMore=true;
+            if (data.Note.length == 0) {
+              this.loading = true;
+              this.noMore = true;
             }
             this.isFetchProductsError = false;
-            this.isLoadTop=false;
-        }
-        else{
-           this.doCatch();
-        }
-      }).catch((error) => {
-        this.doCatch();
-      });
-    }, 
-
-    doCatch(){
-        Toast('服务器繁忙，请重试！');
-        this.loading = false;
-        this.isProductLoading = false;
-        this.isFetchProductsError = true;
-        if(this.isLoadTop){
-          setTimeout(() => {
-            this.$refs.loadmore.onTopLoaded();
-          }, 4000);
-        }
-        //if(showSpinnerLoad!=null) this.$refs.loadmore.onTopLoaded();
+            this.isLoadTop = false;
+          } else {
+            this.doCatch();
+          }
+        })
+        .catch(error => {
+          this.doCatch();
+        });
     },
 
-    selectChange(){
+    doCatch() {
+      Toast("服务器繁忙，请重试！");
+      this.loading = false;
+      this.isProductLoading = false;
+      this.isFetchProductsError = true;
+      if (this.isLoadTop) {
+        setTimeout(() => {
+          this.$refs.loadmore.onTopLoaded();
+        }, 4000);
+      }
+      //if(showSpinnerLoad!=null) this.$refs.loadmore.onTopLoaded();
+    },
+
+    selectChange() {
       this.loadFirstPageProducts();
     }
-
-     
   },
   components: {
     SecurityItem
@@ -236,19 +263,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .select_div div {
-   width:33%;
-   float: left;
+  width: 33%;
+  float: left;
 }
 
 .select_div div:last-child {
-    width:34%;
-    text-align: right;
+  width: 34%;
+  text-align: right;
 }
 
 .select_div select {
-  width:90%;
+  width: 90%;
   border-radius: 0;
 }
 
@@ -264,16 +290,14 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-#productTableId{
+#productTableId {
   table-layout: fixed;
 }
 
-#productTableId th:nth-of-type(3){
-width: 67px;
+#productTableId th:nth-of-type(3) {
+  width: 67px;
 }
-#productTableId th:nth-of-type(4){
-width: 25%;
+#productTableId th:nth-of-type(4) {
+  width: 25%;
 }
-
-
 </style>

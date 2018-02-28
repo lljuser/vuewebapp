@@ -5,7 +5,7 @@
       <div v-if="item.TradeTypeId==2" class="appH5_bg_purple appH5_square_char">S</div>
     </td>
     <td class="text-left">
-      <router-link :to="`../../tradedetail/${ item.TradeId}/${ item.SecurityId}`" class="appH5_color_link">
+      <router-link :to="`../../tradedetail/${ item.TradeId}/${ item.SecurityId}`" class="appH5_color_link" @click.native='setOriginPath'>
         <div class='td_elips1'>{{item.SecurityName}}</div>
       </router-link>
     </td>
@@ -19,6 +19,9 @@
 </template>
 
 <script>
+import BusUtil from "./BusUtil";
+const busUtil = BusUtil.getInstance();
+
 export default {
   name: 'tradeItem',
   props: ['item'],
@@ -26,6 +29,12 @@ export default {
     return {
     };
   },
+    methods: {
+    setOriginPath() {
+      busUtil.bus.$emit("originPath", 'trade');
+    },
+  },
+
 };
 </script>
 

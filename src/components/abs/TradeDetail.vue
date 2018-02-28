@@ -53,7 +53,7 @@
               <td colspan="4" class="padtop1">
                   <span class="fl mr5 iphone5">参与专家</span>
                   <div class="fl" style="max-width: 6.9rem;">
-                    <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}?fromAbs=1`"  v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
+                    <a v-bind:href="`/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}?fromAbs=1`"  v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
                       <img class="touxiang" :src="item.AvatarPath"/>
                     </a>
                   </div>

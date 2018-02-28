@@ -138,7 +138,6 @@ export default {
     }, 600);
   },
   activated() {
-    document.body.scrollTop=0;
     this.loading = false;
     
     busUtil.bus.$emit('showHeader', true);

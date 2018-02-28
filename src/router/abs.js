@@ -126,12 +126,13 @@ export default new Router({
     },
   ],
   scrollBehavior(to, from, savedPosition) {
+    // console.log(savedPosition);
     if (savedPosition) {
       return savedPosition;
     }  
     return { x: 0, y: 0 };
   },
-  // history: true,
+  saveScrollPosition: true,
   // scrollBehavior: (to, from, savedPosition) => {
   //   if (savedPosition) {
   //     console.log(savedPosition);

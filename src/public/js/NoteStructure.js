@@ -1,10 +1,13 @@
+// import SecurityDetail from '@/components/abs/SecurityDetail';
 import router from '../../router/abs';
+import routerExp from '../../router/expert';
+
 // import router from ' ./router/abs';
 /*
  * @Author: CNABS 
  * @Date: 2018-02-02 11:18:42 
  * @Last Modified by: mingxia.dong
- * @Last Modified time: 2018-02-24 10:44:55
+ * @Last Modified time: 2018-02-28 09:23:51
  * @Function: Get Note Structure Html
  */
 /* eslint-disable */
@@ -97,11 +100,11 @@ function NoteStructure(options) {
             let data = options.data;
             let set = new Set();
             data.forEach(function(element) {
-                set.add(element.Name.subStr(0, 1));
+                set.add(element.Name.substr(0, 1));
             }, this);
 
             Array.from(set).forEach(function (item) {
-                scope.layerData.push(data.filter(r => r.Name.subStr(0, 1) == item));
+                scope.layerData.push(data.filter(r => r.Name.substr(0, 1) == item));
             });
         }
         //sperate layer due to different note rating
@@ -254,9 +257,13 @@ function NoteStructure(options) {
                     var pathStr = '/securityDetail/'+note.NoteId;
                     if(options.fromExp)
                     {
-                        location.href = 'abs.html#/securityDetail/'+note.NoteId;
+                        //  console.log(router)
+                        //location.href = 'abs.html#/securityDetail/'+note.NoteId;
+                        //router.push({path: pathStr,component: SecurityDetail});
+                        routerExp.push({path: pathStr});
                     }
                     else{
+                        // console.log(router);
                         if(JSON.stringify(router.history.current.query)=='{}')
                         {
                             pathStr = pathStr+'?id='+note.NoteId

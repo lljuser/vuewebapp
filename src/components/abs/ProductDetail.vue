@@ -102,8 +102,10 @@
                     <td>
                       <div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">
                         <div v-if="linkDisable">{{item.Name}}</div>
-                        <router-link v-else-if="!isfromExp" :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link>
-                        <a style="color:#ffc446" v-else :href="`abs.html#/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</a>
+                        <router-link :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link>
+
+                        <!-- <router-link v-else-if="!isfromExp" :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link> -->
+                        <!-- <a style="color:#ffc446" v-else :href="`abs.html#/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</a> -->
                       </div>
                     </td>
                     <td class="text-right"><span class="appH5_color_red">{{item.Notional}}</span></td>
@@ -183,6 +185,7 @@ import * as webApi from "@/config/api";
 import axios from "axios";
 import { Toast } from "mint-ui";
 import { NoteStructure } from "../../public/js/NoteStructure.js";
+import util from "@/public/modules/expert/utils";
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
 const busUtil = BusUtil.getInstance();
@@ -267,14 +270,15 @@ export default {
           busUtil.bus.$emit("path", "fromAbs");
           vm.linkDisable=false;
           vm.isfromExp=true;
-          
-          if( to.query.isShowHeader==null || to.query.isShowHeader==false )
+          var querys= util.getQueryString();
+          if( (to.query.isShowHeader==null || to.query.isShowHeader==false ) && !new RegExp(/isShowHeader=true/i).test(location.href))
           {
             busUtil.bus.$emit('showHeader', false);
             document.getElementById("productDetailDiv").style.paddingTop=0;
           }
           else{
             busUtil.bus.$emit('showHeader', true);
+            busUtil.bus.$emit('showClose', true,querys.path);
             document.getElementById("productDetailDiv").style.paddingTop="56px";
           }
       }

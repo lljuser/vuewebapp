@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td class="text-left">
-      <router-link :to="`../../OrganDetail/${ item.OrganizationId}`" class="appH5_color_link" style=""  >
+      <router-link :to="`../../OrganDetail/${ item.OrganizationId}`" class="appH5_color_link" style="" @click.native="setOriginPath" >
        <div class='td_elips1'> {{ item.Organization }}
        </div>
       </router-link>
@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import { Toast } from 'mint-ui';
-
+import BusUtil from "./BusUtil";
+const busUtil = BusUtil.getInstance();
 export default {
   name: 'organItem',
   props: ['id', 'item'],
@@ -21,15 +21,11 @@ export default {
   },
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
     };
   },
   methods: {
-    onClick() {
-      const instance = Toast('提示信息');
-      setTimeout(() => {
-        instance.close();
-      }, 2000);
+    setOriginPath() {
+      busUtil.bus.$emit("originPath", 'organ');
     },
   },
 };

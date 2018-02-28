@@ -31,6 +31,7 @@
           </router-link> -->
           <a href="javascript:" slot="left">
             <mt-button icon="back" @click.stop="clearPath"></mt-button>
+            <mt-button @click.stop="handleClose">&nbsp;&nbsp;关闭 </mt-button>
          </a>
         </mt-header>
       </div>
@@ -70,6 +71,8 @@ export default {
       startY: 0,
       isVertical: false,
       noHeader:false,
+      lastPath:'',
+      originPath:'',
     };
   },
   created() {
@@ -86,6 +89,9 @@ export default {
     });
     busUtil.bus.$on('noHeader', (noHeader) => {
       this.noHeader = noHeader;
+    });
+    busUtil.bus.$on("originPath", (path) => {
+      this.originPath = path;
     });
     //checkout route by swipe
     let isTouch = 'ontouchstart' in window;
@@ -136,8 +142,23 @@ export default {
           Router.push({path:"/trade"});
         }
         else{
-           history.back();
+          history.back();
         }
+    },
+    handleClose(){
+      if(new RegExp(/tradedetail/i).test(this.$route.name) && "fromAbs" in this.$route.query )
+      {
+        Router.push({path:"/trade"});
+      }
+      else{
+        if(this.originPath!=null && this.originPath!='')
+        {
+          Router.push({path:'/'+this.originPath});
+        }
+        else{
+          history.back();
+        }
+      }
     },
     getRouterIndex() {
        var tabs = this.tabs;

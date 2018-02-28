@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import MintUI from 'mint-ui';
-import 'mint-ui/lib/style.css';
-import '@/public/modules/expert/flexible';
-import '@/public/css/expert/reset.css';
-import '@/public/css/theme.css';
-import '@/public/css/expert/editProfile.css';
+// import MintUI from 'mint-ui';
+// import 'mint-ui/lib/style.css';
+// import '@/public/modules/expert/flexible';
+// import '@/public/css/expert/reset.css';
+// import '@/public/css/theme.css';
+// import '@/public/css/expert/editProfile.css';
 
 import ReadProfile from '@/components/expert/ReadProfile';
 import ReadAbsHistoryList from '@/components/expert/ReadAbsHistoryList';
@@ -30,9 +30,11 @@ import WorkHistory from '@/components/expert/WorkHistory';
 import DealSearch from '@/components/expert/DealSearch';
 import OrganizationSearch from '@/components/expert/OrganizationSearch';
 import ProductDetail from '@/components/abs/ProductDetail';
+import SecurityDetail from '@/components/abs/SecurityDetail';
+
 
 Vue.use(Router);
-Vue.use(MintUI);
+// Vue.use(MintUI);
 
 export default new Router({
   routes: [
@@ -150,6 +152,12 @@ export default new Router({
       path: '/ProductDetail/:id?',
       name: 'ProductDetail',
       component: ProductDetail,
+      meta: { fromExp: true },
+    },
+    {
+      path: '/SecurityDetail/:id?',
+      name: 'SecurityDetail',
+      component: SecurityDetail,
       meta: { fromExp: true },
     },
   ],
