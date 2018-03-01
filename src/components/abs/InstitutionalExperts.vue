@@ -21,7 +21,7 @@
                   <div class="related-info appH5_fl">
                       <div class="related-info-cont">
                           <div class="relevant-item-name">
-                            <a @click="expertClick" v-bind:href="`/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}?fromAbs=1`" class="appH5_font16 appH5_link">{{item.UserName}}</a>
+                            <a @click="expertClick" v-bind:href="`expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}?fromAbs=1`" class="appH5_font16 appH5_link">{{item.UserName}}</a>
                             <span v-if="item.Verified===1" class="authenticated">已认证</span>
                           </div>
                           <div class="relevant-item-conts appH5_font12">

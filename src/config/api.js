@@ -178,13 +178,18 @@ export const Demo = {
 // 调用webAPI前进行登录状态检查
 function checkLoginStatus() {
   setTimeout(() => {
-    axios.post(Market.list).then((response) => {
-      if (!response.data.data && !new RegExp(/login/i).test(location.href)) {
-        if (response.data.indexOf('正在授权') > 0) {
-          location.href = 'login.html';
+    if (!new RegExp(/login/i).test(location.href)) {
+      axios.post(Market.list).then((response) => {
+        if (!response.data.data && !new RegExp(/login/i).test(location.href)) {
+          if (response.data.indexOf('正在授权') > 0) {
+            location.href = 'login.html';
+          }
         }
-      }
-    });
-  }, 10);
+      }).catch((error) => {
+        console.log(error);
+        location.href = 'login.html';
+      });
+    }
+  }, 100);
 }
 checkLoginStatus();

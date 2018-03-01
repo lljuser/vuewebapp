@@ -53,7 +53,7 @@
               <td colspan="4" class="padtop1">
                   <span class="fl mr5 iphone5">参与专家</span>
                   <div class="fl" style="max-width: 6.9rem;">
-                    <a v-bind:href="`/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}?fromAbs=1`"  v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
+                    <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}?fromAbs=1`"  v-for="item in detailInfo.AbsProjectUsers" style="display:inline-block;">
                       <img class="touxiang" :src="item.AvatarPath"/>
                     </a>
                   </div>
@@ -77,7 +77,7 @@
     </div>
     <div class="fixedMain appH5_font_normal" v-if="contactItem.IsPrimary" v-for="contactItem in detailInfo.Contacts">
         <div class="fl fixedLeft">
-              <a v-bind:href="`/expert.html?UserId=${contactItem.UserId}&isShowHeader=true&path=${$route.path}?fromAbs=1`"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
+              <a v-bind:href="`/webapp/expert.html?UserId=${contactItem.UserId}&isShowHeader=true&path=${$route.path}?fromAbs=1`"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
                 <img class="touxiang" :src="contactItem.AvatarPath"/>
               </a>
               <div class="fl txtLeft" style="margin: .1rem 0 0 0; display: table; height: 1.3rem;">
