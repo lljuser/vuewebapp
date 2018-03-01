@@ -95,6 +95,7 @@ body{
 }
 .appH5_important_div{
 	display: flex;
+	align-items: flex-end;
 }
 .appH5_important_item{
 	display: inline-block;
