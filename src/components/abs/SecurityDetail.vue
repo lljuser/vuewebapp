@@ -89,13 +89,17 @@
                         <div>
                             <span>L</span>
                             <div v-if="linkDisable">{{securityDetail.Basic.DealName}}</div>
-                            <router-link class="appH5_link" style="display:inline-flex" v-else :to="`/productDetail/${securityDetail.Basic.DealId}?fromtab=securityDetail&id=${id}${noheader?'&noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
+                            <router-link class="appH5_link" style="display:inline-flex" v-else :to="`/productDetail/${securityDetail.Basic.DealId}?fromtab=securityDetail&id=${id}${noheader?'&noheader=1':''}`">
+                             {{securityDetail.Basic.DealName}}
+                            </router-link>
                         </div>
                     </div>
                     <div v-else>
                         <span>L</span>
                         <div v-if="linkDisable">{{securityDetail.Basic.DealName}}</div>
-                        <router-link class="appH5_link" style="display:inline-flex" v-else :to="`/productDetail/${securityDetail.Basic.DealId}?fromtab=securityDetail&id=${id}${noheader?'&noheader=1':''}`"><a href="javascript:;">{{securityDetail.Basic.DealName}}</a></router-link>
+                        <router-link class="appH5_link" style="display:inline-flex" v-else :to="`/productDetail/${securityDetail.Basic.DealId}?fromtab=securityDetail&id=${id}${noheader?'&noheader=1':''}`">
+                         {{securityDetail.Basic.DealName}}
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -378,9 +382,8 @@ export default {
   },
   beforeRouteEnter: (to, from, next) => {
     next(vm => {
-      if(!to.meta.fromExp)
-      {
-        busUtil.bus.$emit('showHeader', true);
+      if (!to.meta.fromExp) {
+        busUtil.bus.$emit("showHeader", true);
         if (from.path != "/" && from.query.fromtab != "securityDetail") {
           var queryObj = from.query;
           let pathStr = from.path + "?";
@@ -400,47 +403,45 @@ export default {
           vm.linkDisable = false;
         }
 
-        if(vm.$route.query.noheader=="1")
-        {
-            busUtil.bus.$emit('noHeader', true);
-            document.getElementById("securityDetailDiv").style.paddingTop=0;
-            vm.linkDisable=true;
-            vm.noheader=true;
+        if (vm.$route.query.noheader == "1") {
+          busUtil.bus.$emit("noHeader", true);
+          document.getElementById("securityDetailDiv").style.paddingTop = 0;
+          vm.linkDisable = true;
+          vm.noheader = true;
+        } else {
+          busUtil.bus.$emit("noHeader", false);
+          document.getElementById("securityDetailDiv").style.paddingTop =
+            "56px";
+          vm.noheader = false;
         }
-        else{
-            busUtil.bus.$emit('noHeader', false);
-            document.getElementById("securityDetailDiv").style.paddingTop="56px";
-            vm.noheader=false;
+      } else {
+        busUtil.bus.$emit("path", "fromAbs");
+        vm.isfromExp = true;
+        var querys = util.getQueryString();
+        if (
+          (to.query.isShowHeader == null || to.query.isShowHeader == false) &&
+          !new RegExp(/isShowHeader=true/i).test(location.href)
+        ) {
+          busUtil.bus.$emit("showHeader", false);
+          document.getElementById("securityDetailDiv").style.paddingTop = 0;
+        } else {
+          busUtil.bus.$emit("showHeader", true);
+          busUtil.bus.$emit("showClose", true, querys.path);
+          document.getElementById("securityDetailDiv").style.paddingTop =
+            "56px";
         }
-      }
-      else{
-          busUtil.bus.$emit("path", "fromAbs");
-          vm.isfromExp=true;
-          var querys= util.getQueryString();
-          if( (to.query.isShowHeader==null || to.query.isShowHeader==false) && !new RegExp(/isShowHeader=true/i).test(location.href))
-          {
-            busUtil.bus.$emit('showHeader', false);
-            document.getElementById("securityDetailDiv").style.paddingTop=0;
-          }
-          else{
-            busUtil.bus.$emit('showHeader', true);
-            busUtil.bus.$emit('showClose', true,querys.path);
-            document.getElementById("securityDetailDiv").style.paddingTop="56px";
-          }
-
       }
     });
   },
 
   beforeRouteUpdate(to, from, next) {
-      this.loadData(to.params.id);
+    this.loadData(to.params.id);
   },
 
   created() {
     // this.tableFlag=0;
     //this.loadData();
-    if(this.$route.meta.fromExp)
-    {
+    if (this.$route.meta.fromExp) {
       this.loadData();
     }
   },
@@ -465,7 +466,7 @@ export default {
       busUtil.bus.$emit("headTitle", "证券信息");
 
       this.id = id == null ? this.$route.params.id : id;
- 
+
       if (this.id) {
         setTimeout(() => {
           this.fetchSecurityDetail(this.id, data => {
@@ -525,7 +526,7 @@ export default {
             container: "noteStructure",
             data: response.data.data.Notes,
             // width: 220,
-            fromExp:this.isfromExp,
+            fromExp: this.isfromExp
           });
         } else {
           this.NoteStructureFlag = false;

@@ -78,7 +78,7 @@ input:-webkit-autofill {
   height: 100%;
 }
 .loginPanel {
-  padding-top: 40px;
+  padding-top: 0.5rem;
   width: 100%;
 }
 .accountDiv {
@@ -90,7 +90,7 @@ input:-webkit-autofill {
 .accountIcon {
   width: 20px;
   float: left;
-  margin: 18px 10px;
+  margin: 13px 10px;
 }
 .accountInput {
   float: left;
@@ -106,7 +106,7 @@ input:-webkit-autofill {
 .passwordIcon {
   width: 20px;
   float: left;
-  margin: 18px 10px;
+  margin: 13px 10px;
 }
 .passwordInput {
   float: left;
@@ -126,7 +126,7 @@ input:-webkit-autofill {
 }
 .loginBottom {
   width: 100%;
-  height: 30px;
+  height: 36px;
   position: fixed;
   bottom: 0;
 }
