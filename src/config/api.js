@@ -1,3 +1,4 @@
+import axios from 'axios';
 
 const apiAddress = process.env.API_ADDRESS;
 export default apiAddress;
@@ -5,6 +6,11 @@ export default apiAddress;
 export const Market = {
   list: `${apiAddress}/momarket/productsummary`,
   chart: `${apiAddress}/momarket/getissuestatchartdata`,
+};
+
+export const Login = {
+  login: `${apiAddress}/H5Account/Login`,
+  // login: 'http://localhost:43400/H5Account/Login',
 };
 
 export const Product = {
@@ -168,3 +174,17 @@ export const Demo = {
   list: 'http://10.1.1.35/Demo/DemoProduct/getlist',
   detail: 'http://10.1.1.35/Demo/DemoProduct/getitem',
 };
+
+// 调用webAPI前进行登录状态检查
+function checkLoginStatus() {
+  setTimeout(() => {
+    axios.post(Market.list).then((response) => {
+      if (!response.data.data && !new RegExp(/login/i).test(location.href)) {
+        if (response.data.indexOf('正在授权') > 0) {
+          location.href = 'login.html';
+        }
+      }
+    });
+  }, 10);
+}
+checkLoginStatus();

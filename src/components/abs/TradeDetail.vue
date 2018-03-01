@@ -77,7 +77,7 @@
     </div>
     <div class="fixedMain appH5_font_normal" v-if="contactItem.IsPrimary" v-for="contactItem in detailInfo.Contacts">
         <div class="fl fixedLeft">
-              <a v-bind:href="`/webapp/expert.html?UserId=${contactItem.UserId}&isShowHeader=true&path=${$route.path}`"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
+              <a v-bind:href="`/expert.html?UserId=${contactItem.UserId}&isShowHeader=true&path=${$route.path}?fromAbs=1`"  class="fl" style="margin: .2rem .2rem 0 .32rem;display: inline-block;">
                 <img class="touxiang" :src="contactItem.AvatarPath"/>
               </a>
               <div class="fl txtLeft" style="margin: .1rem 0 0 0; display: table; height: 1.3rem;">

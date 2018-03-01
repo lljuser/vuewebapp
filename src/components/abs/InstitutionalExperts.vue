@@ -21,7 +21,7 @@
                   <div class="related-info appH5_fl">
                       <div class="related-info-cont">
                           <div class="relevant-item-name">
-                            <a v-bind:href="`/webapp/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}`" class="appH5_font16 appH5_link">{{item.UserName}}</a>
+                            <a @click="expertClick" v-bind:href="`/expert.html?UserId=${item.UserId}&isShowHeader=true&path=${$route.path}?fromAbs=1`" class="appH5_font16 appH5_link">{{item.UserName}}</a>
                             <span v-if="item.Verified===1" class="authenticated">已认证</span>
                           </div>
                           <div class="relevant-item-conts appH5_font12">
@@ -78,26 +78,37 @@ export default {
       page: 1,
       pageSize: 10,
       noMore: false,
-      isLoadTop: false,
+      isLoadTop: false
     };
   },
   created() {
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
+    busUtil.bus.$emit("path", "/organDetail/" + this.$route.params.id);
     busUtil.bus.$emit("headTitle", "");
     this.tableFlag = 0;
   },
   mounted() {
+    // this.timer = setTimeout(() => {
+    //   this.loadFirstPageExperts();
+    // }, 600);
   },
   activated() {
+    //设置为历史滚动条高度
+    var listScrollTop = sessionStorage.getItem("listScrollTop");
+    if (listScrollTop != 0) {
+      setTimeout(() => {
+        window.scrollTo(0, listScrollTop);
+      }, 0);
+    }
+
     this.loading = false;
     this.isExpertsLoading = true;
     this.expertsInfo = {};
     window.scrollTo(0, 0);
     const busUtil = BusUtil.getInstance();
     busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
+    busUtil.bus.$emit("path", "/organDetail/" + this.$route.params.id);
     busUtil.bus.$emit("headTitle", "机构专家");
     this.timer = setTimeout(() => {
       this.loadFirstPageExperts();
@@ -105,15 +116,13 @@ export default {
     if (this.isFetchExpertsError) {
       this.loadFirstPageExperts();
     }
-    if(this.$route.query.noheader=="1")
-    {
-        busUtil.bus.$emit('noHeader', true);
-        document.getElementById("InstitutionalExpertsDiv").style.paddingTop=0;
-    }
-    else
-    {
-        busUtil.bus.$emit('noHeader', false);
-        document.getElementById("InstitutionalExpertsDiv").style.paddingTop="56px";
+    if (this.$route.query.noheader == "1") {
+      busUtil.bus.$emit("noHeader", true);
+      document.getElementById("InstitutionalExpertsDiv").style.paddingTop = 0;
+    } else {
+      busUtil.bus.$emit("noHeader", false);
+      document.getElementById("InstitutionalExpertsDiv").style.paddingTop =
+        "56px";
     }
   },
   deactivated() {
@@ -130,15 +139,29 @@ export default {
     },
     followHandle(exItem) {
       // 关注
-        axios(webApi.Organ.followList.concat(['',exItem.Followed,exItem.UserId].join('/'))).then(response => {
-              if (response.data.status == 'ok') {
-                exItem.Followed=!exItem.Followed;
-              }
-              else {
-                this.doCatch();
-              }
-        })
+      axios(
+        webApi.Organ.followList.concat(
+          ["", exItem.Followed, exItem.UserId].join("/")
+        )
+      ).then(response => {
+        if (response.data.status == "ok") {
+          exItem.Followed = !exItem.Followed;
+        } else {
+          this.doCatch();
+        }
+      });
     },
+
+    expertClick() {
+      // if (new RegExp(/tradeDetail/i).test(to.name)) {
+        // let top = document.documentElement.scrollTop || document.body.scrollTop;
+        // sessionStorage.setItem("listScrollTop", top);
+        // busUtil.bus.$emit("originPath", "organ");
+      // } else {
+        // sessionStorage.setItem("listScrollTop", 0);
+      // }
+    },
+
     loadFirstPageExperts(showSpinnerLoad) {
       this.loading = false;
       this.isExpertsLoading = true;
@@ -157,8 +180,17 @@ export default {
     },
     fetchExpertsDetail(page, direction, callback) {
       var url = webApi.Organ.expertList + "/" + this.$route.params.id;
-      url =url +"/" +direction +"/" +page * this.pageSize +"/" +this.pageSize;
-      axios.post(url).then(response => {
+      url =
+        url +
+        "/" +
+        direction +
+        "/" +
+        page * this.pageSize +
+        "/" +
+        this.pageSize;
+      axios
+        .post(url)
+        .then(response => {
           if (response.data.status == "ok") {
             const data = response.data.data;
             if (data) {
@@ -212,7 +244,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .ep_content_div {
-    min-height: 16.0rem;
+  min-height: 16rem;
 }
 .appH5_font12 {
   font-size: 12px;
@@ -248,7 +280,7 @@ export default {
 }
 .appH5_followBtn,
 .appH5_unfollowBtn {
-  padding: .05rem 0.1rem;
+  padding: 0.05rem 0.1rem;
   height: 0.61333rem;
   line-height: 0.61333rem;
   border-radius: 0.10667rem;

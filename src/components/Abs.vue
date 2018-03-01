@@ -141,6 +141,13 @@ export default {
         {
           Router.push({path:"/trade"});
         }
+        else if(new RegExp(/institutionalExperts/i).test(this.$route.name)){
+         Router.push({path:'/OrganDetail/'+this.$route.params.id});
+        }
+        else if(new RegExp(/OrganDetail/i).test(this.$route.name))
+        {
+          Router.push({path:'/Organ/'});
+        }
         else{
           history.back();
         }
@@ -149,6 +156,9 @@ export default {
       if(new RegExp(/tradedetail/i).test(this.$route.name) && "fromAbs" in this.$route.query )
       {
         Router.push({path:"/trade"});
+      }
+      else if(new RegExp(/institutionalExperts/i).test(this.$route.name) && "fromAbs" in this.$route.query){
+         Router.push({path:'/Organ/'});
       }
       else{
         if(this.originPath!=null && this.originPath!='')

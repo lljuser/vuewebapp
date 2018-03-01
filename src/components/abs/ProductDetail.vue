@@ -89,6 +89,17 @@
         </div> 
         </div>                               
     </div>
+
+    <!-- <div class="appH5_panel appH5_panel_mb">
+        <div class="appH5_title">
+              <span>参与专家</span>
+        </div>
+        <div>
+
+        </div>
+    </div> -->
+
+
     <div class="appH5_panel appH5_panel_mb">
         <div class="appH5_title">
               <span>证券结构</span>
@@ -171,7 +182,7 @@
 </style>
 <style>
 .structureTable {
-    width: auto;
+  width: auto;
 }
 .structureTable {
   margin-top: 0.2rem;
@@ -198,9 +209,9 @@
   vertical-align: middle;
   padding-left: 0.2rem;
 }
-.organEllipsis{
-  display:inline-block;
-  width:2.8rem;
+.organEllipsis {
+  display: inline-block;
+  width: 2.8rem;
 }
 </style>
 
@@ -245,80 +256,77 @@ export default {
       NoteStructureFlag: true,
       isFetchDetailError: false,
       tableFlag: 0,
-      linkDisable:false,
-      noheader:false,
-      isfromExp:false,
+      linkDisable: false,
+      noheader: false,
+      isfromExp: false
     };
   },
 
   beforeRouteEnter: (to, from, next) => {
-    
     next(vm => {
-      if(!to.meta.fromExp)
-      {
-        if (from.path != "/" && !new RegExp(/\/securityDetail\//i).test(from.path)) {
+      if (!to.meta.fromExp) {
+        if (
+          from.path != "/" &&
+          !new RegExp(/\/securityDetail\//i).test(from.path)
+        ) {
           busUtil.bus.$emit("path", from.path);
         } else {
           busUtil.bus.$emit("path", "/product");
         }
 
-        var fromtab=to.query.fromtab;
-        var backPathstr="";
-        switch(fromtab)
-        {
-          case "securityDetail":{  
+        var fromtab = to.query.fromtab;
+        var backPathstr = "";
+        switch (fromtab) {
+          case "securityDetail": {
             //vm.linkDisable=true;
-            backPathstr="/securityDetail/"+to.query.id;
+            backPathstr = "/securityDetail/" + to.query.id;
             break;
-            }
-          case "organDetail":{
-            backPathstr="/organDetail/"+to.query.id;
+          }
+          case "organDetail": {
+            backPathstr = "/organDetail/" + to.query.id;
             break;
-            }
-          case "organDeal":{
-            vm.linkDisable=false;
-            backPathstr="/organDeal/"+to.query.dealid;
+          }
+          case "organDeal": {
+            vm.linkDisable = false;
+            backPathstr = "/organDeal/" + to.query.dealid;
             break;
-            }
-          default:{vm.linkDisable=false;break;}
+          }
+          default: {
+            vm.linkDisable = false;
+            break;
+          }
         }
-        if(backPathstr!="")
-        {
-          busUtil.bus.$emit("path",backPathstr );
+        if (backPathstr != "") {
+          busUtil.bus.$emit("path", backPathstr);
         }
 
-        if(vm.$route.query.noheader=="1")
-        {
-            busUtil.bus.$emit('noHeader', true);
-            document.getElementById("productDetailDiv").style.paddingTop=0;
-            vm.linkDisable=true;
-            vm.noheader=true;
+        if (vm.$route.query.noheader == "1") {
+          busUtil.bus.$emit("noHeader", true);
+          document.getElementById("productDetailDiv").style.paddingTop = 0;
+          vm.linkDisable = true;
+          vm.noheader = true;
+        } else {
+          busUtil.bus.$emit("noHeader", false);
+          document.getElementById("productDetailDiv").style.paddingTop = "56px";
+          vm.noheader = false;
         }
-        else{
-            busUtil.bus.$emit('noHeader', false);
-            document.getElementById("productDetailDiv").style.paddingTop="56px";
-            vm.noheader=false;
+      } else {
+        busUtil.bus.$emit("path", "fromAbs");
+        vm.linkDisable = false;
+        vm.isfromExp = true;
+        var querys = util.getQueryString();
+        if (
+          (to.query.isShowHeader == null || to.query.isShowHeader == false) &&
+          !new RegExp(/isShowHeader=true/i).test(location.href)
+        ) {
+          busUtil.bus.$emit("showHeader", false);
+          document.getElementById("productDetailDiv").style.paddingTop = 0;
+        } else {
+          busUtil.bus.$emit("showHeader", true);
+          busUtil.bus.$emit("showClose", true, querys.path);
+          document.getElementById("productDetailDiv").style.paddingTop = "56px";
         }
       }
-      else{
-          busUtil.bus.$emit("path", "fromAbs");
-          vm.linkDisable=false;
-          vm.isfromExp=true;
-          var querys= util.getQueryString();
-          if( (to.query.isShowHeader==null || to.query.isShowHeader==false ) && !new RegExp(/isShowHeader=true/i).test(location.href))
-          {
-            busUtil.bus.$emit('showHeader', false);
-            document.getElementById("productDetailDiv").style.paddingTop=0;
-          }
-          else{
-            busUtil.bus.$emit('showHeader', true);
-            busUtil.bus.$emit('showClose', true,querys.path);
-            document.getElementById("productDetailDiv").style.paddingTop="56px";
-          }
-      }
-      
-     
-
     });
   },
 
@@ -326,9 +334,8 @@ export default {
     busUtil.bus.$emit("showHeader", true);
     busUtil.bus.$emit("headTitle", "产品信息");
     this.tableFlag = 0;
-    if(this.$route.meta.fromExp)
-    {
-      this.linkDisable=true;
+    if (this.$route.meta.fromExp) {
+      this.linkDisable = true;
       this.LoadData();
     }
   },
@@ -341,47 +348,47 @@ export default {
   },
 
   methods: {
-    LoadData(){
-    //clear all data cache
-    this.showChart = true;
-    this.isProductLoading = true;
-    this.productDetail = {};
-    this.publishDate = "";
-    this.noteConsTable = "";
-    this.showChart = true;
-    this.options = {
-      title: {
-        text: "暂无数据"
-      },
-      credits: {
-        href: "",
-        text: "CNABS"
+    LoadData() {
+      //clear all data cache
+      this.showChart = true;
+      this.isProductLoading = true;
+      this.productDetail = {};
+      this.publishDate = "";
+      this.noteConsTable = "";
+      this.showChart = true;
+      this.options = {
+        title: {
+          text: "暂无数据"
+        },
+        credits: {
+          href: "",
+          text: "CNABS"
+        }
+      };
+      window.scrollTo(0, 0);
+      busUtil.bus.$emit("showHeader", true);
+      busUtil.bus.$emit("headTitle", "产品信息");
+      this.id = this.$route.params.id;
+
+      if (this.id) {
+        setTimeout(() => {
+          this.fetchProductDetail(this.id, data => {
+            // busUtil.bus.$emit('headTitle', data.Basic.DealName);
+            this.productDetail = data;
+            this.isProductLoading = false;
+            if (data.DealId != null && data.DealId > 0) {
+              this.fetchDealStructure(this.id);
+              this.tableFlag = 0;
+            }
+          });
+        }, 600);
+        setTimeout(() => {
+          this.fetchProductPaymentChart(this.id);
+          //this.fetchDealStructure(this.id);
+        }, 600);
       }
-    };
-    window.scrollTo(0, 0);
-    busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("headTitle", "产品信息");
-    this.id = this.$route.params.id;
-    
-    if (this.id) {
-      setTimeout(() => {
-        this.fetchProductDetail(this.id, data => {
-          // busUtil.bus.$emit('headTitle', data.Basic.DealName);
-          this.productDetail = data;
-          this.isProductLoading = false;
-          if (data.DealId != null && data.DealId > 0) {
-            this.fetchDealStructure(this.id);
-            this.tableFlag = 0;
-          }
-        });
-      }, 600);
-      setTimeout(() => {
-        this.fetchProductPaymentChart(this.id);
-        //this.fetchDealStructure(this.id);
-      }, 600);
-    }
-    busUtil.bus.$emit("showHeader", true);
-    // busUtil.bus.$emit("path", "/product");
+      busUtil.bus.$emit("showHeader", true);
+      // busUtil.bus.$emit("path", "/product");
     },
 
     fetchDealStructure(dealId) {
@@ -392,7 +399,7 @@ export default {
             NoteStructure({
               container: "noteStructure",
               data: response.data.data.Notes,
-              fromExp:this.isfromExp,
+              fromExp: this.isfromExp
             });
           } else {
             this.NoteStructureFlag = false;
@@ -410,10 +417,9 @@ export default {
             } else {
               this.doCatch();
             }
-          }
-          else{
-              Toast(response.data.data);
-               this.isProductLoading = false;
+          } else {
+            Toast(response.data.data);
+            this.isProductLoading = false;
           }
         })
         .catch(error => {
