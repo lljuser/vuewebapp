@@ -38,7 +38,7 @@
                 <div v-if="productDetail.Basic.DealOriginator!=null">
                   <div v-show="productDetail.Basic.DealOriginator.length>1" class="appH5_font_large appH5_margin_bottom10 appH5_ellipsis organEllipsis">{{productDetail.Basic.Originator}}</div>
                   <div v-show="productDetail.Basic.DealOriginator.length==1" class="appH5_color_link appH5_font_large appH5_margin_bottom10">
-                    <router-link :to="`../../OrganDetail/${ productDetail.Basic.OriginatorId}`" class="appH5_ellipsis organEllipsis">
+                    <router-link :to="`../../OrganDetail/${ productDetail.Basic.OriginatorId}`" class="appH5_link appH5_ellipsis organEllipsis">
                     {{productDetail.Basic.Originator}}
                     </router-link>
                   </div>
@@ -48,14 +48,14 @@
               </div>
               <div class="appH5_important_item">
                 <div v-if="productDetail.Basic.LeadUnderwriter!='-'" class="appH5_color_link appH5_font_large appH5_margin_bottom10">
-                  <router-link :to="`../../OrganDetail/${ productDetail.Basic.LeadUnderwriterId}`" class="appH5_ellipsis organEllipsis">{{productDetail.Basic.LeadUnderwriter}}</router-link>
+                  <router-link :to="`../../OrganDetail/${ productDetail.Basic.LeadUnderwriterId}`" class="appH5_link appH5_ellipsis organEllipsis">{{productDetail.Basic.LeadUnderwriter}}</router-link>
                 </div>
                 <div v-else class="appH5_font_large appH5_margin_bottom10 appH5_ellipsis organEllipsis">{{productDetail.Basic.LeadUnderwriter}}</div>
                 <div class="appH5_color_green appH5_font_smaller appH5_ellipsis organEllipsis">{{productDetail.Basic.LeadUnderwriterTitle}}</div>
               </div>
               <div class="appH5_important_item">
                 <div v-if="productDetail.Basic.Issuer!='-'" class="appH5_color_link appH5_font_large appH5_margin_bottom10">
-                  <router-link :to="`../../OrganDetail/${ productDetail.Basic.IssuerId}`" class="appH5_ellipsis organEllipsis">{{productDetail.Basic.Issuer}}</router-link>
+                  <router-link :to="`../../OrganDetail/${ productDetail.Basic.IssuerId}`" class="appH5_link appH5_ellipsis organEllipsis">{{productDetail.Basic.Issuer}}</router-link>
                 </div>
                 <div v-else class="appH5_font_large appH5_margin_bottom10 appH5_ellipsis organEllipsis">{{productDetail.Basic.Issuer}}</div>
                 <div class="appH5_color_green appH5_font_smaller appH5_ellipsis organEllipsis">{{productDetail.Basic.IssuerTitle}}</div>
@@ -143,7 +143,7 @@
                     <td>
                       <div class="appH5_white_space appH5_font_normal" style="width:0.8rem;">
                         <div v-if="linkDisable">{{item.Name}}</div>
-                        <router-link :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link>
+                        <router-link class="appH5_link" :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link>
 
                         <!-- <router-link v-else-if="!isfromExp" :to="`/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</router-link> -->
                         <!-- <a style="color:#ffc446" v-else :href="`abs.html#/securityDetail/${item.NoteId}${noheader?'?noheader=1':''}`">{{item.Name}}</a> -->

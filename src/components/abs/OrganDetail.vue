@@ -228,7 +228,7 @@
 </template>
 
 <style scoped>
-.organ_introduction{
+.organ_introduction {
   line-height: 22px;
   text-align: justify;
 }
@@ -240,7 +240,7 @@
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVChTY1y3esV/BiDYtX09iGJw8wwE0zAAE/f39QPTTGCSBMCYkRQOtgFmMifLXzC9cfMmMI1uI+k2wPwAA+hu/v6HGUzDxEm0gYEBALKKGjTje4yiAAAAAElFTkSuQmCC);
   background-repeat: repeat;
 }
-.organ_basic_info{
+.organ_basic_info {
   margin-top: 0.373333rem;
 }
 .organIconsDiv {
@@ -353,22 +353,22 @@
   margin-left: 0.36rem;
   margin-top: 0.3rem;
 }
-.organ_prize_img span{
+.organ_prize_img span {
   padding-left: 3px;
 }
 .organ_prize_size {
   height: 30px;
 }
-.organ_prize_count{
+.organ_prize_count {
   padding-left: 3px;
   height: 30px;
   line-height: 30px;
 }
-.organ_introduction pre{
-      margin: 0;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    display: block;
+.organ_introduction pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  display: block;
 }
 /*机构专家*/
 .expertLsit .related-info {
@@ -476,30 +476,30 @@ ul.articleDetail li span:nth-of-type(2) {
 ul.articleDetail .article_title {
   width: 70px;
 }
-.promt{
+.promt {
   padding: 0 0.32rem;
 }
-.promt span{
+.promt span {
   word-break: break-all;
 }
 
 .ep_align_center {
-    text-align: center;
+  text-align: center;
 }
 .ep_font30 {
-    font-size: 15px;
+  font-size: 15px;
 }
 .ep_submitColor {
-    color: #ccc;
+  color: #ccc;
 }
 .ep_divSpinner {
-    width: 39px;
-    margin: 6.5rem auto 0.266667rem;
+  width: 39px;
+  margin: 6.5rem auto 0.266667rem;
 }
 .ep_submitPopup {
-    background: transparent !important;
-    width: 100%;
-    height: 100%;
+  background: transparent !important;
+  width: 100%;
+  height: 100%;
 }
 </style>
 
@@ -522,23 +522,25 @@ import tippy from "tippy.js";
 
 Vue.use(VueHighcharts, { Highcharts });
 Highcharts.setOptions(chartTheme);
+const busUtil = BusUtil.getInstance();
+
 
 export default {
   name: "organDetail",
   data() {
     return {
-      id:0,
-      expertList:[],
-      articleList:[],
-      productList:[],
-      product:[],
+      id: 0,
+      expertList: [],
+      articleList: [],
+      productList: [],
+      product: [],
       publishDate: "",
       noteConsTable: "",
       isProductLoading: false,
       submitPopupVisible: false,
       isShowHeader: false,
       // 给奖章重定义，为处理html的.length报错
-      organDetail: {Prizes:[]},
+      organDetail: { Prizes: [] },
       publishDate: "",
       noteConsTable: "",
       firstPrizeCount: 0,
@@ -562,8 +564,38 @@ export default {
         deal: 0,
         article: 0
       },
-      noheader:false,
+      noheader: false
     };
+  },
+  beforeRouteEnter: (to, from, next) => {
+    next(vm => {
+      if (!to.meta.fromExp) {
+        if (vm.$route.query.noheader == "1") {
+          busUtil.bus.$emit("noHeader", true);
+          document.getElementById("organDetailDiv").style.paddingTop = 0;
+          vm.noheader = true;
+        } else {
+          busUtil.bus.$emit("noHeader", false);
+          document.getElementById("organDetailDiv").style.paddingTop = "56px";
+          vm.noheader = false;
+        }
+      } else {
+        busUtil.bus.$emit("path", "fromAbs");
+        vm.isfromExp = true;
+        var querys = util.getQueryString();
+        if (
+          (to.query.isShowHeader == null || to.query.isShowHeader == false) &&
+          !new RegExp(/isShowHeader=true/i).test(location.href)
+        ) {
+          busUtil.bus.$emit("showHeader", false);
+          document.getElementById("organDetailDiv").style.paddingTop = 0;
+        } else {
+          busUtil.bus.$emit("showHeader", true);
+          busUtil.bus.$emit("showClose", true, querys.path);
+          document.getElementById("organDetailDiv").style.paddingTop = "56px";
+        }
+      }
+    });
   },
   created() {
     const busUtil = BusUtil.getInstance();
@@ -571,6 +603,9 @@ export default {
     busUtil.bus.$emit("path", "/organ");
     busUtil.bus.$emit("headTitle", "");
     this.tableFlag = 0;
+    if (this.$route.meta.fromExp) {
+      this.loadData();
+    }
   },
   mounted() {
     this.isOrganLoading = true;
@@ -604,106 +639,111 @@ export default {
     }
   },
   activated() {
-    //clear all data cache
-    this.isOrganLoading = true;
-    this.organDetail={};
-    this.publishDate = "";
-    this.noteConsTable = "";
-    this.options = {
-      title: {
-        text: "暂无数据"
-      },
-      credits: {
-        href: "",
-        text: "CNABS"
-      }
-    };
-    window.scrollTo(0, 0);
-    const busUtil = BusUtil.getInstance();
-    busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organ");
-    busUtil.bus.$emit("headTitle", "");
-    this.id = this.$route.params.id;
-    if (this.id) {
-      setTimeout(() => {
-        this.fetchOrganDetail(this.id, data => {
-          busUtil.bus.$emit("headTitle", data.ShortName);
-          //group奖章
-          if (data.Prizes && data.Prizes.length > 0) {
-            var newPrize = [];
-            var newPrizeObj = { IconPath: "", count: 0, description: [] };
-            var prize = data.Prizes;
-            var prize_id = prize[0].PrizeId;
-            newPrizeObj.PrizeName = prize[0].PrizeName;
-            newPrizeObj.IconPath = prize[0].IconPath;
-            newPrizeObj.description.push(prize[0].WinningReason);
-            newPrizeObj.count = 1;
-            newPrize.push(newPrizeObj);
-            var icount = 0;
-            for (var i = 1; i < prize.length; i++) {
-              if (prize[i].PrizeId == prize[i - 1].PrizeId) {
-                newPrize[icount].count++;
-                newPrizeObj.description.push(prize[i].WinningReason);
-              } else {
-                icount++;
-                var newPrizeObj2 = { IconPath: "", count: 0, description: [] };
-                newPrizeObj2.PrizeName = prize[i].PrizeName;
-                newPrizeObj2.IconPath = prize[i].IconPath;
-                newPrizeObj2.count = 1;
-                newPrizeObj2.description.push(prize[i].WinningReason);
-                newPrize.push(newPrizeObj2);
-              }
-            }
-            data.Prizes = newPrize;
-          }
-          //总资产
-          if (data.TotalAssets) {
-            var assets = data.TotalAssets / 10000;
-            var totalAssetsInt = parseInt(assets);
-            var totalAssets = totalAssetsInt + "亿";
-            if (totalAssetsInt == 0 && assets != 0) {
-              totalAssetsInt = parseInt(data.TotalAssets);
-              totalAssets = totalAssetsInt + "万元";
-            }
-            data.TotalAssets = totalAssets;
-          }
-          // 注册资金
-          if (data.Capital) {
-            var capital = data.Capital / 10000;
-            var totalCapitalInt = parseInt(capital);
-            var totalCapital = totalCapitalInt + "亿";
-            if (totalCapitalInt == 0 && capital != 0) {
-              totalCapitalInt = parseInt(data.Capital);
-              totalCapital = totalCapitalInt + "万元";
-            }
-            if (data.CapitalCurrencyName != "人民币") {
-              totalCapital =
-                totalCapital + "(" + data.CapitalCurrencyName + ")";
-            }
-            data.Capital = totalCapital;
-          }
-
-          this.isOrganLoading = false;
-          this.organDetail = data;
-        });
-      }, 600);
-    }
-    busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organ");
-    if(this.$route.query.noheader=="1")
-    {
-        busUtil.bus.$emit('noHeader', true);
-        document.getElementById("organDetailDiv").style.paddingTop=0;
-        this.noheader=true;
-    }
-    else{
-      busUtil.bus.$emit('noHeader', false);
-      document.getElementById("organDetailDiv").style.paddingTop="56px";
-      this.noheader=false;
-  }
-    this.initData();
+    this.loadData();
   },
   methods: {
+    loadData: function() {
+      //clear all data cache
+      this.isOrganLoading = true;
+      this.organDetail = {};
+      this.publishDate = "";
+      this.noteConsTable = "";
+      this.options = {
+        title: {
+          text: "暂无数据"
+        },
+        credits: {
+          href: "",
+          text: "CNABS"
+        }
+      };
+      window.scrollTo(0, 0);
+      busUtil.bus.$emit("showHeader", true);
+      busUtil.bus.$emit("path", "/organ");
+      busUtil.bus.$emit("headTitle", "");
+      this.id = this.$route.params.id;
+      if (this.id) {
+        setTimeout(() => {
+          this.fetchOrganDetail(this.id, data => {
+            busUtil.bus.$emit("headTitle", data.ShortName);
+            //group奖章
+            if (data.Prizes && data.Prizes.length > 0) {
+              var newPrize = [];
+              var newPrizeObj = { IconPath: "", count: 0, description: [] };
+              var prize = data.Prizes;
+              var prize_id = prize[0].PrizeId;
+              newPrizeObj.PrizeName = prize[0].PrizeName;
+              newPrizeObj.IconPath = prize[0].IconPath;
+              newPrizeObj.description.push(prize[0].WinningReason);
+              newPrizeObj.count = 1;
+              newPrize.push(newPrizeObj);
+              var icount = 0;
+              for (var i = 1; i < prize.length; i++) {
+                if (prize[i].PrizeId == prize[i - 1].PrizeId) {
+                  newPrize[icount].count++;
+                  newPrizeObj.description.push(prize[i].WinningReason);
+                } else {
+                  icount++;
+                  var newPrizeObj2 = {
+                    IconPath: "",
+                    count: 0,
+                    description: []
+                  };
+                  newPrizeObj2.PrizeName = prize[i].PrizeName;
+                  newPrizeObj2.IconPath = prize[i].IconPath;
+                  newPrizeObj2.count = 1;
+                  newPrizeObj2.description.push(prize[i].WinningReason);
+                  newPrize.push(newPrizeObj2);
+                }
+              }
+              data.Prizes = newPrize;
+            }
+            //总资产
+            if (data.TotalAssets) {
+              var assets = data.TotalAssets / 10000;
+              var totalAssetsInt = parseInt(assets);
+              var totalAssets = totalAssetsInt + "亿";
+              if (totalAssetsInt == 0 && assets != 0) {
+                totalAssetsInt = parseInt(data.TotalAssets);
+                totalAssets = totalAssetsInt + "万元";
+              }
+              data.TotalAssets = totalAssets;
+            }
+            // 注册资金
+            if (data.Capital) {
+              var capital = data.Capital / 10000;
+              var totalCapitalInt = parseInt(capital);
+              var totalCapital = totalCapitalInt + "亿";
+              if (totalCapitalInt == 0 && capital != 0) {
+                totalCapitalInt = parseInt(data.Capital);
+                totalCapital = totalCapitalInt + "万元";
+              }
+              if (data.CapitalCurrencyName != "人民币") {
+                totalCapital =
+                  totalCapital + "(" + data.CapitalCurrencyName + ")";
+              }
+              data.Capital = totalCapital;
+            }
+
+            this.isOrganLoading = false;
+            this.organDetail = data;
+          });
+        }, 600);
+      }
+      busUtil.bus.$emit("showHeader", true);
+      busUtil.bus.$emit("path", "/organ");
+      // if (this.$route.query.noheader == "1") {
+      //   busUtil.bus.$emit("noHeader", true);
+      //   document.getElementById("organDetailDiv").style.paddingTop = 0;
+      //   this.noheader = true;
+      // } else {
+      //   busUtil.bus.$emit("noHeader", false);
+      //   document.getElementById("organDetailDiv").style.paddingTop = "56px";
+      //   this.noheader = false;
+      // }
+      this.initData();
+    },
+
     initData: function() {
       if (this.id) {
         axios(`${webApi.Organ.expertList}/${this.id}/0/0/3`).then(response => {
@@ -763,16 +803,22 @@ export default {
     productDetailUrl: function(id) {
       return this.isShowHeader
         ? { path: `/InstitutionalArticle/${id}`, query: this.query }
-        : `/ProductDetail/${id}?fromtab=organDetail&id=${this.id}${this.noheader?'&noheader=1':''}`;
+        : `/ProductDetail/${id}?fromtab=organDetail&id=${this.id}${
+            this.noheader ? "&noheader=1" : ""
+          }`;
     },
     expertListUrl: function() {
-      return `/InstitutionalExperts/${this.id}${this.noheader?'?noheader=1':''}`;
+      return `/InstitutionalExperts/${this.id}${
+        this.noheader ? "?noheader=1" : ""
+      }`;
     },
     articleListUrl: function() {
-      return `/InstitutionalArticle/${this.id}${this.noheader?'?noheader=1':''}`;
+      return `/InstitutionalArticle/${this.id}${
+        this.noheader ? "?noheader=1" : ""
+      }`;
     },
     productListUrl: function() {
-      return `/OrganDeal/${this.id}${this.noheader?'?noheader=1':''}`;
+      return `/OrganDeal/${this.id}${this.noheader ? "?noheader=1" : ""}`;
     },
     fetchOrganDetail(id, callback) {
       var url = webApi.Organ.detail;
@@ -792,42 +838,41 @@ export default {
       for (const [index, item] of this.organDetail.Prizes.entries()) {
         const id = `#tooltip${index}`;
         const model = item;
-        try{
-        if (document.querySelector(id)._tippy === undefined) {
-          tippy(id, {
-            html: "#toolTipTemplate",
-            placement: "bottom",
-            animation: "scale",
-            arrow: true,
-            onShow() {
-              const content = this.querySelector(".tippy-content");
-              content.innerHTML = `<h1 style="font-size:15px;text-align:left">${model.PrizeName}</h1>`;
-              var i=0;
-              for (let reason of model.description) {
-                content.innerHTML += `<li style="font-size:13px;text-align:left">${reason}</li>`;
-                if(i>=2){
-                content.innerHTML += `<p style="font-size:13px;text-align:left">······</p>`;
-                  break;
+        try {
+          if (document.querySelector(id)._tippy === undefined) {
+            tippy(id, {
+              html: "#toolTipTemplate",
+              placement: "bottom",
+              animation: "scale",
+              arrow: true,
+              onShow() {
+                const content = this.querySelector(".tippy-content");
+                content.innerHTML = `<h1 style="font-size:15px;text-align:left">${
+                  model.PrizeName
+                }</h1>`;
+                var i = 0;
+                for (let reason of model.description) {
+                  content.innerHTML += `<li style="font-size:13px;text-align:left">${reason}</li>`;
+                  if (i >= 2) {
+                    content.innerHTML += `<p style="font-size:13px;text-align:left">······</p>`;
+                    break;
+                  }
+                  i++;
                 }
-                i++;
-              }
-            },
-            popperOptions: {
-              modifiers: {
-                preventOverflow: {
-                  enabled: true
-                },
-                hide: {
-                  enabled: true
+              },
+              popperOptions: {
+                modifiers: {
+                  preventOverflow: {
+                    enabled: true
+                  },
+                  hide: {
+                    enabled: true
+                  }
                 }
               }
-            }
-          });
-        }
-      }
-      catch(err){
-        
-      }
+            });
+          }
+        } catch (err) {}
       }
     },
     doCatch() {

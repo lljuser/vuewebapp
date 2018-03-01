@@ -31,7 +31,10 @@ import DealSearch from '@/components/expert/DealSearch';
 import OrganizationSearch from '@/components/expert/OrganizationSearch';
 import ProductDetail from '@/components/abs/ProductDetail';
 import SecurityDetail from '@/components/abs/SecurityDetail';
-
+import OrganDetail from '@/components/abs/OrganDetail';
+import InstitutionalExperts from '@/components/abs/InstitutionalExperts';
+import InstitutionalArticle from '@/components/abs/InstitutionalArticle';
+import OrganDeal from '@/components/abs/OrganDeal';
 
 Vue.use(Router);
 // Vue.use(MintUI);
@@ -158,6 +161,30 @@ export default new Router({
       path: '/SecurityDetail/:id?',
       name: 'SecurityDetail',
       component: SecurityDetail,
+      meta: { fromExp: true },
+    },
+    {
+      path: '/OrganDetail/:id?',
+      name: 'OrganDetail',
+      component: OrganDetail,
+      meta: { fromExp: true },
+    },
+    {
+      path: '/organDeal/:id',
+      name: 'organDeal',
+      component: OrganDeal,
+      meta: { fromExp: true },
+    },
+    {
+      path: '/institutionalExperts/:id',
+      name: 'institutionalExperts',
+      component: InstitutionalExperts,
+      meta: { fromExp: true },
+    },
+    {
+      path: '/institutionalArticle/:id',
+      name: 'institutionalArticle',
+      component: InstitutionalArticle,
       meta: { fromExp: true },
     },
   ],

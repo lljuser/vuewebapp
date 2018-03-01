@@ -8,6 +8,7 @@ import '@/public/modules/expert/flexible';
 import '@/public/css/expert/reset.css';
 import '@/public/css/theme.css';
 import '@/public/css/expert/editProfile.css';
+import { Loading } from 'vant';
 import router from './router/expert';
 import App from './components/Expert';
 
@@ -16,6 +17,7 @@ import App from './components/Expert';
 axios.defaults.withCredentials = true; 
 Vue.config.productionTip = false;
 Vue.use(MintUI);
+Vue.use(Loading);
 Vue.use(require('vue-moment'));
 
 /* eslint-disable no-new */

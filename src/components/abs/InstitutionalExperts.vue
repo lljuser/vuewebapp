@@ -66,6 +66,7 @@ import getParams from "../../public/js/getParams";
 import { Toast } from "mint-ui";
 import "mint-ui/lib/style.css";
 import defaultAvatar from "@/public/images/defaultavatar.png";
+const busUtil = BusUtil.getInstance();
 
 export default {
   name: "institutionalExperts",
@@ -81,12 +82,50 @@ export default {
       isLoadTop: false
     };
   },
-  created() {
-    const busUtil = BusUtil.getInstance();
+  beforeRouteEnter: (to, from, next) => {
     busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organDetail/" + this.$route.params.id);
-    busUtil.bus.$emit("headTitle", "");
+    busUtil.bus.$emit("headTitle", "参与专家");
+     next(vm => {
+      if (!to.meta.fromExp) {
+        if (vm.$route.query.noheader == "1") {
+          busUtil.bus.$emit("noHeader", true);
+          document.getElementById(
+            "InstitutionalExpertsDiv"
+          ).style.paddingTop = 0;
+          vm.noheader = true;
+        } else {
+          busUtil.bus.$emit("noHeader", false);
+          document.getElementById("InstitutionalExpertsDiv").style.paddingTop =
+            "56px";
+          vm.noheader = false;
+        }
+      } else {
+        busUtil.bus.$emit("path", "fromAbs");
+        vm.isfromExp = true;
+        var querys = util.getQueryString();
+        if (
+          (to.query.isShowHeader == null || to.query.isShowHeader == false) &&
+          !new RegExp(/isShowHeader=true/i).test(location.href)
+        ) {
+          busUtil.bus.$emit("showHeader", false);
+          document.getElementById(
+            "InstitutionalExpertsDiv"
+          ).style.paddingTop = 0;
+        } else {
+          busUtil.bus.$emit("showHeader", true);
+          busUtil.bus.$emit("showClose", true, querys.path);
+          document.getElementById("InstitutionalExpertsDiv").style.paddingTop =
+            "56px";
+        }
+      }
+    });
+  },
+
+  created() {
     this.tableFlag = 0;
+    if (this.$route.meta.fromExp) {
+      this.loadData();
+    }
   },
   mounted() {
     // this.timer = setTimeout(() => {
@@ -94,36 +133,7 @@ export default {
     // }, 600);
   },
   activated() {
-    //设置为历史滚动条高度
-    var listScrollTop = sessionStorage.getItem("listScrollTop");
-    if (listScrollTop != 0) {
-      setTimeout(() => {
-        window.scrollTo(0, listScrollTop);
-      }, 0);
-    }
-
-    this.loading = false;
-    this.isExpertsLoading = true;
-    this.expertsInfo = {};
-    window.scrollTo(0, 0);
-    const busUtil = BusUtil.getInstance();
-    busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organDetail/" + this.$route.params.id);
-    busUtil.bus.$emit("headTitle", "机构专家");
-    this.timer = setTimeout(() => {
-      this.loadFirstPageExperts();
-    }, 600);
-    if (this.isFetchExpertsError) {
-      this.loadFirstPageExperts();
-    }
-    if (this.$route.query.noheader == "1") {
-      busUtil.bus.$emit("noHeader", true);
-      document.getElementById("InstitutionalExpertsDiv").style.paddingTop = 0;
-    } else {
-      busUtil.bus.$emit("noHeader", false);
-      document.getElementById("InstitutionalExpertsDiv").style.paddingTop =
-        "56px";
-    }
+    this.loadData();
   },
   deactivated() {
     this.timer && clearTimeout(this.timer);
@@ -131,6 +141,30 @@ export default {
     this.loading = true;
   },
   methods: {
+    loadData: function() {
+      //设置为历史滚动条高度
+      var listScrollTop = sessionStorage.getItem("listScrollTop");
+      if (listScrollTop != 0) {
+        setTimeout(() => {
+          window.scrollTo(0, listScrollTop);
+        }, 0);
+      }
+
+      this.loading = false;
+      this.isExpertsLoading = true;
+      this.expertsInfo = {};
+      window.scrollTo(0, 0);
+      const busUtil = BusUtil.getInstance();
+      busUtil.bus.$emit("showHeader", true);
+      busUtil.bus.$emit("path", "/organDetail/" + this.$route.params.id);
+      busUtil.bus.$emit("headTitle", "机构专家");
+      this.timer = setTimeout(() => {
+        this.loadFirstPageExperts();
+      }, 600);
+      if (this.isFetchExpertsError) {
+        this.loadFirstPageExperts();
+      }
+    },
     isValidElement: function(item) {
       return !(item === null || item === undefined || item === "");
     },
@@ -154,11 +188,11 @@ export default {
 
     expertClick() {
       // if (new RegExp(/tradeDetail/i).test(to.name)) {
-        // let top = document.documentElement.scrollTop || document.body.scrollTop;
-        // sessionStorage.setItem("listScrollTop", top);
-        // busUtil.bus.$emit("originPath", "organ");
+      // let top = document.documentElement.scrollTop || document.body.scrollTop;
+      // sessionStorage.setItem("listScrollTop", top);
+      // busUtil.bus.$emit("originPath", "organ");
       // } else {
-        // sessionStorage.setItem("listScrollTop", 0);
+      // sessionStorage.setItem("listScrollTop", 0);
       // }
     },
 

@@ -66,67 +66,81 @@
 </div>
 </template>
 
-<script> 
+<script>
 import _ from "lodash";
 import util from "@/public/modules/expert/utils";
-import tippy from 'tippy.js';
-import BusUtil from './BusUtil';
-import Vue from 'vue';
-import * as webApi from '@/config/api';
-import axios from 'axios';
-import getParams from '../../public/js/getParams';
-import { Toast } from 'mint-ui';
+import tippy from "tippy.js";
+import BusUtil from "./BusUtil";
+import Vue from "vue";
+import * as webApi from "@/config/api";
+import axios from "axios";
+import getParams from "../../public/js/getParams";
+import { Toast } from "mint-ui";
 import "mint-ui/lib/style.css";
 const busUtil = BusUtil.getInstance();
 export default {
-  name: 'institutionalArticle',
+  name: "institutionalArticle",
   data() {
     return {
-      articleInfo:[],
-      isArticleLoading:false,
+      articleInfo: [],
+      isArticleLoading: false,
       loading: false,
       isFetchArticlesError: false,
       page: 1,
       pageSize: 10,
       noMore: false,
       isLoadTop: false,
-      submitPopupVisible: false,
+      submitPopupVisible: false
     };
   },
-  created() {
+  beforeRouteEnter: (to, from, next) => {
     busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
-    busUtil.bus.$emit("headTitle", "");
-    this.tableFlag = 0;
-  },
-  mounted() {
-
-  },
-  activated(){
-    this.loading = false;
-    this.isArticleLoading = true;
-    this.articleInfo = {};
-    window.scrollTo(0, 0);
-    
-    busUtil.bus.$emit("showHeader", true);
-    busUtil.bus.$emit("path", "/organDetail/"+this.$route.params.id);
     busUtil.bus.$emit("headTitle", "机构文章");
-    this.timer = setTimeout(() => {
-      this.loadFirstPageArticles();
-    }, 600);
-    if (this.isFetchArticlesError) {
-      this.loadFirstPageArticles();
-    }
+    next(vm => {
+      if (!to.meta.fromExp) {
+        if (vm.$route.query.noheader == "1") {
+          busUtil.bus.$emit("noHeader", true);
+          document.getElementById(
+            "InstitutionalArticleDiv"
+          ).style.paddingTop = 0;
+          vm.noheader = true;
+        } else {
+          busUtil.bus.$emit("noHeader", false);
+          document.getElementById("InstitutionalArticleDiv").style.paddingTop =
+            "56px";
+          vm.noheader = false;
+        }
+      } else {
+        busUtil.bus.$emit("path", "fromAbs");
+        vm.isfromExp = true;
+        var querys = util.getQueryString();
+        if (
+          (to.query.isShowHeader == null || to.query.isShowHeader == false) &&
+          !new RegExp(/isShowHeader=true/i).test(location.href)
+        ) {
+          busUtil.bus.$emit("showHeader", false);
+          document.getElementById(
+            "InstitutionalArticleDiv"
+          ).style.paddingTop = 0;
+        } else {
+          busUtil.bus.$emit("showHeader", true);
+          busUtil.bus.$emit("showClose", true, querys.path);
+          document.getElementById("InstitutionalArticleDiv").style.paddingTop =
+            "56px";
+        }
+      }
+    });
+  },
 
-    if(this.$route.query.noheader=="1")
-    {
-        busUtil.bus.$emit('noHeader', true);
-        document.getElementById("InstitutionalArticleDiv").style.paddingTop=0;
+  created() {
+    this.tableFlag = 0;
+    if (this.$route.meta.fromExp) {
+      this.loadData();
     }
-    else{
-        busUtil.bus.$emit('noHeader', false);
-        document.getElementById("InstitutionalArticleDiv").style.paddingTop="56px";
-    }
+  },
+  mounted() {},
+  activated() {
+      this.loadData();
   },
   deactivated() {
     this.timer && clearTimeout(this.timer);
@@ -135,6 +149,19 @@ export default {
   },
 
   methods: {
+    loadData() {
+      this.loading = false;
+      this.isArticleLoading = true;
+      this.articleInfo = {};
+      window.scrollTo(0, 0);
+
+      this.timer = setTimeout(() => {
+        this.loadFirstPageArticles();
+      }, 600);
+      if (this.isFetchArticlesError) {
+        this.loadFirstPageArticles();
+      }
+    },
     loadFirstPageArticles(showSpinnerLoad) {
       this.loading = false;
       this.isArticleLoading = true;
@@ -152,13 +179,22 @@ export default {
       }, 600);
     },
 
-    isValidElement: function (item) {
-        return !(item === null || item === undefined || item === "");
+    isValidElement: function(item) {
+      return !(item === null || item === undefined || item === "");
     },
     fetchArticlesDetail(page, direction, callback) {
       var url = webApi.Organ.articleList + "/" + this.$route.params.id;
-      url =url +"/" +direction +"/" +page * this.pageSize +"/" +this.pageSize;
-      axios.post(url).then(response => {
+      url =
+        url +
+        "/" +
+        direction +
+        "/" +
+        page * this.pageSize +
+        "/" +
+        this.pageSize;
+      axios
+        .post(url)
+        .then(response => {
           if (response.data.status == "ok") {
             const data = response.data.data;
             if (data) {
@@ -207,34 +243,36 @@ export default {
         }, 4000);
       }
     },
-    
+
     sendAttachment: function(fileCode) {
       this.submitPopupVisible = true;
-        axios.post(webApi.Expert.sendPublishUrl, {fileCode: fileCode})
+      axios
+        .post(webApi.Expert.sendPublishUrl, { fileCode: fileCode })
         .then(response => {
           this.submitPopupVisible = false;
-            this.$toast(response.data.data);
+          this.$toast(response.data.data);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.articleContent, .articleListContent {
-    background-color: #000;
+.articleContent,
+.articleListContent {
+  background-color: #000;
 }
 .ep_content_div {
-    min-height: 16.0rem;
+  min-height: 16rem;
 }
 .divArticleDetail {
-    position: relative;
+  position: relative;
 }
 .divArticleDetail .ep_sendMailBtn {
-    margin-bottom: -0.05rem;
-    position: absolute;
-    bottom: 0rem;
-    right: 0rem;
+  margin-bottom: -0.05rem;
+  position: absolute;
+  bottom: 0rem;
+  right: 0rem;
 }
 .ep_ellipsis {
   text-overflow: ellipsis;
@@ -242,84 +280,84 @@ export default {
   overflow: hidden;
 }
 .ep_maxWidth577 {
-    max-width: 7.7rem;
+  max-width: 7.7rem;
 }
 .ep_width517 {
-    width: 6.9rem;
+  width: 6.9rem;
 }
 ul.articleDetail .article_title {
-    width: 70px;
+  width: 70px;
 }
 .ep_decription {
-    line-height: 0.48rem;
-    margin-top: 0.133333rem;
+  line-height: 0.48rem;
+  margin-top: 0.133333rem;
 }
 .ep_padding30 {
-    padding: 0.266667rem 0.4rem;
+  padding: 0.266667rem 0.4rem;
 }
 .ep_overhide {
-    overflow: hidden;
+  overflow: hidden;
 }
 .ep_part_item_border {
-    border-bottom: 1px solid #3B3A39;
+  border-bottom: 1px solid #3b3a39;
 }
 .divArticleDetail {
-    position: relative;
+  position: relative;
 }
 
 .divArticleDetail .ep_sendMailBtn {
-    margin-bottom: -0.05rem;
-    position: absolute;
-    bottom: 0rem;
-    right: 0rem;
+  margin-bottom: -0.05rem;
+  position: absolute;
+  bottom: 0rem;
+  right: 0rem;
 }
 
 .ep_sendMailBtn {
-    padding-left: 0.2rem;
-    padding-right: 0.2rem;
-    padding-bottom: 0.1rem;
-    padding-top: 0.1rem; 
-    height: .42rem;
-    line-height: .42rem;
-    border: 1px solid #ffc446;
-    border-radius: 4px;
-    color: #ffc446;
-    background: #000;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  padding-bottom: 0.1rem;
+  padding-top: 0.1rem;
+  height: 0.42rem;
+  line-height: 0.42rem;
+  border: 1px solid #ffc446;
+  border-radius: 4px;
+  color: #ffc446;
+  background: #000;
 }
 .ep_width300 {
-    width: 4.0rem;
+  width: 4rem;
 }
 ul.articleDetail li {
-    overflow: hidden;
-    margin-bottom: 0.133333rem;
+  overflow: hidden;
+  margin-bottom: 0.133333rem;
 }
 
 ul.articleDetail li span:nth-of-type(1) {
-    float: left;
+  float: left;
 }
 
 ul.articleDetail li span:nth-of-type(2) {
-    float: left;
+  float: left;
 }
 ul.articleDetail .article_title {
-    width: 70px;
+  width: 70px;
 }
 .ep_align_center {
-    text-align: center;
+  text-align: center;
 }
 .ep_font30 {
-    font-size: 15px;
+  font-size: 15px;
 }
 .ep_submitColor {
-    color: #ccc;
+  color: #ccc;
 }
 .ep_divSpinner {
-    width: 39px;
-    margin: 6.5rem auto 0.266667rem;
+  width: 39px;
+  margin: 6.5rem auto 0.266667rem;
 }
 .ep_submitPopup {
-    background: transparent !important;
-    width: 100%;
-    height: 100%;
+  background: transparent !important;
+  width: 100%;
+  height: 100%;
 }
 </style>
