@@ -179,12 +179,11 @@ export const Demo = {
 function checkLoginStatus() {
   setTimeout(() => {
     if (!new RegExp(/login/i).test(location.href)) {
-
       axios.post(Market.list).then((response) => {
         // console.log(response);
         if (!response.data.data && !new RegExp(/login/i).test(location.href)) {
           if (response.data.indexOf('正在授权') > 0) {
-            // location.href = 'login.html';
+            location.href = 'login.html';
           }
         }
       }).catch((error) => {
