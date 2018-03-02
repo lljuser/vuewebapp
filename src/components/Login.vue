@@ -22,6 +22,7 @@
               <input type="password" name="" id="password" class="inputBack appH5_font_larger" v-model="Password" placeholder="请输入密码">
             </div>
           </div>
+          <div v-if='errorMsg!=""' style="color:red;font-size:12px;line-height:20px;display:inline">{{errorMsg}}</div>
           <div class="loginBtnDiv">
             <input type="submit" value="登  录"  class="appH5_btn_larger_blue loginBtnInput"/>
           </div>
@@ -46,7 +47,7 @@
 </template>
 <style>
 .inputBack {
-  background-color: #191919;
+  background-color:transparent;
   border: none;
   width: 100%;
   color: white;
@@ -165,7 +166,8 @@ export default {
   data() {
     return {
       Username: "",
-      Password: ""
+      Password: "",
+      errorMsg:"",
     };
   },
   methods: {
@@ -186,6 +188,9 @@ export default {
         .then(response => {
           if (response.data == 1) {
              location.href = "abs.html";
+          }
+          else{
+            this.errorMsg=response.data;
           }
         })
         .catch(error => {
