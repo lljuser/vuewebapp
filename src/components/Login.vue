@@ -116,7 +116,7 @@ input:-webkit-autofill {
 .loginBtnDiv {
   width: 76%;
   margin: 0 auto;
-  padding-top: 36px;
+  padding-top: 30px;
 }
 .loginBtnInput {
   background-color: #f73b09;
@@ -173,18 +173,10 @@ export default {
   methods: {
     submit: function() {
       var self = this;
-      axios({
-        url: webApi.Login.login,
-        method: "post",
-        params: {
+      axios.post(webApi.Login.login,{
           UserName: self.Username,
           Password: self.Password
-        },
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        withCredentials: false
-      })
+        })
         .then(response => {
           if (response.data == 1) {
              location.href = "abs.html";
