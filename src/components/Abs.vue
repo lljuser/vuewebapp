@@ -146,7 +146,7 @@ export default {
         }
         else if(new RegExp(/OrganDetail/i).test(this.$route.name))
         {
-          Router.push({path:'/Organ/'});
+          Router.push({path:'/organ'});
         }
         else{
           history.back();
@@ -158,7 +158,7 @@ export default {
         Router.push({path:"/trade"});
       }
       else if(new RegExp(/institutionalExperts/i).test(this.$route.name) && "fromAbs" in this.$route.query){
-         Router.push({path:'/Organ/'});
+         Router.push({path:'/organ'});
       }
       else{
         if(this.originPath!=null && this.originPath!='')
