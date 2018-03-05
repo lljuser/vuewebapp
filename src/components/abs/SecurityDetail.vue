@@ -406,7 +406,7 @@ export default {
         if (vm.$route.query.noheader == "1") {
           busUtil.bus.$emit("noHeader", true);
           document.getElementById("securityDetailDiv").style.paddingTop = 0;
-          vm.linkDisable = true;
+          // vm.linkDisable = true;
           vm.noheader = true;
         } else {
           busUtil.bus.$emit("noHeader", false);

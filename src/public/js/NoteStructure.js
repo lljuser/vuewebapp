@@ -7,7 +7,7 @@ import routerExp from '../../router/expert';
  * @Author: CNABS 
  * @Date: 2018-02-02 11:18:42 
  * @Last Modified by: mingxia.dong
- * @Last Modified time: 2018-02-28 09:23:51
+ * @Last Modified time: 2018-03-05 19:07:19
  * @Function: Get Note Structure Html
  */
 /* eslint-disable */
@@ -254,16 +254,16 @@ function NoteStructure(options) {
                 }
                 span.className = 'St_Inner_Text';
                 span.onclick=function(){
+                    
                     var pathStr = '/securityDetail/'+note.NoteId;
+                    if(options.noheader==1){
+                     pathStr+='?noheader=1';
+                    }
                     if(options.fromExp)
                     {
-                        //  console.log(router)
-                        //location.href = 'abs.html#/securityDetail/'+note.NoteId;
-                        //router.push({path: pathStr,component: SecurityDetail});
                         routerExp.push({path: pathStr});
                     }
                     else{
-                        // console.log(router);
                         if(JSON.stringify(router.history.current.query)=='{}')
                         {
                             pathStr = pathStr+'?id='+note.NoteId

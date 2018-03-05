@@ -38,7 +38,7 @@
                 <div v-if="productDetail.Basic.DealOriginator!=null">
                   <div v-show="productDetail.Basic.DealOriginator.length>1" class="appH5_font_large appH5_margin_bottom10 appH5_ellipsis organEllipsis">{{productDetail.Basic.Originator}}</div>
                   <div v-show="productDetail.Basic.DealOriginator.length==1" class="appH5_color_link appH5_font_large appH5_margin_bottom10">
-                    <router-link :to="`../../OrganDetail/${ productDetail.Basic.OriginatorId}`" class="appH5_link appH5_ellipsis organEllipsis">
+                    <router-link :to="`../../OrganDetail/${ productDetail.Basic.OriginatorId}${noheader?'?noheader=1':''}`" class="appH5_link appH5_ellipsis organEllipsis">
                     {{productDetail.Basic.Originator}}
                     </router-link>
                   </div>
@@ -48,14 +48,14 @@
               </div>
               <div class="appH5_important_item">
                 <div v-if="productDetail.Basic.LeadUnderwriter!='-'" class="appH5_color_link appH5_font_large appH5_margin_bottom10">
-                  <router-link :to="`../../OrganDetail/${ productDetail.Basic.LeadUnderwriterId}`" class="appH5_link appH5_ellipsis organEllipsis">{{productDetail.Basic.LeadUnderwriter}}</router-link>
+                  <router-link :to="`../../OrganDetail/${ productDetail.Basic.LeadUnderwriterId}${noheader?'?noheader=1':''}`" class="appH5_link appH5_ellipsis organEllipsis">{{productDetail.Basic.LeadUnderwriter}}</router-link>
                 </div>
                 <div v-else class="appH5_font_large appH5_margin_bottom10 appH5_ellipsis organEllipsis">{{productDetail.Basic.LeadUnderwriter}}</div>
                 <div class="appH5_color_green appH5_font_smaller appH5_ellipsis organEllipsis">{{productDetail.Basic.LeadUnderwriterTitle}}</div>
               </div>
               <div class="appH5_important_item">
                 <div v-if="productDetail.Basic.Issuer!='-'" class="appH5_color_link appH5_font_large appH5_margin_bottom10">
-                  <router-link :to="`../../OrganDetail/${ productDetail.Basic.IssuerId}`" class="appH5_link appH5_ellipsis organEllipsis">{{productDetail.Basic.Issuer}}</router-link>
+                  <router-link :to="`../../OrganDetail/${ productDetail.Basic.IssuerId}${noheader?'?noheader=1':''}`" class="appH5_link appH5_ellipsis organEllipsis">{{productDetail.Basic.Issuer}}</router-link>
                 </div>
                 <div v-else class="appH5_font_large appH5_margin_bottom10 appH5_ellipsis organEllipsis">{{productDetail.Basic.Issuer}}</div>
                 <div class="appH5_color_green appH5_font_smaller appH5_ellipsis organEllipsis">{{productDetail.Basic.IssuerTitle}}</div>
@@ -276,34 +276,34 @@ export default {
 
         var fromtab = to.query.fromtab;
         var backPathstr = "";
-        switch (fromtab) {
-          case "securityDetail": {
-            //vm.linkDisable=true;
-            backPathstr = "/securityDetail/" + to.query.id;
-            break;
-          }
-          case "organDetail": {
-            backPathstr = "/organDetail/" + to.query.id;
-            break;
-          }
-          case "organDeal": {
-            vm.linkDisable = false;
-            backPathstr = "/organDeal/" + to.query.dealid;
-            break;
-          }
-          default: {
-            vm.linkDisable = false;
-            break;
-          }
-        }
-        if (backPathstr != "") {
-          busUtil.bus.$emit("path", backPathstr);
-        }
+        // switch (fromtab) {
+        //   case "securityDetail": {
+        //     //vm.linkDisable=true;
+        //     backPathstr = "/securityDetail/" + to.query.id;
+        //     break;
+        //   }
+        //   case "organDetail": {
+        //     backPathstr = "/organDetail/" + to.query.id;
+        //     break;
+        //   }
+        //   case "organDeal": {
+        //     vm.linkDisable = false;
+        //     backPathstr = "/organDeal/" + to.query.dealid;
+        //     break;
+        //   }
+        //   default: {
+        //     vm.linkDisable = false;
+        //     break;
+        //   }
+        // }
+        // if (backPathstr != "") {
+        //   busUtil.bus.$emit("path", backPathstr);
+        // }
 
         if (vm.$route.query.noheader == "1") {
           busUtil.bus.$emit("noHeader", true);
           document.getElementById("productDetailDiv").style.paddingTop = 0;
-          vm.linkDisable = true;
+          // vm.linkDisable = true;
           vm.noheader = true;
         } else {
           busUtil.bus.$emit("noHeader", false);
@@ -399,7 +399,8 @@ export default {
             NoteStructure({
               container: "noteStructure",
               data: response.data.data.Notes,
-              fromExp: this.isfromExp
+              fromExp: this.isfromExp,
+              noheader:this.noheader
             });
           } else {
             this.NoteStructureFlag = false;

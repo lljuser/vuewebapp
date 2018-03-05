@@ -154,10 +154,10 @@ export default {
         {
           Router.push({path:"/trade"});
         }
-        else if(new RegExp(/institutionalExperts/i).test(this.$route.name)){
+        else if(new RegExp(/institutionalExperts/i).test(this.$route.name) && "fromAbs" in this.$route.query){
          Router.push({path:'/OrganDetail/'+this.$route.params.id});
         }
-        else if(new RegExp(/OrganDetail/i).test(this.$route.name))
+        else if(new RegExp(/OrganDetail/i).test(this.$route.name) && "fromAbs" in this.$route.query)
         {
           Router.push({path:'/organ'});
         }
