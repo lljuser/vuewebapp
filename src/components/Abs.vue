@@ -25,14 +25,14 @@
 
       </div>
       <div v-else class="appH5_navbar_bg">
-        <mt-header :title="headTitle">
+        <mt-header :title="headTitle" id='header_link' >
           <!-- <router-link :to="path" slot="left">
             <mt-button icon="back" @click.stop="clearPath"></mt-button>
           </router-link> -->
-          <a href="javascript:" slot="left">
+          <div slot="left" style="cursor:pointer">
             <mt-button icon="back" @click.stop="clearPath"></mt-button>
-            <mt-button @click.stop="handleClose">&nbsp;&nbsp;关闭 </mt-button>
-         </a>
+            <mt-button id='btn_close' style="cursor:pointer">&nbsp;&nbsp;关闭</mt-button>
+         </div>
         </mt-header>
       </div>
     </div>
@@ -111,14 +111,21 @@ export default {
             out: 'mouseout'
         };
     document.addEventListener(mouseEvents.down, function (e) {
+       
       //记录手指按下的位置
       self.startX = e.clientX || e.changedTouches[0].clientX; 
       self.startY = e.clientY || e.changedTouches[0].clientY; 
+    
     }, false);
     document.addEventListener(mouseEvents.up, function (e) {
       //记录手指结束的位置
        let nowX = e.clientX || e.changedTouches[0].clientX;
        let nowY = e.clientY || e.changedTouches[0].clientY;
+         if(e.target.parentNode.id=='btn_close' || e.target.id=="btn_close")
+      {
+          self.handleClose();
+          e.preventDefault();
+      }
        self.isVertical = Math.abs(nowY - self.startY) / Math.abs(nowX - self.startX) > (Math.sqrt(3) / 3);
        if (!self.isVertical) {
          var index = self.getRouterIndex()*1;
@@ -193,10 +200,25 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+</style>
+<style scoped>
+#header_link a:hover,
+#header_link a:focus {
+  color: white;
+}
+
+#btn_close {
+  cursor: pointer;
+}
+
+#btn_close:hover,
+#btn_close:focus {
+  color: #ffc446;
 }
 </style>
