@@ -30,8 +30,8 @@
             <mt-button icon="back" @click.stop="clearPath"></mt-button>
           </router-link> -->
           <div slot="left" style="cursor:pointer">
-            <mt-button icon="back" @click.stop="clearPath"></mt-button>
-            <mt-button id='btn_close' style="cursor:pointer">&nbsp;&nbsp;关闭</mt-button>
+            <mt-button icon="back" id='btn_back' style="cursor:pointer"></mt-button>
+            <mt-button id='btn_close' style="cursor:pointer">&nbsp;&nbsp;关闭&nbsp;&nbsp;</mt-button>
          </div>
         </mt-header>
       </div>
@@ -121,11 +121,17 @@ export default {
       //记录手指结束的位置
        let nowX = e.clientX || e.changedTouches[0].clientX;
        let nowY = e.clientY || e.changedTouches[0].clientY;
-         if(e.target.parentNode.id=='btn_close' || e.target.id=="btn_close")
+      if(e.target.parentNode.id=='btn_close' || e.target.id=="btn_close")
       {
           self.handleClose();
           e.preventDefault();
       }
+      if(e.target.parentNode.parentNode.id=='btn_back'|| e.target.parentNode.id=='btn_back' || e.target.id=="btn_back")
+      {
+          self.clearPath();
+          e.preventDefault();
+      }
+
        self.isVertical = Math.abs(nowY - self.startY) / Math.abs(nowX - self.startX) > (Math.sqrt(3) / 3);
        if (!self.isVertical) {
          var index = self.getRouterIndex()*1;
