@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td class="text-left">
-      <router-link :to="`../../productDetail/${ item.DealId}?fromtab=product`" class="appH5_color_link" @click.native="setOriginPath">
+      <router-link :to="`../../productDetail/${ item.DealId}?fromtab=product&noheader=${$route.query.noheader}`" class="appH5_color_link" @click.native="setOriginPath">
        <div class='td_elips1'> {{ item.DealName }}</div>
       </router-link>
     </td>

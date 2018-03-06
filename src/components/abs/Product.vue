@@ -1,5 +1,5 @@
 <template>
-<div class="appH5_body">
+<div class="appH5_body" id="productDiv">
   
   <div class="product-spinner" v-if="isProductLoading">
     <mt-spinner type="triple-bounce"></mt-spinner>
@@ -46,7 +46,8 @@
             v-for="(item, index) in list" 
             :item="item"
             :id="index"
-            :key="index"/>
+            :key="index"
+            />
         </tbody>
         <tfoot>
           <tr>
@@ -101,6 +102,24 @@ export default {
       isLoadTop: false
     };
   },
+  beforeRouteEnter: (to, from, next) => {
+    document.title="产品列表";
+    next(vm => {
+     if (vm.$route.query.noheader == "1") {
+          busUtil.bus.$emit('showHeader',true);
+          busUtil.bus.$emit("noHeader", true);
+          document.getElementById("productDiv").style.paddingTop = 0;
+          // vm.linkDisable = true;
+          vm.noheader = true;
+          
+        } else {
+          busUtil.bus.$emit("noHeader", false);
+           busUtil.bus.$emit("showHeader", false);
+          document.getElementById("productDiv").style.paddingTop = "56px";
+          vm.noheader = false;
+        }
+    })
+  },
   beforeRouteLeave: (to, from, next) => {
     if (new RegExp(/productDetail/i).test(to.name)) {
       let top = document.documentElement.scrollTop || document.body.scrollTop;
@@ -126,7 +145,7 @@ export default {
     }
 
     this.loading = false;
-    busUtil.bus.$emit("showHeader", false);
+    // busUtil.bus.$emit("showHeader", false);
     var productTypeParam = this.$route.params.productType;
     var dealTypeParam = this.$route.params.dealType;
     var reLoadData = false;

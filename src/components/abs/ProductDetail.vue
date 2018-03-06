@@ -69,19 +69,19 @@
         </div>
         <div style="padding-left:0.4rem;" v-if="productDetail.Basic!=null">
         <div>
-          <div v-if='noheader'>{{productDetail.Basic.ProductType}}</div>
-          <router-link v-else-if='!isfromExp' :to="`/product/${productDetail.Basic.ProductTypeId}`">
+          <div v-if='linkDisable'>{{productDetail.Basic.ProductType}}</div>
+          <router-link v-else-if='!isfromExp' :to="`/product/${productDetail.Basic.ProductTypeId}${noheader?'?noheader=1':''}`">
             <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
           </router-link>
-          <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}`" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
+          <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}${noheader?'?noheader=1':''}`" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
         </div>
         <div style="display:inline-flex">
           &nbsp;└&nbsp;
-          <div v-if='noheader'>{{productDetail.Basic.DealType}}</div>
-          <router-link  v-else-if='!isfromExp' v-bind:to="`/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`">
+          <div v-if='linkDisable'>{{productDetail.Basic.DealType}}</div>
+          <router-link  v-else-if='!isfromExp' v-bind:to="`/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}${noheader?'?noheader=1':''}`">
             <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a>          
           </router-link>
-          <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`" style="color:#FEC447">{{productDetail.Basic.DealType}}</a>
+          <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}${noheader?'?noheader=1':''}`" style="color:#FEC447">{{productDetail.Basic.DealType}}</a>
         </div>
         <div v-if="productDetail.Basic.AssetSubCategoryId!=null"> 
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└&nbsp;
