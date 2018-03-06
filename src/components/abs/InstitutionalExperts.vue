@@ -93,6 +93,7 @@ export default {
             "InstitutionalExpertsDiv"
           ).style.paddingTop = 0;
           vm.noheader = true;
+          document.title="参与专家";
         } else {
           busUtil.bus.$emit("noHeader", false);
           document.getElementById("InstitutionalExpertsDiv").style.paddingTop =

@@ -131,6 +131,7 @@ export default {
           busUtil.bus.$emit("noHeader", true);
           document.getElementById("organDealDiv").style.paddingTop = 0;
           vm.noheader = true;
+          document.title="参与项目";
         } else {
           busUtil.bus.$emit("noHeader", false);
           document.getElementById("organDealDiv").style.paddingTop = "56px";

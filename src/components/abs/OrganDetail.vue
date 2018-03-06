@@ -574,6 +574,7 @@ export default {
           busUtil.bus.$emit("noHeader", true);
           document.getElementById("organDetailDiv").style.paddingTop = 0;
           vm.noheader = true;
+          document.title="机构信息";
         } else {
           busUtil.bus.$emit("noHeader", false);
           document.getElementById("organDetailDiv").style.paddingTop = "56px";

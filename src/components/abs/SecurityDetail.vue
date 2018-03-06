@@ -408,6 +408,7 @@ export default {
           document.getElementById("securityDetailDiv").style.paddingTop = 0;
           // vm.linkDisable = true;
           vm.noheader = true;
+          document.title="证券信息";
         } else {
           busUtil.bus.$emit("noHeader", false);
           document.getElementById("securityDetailDiv").style.paddingTop =
