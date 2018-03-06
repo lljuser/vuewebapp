@@ -263,6 +263,7 @@ export default {
   },
 
   beforeRouteEnter: (to, from, next) => {
+    document.title="产品信息";
     next(vm => {
       if (!to.meta.fromExp) {
         if (
@@ -305,7 +306,7 @@ export default {
           document.getElementById("productDetailDiv").style.paddingTop = 0;
           // vm.linkDisable = true;
           vm.noheader = true;
-          document.title="产品信息";
+          
         } else {
           busUtil.bus.$emit("noHeader", false);
           document.getElementById("productDetailDiv").style.paddingTop = "56px";
