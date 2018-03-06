@@ -501,6 +501,10 @@ export default {
             //load deal structure
             this.fetchDealStructure(data.DealId, data.NoteId);
           }
+          else{
+            Toast(response.data.data);
+            this.isProductLoading = false;
+          }
         })
         .catch(error => {
           this.doCatch();
