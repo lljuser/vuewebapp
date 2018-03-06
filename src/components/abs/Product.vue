@@ -46,8 +46,7 @@
             v-for="(item, index) in list" 
             :item="item"
             :id="index"
-            :key="index"
-            />
+            :key="index"/>
         </tbody>
         <tfoot>
           <tr>
@@ -104,6 +103,7 @@ export default {
   },
   beforeRouteEnter: (to, from, next) => {
     document.title="产品列表";
+    busUtil.bus.$emit("showHeader", false);
     next(vm => {
      if (vm.$route.query.noheader == "1") {
           busUtil.bus.$emit('showHeader',true);
@@ -113,13 +113,37 @@ export default {
           vm.noheader = true;
           
         } else {
+          
           busUtil.bus.$emit("noHeader", false);
-           busUtil.bus.$emit("showHeader", false);
           document.getElementById("productDiv").style.paddingTop = "56px";
           vm.noheader = false;
         }
     })
   },
+  // beforeRouteUpdate:(to, from, next) => {
+  //   alert();
+  //   document.title="产品列表";
+  //   busUtil.bus.$emit("showHeader", false);
+  //   // alert();
+  //   next(vm => {
+  //   alert(5555);
+  //   //  if (vm.$route.query.noheader == "1") {
+  //   //       busUtil.bus.$emit('showHeader',true);
+  //   //       busUtil.bus.$emit("noHeader", true);
+  //   //       document.getElementById("productDiv").style.paddingTop = 0;
+  //   //       // vm.linkDisable = true;
+  //   //       vm.noheader = true;
+          
+  //   //     } else {
+  //   //       alert(444444444);
+  //   //       busUtil.bus.$emit("noHeader", false);
+  //   //       busUtil.bus.$emit("showHeader", false);
+  //   //       document.getElementById("productDiv").style.paddingTop = "56px";
+  //   //       vm.noheader = false;
+  //   //     }
+  //   })
+  // },
+
   beforeRouteLeave: (to, from, next) => {
     if (new RegExp(/productDetail/i).test(to.name)) {
       let top = document.documentElement.scrollTop || document.body.scrollTop;
@@ -145,7 +169,6 @@ export default {
     }
 
     this.loading = false;
-    // busUtil.bus.$emit("showHeader", false);
     var productTypeParam = this.$route.params.productType;
     var dealTypeParam = this.$route.params.dealType;
     var reLoadData = false;
