@@ -81,7 +81,7 @@
           <router-link  v-else-if='!isfromExp' v-bind:to="`/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`">
             <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a>          
           </router-link>
-          <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
+          <a v-else :href="`abs.html#/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`" style="color:#FEC447">{{productDetail.Basic.DealType}}</a>
         </div>
         <div v-if="productDetail.Basic.AssetSubCategoryId!=null"> 
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└&nbsp;
