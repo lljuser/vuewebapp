@@ -69,7 +69,7 @@
         </div>
         <div style="padding-left:0.4rem;" v-if="productDetail.Basic!=null">
         <div>
-          <div v-if='linkDisable'>{{productDetail.Basic.ProductType}}</div>
+          <div v-if='noheader'>{{productDetail.Basic.ProductType}}</div>
           <router-link v-else-if='!isfromExp' :to="`/product/${productDetail.Basic.ProductTypeId}`">
             <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.ProductType}}</a>
           </router-link>
@@ -77,7 +77,7 @@
         </div>
         <div style="display:inline-flex">
           &nbsp;└&nbsp;
-          <div v-if='linkDisable'>{{productDetail.Basic.DealType}}</div>
+          <div v-if='noheader'>{{productDetail.Basic.DealType}}</div>
           <router-link  v-else-if='!isfromExp' v-bind:to="`/product/${productDetail.Basic.ProductTypeId}/${productDetail.Basic.DealTypeId}`">
             <a href="javascript:;" style="color:#FEC447">{{productDetail.Basic.DealType}}</a>          
           </router-link>
@@ -337,7 +337,7 @@ export default {
     busUtil.bus.$emit("headTitle", "产品信息");
     this.tableFlag = 0;
     if (this.$route.meta.fromExp) {
-      this.linkDisable = true;
+      // this.linkDisable = true;
       this.LoadData();
     }
   },
