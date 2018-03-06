@@ -265,6 +265,7 @@ export default {
   beforeRouteEnter: (to, from, next) => {
     document.title="产品信息";
     next(vm => {
+      document.title="产品信息";
       if (!to.meta.fromExp) {
         if (
           from.path != "/" &&

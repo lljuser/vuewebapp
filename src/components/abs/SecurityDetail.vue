@@ -383,6 +383,7 @@ export default {
   beforeRouteEnter: (to, from, next) => {
     document.title="证券信息";
     next(vm => {
+      document.title="证券信息";
       if (!to.meta.fromExp) {
         busUtil.bus.$emit("showHeader", true);
         if (from.path != "/" && from.query.fromtab != "securityDetail") {
