@@ -322,6 +322,7 @@ export default {
           !new RegExp(/isShowHeader=true/i).test(location.href)
         ) {
           busUtil.bus.$emit("showHeader", false);
+          vm.noheader=true;
           document.getElementById("productDetailDiv").style.paddingTop = 0;
         } else {
           busUtil.bus.$emit("showHeader", true);
