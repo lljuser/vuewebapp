@@ -124,6 +124,7 @@ export default {
   beforeRouteEnter: (to, from, next) => {
     busUtil.bus.$emit("showHeader", true);
     busUtil.bus.$emit("headTitle", "参与项目");
+    document.title="参与项目";
 
     next(vm => {
       if (!to.meta.fromExp) {
@@ -131,7 +132,7 @@ export default {
           busUtil.bus.$emit("noHeader", true);
           document.getElementById("organDealDiv").style.paddingTop = 0;
           vm.noheader = true;
-          document.title="参与项目";
+          // document.title="参与项目";
         } else {
           busUtil.bus.$emit("noHeader", false);
           document.getElementById("organDealDiv").style.paddingTop = "56px";

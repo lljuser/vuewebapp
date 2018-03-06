@@ -381,6 +381,7 @@ export default {
     };
   },
   beforeRouteEnter: (to, from, next) => {
+    document.title="证券信息";
     next(vm => {
       if (!to.meta.fromExp) {
         busUtil.bus.$emit("showHeader", true);
@@ -408,7 +409,7 @@ export default {
           document.getElementById("securityDetailDiv").style.paddingTop = 0;
           // vm.linkDisable = true;
           vm.noheader = true;
-          document.title="证券信息";
+          // document.title="证券信息";
         } else {
           busUtil.bus.$emit("noHeader", false);
           document.getElementById("securityDetailDiv").style.paddingTop =

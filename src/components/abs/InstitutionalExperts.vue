@@ -85,6 +85,8 @@ export default {
   beforeRouteEnter: (to, from, next) => {
     busUtil.bus.$emit("showHeader", true);
     busUtil.bus.$emit("headTitle", "参与专家");
+    document.title="参与专家";
+
      next(vm => {
       if (!to.meta.fromExp) {
         if (vm.$route.query.noheader == "1") {
@@ -93,7 +95,7 @@ export default {
             "InstitutionalExpertsDiv"
           ).style.paddingTop = 0;
           vm.noheader = true;
-          document.title="参与专家";
+          // document.title="参与专家";
         } else {
           busUtil.bus.$emit("noHeader", false);
           document.getElementById("InstitutionalExpertsDiv").style.paddingTop =
