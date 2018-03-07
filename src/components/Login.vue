@@ -128,7 +128,7 @@ input:-webkit-autofill {
 .loginBottom {
   width: 100%;
   height: 36px;
-  position: fixed;
+  position: absolute;
   bottom: 0;
 }
 .bottomVersion {
@@ -173,6 +173,11 @@ export default {
   methods: {
     submit: function() {
       var self = this;
+      if(self.Username=='' && self.Password=='') 
+      {
+        this.errorMsg='请输入用户名、密码';
+        return;
+      }
       axios.post(webApi.Login.login,{
           UserName: self.Username,
           Password: self.Password
