@@ -186,10 +186,11 @@ function checkLoginStatus() {
             location.href = 'login.html';
           }
         }
-      }).catch((error) => {
-        console.log(error);
-        // location.href = 'login.html';
       });
+      // .catch((error) => {
+      //   // console.log(error);
+      //   // location.href = 'login.html';
+      // });
     }
   }, 100);
 }
